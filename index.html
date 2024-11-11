@@ -10,8 +10,10 @@
         user-select: none;
     }
 </style>
-<script src="/lib/libv86.js"></script>
-<button onclick="e();document.querySelector('button').style.display = 'none';document.body.style.background = 'black'"><h1><i>RUN EMULATOR</i></h1></button>
+<script src="lib/libv86.js"></script>
+<div style="position: absolute;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+    <button onclick="e();document.querySelector('button').style.display = 'none';document.body.style.background = 'black'"><h1><i>RUN EMULATOR</i></h1></button>
+</div>
 <div id="screen_container">
     <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
     <canvas style="display: none"></canvas>
@@ -20,17 +22,17 @@
 emulator = null
 function e() {
 var emulator = window.emulator = new V86({
-    wasm_path: "/lib/v86.wasm",
+    wasm_path: "lib/v86.wasm",
     screen_container: document.getElementById("screen_container"),
     bios: {
-        url: "/lib/seabios.bin",
+        url: "lib/seabios.bin",
     },
     vga_bios: {
-        url: "/lib/vgabios.bin",
+        url: "lib/vgabios.bin",
     },
     memory_size: 2 * 1024 * 1024 * 1024,
     hda: {
-        url: "/xp/xp.img",
+        url: "xp/xp.img",
         async: true,
         size: 4294967296,
         fixed_chunk_size: 204800,
