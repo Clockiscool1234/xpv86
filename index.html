@@ -39,8 +39,7 @@ var emulator = window.emulator = new V86({
         use_parts: true
     },
     autostart: true,
-    mac_address_translation: true,
-    network_relay_url: "wss://relay.widgetry.org/"
+    network_relay_url: "wisps://wisp.mercurywork.shop/v86/"
 });
 document.querySelector("canvas").addEventListener("click", async () => {
     await document.querySelector("canvas").requestPointerLock();
