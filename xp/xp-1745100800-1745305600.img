@@ -1,0 +1,1379 @@
+,fd,\
+  	ff,09,00,0e,00,07,00,fc,ff,fe,ff,01,00,09,00,0c,00,0c,00
+
+HKLM,%8810AppEqualizerStr%,"BandLabels",0x00020000,%EqBandLabels%
+HKLM,%8810AppEqualizerStr%,"Ganged",0x00010001,1,0,0,0	
+HKLM,%8810AppEqualizerStr%,"PresetNumber",0x00010001,5,0,0,0	
+HKLM,%8810EqualizerStr%,"EqBypass",0x00010001,1,0,0,0
+
+; Quad codec output mode
+HKLM,%8810ControlStr%,"QuadCodecOutputModeState",0x00010001,0,0,0,0				; 0 - stereo, 1 - quad
+
+HKLM,%8810ControlStr%,"SoftSynthModeIndex",0x00010001,0							; Inital index setting
+HKLM,%8810ControlStr%,"SoftSynthMode",0x00010001,2,0,0,0						; Vortex WT mode (0 - 2)
+HKLM,%8810ControlStr%,"AspenWavetableEffect",0x00010001,1,0,0,0					; Vortex WT effects on/off (1/0)
+
+; Default WT FX1 and FX2 amounts (0 -127)
+HKLM,%8810ControlStr%,"ReverbAmount",0x00010001,40,0,0,0						; set FX1 amount to 64
+HKLM,%8810ControlStr%,"ChorusAmount",0x00010001,40,0,0,0						; set FX2 amount to 64
+
+; Default WT FX 1 & FX 2 parameters 
+; 0 = None, 1 = Delay, 2 = Room Reverb,	3 = Chamber Reverb, 4 = Hall Reverb,
+; 5 = Cabinet, 6 = Flange, 7 = Distortion, 8 = Wah-Wah							 
+HKLM,%8810ControlStr%,"FxSelectParams",0x00000001,04,06							; Hall Reverb for FX1, Chorus for FX2
+
+; HW & SW Voice Number in WT
+HKLM,%8810CustomInf%,"WtMaxNumHwVoice",0x00010001,00,0,0,0						; DWORD Value: WtNumHwVoice = 0
+HKLM,%8810CustomInf%,"WtMaxNumSwVoice",0x00010001,00,1,0,0						; DWORD Value: WtNumSwVoice = 256
+
+HKLM,%8810CustomInf%,"WtNumVoicesStrings",0x00010001,4,0,0,0					; Number of strings for control panel
+
+HKLM,%8810CustomInf%,"WtNumVoicesString0",0x00020000,%8810WtNumVoicesString0%	; Strings for Wt control panel
+HKLM,%8810CustomInf%,"WtNumVoicesString1",0x00020000,%8810WtNumVoicesString1%	; Strings for Wt control panel
+HKLM,%8810CustomInf%,"WtNumVoicesString2",0x00020000,%8810WtNumVoicesString2%	; Strings for Wt control panel
+HKLM,%8810CustomInf%,"WtNumVoicesString3",0x00020000,%8810WtNumVoicesString3%	; Strings for Wt control panel
+
+HKLM,%8810CustomInf%,"WtNumVoicesParams0",0x00000001,0,0,0,1,00,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8810CustomInf%,"WtNumVoicesParams1",0x00000001,1,0,0,0,80,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8810CustomInf%,"WtNumVoicesParams2",0x00000001,2,0,0,0,40,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8810CustomInf%,"WtNumVoicesParams3",0x00000001,3,0,0,0,20,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+
+; device names
+HKLM,%8810AppDriverNameStr%,"MixerDriverName",0x00020000,%AurlAud.Topology.szPname%	; mixer 
+
+
+[WDM_AU8820.AddReg]
+HKR,,AssociatedFilters,,"wdmaud,redbook"
+HKR,,Driver,,adm8820.sys
+HKR,,NTMPDriver,,"adm8820.sys,sbemul.sys"
+HKR,Drivers,SubClasses,,"wave,midi,mixer,aux"
+HKR,Drivers\wave\wdmaud.drv, Driver,,wdmaud.drv
+HKR,Drivers\midi\wdmaud.drv, Driver,,wdmaud.drv
+HKR,Drivers\mixer\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\aux\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\wave\wdmaud.drv, Description,,%*WDM_AU8820.DeviceDesc%
+HKR,Drivers\midi\wdmaud.drv, Description,,%*WDM_AU8820.DeviceDesc%
+HKR,Drivers\mixer\wdmaud.drv,Description,,%*WDM_AU8820.DeviceDesc%
+HKR,Drivers\aux\wdmaud.drv,Description,,%*WDM_AU8820.DeviceDesc%
+
+;; This section contains all registry keys used to disable the Vortex driver related features
+;; or customize the functions provided by Vortex drivers/apps.
+
+; Register Vortex installer
+;HKLM,%RunOnce%,"Vortex20AppsSetUp",0x00000000,"asp4Setp.exe 14"
+
+; Vortex apps/demos installation
+HKLM, %8820AppCustomStr%,"EnableA3dDemosInstall",0x00010001,1					; set DWORD value to "1" to enable A3D demos installation
+HKLM, %8820AppCustomStr%,"DisableVortexAppsInstall",0x00010001,0				; set DWORD value to "1" to disable Vortex apps installation
+
+; Vortex Control Panel Tray Icon
+HKLM,%8820CustomInf%,"DisableTrayIcon",0x00010001,0,0,0,0						; set DWORD value to "1" to remove the Vortex tray icon program
+
+; Vortex Control Panel
+HKLM,%8820CustomInf%,"ControlPanelTitle",0x00020000,"Vortex Control Panel"		; Vortex control panel title
+HKLM,%8820CustomInf%,"ControlPanelPageConfig",0x00020000,"0123456"				; Vortex control panel page config
+HKLM,%8820CustomInf%,"ControlPanelActivePage",0x00020000,"0"					; Vortex control panel active page
+HKLM,%8820CustomInf%,"ControlPanelIconDesc",0x00020000,"Aureal Vortex Audio"	; Vortex control panel description
+HKLM,%8820CustomInf%,"ControlPanelIconInfo",0x00020000,"Vortex Control Panel"	; Vortex control panel info
+HKLM,%8820CustomInf%,"ControlPanelIcons",0x00000001,01,01,01,01,01,01,00		; icons in 1st tab (1 - display, 0 - hide)
+
+HKLM,%8820ControlStr%,"ShowTrayControl",0x00010001,1,0,0,0						; set DWORD value to "1" to show the Vortex icon in SysTray
+
+; Vortex Uninstaller
+HKLM,%8820CustomInf%,"UninstallerName",0x00020000,"Aureal Vortex AU8820"		; Vortex uninstaller name in Add/Remove Programs control panel
+HKLM,%8820CustomInf%,"ManufacturerName",0x00020000,"Aureal, Inc."		        ; OEM manufacturer name
+HKLM,%8820CustomInf%,"ProductName",0x00020000,"Vortex"							; OEM product name
+
+; Software Tone Control stages
+HKLM,%8820InstallStr%,"SWTCStages",0x00010001,7,0,0,0						
+HKLM,%8820InstallStr%,"SWTCStagesUsed",0x00010001,7,0,0,0						
+HKLM,%8820InstallStr%,"SpeakerCompEQEnable",0x00010001,0,0,0,0	
+HKLM,%8820InstallStr%,"TCEnable",0x00010001,0,0,0,0						
+HKLM,%8820InstallStr%,"SpeakerCompEQGainAll",0x00010001,57,41,0,0						
+HKLM,%8820InstallStr%,"SWSpeakerEQcoeffs",0x00000001,\
+		6f, 08, 52, 10, 00, 00, 00, 00, 91, f7, ad, ef, ce, 1c, 60, a3, 23, ef, 5b, 1f, 00, 00, 00, 10,\
+        e5, a9, 54, 00, 00, 00, 00, 00, 1b, 56, ab, ff, 7f, 85, 8b, 80, 2e, 46, 77, 3f, 00, 00, 00, 10,\
+        f6, 28, 5c, 7f, 37, 0e, af, 41, b0, e3, 17, 07, 9b, 62, b9, 24, d2, 6d, 2c, 0b, 00, 00, 00, 10,\
+        57, 66, 63, 00, 5e, f3, dd, ff, ce, 47, 08, 00, fa, 85, 8d, 85, 52, 54, b5, 3a, 00, 00, 00, 10,\
+        53, 12, ad, ff, bf, a5, 49, 00, 5e, fa, 08, 00, 74, f4, 58, 80, f8, 51, a7, 3f, 00, 00, 00, 10
+
+; SW TC Bass & Treble coefficients
+HKLM,%8820InstallStr%,"SWTCCoeffs",0x00000001,\
+		10,	CF,	EF,	03,	10,	CF,	EF,	03,	00,	00,	00,	00,	1E,	9E,	DF,	C7,	00,	00,	00,	00,	00,	00,	00,	00,\
+		F1,	30,	10,	3C,	0E,	CF,	EF,	C3,	00,	00,	00,	00,	1E,	9E,	DF,	C7,	00,	00,	00,	00,	00,	00,	00,	00
+
+; S/PDIF settings
+HKLM,%8820SpdifList%,"1",0x00010001,88,0,eb,12									; RagX - DWORD=((SSID_WORD << 16) | SVID_WORD)
+HKLM,%8820CustomInf%,"EnableSpdifIn",0x00010001,0,0,0,0							; set DWORD value to "1" to enable S/PDIF In
+HKLM,%8820CustomInf%,"EnableSpdifOut",0x00010001,0,0,0,0						; set DWORD value to "1" to enable S/PDIF Out
+HKLM,%8820CustomInf%,"DetectSpdifOut",0x00010001,0,0,0,0						; set DWORD value to "1" to enable S/PDIF Out
+HKLM,%8820CustomInf%,"SpdifFrequency",0x00010001,80,BB,0,0						; DWORD value: 32000, 44100, 48000 - win95 needs DWORD val in binary format
+HKLM,%8820CustomInf%,"SpdifHide441",0x00010001,1,0,0,0							; DWORD Value: 1 - hide, 0 - show
+
+; check for sigmatel LA2 codec, if LA2 detected - core corrects for signal inversion
+HKLM,%8820CustomInf%,"CorrectLA2",0x00010001,1,0,0,0							; set DWORD value to "1" to detect LA2
+
+; set this key to 1 if you want to enable sharing of line and rear output jacks (sets GPIO0 in quad)
+;HKLM,%8820CustomInf%,"SetGPIO0InQuad",0x00010001,0,0,0,0
+
+; Mixer tone control and 3D control config
+HKLM,%8820CustomInf%,"ToneControlType",0x00010001,0,0,0,0						; DWORD Value: 0 - no tone control, 1 - HW TC
+HKLM,%8820CustomInf%,"DisableAC97Codec3DEffect",0x00010001,1,0,0,0				; DWORD Value: 1 - disable, 0 - enable
+
+; mixer sources config
+HKLM,%8820CustomInf%,"MixConfigPlay",0x00000001,1,1,0,1,1,1,1,1,1,0				; Binary Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigRec",0x00000001,1,1,1,1,1,1,1,1					; Binary Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigAC97Ctrl",0x00000001,1,0,1,1,1,1					; Binary Value: 1 - enable, 0 - disable
+
+; mixer controls config
+HKLM,%8820CustomInf%,"MixConfigLineOutMixer",0x00010001,0,0,0,0					; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigPlayLoudness",0x00010001,0,0,0,0					; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigPlayPopPost3D",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigPlaySimStereo",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigPlayMicMixSelect",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigPlayMic12Select",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"MixConfigPlayMic20dBBoost",0x00010001,1,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+
+; initial mixer Master Vol/Mute
+HKLM,%8820CustomInf%,"MixInitMasterVol",0x00010001,0C,0,0,0						; DWORD Value: 0x00 - 0x10
+HKLM,%8820CustomInf%,"MixInitMasterMute",0x00010001,0,0,0,0						; DWORD Value: 1 - mute, 0 - unmute
+
+;; initial mixer vol level
+;;
+;; ORDER: Wave Out, WT, S/PDIF In, Telephone, Mic, LineIn, CD, Video, Aux, PC-Beep
+HKLM,%8820CustomInf%,"MixInitPlayVol",0x00000001,08,08,0C,0E,0E,0D,0C,0B,0C,0C	; Binary Value: 0x00 - 0x10
+;; ORDER: Telephone, Mic, LineIn, CD, Video, Aux, StreoMixer, MonoMixer
+HKLM,%8820CustomInf%,"MixInitRecVol",0x00000001,08,08,00,08,08,08,08,08			; Binary Value: 0x00 - 0x10
+;; ORDER: Mono Out, Headphone Out, S/PDIF Out, 3D Center, 3D Depth, F/R Fader
+HKLM,%8820CustomInf%,"MixInitAC97CtrlVol",0x00000001,0E,0E,10,0C,0C,08			; Binary Value: 0x00 - 0x10
+
+; initial mixer mute
+HKLM,%8820CustomInf%,"MixInitPlayMute",0x00000001,0,0,0,1,1,1,0,1,1,1			; Binary Value: 1 - mute, 0 - unmute
+HKLM,%8820CustomInf%,"MixInitRecSelect",0x00000001,0,1,0,0,0,0,0,0				; Binary Value: 1 - selected
+HKLM,%8820CustomInf%,"MixInitAC97CtrlMute",0x00000001,1,1,0,0,0,0				; Binary Value: 1 - mute, 0 - unmute
+
+; initial tone control - first BYTE for enable (1) / disable (0)
+; and last two BYTE's for Bass and Treble amounts
+HKLM,%8820CustomInf%,"MixInitLineOutToneCtrl",0x00000001,01,08,08				; Binary Value
+
+; initial status of on/off controls for playback
+HKLM,%8820CustomInf%,"MixInitLineOut3D",0x00010001,0,0,0,0						; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"MixInitPlayLoudness",0x00010001,0,0,0,0					; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"MixInitPlayPopPost3D",0x00010001,0,0,0,0					; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"MixInitPlaySimStereo",0x00010001,0,0,0,0					; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"MixInitPlayMicMixSelect",0x00010001,1,0,0,0				; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"MixInitPlayMic12Select",0x00010001,0,0,0,0				; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"MixInitPlayMic20dBBoost",0x00010001,0,0,0,0				; DWORD Value: 1 - on, 0 - off
+
+; CODEC maximum volumes for analog playback
+; NOTE: the valid value is 0x00000000 ~ 0x000C0000 (0 ~ 12 dB)
+HKLM,%8820CustomInf%,"PlayVolGainPhone",0x00010001,00,00,03,00			;    3 (dB) = 0x00030000 (DWORD)
+HKLM,%8820CustomInf%,"PlayVolGainMic",0x00010001,00,00,0C,00			;   12 (dB) = 0x000C0000 (DWORD)			
+HKLM,%8820CustomInf%,"PlayVolGainLineIn",0x00010001,00,00,03,00			;	 3 (dB) = 0x00030000 (DWORD)	
+HKLM,%8820CustomInf%,"PlayVolGainCD",0x00010001,00,80,0A,00				; 10.5 (dB) = 0x000A8000 (DWORD)					
+HKLM,%8820CustomInf%,"PlayVolGainVideo",0x00010001,00,00,03,00			;    3 (dB) = 0x00030000 (DWORD)			
+HKLM,%8820CustomInf%,"PlayVolGainAux",0x00010001,00,00,0C,00			;   12 (dB) = 0x000C0000 (DWORD)						
+
+; CODEC A/D path gains for record
+; NOTE: the valid value is 0 ~ 15 (0 ~ 22.5 dB)
+HKLM,%8820CustomInf%,"RecVolGainPhone",0x00010001,8,0,0,0				; 12 dB = 8 * 1.5 dB					
+HKLM,%8820CustomInf%,"RecVolGainMic",0x00010001,8,0,0,0					; 12 dB	= 8 * 1.5 dB
+HKLM,%8820CustomInf%,"RecVolGainLineIn",0x00010001,0,0,0,0				;  0 dB	= 0 * 1.5 dB
+HKLM,%8820CustomInf%,"RecVolGainCD",0x00010001,8,0,0,0					; 12 dB	= 8 * 1.5 dB
+HKLM,%8820CustomInf%,"RecVolGainVideo",0x00010001,8,0,0,0				; 12 dB	= 8 * 1.5 dB
+HKLM,%8820CustomInf%,"RecVolGainAux",0x00010001,8,0,0,0					; 12 dB	= 8 * 1.5 dB
+HKLM,%8820CustomInf%,"RecVolGainStereoMix",0x00010001,8,0,0,0			; 12 dB	= 8 * 1.5 dB
+HKLM,%8820CustomInf%,"RecVolGainMonoMix",0x00010001,8,0,0,0				; 12 dB = 8 * 1.5 dB
+
+; Digital Mixer maximum gains for record
+; NOTE: the valid value is 0x00000000 ~ 0x00118000 (0 ~ 17.5 dB)
+HKLM,%8820CustomInf%,"RecMaxVolPhone",0x00010001,00,00,06,00			;	 6 (dB) = 0x00060000 (DWORD)
+HKLM,%8820CustomInf%,"RecMaxVolMic",0x00010001,00,80,11,00				; 17.5 (dB) = 0x00118000 (DWORD)
+HKLM,%8820CustomInf%,"RecMaxVolLineIn",0x00010001,00,00,06,00			;    6 (dB) = 0x00060000 (DWORD)		
+HKLM,%8820CustomInf%,"RecMaxVolCD",0x00010001,00,80,11,00				; 17.5 (dB) = 0x00118000 (DWORD)
+HKLM,%8820CustomInf%,"RecMaxVolVideo",0x00010001,00,00,06,00			;	 6 (dB) = 0x00060000 (DWORD)
+HKLM,%8820CustomInf%,"RecMaxVolAux",0x00010001,00,80,11,00				; 17.5 (dB) = 0x00118000 (DWORD)
+HKLM,%8820CustomInf%,"RecMaxVolStereoMix",0x00010001,00,00,00,00		;    0 (dB) = 0x00000000 (DWORD)
+HKLM,%8820CustomInf%,"RecMaxVolMonoMix",0x00010001,00,00,00,00			;    0 (dB) = 0x00000000 (DWORD)
+
+; Digital Mixer maximum volumes for EQed analog playback	 
+; NOTE: the valid dB value is 0x00000000 ~ 0x00118000 (0 ~ 17.5 dB)
+HKLM,%8820CustomInf%,"MaxEQedPhonePlayVol",0x00010001,00,80,02,00		;  2.5 (dB)	= 0x00028000 (DWORD)				
+HKLM,%8820CustomInf%,"MaxEQedMicPlayVol",0x00010001,00,80,0B,00			; 11.5 (dB) = 0x000B8000 (DWORD)				
+HKLM,%8820CustomInf%,"MaxEQedLineInPlayVol",0x00010001,00,80,02,00		;  2.5 (dB)	= 0x00028000 (DWORD)				
+HKLM,%8820CustomInf%,"MaxEQedCDPlayVol",0x00010001,00,80,01,00			;  1.5 (dB) = 0x00018000 (DWORD)				
+HKLM,%8820CustomInf%,"MaxEQedVideoPlayVol",0x00010001,00,80,02,00		;  2.5 (dB)	= 0x00028000 (DWORD)				
+HKLM,%8820CustomInf%,"MaxEQedAuxPlayVol",0x00010001,00,80,0A,00			; 10.5 (dB) = 0x000A8000 (DWORD)				
+
+; Initial mixer line states for Microsoft Volume Control Panel
+HKLM,%8820CustomInf%,"MixCplLineStatesPlay",0x00000001,1,1,1,0,0,1,1,1,0,1,0	; Binary Value: 1 - display
+HKLM,%8820CustomInf%,"MixCplLineStatesRec",0x00000001,0,1,1,1,0,1,1,0			; Binary Value: 1 - display
+HKLM,%8820CustomInf%,"MixCplLineStatesAC97Ctrl",0x00000001,1,1,1,1,1			; Binary Value: 1 - display 
+HKLM,%8820CustomInf%,"MixCplEnableAdvancedButton",0x00010001,1,0,0,0			; DWORD Value: 1 - enable, 0 - disable
+
+; Turn on/off the Sigmatel STAC9704 attenuation program 
+HKLM,%8820CustomInf%,"ST9704ATTEN",0x00010001,0,0,0,0							; DWORD Value: 1 - on, 0 - off
+
+; Analog EQ feature
+HKLM,%8820CustomInf%,"SupportAnalogEQ",0x00010001,0,0,0,0						; DWORD Value: 1 - on, 0 - off
+HKLM,%8820ControlStr%,"AnalogEQEnableState",0x00010001,1,0,0,0					; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820ControlStr%,"AnalogEQSrcLine",0x00010001,3,0,0,0						; DWORD Value: Phone = 0, Mic, LineIn, CD, Video, Aux
+
+; AC97 codec PCM Out volume
+; DWORD Value: 0x0 = +12dB, 0x1 = +10.5dB, ... 0x8 = 0dB, ..., 0x1f = -34.5dB
+HKLM,%8820CustomInf%,"AC97PCMOutVol",0x00010001,08,0,0,0	
+
+; codec PCM2 Out, Mixer Front Out and Mixer Rear Out volumes (only applied to symmetric quad codecs)
+; DWORD Value: 0x0 = +12dB, 0x1 = +10.5dB, ... 0x8 = 0dB, ..., 0x1f = -34.5dB
+HKLM,%8820CustomInf%,"AC97PCM2OutVol",0x00010001,08,0,0,0	
+HKLM,%8820CustomInf%,"AC97MixerFrontOutVol",0x00010001,08,0,0,0	
+HKLM,%8820CustomInf%,"AC97MixerRearOutVol",0x00010001,08,0,0,0	
+
+; Set default state of "Speaker Compensation" check box in Vortex cpl
+HKLM,%8820ControlStr%,"SpeakerCompEQEnable",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8820CustomInf%,"SupportSpeakerEQ",0x00010001,0,0,0,0					; DWORD Value: 1 - on, 0 - off
+HKLM,%8820CustomInf%,"SpeakerEqGainCurve",0x00010001,0,0,0,0				; DWORD Value: 1 - on, 0 - off
+
+HKLM,%8820ControlStr%,"SoftSynthModeIndex",0x00010001,0							; Inital index setting
+HKLM,%8820ControlStr%,"SoftSynthMode",0x00010001,3,0,0,0						; Vortex WT mode (0 - 2)
+HKLM,%8820ControlStr%,"AspenWavetableEffect",0x00010001,1,0,0,0					; Vortex WT effects on/off (1/0)
+
+; Default WT FX1 and FX2 amounts (0 -127)
+HKLM,%8820ControlStr%,"ReverbAmount",0x00010001,40,0,0,0						; set FX1 amount to 64
+HKLM,%8820ControlStr%,"ChorusAmount",0x00010001,40,0,0,0						; set FX2 amount to 64
+
+; Default WT FX 1 & FX 2 parameters 
+; 0 = None, 1 = Delay, 2 = Room Reverb,	3 = Chamber Reverb, 4 = Hall Reverb,
+; 5 = Cabinet, 6 = Flange, 7 = Distortion, 8 = Wah-Wah							 
+HKLM,%8820ControlStr%,"FxSelectParams",0x00000001,04,06							; Hall Reverb for FX1, Chorus for FX2
+
+; HW & SW Voice Number in WT
+HKLM,%8820CustomInf%,"WtMaxNumHwVoice",0x00010001,20,0,0,0						; DWORD Value: WtNumHwVoice = 64
+HKLM,%8820CustomInf%,"WtMaxNumSwVoice",0x00010001,20,0,0,0						; DWORD Value: WtNumSwVoice = 256
+
+HKLM,%8820CustomInf%,"WtNumVoicesStrings",0x00010001,3,0,0,0					; Number of strings for control panel
+
+HKLM,%8820CustomInf%,"WtNumVoicesString0",0x00020000,%8820WtNumVoicesString0%	; Strings for Wt control panel
+HKLM,%8820CustomInf%,"WtNumVoicesString1",0x00020000,%8820WtNumVoicesString1%	; Strings for Wt control panel
+HKLM,%8820CustomInf%,"WtNumVoicesString2",0x00020000,%8820WtNumVoicesString2%	; Strings for Wt control panel
+HKLM,%8820CustomInf%,"WtNumVoicesString3",0x00020000,%8820WtNumVoicesString3%	; Strings for Wt control panel
+
+HKLM,%8820CustomInf%,"WtNumVoicesParams1",0x00000001,0,0,20,0,20,64,3			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8820CustomInf%,"WtNumVoicesParams2",0x00000001,1,0,20,0,20,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8820CustomInf%,"WtNumVoicesParams0",0x00000001,2,0,20,0,0,64,0			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8820CustomInf%,"WtNumVoicesParams3",0x00000001,3,0,0,1,00,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+
+; device names
+HKLM,%8820AppDriverNameStr%,"MixerDriverName",0x00020000,%AurlAud.Topology.szPname%	; mixer 
+
+
+[WDM_AU8830.AddReg]
+HKR,,AssociatedFilters,,"wdmaud,redbook"
+HKR,,Driver,,adm8830.sys
+HKR,,NTMPDriver,,"adm8830.sys,sbemul.sys"
+HKR,Drivers,SubClasses,,"wave,midi,mixer,aux"
+HKR,Drivers\wave\wdmaud.drv, Driver,,wdmaud.drv
+HKR,Drivers\midi\wdmaud.drv, Driver,,wdmaud.drv
+HKR,Drivers\mixer\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\aux\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\wave\wdmaud.drv, Description,,%*WDM_AU8830.DeviceDesc%
+HKR,Drivers\midi\wdmaud.drv, Description,,%*WDM_AU8830.DeviceDesc%
+HKR,Drivers\mixer\wdmaud.drv,Description,,%*WDM_AU8830.DeviceDesc%
+HKR,Drivers\aux\wdmaud.drv,Description,,%*WDM_AU8830.DeviceDesc%
+
+;; This section contains all registry keys used to disable the Vortex driver related features
+;; or customize the functions provided by Vortex drivers/apps.
+
+; Register Vortex installer
+;HKLM,%RunOnce%,"Vortex30AppsSetUp",0x00000000,"AU30Setp.exe 14"
+
+; Vortex apps/demos installation
+HKLM, %8830AppCustomStr%,"EnableA3dDemosInstall",0x00010001,1					; set DWORD value to "1" to enable A3D demos installation
+HKLM, %8830AppCustomStr%,"DisableVortexAppsInstall",0x00010001,0				; set DWORD value to "1" to disable Vortex apps installation
+
+; Vortex Control Panel Tray Icon
+HKLM,%8830CustomInf%,"DisableTrayIcon",0x00010001,0,0,0,0						; set DWORD value to "1" to disable Vortex tray icon in SysTray
+
+; Vortex Control Panel
+HKLM,%8830CustomInf%,"ControlPanelTitle",0x00020000,"Vortex Control Panel"		; Vortex control panel title
+HKLM,%8830CustomInf%,"ControlPanelPageConfig",0x00020000,"0123456"				; Vortex control panel page config
+HKLM,%8830CustomInf%,"ControlPanelActivePage",0x00020000,"0"					; Vortex control panel active page
+HKLM,%8830CustomInf%,"ControlPanelIconDesc",0x00020000,"Aureal Vortex Audio"	; Vortex control panel description
+HKLM,%8830CustomInf%,"ControlPanelIconInfo",0x00020000,"Vortex Control Panel"	; Vortex control panel info
+HKLM,%8830CustomInf%,"ControlPanelIcons",0x00000001,01,01,01,01,01,01,01,00,00	; icons in 1st tab (1 - display, 0 - hide)
+
+HKLM,%8830ControlStr%,"TargetOutput3D",0x00010001,1,0,0,0						; 3D target output type - done for MX300
+HKLM,%8830ControlStr%,"SecondaryXtalk",0x00010001,2,0,0,0						; Secondary Xtalk type - done for MX300
+HKLM,%8830ControlStr%,"PrimaryXtalk",0x00010001,2,0,0,0							; Primary Xtalk type - done for MX300
+HKLM,%8830ControlStr%,"RoutingInfo",0x00010001,3,0,0,0							; Routing information - done for MX300
+HKLM,%8830ControlStr%,"ShowTrayControl",0x00010001,1,0,0,0						; set DWORD value to "1" to show the Vortex icon in SysTray
+
+; Vortex Uninstaller
+HKLM,%8830CustomInf%,"UninstallerName",0x00020000,"Aureal Vortex AU8830"		; Vortex uninstaller name in Add/Remove Programs control panel
+HKLM,%8830CustomInf%,"ManufacturerName",0x00020000,"Aureal, Inc."				; OEM manufacturer name
+HKLM,%8830CustomInf%,"ProductName",0x00020000,"Vortex"							; OEM product name
+
+; S/PDIF settings
+HKLM,%8830SpdifList%,"1",0x00010001,88,0,eb,12									; RagX - DWORD=((SSID_WORD << 16) | SVID_WORD)
+HKLM,%8830CustomInf%,"EnableSpdifIn",0x00010001,0,0,0,0							; set DWORD value to "1" to enable S/PDIF In
+HKLM,%8830CustomInf%,"EnableSpdifOut",0x00010001,1,0,0,0						; set DWORD value to "1" to enable S/PDIF Out
+HKLM,%8830CustomInf%,"DetectSpdifOut",0x00010001,1,0,0,0						; set DWORD value to "1" to enable S/PDIF Out
+HKLM,%8830CustomInf%,"SpdifFrequency",0x00010001,80,BB,0,0						; DWORD value: 32000, 44100, 48000 - win95 needs DWORD val in binary format
+HKLM,%8830CustomInf%,"SpdifHide441",0x00010001,0,0,0,0							; DWORD Value: 1 - hide, 0 - show
+
+; check for sigmatel LA2 codec, if LA2 detected - core corrects for signal inversion
+HKLM,%8830CustomInf%,"CorrectLA2",0x00010001,1,0,0,0							; set DWORD value to "1" to detect LA2
+
+; set this key to 1 if you want to enable sharing of line and rear output jacks (sets GPIO0 in quad)
+;HKLM,%8830CustomInf%,"SetGPIO0InQuad",0x00010001,0,0,0,0
+
+; Mixer tone control and 3D control config
+HKLM,%8830CustomInf%,"ToneControlType",0x00010001,0,0,0,0						; DWORD Value: 0 - no tone control, 1 - HW TC
+HKLM,%8830CustomInf%,"DisableAC97Codec3DEffect",0x00010001,1,0,0,0				; DWORD Value: 1 - disable, 0 - enable
+
+; mixer sources config
+HKLM,%8830CustomInf%,"MixConfigPlay",0x00000001,1,1,0,1,1,1,1,1,1,0				; Binary Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigRec",0x00000001,1,1,1,1,1,1,1,1					; Binary Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigAC97Ctrl",0x00000001,1,0,1,1,1,1					; Binary Value: 1 - enable, 0 - disable
+
+; mixer controls config
+HKLM,%8830CustomInf%,"MixConfigLineOutMixer",0x00010001,0,0,0,0					; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigPlayLoudness",0x00010001,0,0,0,0					; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigPlayPopPost3D",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigPlaySimStereo",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigPlayMicMixSelect",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigPlayMic12Select",0x00010001,0,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830CustomInf%,"MixConfigPlayMic20dBBoost",0x00010001,1,0,0,0				; DWORD Value: 1 - enable, 0 - disable
+
+; initial mixer Master Vol/Mute
+HKLM,%8830CustomInf%,"MixInitMasterVol",0x00010001,0C,0,0,0						; DWORD Value: 0x00 - 0x10
+HKLM,%8830CustomInf%,"MixInitMasterMute",0x00010001,0,0,0,0						; DWORD Value: 1 - mute, 0 - unmute
+
+;; initial mixer vol level
+;;
+;; ORDER: Wave Out, WT, S/PDIF In, Telephone, Mic, LineIn, CD, Video, Aux, PC-Beep
+HKLM,%8830CustomInf%,"MixInitPlayVol",0x00000001,08,08,0C,0E,0E,0D,0C,0B,0C,0C	; Binary Value: 0x00 - 0x10
+;; ORDER: Telephone, Mic, LineIn, CD, Video, Aux, StreoMixer, MonoMixer
+HKLM,%8830CustomInf%,"MixInitRecVol",0x00000001,08,08,00,08,08,08,08,08			; Binary Value: 0x00 - 0x10
+;; ORDER: Mono Out, Headphone Out, S/PDIF Out, 3D Center, 3D Depth, F/R Fader
+HKLM,%8830CustomInf%,"MixInitAC97CtrlVol",0x00000001,0E,0E,10,0C,0C,08			; Binary Value: 0x00 - 0x10
+
+; initial mixer mute
+HKLM,%8830CustomInf%,"MixInitPlayMute",0x00000001,0,0,0,1,1,1,0,1,1,1			; Binary Value: 1 - mute, 0 - unmute
+HKLM,%8830CustomInf%,"MixInitRecSelect",0x00000001,0,1,0,0,0,0,0,0				; Binary Value: 1 - selected
+HKLM,%8830CustomInf%,"MixInitAC97CtrlMute",0x00000001,1,1,0,0,0,0				; Binary Value: 1 - mute, 0 - unmute
+
+; initial tone control - first BYTE for enable (1) / disable (0)
+; and last two BYTE's for Bass and Treble amounts
+HKLM,%8830CustomInf%,"MixInitLineOutToneCtrl",0x00000001,01,08,08				; Binary Value
+
+; initial status of on/off controls for playback (DWORD Value: 1 - on, 0 - off)
+HKLM,%8830CustomInf%,"MixInitLineOut3D",0x00010001,0,0,0,0						
+HKLM,%8830CustomInf%,"MixInitPlayLoudness",0x00010001,0,0,0,0					
+HKLM,%8830CustomInf%,"MixInitPlayPopPost3D",0x00010001,0,0,0,0					
+HKLM,%8830CustomInf%,"MixInitPLaySimStereo",0x00010001,0,0,0,0					
+HKLM,%8830CustomInf%,"MixInitPlayMicMixSelect",0x00010001,1,0,0,0				
+HKLM,%8830CustomInf%,"MixInitPlayMic12Select",0x00010001,0,0,0,0				
+HKLM,%8830CustomInf%,"MixInitPlayMic20dBBoost",0x00010001,0,0,0,0				
+
+; CODEC maximum volumes for analog playback
+; NOTE: the valid value is 0x00000000 ~ 0x000C0000 (0 ~ 12 dB)
+HKLM,%8830CustomInf%,"PlayVolGainPhone",0x00010001,00,00,03,00			;    3 (dB) = 0x00030000 (DWORD)
+HKLM,%8830CustomInf%,"PlayVolGainMic",0x00010001,00,00,0C,00			;   12 (dB) = 0x000C0000 (DWORD)			
+HKLM,%8830CustomInf%,"PlayVolGainLineIn",0x00010001,00,00,03,00			;	 3 (dB) = 0x00030000 (DWORD)	
+HKLM,%8830CustomInf%,"PlayVolGainCD",0x00010001,00,80,0A,00				; 10.5 (dB) = 0x000A8000 (DWORD)					
+HKLM,%8830CustomInf%,"PlayVolGainVideo",0x00010001,00,00,03,00			;    3 (dB) = 0x00030000 (DWORD)			
+HKLM,%8830CustomInf%,"PlayVolGainAux",0x00010001,00,00,0C,00			;   12 (dB) = 0x000C0000 (DWORD)						
+
+; CODEC A/D path gains for record
+; NOTE: the valid value is 0 ~ 15 (0 ~ 22.5 dB)
+HKLM,%8830CustomInf%,"RecVolGainPhone",0x00010001,8,0,0,0				; 12 dB = 8 * 1.5 dB					
+HKLM,%8830CustomInf%,"RecVolGainMic",0x00010001,8,0,0,0					; 12 dB	= 8 * 1.5 dB
+HKLM,%8830CustomInf%,"RecVolGainLineIn",0x00010001,0,0,0,0				;  0 dB	= 0 * 1.5 dB
+HKLM,%8830CustomInf%,"RecVolGainCD",0x00010001,8,0,0,0					; 12 dB	= 8 * 1.5 dB
+HKLM,%8830CustomInf%,"RecVolGainVideo",0x00010001,8,0,0,0				; 12 dB	= 8 * 1.5 dB
+HKLM,%8830CustomInf%,"RecVolGainAux",0x00010001,8,0,0,0					; 12 dB	= 8 * 1.5 dB
+HKLM,%8830CustomInf%,"RecVolGainStereoMix",0x00010001,8,0,0,0			; 12 dB	= 8 * 1.5 dB
+HKLM,%8830CustomInf%,"RecVolGainMonoMix",0x00010001,8,0,0,0				; 12 dB = 8 * 1.5 dB
+
+; Digital Mixer maximum gains for record
+; NOTE: the valid value is 0x00000000 ~ 0x00118000 (0 ~ 17.5 dB)
+HKLM,%8830CustomInf%,"RecMaxVolPhone",0x00010001,00,00,06,00			;	 6 (dB) = 0x00060000 (DWORD)
+HKLM,%8830CustomInf%,"RecMaxVolMic",0x00010001,00,80,11,00				; 17.5 (dB) = 0x00118000 (DWORD)
+HKLM,%8830CustomInf%,"RecMaxVolLineIn",0x00010001,00,00,06,00			;    6 (dB) = 0x00060000 (DWORD)		
+HKLM,%8830CustomInf%,"RecMaxVolCD",0x00010001,00,80,11,00				; 17.5 (dB) = 0x00118000 (DWORD)
+HKLM,%8830CustomInf%,"RecMaxVolVideo",0x00010001,00,00,06,00			;	 6 (dB) = 0x00060000 (DWORD)
+HKLM,%8830CustomInf%,"RecMaxVolAux",0x00010001,00,80,11,00				; 17.5 (dB) = 0x00118000 (DWORD)
+HKLM,%8830CustomInf%,"RecMaxVolStereoMix",0x00010001,00,00,00,00		;    0 (dB) = 0x00000000 (DWORD)
+HKLM,%8830CustomInf%,"RecMaxVolMonoMix",0x00010001,00,00,00,00			;    0 (dB) = 0x00000000 (DWORD)
+
+; Digital Mixer maximum volumes for EQed analog playback	 
+; NOTE: the valid dB value is 0x00000000 ~ 0x00118000 (0 ~ 17.5 dB)
+HKLM,%8830CustomInf%,"MaxEQedPhonePlayVol",0x00010001,00,80,02,00		;  2.5 (dB)	= 0x00028000 (DWORD)				
+HKLM,%8830CustomInf%,"MaxEQedMicPlayVol",0x00010001,00,80,0B,00			; 11.5 (dB) = 0x000B8000 (DWORD)				
+HKLM,%8830CustomInf%,"MaxEQedLineInPlayVol",0x00010001,00,80,02,00		;  2.5 (dB)	= 0x00028000 (DWORD)				
+HKLM,%8830CustomInf%,"MaxEQedCDPlayVol",0x00010001,00,80,01,00			;  1.5 (dB) = 0x00018000 (DWORD)				
+HKLM,%8830CustomInf%,"MaxEQedVideoPlayVol",0x00010001,00,80,02,00		;  2.5 (dB)	= 0x00028000 (DWORD)				
+HKLM,%8830CustomInf%,"MaxEQedAuxPlayVol",0x00010001,00,80,0A,00			; 10.5 (dB) = 0x000A8000 (DWORD)				
+
+; Initial mixer line states for Microsoft Volume Control Panel
+HKLM,%8830CustomInf%,"MixCplLineStatesPlay",0x00000001,1,1,1,0,0,1,1,1,0,1,0	; Binary Value: 1 - display
+HKLM,%8830CustomInf%,"MixCplLineStatesRec",0x00000001,0,1,1,1,0,1,1,0			; Binary Value: 1 - display
+HKLM,%8830CustomInf%,"MixCplLineStatesAC97Ctrl",0x00000001,1,1,1,1,1			; Binary Value: 1 - display 
+HKLM,%8830CustomInf%,"MixCplEnableAdvancedButton",0x00010001,1,0,0,0			; DWORD Value: 1 - enable, 0 - disable
+
+; Turn on/off the Sigmatel STAC9704 attenuation program 
+HKLM,%8830CustomInf%,"ST9704ATTEN",0x00010001,0,0,0,0							; DWORD Value: 1 - on, 0 - off
+
+; Turn on/off the Sigmatel STAC9708LA4 Rear Inversion
+HKLM,%8830CustomInf%,"ST9708LA4RearInversion",0x00010001,1,0,0,0				; DWORD Value: 1 - on, 0 - off
+
+; Analog EQ feature
+HKLM,%8830CustomInf%,"SupportAnalogEQ",0x00010001,0,0,0,0						; DWORD Value: 1 - on, 0 - off
+HKLM,%8830ControlStr%,"AnalogEQEnableState",0x00010001,1,0,0,0					; DWORD Value: 1 - enable, 0 - disable
+HKLM,%8830ControlStr%,"AnalogEQSrcLine",0x00010001,3,0,0,0						; DWORD Value: Phone = 0, Mic, LineIn, CD, Video, Aux
+
+; AC97 codec PCM Out volume
+; DWORD Value: 0x0 = +12dB, 0x1 = +10.5dB, ... 0x8 = 0dB, ..., 0x1f = -34.5dB
+HKLM,%8830CustomInf%,"AC97PCMOutVol",0x00010001,08,0,0,0	
+
+; codec PCM2 Out, Mixer Front Out and Mixer Rear Out volumes (only applied to symmetric quad codecs)
+; DWORD Value: 0x0 = +12dB, 0x1 = +10.5dB, ... 0x8 = 0dB, ..., 0x1f = -34.5dB
+HKLM,%8830CustomInf%,"AC97PCM2OutVol",0x00010001,08,0,0,0	
+HKLM,%8830CustomInf%,"AC97MixerFrontOutVol",0x00010001,08,0,0,0	
+HKLM,%8830CustomInf%,"AC97MixerRearOutVol",0x00010001,08,0,0,0	
+
+;-------------------------------------------------------------------------------------------------------
+; Bi-Quad coefficients for Sony monotor "SONY CPD-100VS"
+;-------------------------------------------------------------------------------------------------------
+HKLM,%8830EqualizerStr%"\SONY CPD-100VS","CoefSet",0x00000001,\
+00, 00, 00, 00,\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+14, 00, 00, 00,\
+ab,4b,d5,65,ea,72,05,5c,db,41,1d,27,3d,3c,ab,4b,ab,4b,ab,4b,\
+ab,4b,d5,65,ea,72,05,5c,db,41,1d,27,3d,3c,ab,4b,ab,4b,ab,4b
+
+;-------------------------------------------------------------------------------------------------------
+; Bi-Quad coefficients for Sony monotor "SONY CPD-101VS iGPE"
+;-------------------------------------------------------------------------------------------------------
+HKLM,%8830EqualizerStr%"\SONY CPD-101VS iGPE","CoefSet",0x00000001,\
+00, 00, 00, 00,\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+14, 00, 00, 00,\
+ab,4b,d5,65,ea,72,c0,58,96,3e,1d,27,3d,3c,ab,4b,ab,4b,ab,4b,\
+ab,4b,d5,65,ea,72,c0,58,96,3e,1d,27,3d,3c,ab,4b,ab,4b,ab,4b
+
+;-------------------------------------------------------------------------------------------------------
+; Bi-Quad coefficients for Sony monotor "SONY CPD-120VS"
+;-------------------------------------------------------------------------------------------------------
+HKLM,%8830EqualizerStr%"\SONY CPD-120VS","CoefSet",0x00000001,\
+00, 00, 00, 00,\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+14, 00, 00, 00,\
+ab,4b,d5,65,ea,72,05,5c,db,41,1d,27,3d,3c,ab,4b,ab,4b,ab,4b,\
+ab,4b,d5,65,ea,72,05,5c,db,41,1d,27,3d,3c,ab,4b,ab,4b,ab,4b
+
+;-------------------------------------------------------------------------------------------------------
+; Bi-Quad coefficients for Sony monotor "SONY CPD-201VS iGPE"
+;-------------------------------------------------------------------------------------------------------
+HKLM,%8830EqualizerStr%"\SONY CPD-201VS iGPE","CoefSet",0x00000001,\
+00, 00, 00, 00,\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+14, 00, 00, 00,\
+ab,4b,d5,65,ea,72,c0,58,96,3e,1d,27,3d,3c,ab,4b,ab,4b,ab,4b,\
+ab,4b,d5,65,ea,72,c0,58,96,3e,1d,27,3d,3c,ab,4b,ab,4b,ab,4b
+
+;-------------------------------------------------------------------------------------------------------
+; Bi-Quad coefficients for Sony monotor "SONY CPD-220VS"
+;-------------------------------------------------------------------------------------------------------
+HKLM,%8830EqualizerStr%"\SONY CPD-220VS","CoefSet",0x00000001,\
+00, 00, 00, 00,\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+\
+f0,4e,d5,65,74,79,8f,62,65,48,1d,27,3d,3c,f0,4e,ab,4b,f0,4e,\
+f0,4e,d5,65,74,79,8f,62,65,48,1d,27,3d,3c,f0,4e,ab,4b,f0,4e
+
+;Graphic Equalizer coeffs
+HKLM,%8830EqualizerStr%,"CoefSet0",0x00000001,\
+	00, 00, 00, 00,\
+	60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+	a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+	3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+	78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+	d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+	49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+	20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+	33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+	eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+	40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+	\
+	60, 7e, 9e, c1, 01, 00, 02, 00, 01, 00,\
+	a0, 7f, 5f, c0, 4f, 00, 00, 00, b1, ff,\
+	3f, 7f, bc, c0, c2, 00, 00, 00, 3e, ff,\
+	78, 7e, 77, c1, 1f, 01, 00, 00, e1, fe,\
+	d6, 7c, e5, c2, 5c, 02, 00, 00, a4, fd,\
+	49, 79, aa, c5, 67, 04, 00, 00, 99, fb,\
+	20, 71, df, ca, 64, 08, 00, 00, 9c, f7,\
+	33, 5d, 30, d4, 7e, 0f, 00, 00, 82, f0,\
+	eb, 2b, ca, e3, d3, 1b, 00, 00, 2d, e4,\
+	40, d7, 1d, f0, c5, 2a, 00, 00, 3b, d5,\
+	\
+	14, 00, 00, 00,\
+	96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e,\
+	96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e
+
+HKLM,%8830EqualizerStr%,"MidEqGain",0x00000001,\
+	96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e,\
+	96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e, 96, 3e
+
+HKLM,%8830AppEqualizerStr%,"Jazz",0x00000001,\
+	fb,ff,fe,ff,01,00,03,00,08,00,05,00,00,00,fb,ff,f9,ff,fc,ff,fb,ff,\
+	fe,ff,01,00,03,00,08,00,05,00,00,00,fb,ff,f9,ff,fc,ff
+
+HKLM,%8830AppEqualizerStr%,"Rock",0x00000001,\
+	12,00,0d,00,09,00,04,00,ff,ff,fa,ff,fd,ff,00,00,06,00,01,00,12,00,\
+	0d,00,09,00,04,00,ff,ff,fa,ff,fd,ff,00,00,06,00,01,00
+
+HKLM,%8830AppEqualizerStr%,"Classical",0x00000001,\
+	06,00,05,00,04,00,03,00,07,00,fb,ff,ff,ff,04,00,02,00,fe,ff,06,\
+	00,05,00,04,00,03,00,07,00,fb,ff,ff,ff,04,00,02,00,fe,ff
+
+HKLM,%8830AppEqualizerStr%,"Pop",0x00000001,\
+	00,00,00,00,00,00,02,00,03,00,06,00,04,00,fe,ff,fc,ff,00,00,00,00,00,\
+	00,00,00,02,00,03,00,06,00,04,00,fe,ff,fc,ff,00,00
+
+HKLM,%8830AppEqualizerStr%,"Dance",0x00000001,\
+	14,00,0e,00,0b,00,05,00,00,00,fb,ff,fd,ff,00,00,08,00,00,00,14,00,\
+	0e,00,0b,00,05,00,00,00,fb,ff,fd,ff,00,00,08,00,00,00
+
+HKLM,%8830AppEqualizerStr%,"Custom_1",0x00000001,\
+	fd,ff,09,00,0e,00,07,00,fc,ff,fe,ff,01,00,09,00,0c,00,0c,00,fd,\
+  	ff,09,00,0e,00,07,00,fc,ff,fe,ff,01,00,09,00,0c,00,0c,00
+
+HKLM,%8830AppEqualizerStr%,"BandLabels",0x00020000,%EqBandLabels%
+HKLM,%8830AppEqualizerStr%,"Ganged",0x00010001,1,0,0,0	
+HKLM,%8830AppEqualizerStr%,"PresetNumber",0x00010001,5,0,0,0	
+HKLM,%8830EqualizerStr%,"EqBypass",0x00010001,1,0,0,0
+
+; Quad codec output mode
+HKLM,%8830ControlStr%,"QuadCodecOutputModeState",0x00010001,0,0,0,0				; 0 - stereo, 1 - quad
+
+HKLM,%8830ControlStr%,"SoftSynthModeIndex",0x00010001,0							; Inital index setting
+HKLM,%8830ControlStr%,"SoftSynthMode",0x00010001,3,0,0,0						; Vortex WT mode (0 - 2)
+HKLM,%8830ControlStr%,"AspenWavetableEffect",0x00010001,1,0,0,0					; Vortex WT effects on/off (1/0)
+
+; Default WT FX1 and FX2 amounts (0 -127)
+HKLM,%8830ControlStr%,"ReverbAmount",0x00010001,40,0,0,0						; set FX1 amount to 64
+HKLM,%8830ControlStr%,"ChorusAmount",0x00010001,40,0,0,0						; set FX2 amount to 64
+
+; Default WT FX 1 & FX 2 parameters 
+; 0 = None, 1 = Delay, 2 = Room Reverb,	3 = Chamber Reverb, 4 = Hall Reverb,
+; 5 = Cabinet, 6 = Flange, 7 = Distortion, 8 = Wah-Wah							 
+HKLM,%8830ControlStr%,"FxSelectParams",0x00000001,04,06							; Hall Reverb for FX1, Chorus for FX2
+
+; HW & SW Voice Number in WT
+HKLM,%8830CustomInf%,"WtMaxNumHwVoice",0x00010001,40,0,0,0						; DWORD Value: WtNumHwVoice = 64
+HKLM,%8830CustomInf%,"WtMaxNumSwVoice",0x00010001,0,1,0,0						; DWORD Value: WtNumSwVoice = 256
+
+HKLM,%8830CustomInf%,"WtNumVoicesStrings",0x00010001,3,0,0,0					; Number of strings for control panel
+
+HKLM,%8830CustomInf%,"WtNumVoicesString0",0x00020000,%8830WtNumVoicesString0%	; Strings for Wt control panel
+HKLM,%8830CustomInf%,"WtNumVoicesString1",0x00020000,%8830WtNumVoicesString1%	; Strings for Wt control panel
+HKLM,%8830CustomInf%,"WtNumVoicesString2",0x00020000,%8830WtNumVoicesString2%	; Strings for Wt control panel
+HKLM,%8830CustomInf%,"WtNumVoicesString3",0x00020000,%8830WtNumVoicesString3%	; Strings for Wt control panel
+
+HKLM,%8830CustomInf%,"WtNumVoicesParams0",0x00000001,0,0,40,1,00,64,3			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8830CustomInf%,"WtNumVoicesParams1",0x00000001,1,0,40,0,40,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8830CustomInf%,"WtNumVoicesParams2",0x00000001,2,0,40,0,00,64,0			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+HKLM,%8830CustomInf%,"WtNumVoicesParams3",0x00000001,3,0,0,1,00,64,2			; Preset ID, num Hard Voices msb, Num Hard Voices Lsb,num Soft Voices msb, Num Soft Voices Lsb, CPU utilization, mode
+
+; device names
+HKLM,%8830AppDriverNameStr%,"MixerDriverName",0x00020000,%AurlAud.Topology.szPname%	; mixer 
+
+[WDM_AU88XX.AddReg]
+;; Friendly names
+HKLM,%MediaCategories%\%AURLGUID.WaveOut%,Name,,%AURLPin.WaveOut%
+HKLM,%MediaCategories%\%AURLGUID.WaveOut%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.PcBeep%,Name,,%AURLPin.PcBeep%
+HKLM,%MediaCategories%\%AURLGUID.PcBeep%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Phone%,Name,,%AURLPin.Phone%
+HKLM,%MediaCategories%\%AURLGUID.Phone%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Mic%,Name,,%AURLPin.Mic%
+HKLM,%MediaCategories%\%AURLGUID.Mic%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineIn%,Name,,%AURLPin.LineIn%
+HKLM,%MediaCategories%\%AURLGUID.LineIn%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer%,Name,,%AURLPin.CDPlayer%
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Video%,Name,,%AURLPin.Video%
+HKLM,%MediaCategories%\%AURLGUID.Video%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Aux%,Name,,%AURLPin.Aux%
+HKLM,%MediaCategories%\%AURLGUID.Aux%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Wavetable%,Name,,%AURLPin.Wavetable%
+HKLM,%MediaCategories%\%AURLGUID.Wavetable%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Spdif%,Name,,%AURLPin.Spdif%
+HKLM,%MediaCategories%\%AURLGUID.Spdif%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.StereoMix%,Name,,%AURLPin.StereoMix%
+HKLM,%MediaCategories%\%AURLGUID.StereoMix%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.MonoMix%,Name,,%AURLPin.MonoMix%
+HKLM,%MediaCategories%\%AURLGUID.MonoMix%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut%,Name,,%AURLPin.LineOut%
+HKLM,%MediaCategories%\%AURLGUID.LineOut%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.WaveIn%,Name,,%AURLPin.WaveIn%
+HKLM,%MediaCategories%\%AURLGUID.WaveIn%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.AC97%,Name,,%AURLPin.AC97%
+HKLM,%MediaCategories%\%AURLGUID.AC97%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.MonoOut%,Name,,%AURLPin.MonoOut%
+HKLM,%MediaCategories%\%AURLGUID.MonoOut%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.HPOut%,Name,,%AURLPin.HPOut%
+HKLM,%MediaCategories%\%AURLGUID.HPOut%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.SpdifOut%,Name,,%AURLPin.SpdifOut%
+HKLM,%MediaCategories%\%AURLGUID.SpdifOut%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Center3D%,Name,,%AURLPin.Center3D%
+HKLM,%MediaCategories%\%AURLGUID.Center3D%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Depth3D%,Name,,%AURLPin.Depth3D%
+HKLM,%MediaCategories%\%AURLGUID.Depth3D%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.FrontRear%,Name,,%AURLPin.FrontRear%
+HKLM,%MediaCategories%\%AURLGUID.FrontRear%,Display,1,00,00,00,00
+
+HKLM,%MediaCategories%\%AURLGUID.WaveOut_Volume%,Name,,%AURLPin.WaveOut_Volume%
+HKLM,%MediaCategories%\%AURLGUID.WaveOut_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.WaveOut_Mute%,Name,,%AURLPin.WaveOut_Mute%
+HKLM,%MediaCategories%\%AURLGUID.WaveOut_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.PcBeep_Volume%,Name,,%AURLPin.PcBeep_Volume%
+HKLM,%MediaCategories%\%AURLGUID.PcBeep_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.PcBeep_Mute%,Name,,%AURLPin.PcBeep_Mute%
+HKLM,%MediaCategories%\%AURLGUID.PcBeep_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Phone_Volume%,Name,,%AURLPin.Phone_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Phone_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Phone_Mute%,Name,,%AURLPin.Phone_Mute%
+HKLM,%MediaCategories%\%AURLGUID.Phone_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Mic_Volume%,Name,,%AURLPin.Mic_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Mic_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Mic_Select%,Name,,%AURLPin.Mic_Select%
+HKLM,%MediaCategories%\%AURLGUID.Mic_Select%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Mic_20dBGain%,Name,,%AURLPin.Mic_20dBGain%
+HKLM,%MediaCategories%\%AURLGUID.Mic_20dBGain%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Mic_Mute%,Name,,%AURLPin.Mic_Mute%
+HKLM,%MediaCategories%\%AURLGUID.Mic_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineIn_Volume%,Name,,%AURLPin.LineIn_Volume%
+HKLM,%MediaCategories%\%AURLGUID.LineIn_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineIn_Mute%,Name,,%AURLPin.LineIn_Mute%
+HKLM,%MediaCategories%\%AURLGUID.LineIn_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer_Volume%,Name,,%AURLPin.CDPlayer_Volume%
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer_Mute%,Name,,%AURLPin.CDPlayer_Mute%
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Video_Volume%,Name,,%AURLPin.Video_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Video_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Video_Mute%,Name,,%AURLPin.Video_Mute%
+HKLM,%MediaCategories%\%AURLGUID.Video_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Aux_Volume%,Name,,%AURLPin.Aux_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Aux_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Aux_Mute%,Name,,%AURLPin.Aux_Mute%
+HKLM,%MediaCategories%\%AURLGUID.Aux_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Wavetable_Volume%,Name,,%AURLPin.Wavetable_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Wavetable_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Wavetable_Mute%,Name,,%AURLPin.Wavetable_Mute%
+HKLM,%MediaCategories%\%AURLGUID.Wavetable_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Spdif_Volume%,Name,,%AURLPin.Spdif_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Spdif_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Spdif_Mute%,Name,,%AURLPin.Spdif_Mute%
+HKLM,%MediaCategories%\%AURLGUID.Spdif_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut_Bass%,Name,,%AURLPin.LineOut_Bass%
+HKLM,%MediaCategories%\%AURLGUID.LineOut_Bass%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut_Treble%,Name,,%AURLPin.LineOut_Treble%
+HKLM,%MediaCategories%\%AURLGUID.LineOut_Treble%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut_Loudness%,Name,,%AURLPin.LineOut_Loudness%
+HKLM,%MediaCategories%\%AURLGUID.LineOut_Loudness%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut_3DAudio_OnOff%,Name,,%AURLPin.LineOut_3DAudio_OnOff%
+HKLM,%MediaCategories%\%AURLGUID.LineOut_3DAudio_OnOff%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut_MasterVolume%,Name,,%AURLPin.LineOut_MasterVolume%
+HKLM,%MediaCategories%\%AURLGUID.LineOut_MasterVolume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineOut_MasterMute%,Name,,%AURLPin.LineOut_MasterMute%
+HKLM,%MediaCategories%\%AURLGUID.LineOut_MasterMute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Phone_W_Volume%,Name,,%AURLPin.Phone_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Phone_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Mic_W_Volume%,Name,,%AURLPin.Mic_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Mic_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.LineIn_W_Volume%,Name,,%AURLPin.LineIn_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.LineIn_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer_W_Volume%,Name,,%AURLPin.CDPlayer_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.CDPlayer_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Video_W_Volume%,Name,,%AURLPin.Video_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Video_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Aux_W_Volume%,Name,,%AURLPin.Aux_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Aux_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.StereoMix_W_Volume%,Name,,%AURLPin.StereoMix_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.StereoMix_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.MonoMix_W_Volume%,Name,,%AURLPin.MonoMix_W_Volume%
+HKLM,%MediaCategories%\%AURLGUID.MonoMix_W_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.MonoOut_Volume%,Name,,%AURLPin.MonoOut_Volume%
+HKLM,%MediaCategories%\%AURLGUID.MonoOut_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.MonoOut_Mute%,Name,,%AURLPin.MonoOut_Mute%
+HKLM,%MediaCategories%\%AURLGUID.HPOut_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.HPOut_Volume%,Name,,%AURLPin.HPOut_Volume%
+HKLM,%MediaCategories%\%AURLGUID.HPOut_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.HPOut_Mute%,Name,,%AURLPin.HPOut_Mute%
+HKLM,%MediaCategories%\%AURLGUID.HPOut_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.SpdifOut_Volume%,Name,,%AURLPin.SpdifOut_Volume%
+HKLM,%MediaCategories%\%AURLGUID.SpdifOut_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.SpdifOut_Mute%,Name,,%AURLPin.SpdifOut_Mute%
+HKLM,%MediaCategories%\%AURLGUID.SpdifOut_Mute%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Audio_3DDepth_Volume%,Name,,%AURLPin.Audio_3DDepth_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Audio_3DDepth_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.Audio_3DCenter_Volume%,Name,,%AURLPin.Audio_3DCenter_Volume%
+HKLM,%MediaCategories%\%AURLGUID.Audio_3DCenter_Volume%,Display,1,00,00,00,00
+HKLM,%MediaCategories%\%AURLGUID.FrontBack_Balance%,Name,,%AURLPin.FrontBack_Balance%
+HKLM,%MediaCategories%\%AURLGUID.FrontBack_Balance%,Display,1,00,00,00,00
+
+[WDM_AU8810.CopyList]
+adm8810.sys
+
+[WDM_AU8820.CopyList]
+adm8820.sys
+
+[WDM_AU8830.CopyList]
+adm8830.sys
+
+[VortexSystem.CopyList]
+a3d.dll
+a3dapi.dll
+
+[DestinationDirs]
+WDM_AU8810.CopyList  = 10,system32\drivers ; %SystemRoot%\system32\drivers
+WDM_AU8820.CopyList  = 10,system32\drivers ; %SystemRoot%\system32\drivers
+WDM_AU8830.CopyList  = 10,system32\drivers ; %SystemRoot%\system32\drivers
+VortexSystem.CopyList= 11                  ; %SystemRoot%\system32
+
+[WDM_AU8810.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,AurlAud.Interface.Topology
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_WT%,WDM.Interface.WT
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_WT%,WDM.Interface.WT
+
+[WDM_AU8820.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,AurlAud.Interface.Topology
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_WT%,WDM.Interface.WT
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_WT%,WDM.Interface.WT
+
+[WDM_AU8830.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,AurlAud.Interface.Topology
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_WT%,WDM.Interface.WT
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_WT%,WDM.Interface.WT
+
+[AurlAud.Interface.Wave]
+AddReg=AurlAud.Interface.Wave.AddReg
+[AurlAud.Interface.Wave.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%AurlAud.Wave.szPname%
+
+[AurlAud.Interface.Topology]
+AddReg=AurlAud.Interface.Topo.AddReg
+[AurlAud.Interface.Topo.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%AurlAud.Topology.szPname%
+
+[WDM.Interface.UART]
+AddReg=WDM.Interface.UART.AddReg
+[WDM.Interface.UART.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%WDM.UART.szPname%
+
+[WDM.Interface.WT]
+AddReg=WDM.Interface.WT.AddReg
+[WDM.Interface.WT.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%WDM.WT.szPname%
+
+
+;;**************** NT Install ****************
+
+[WDM_AU8810.NTX86]
+Include=   ks.inf, wdmaudio.inf
+Needs=     KS.Registration, WDMAUDIO.Registration
+CopyFiles= WDM_AU8810.CopyList, VortexSystem.CopyList
+AddReg=	   WDM_AU8810.AddReg, WDM_AU88XX.AddReg, A3D.Addreg
+
+[WDM_AU8820.NTX86]
+Include=   ks.inf, wdmaudio.inf
+Needs=     KS.Registration, WDMAUDIO.Registration
+CopyFiles= WDM_AU8820.CopyList, VortexSystem.CopyList
+AddReg=	   WDM_AU8820.AddReg, WDM_AU88XX.AddReg, A3D.Addreg
+
+[WDM_AU8830.NTX86]
+Include=   ks.inf, wdmaudio.inf
+Needs=     KS.Registration, WDMAUDIO.Registration
+CopyFiles= WDM_AU8830.CopyList, VortexSystem.CopyList
+AddReg=	   WDM_AU8830.AddReg, WDM_AU88XX.AddReg, A3D.Addreg
+
+[WDM_AU8810.NTX86.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,AurlAud.Interface.Topology
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_WT%,WDM.Interface.WT
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_WT%,WDM.Interface.WT
+
+[WDM_AU8820.NTX86.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,AurlAud.Interface.Topology
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_WT%,WDM.Interface.WT
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_WT%,WDM.Interface.WT
+
+[WDM_AU8830.NTX86.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_Wave%,AurlAud.Interface.Wave
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_Topology%,AurlAud.Interface.Topology
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_CAPTURE%,%KSNAME_UART%,WDM.Interface.UART
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_WT%,WDM.Interface.WT
+AddInterface=%KSCATEGORY_RENDER%,%KSNAME_WT%,WDM.Interface.WT
+
+[WDM_AU8810.NTX86.Services]
+AddService = wdm_au8810, 0x00000002, wdm_au8810_Service_Inst
+
+[wdm_au8810_Service_Inst]
+DisplayName    = %wdm_au8810.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\adm8810.sys
+
+[WDM_AU8820.NTX86.Services]
+AddService = wdm_au8820, 0x00000002, wdm_au8820_Service_Inst
+
+[wdm_au8820_Service_Inst]
+DisplayName    = %wdm_au8820.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\adm8820.sys
+
+[WDM_AU8830.NTX86.Services]
+AddService = wdm_au8830, 0x00000002, wdm_au8830_Service_Inst
+
+[wdm_au8830_Service_Inst]
+DisplayName    = %wdm_au8830.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\adm8830.sys
+
+
+[Strings]
+MSFT="Microsoft"
+AurealMfgName="Aureal, Inc."
+
+*WDM_AU8810.DeviceDesc="Aureal Vortex 8810 Audio (WDM)"
+*WDM_AU8820.DeviceDesc="Aureal Vortex 8820 Audio (WDM)"
+*WDM_AU8830.DeviceDesc="Aureal Vortex 8830 Audio (WDM)"
+
+wdm_au8810.SvcDesc ="Aureal Vortex 8810 Audio Driver (WDM)"
+wdm_au8820.SvcDesc ="Aureal Vortex 8820 Audio Driver (WDM)"
+wdm_au8830.SvcDesc ="Aureal Vortex 8830 Audio Driver (WDM)"
+
+AurlAud.Wave.szPname		="Aureal Audio"
+AurlAud.Topology.szPname	="Aureal Topology"
+WDM.UART.szPname		="Aureal MPU-401"
+WDM.WT.szPname			="Aureal Wavetable"
+
+;; Aureal friendly names (non-localizeable)
+AURLGUID.WaveOut     ="{62D35A10-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.PcBeep      ="{62D35A11-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Phone       ="{62D35A12-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Mic         ="{62D35A13-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineIn      ="{62D35A14-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.CDPlayer    ="{62D35A15-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Video       ="{62D35A16-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Aux         ="{62D35A17-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Wavetable   ="{62D35A18-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.StereoMix   ="{62D35A19-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.MonoMix     ="{62D35A1A-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut     ="{62D35A1B-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.WaveIn      ="{62D35A1C-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.AC97        ="{62D35A1D-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.MonoOut     ="{62D35A1E-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Spdif       ="{62D35A1F-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Center3D    ="{62D35A20-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Depth3D     ="{62D35A21-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.FrontRear   ="{62D35A22-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.HPOut       ="{62D35A23-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.SpdifOut    ="{62D35A24-E42B-11D1-B073-00608CCBD2F1}"
+
+AURLGUID.WaveOut_Volume        ="{62D35A40-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.WaveOut_Mute          ="{62D35A41-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.PcBeep_Volume         ="{62D35A42-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.PcBeep_Mute           ="{62D35A43-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Phone_Volume          ="{62D35A44-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Phone_Mute            ="{62D35A45-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Mic_Volume            ="{62D35A46-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Mic_Mute              ="{62D35A47-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Mic_20dBGain          ="{62D35A48-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineIn_Volume         ="{62D35A49-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineIn_Mute           ="{62D35A4A-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.CDPlayer_Volume       ="{62D35A4B-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.CDPlayer_Mute         ="{62D35A4C-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Video_Volume          ="{62D35A4D-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Video_Mute            ="{62D35A4E-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Aux_Volume            ="{62D35A4F-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Aux_Mute              ="{62D35A50-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Wavetable_Volume      ="{62D35A51-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Wavetable_Mute        ="{62D35A52-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut_Bass          ="{62D35A53-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut_Treble        ="{62D35A54-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut_MasterVolume  ="{62D35A55-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut_MasterMute    ="{62D35A56-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Phone_W_Volume        ="{62D35A57-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Mic_W_Volume          ="{62D35A58-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineIn_W_Volume       ="{62D35A59-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.CDPlayer_W_Volume     ="{62D35A5A-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Video_W_Volume        ="{62D35A5B-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Aux_W_Volume          ="{62D35A5C-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Stereomix_W_Volume    ="{62D35A5D-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Monomix_W_Volume      ="{62D35A5E-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.MonoOut_Volume        ="{62D35A5F-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.MonoOut_Mute          ="{62D35A60-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Spdif_Volume          ="{62D35A61-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Spdif_Mute            ="{62D35A62-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Audio_3DCenter_Volume ="{62D35A63-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Audio_3DDepth_Volume  ="{62D35A64-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.FrontBack_Balance     ="{62D35A65-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.HPOut_Volume          ="{62D35A66-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.HPOut_Mute            ="{62D35A67-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.Mic_Select            ="{62D35A68-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut_Loudness      ="{62D35A69-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.LineOut_3DAudio_OnOff ="{62D35A6A-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.SpdifOut_Volume       ="{62D35A6B-E42B-11D1-B073-00608CCBD2F1}"
+AURLGUID.SpdifOut_Mute         ="{62D35A6C-E42B-11D1-B073-00608CCBD2F1}"
+
+;; Aureal friendly names (localizeable)
+AURLPin.WaveOut     ="Wave Out"
+AURLPin.PcBeep      ="PC Speaker"
+AURLPin.Phone       ="Phone"
+AURLPin.Mic         ="Microphone"
+AURLPin.LineIn      ="Line-In"
+AURLPin.CDPlayer    ="CD-ROM"
+AURLPin.Video       ="Video"
+AURLPin.Aux         ="Auxiliary"
+AURLPin.Wavetable   ="Wavetable Synthesizer"
+AURLPin.Spdif       ="SP-DIF Input"
+AURLPin.StereoMix   ="Stereo Mixer Input"
+AURLPin.MonoMix     ="Mono Mixer Input"
+AURLPin.LineOut     ="Volume Control"
+AURLPin.WaveIn      ="Wave In"
+AURLPin.AC97        ="AC97 Controls"
+AURLPin.MonoOut     ="Mono Out"
+AURLPin.HPOut       ="Headphones Out"
+AURLPin.SpdifOut    ="SP-DIF Out"
+AURLPin.Center3D    ="3D Center"
+AURLPin.Depth3D     ="3D Depth"
+AURLPin.FrontRear   ="Front/Rear Control"
+
+AURLPin.WaveOut_Volume        ="Wave Out Volume"
+AURLPin.WaveOut_Mute          ="Wave Out Mute"
+AURLPin.PcBeep_Volume         ="PC Speaker Volume"
+AURLPin.PcBeep_Mute           ="PC Speaker Mute"
+AURLPin.Phone_Volume          ="Phone Volume"
+AURLPin.Phone_Mute            ="Phone Mute"
+AURLPin.Mic_Volume            ="Microphone Volume"
+AURLPin.Mic_Select            ="Microphone 1/2 Select"
+AURLPin.Mic_Mute              ="Microphone Mute"
+AURLPin.Mic_20dBGain          ="Microphone Gain (+20dB)"
+AURLPin.LineIn_Volume         ="Line-In Volume"
+AURLPin.LineIn_Mute           ="Line-In Mute"
+AURLPin.CDPlayer_Volume       ="CD-ROM Volume"
+AURLPin.CDPlayer_Mute         ="CD-ROM Mute"
+AURLPin.Video_Volume          ="Video Volume"
+AURLPin.Video_Mute            ="Video Mute"
+AURLPin.Aux_Volume            ="Auxiliary Volume"
+AURLPin.Aux_Mute              ="Auxiliary Mute"
+AURLPin.Wavetable_Volume      ="Wavetable Synthesizer Volume"
+AURLPin.Wavetable_Mute        ="Wavetable Synthesizer Mute"
+AURLPin.Spdif_Volume          ="SPDIF Input Volume"
+AURLPin.Spdif_Mute            ="SPDIF Input Mute"
+AURLPin.LineOut_Bass          ="Bass Control"
+AURLPin.LineOut_Treble        ="Treble Control"
+AURLPin.LineOut_Loudness      ="Loudness Control"
+AURLPin.LineOut_3DAudio_OnOff ="3D Stereo Enhancement"
+AURLPin.LineOut_MasterVolume  ="Master Volume"
+AURLPin.LineOut_MasterMute    ="Master Mute"
+AURLPin.Phone_W_Volume        ="Phone Input Control"
+AURLPin.Mic_W_Volume          ="Mic Input Control"
+AURLPin.LineIn_W_Volume       ="Line Input Control"
+AURLPin.CDPlayer_W_Volume     ="CD-ROM Input Control"
+AURLPin.Video_W_Volume        ="Video Input Control"
+AURLPin.Aux_W_Volume          ="Auxiliary Input Control"
+AURLPin.Stereomix_W_Volume    ="Stereo Mixer Input Control"
+AURLPin.Monomix_W_Volume      ="Mono Mixer Input Control"
+AURLPin.MonoOut_Volume        ="Mono Out Volume"
+AURLPin.MonoOut_Mute          ="Mono Out Mute"
+AURLPin.HPOut_Volume          ="Headphones Volume"
+AURLPin.HPOut_Mute            ="Headphones Mute"
+AURLPin.SpdifOut_Volume       ="SPDIF Out Volume"
+AURLPin.SpdifOut_Mute         ="SPDIF Out Mute"
+AURLPin.Audio_3DCenter_Volume ="3D Center"
+AURLPin.Audio_3DDepth_Volume  ="3D Depth"
+AURLPin.FrontBack_Balance     ="Front/Rear Fader"
+
+Proxy.CLSID="{17CCA71B-ECD7-11D0-B908-00A0C9223196}"
+KSCATEGORY_AUDIO="{6994AD04-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_RENDER="{65E8773E-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_CAPTURE="{65E8773D-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_DATATRANSFORM="{2EB07EA0-7E70-11D0-A5D6-28DB04C10000}"
+KSCATEGORY_SYNTHESIZER="{DFF220F3-F70F-11D0-B917-00A0C9223196}"
+
+KSNAME_Wave="Wave"
+KSNAME_UART="Uart"
+KSNAME_Topology="Topology"
+KSNAME_WT="Wavetable"
+KSNAME_DMUSWT="DMusWavetable"
+
+MediaCategories ="SYSTEM\CurrentControlSet\Control\MediaCategories"
+RunOnce	="SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce"
+
+EqBandLabels ="31 63 125 250 500 1K 2K 4K 8K 16K"
+
+8810CustomInf		="SYSTEM\CurrentControlSet\Services\wdm_au8810\Customization"
+8810SpdifList		="SYSTEM\CurrentControlSet\Services\wdm_au8810\Customization\SpdifEnableList"
+8810EqualizerStr	="SYSTEM\CurrentControlSet\Services\wdm_au8810\Equalizer"
+8810ControlStr		="SYSTEM\CurrentControlSet\Services\wdm_au8810\ControlPanel"
+8810AppEqualizerStr	="SOFTWARE\Aureal\Vortex\AU8810\Equalizer"
+8810AppCustomStr	="SOFTWARE\Aureal\Vortex\AU8810\Customization"
+8810AppDriverNameStr="SOFTWARE\Aureal\Vortex\AU8810\DriverNames"
+
+8810WtNumVoicesString0 ="256 Voices"
+8810WtNumVoicesString1 ="128 Voices"
+8810WtNumVoicesString2 ="64 Voices"
+8810WtNumVoicesString3 ="32 Voices"
+
+8820CustomInf		="SYSTEM\CurrentControlSet\Services\wdm_au8820\Customization"
+8820SpdifList		="SYSTEM\CurrentControlSet\Services\wdm_au8820\Customization\SpdifEnableList"
+8820ControlStr		="SYSTEM\CurrentControlSet\Services\wdm_au8820\ControlPanel"
+8820InstallStr		="SYSTEM\CurrentControlSet\Services\wdm_au8820\InstallSettings"
+8820AppCustomStr	="SOFTWARE\Aureal\Vortex\Customization"
+8820AppDriverNameStr="SOFTWARE\Aureal\Vortex\DriverNames"
+
+8820WtNumVoicesString0 ="64 Voice Pro"
+8820WtNumVoicesString1 ="64 Voice Gamer"
+8820WtNumVoicesString2 ="32 Voice Pro"
+
+8830CustomInf		="SYSTEM\CurrentControlSet\Services\wdm_au8830\Customization"
+8830SpdifList		="SYSTEM\CurrentControlSet\Services\wdm_au8830\Customization\SpdifEnableList"
+8830EqualizerStr	="SYSTEM\CurrentControlSet\Services\wdm_au8830\Equalizer"
+8830ControlStr		="SYSTEM\CurrentControlSet\Services\wdm_au8830\ControlPanel"
+8830AppEqualizerStr	="SOFTWARE\Aureal\Vortex\AU8830\Equalizer"
+8830AppCustomStr	="SOFTWARE\Aureal\Vortex\AU8830\Customization"
+8830AppDriverNameStr="SOFTWARE\Aureal\Vortex\AU8830\DriverNames"
+
+8830WtNumVoicesString0 ="320 Voices"
+8830WtNumVoicesString1 ="128 Voices"
+8830WtNumVoicesString2 ="64 Voices"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       MZ       ÿÿ  ¸       @                                   Ø   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       g¢GÎ#Ã)#Ã)#Ã)#Ã(?Ã)Ùà0 Ã)´àl"Ã)Ùài(Ã)ùà5,Ã)Ùà"Ã)Rich#Ã)                PE  L ô’};        à !  ®         &Œ      ®    õ¿€   €              É     ¡                               €»  (   €¾  P                   Ã  p  €®                                              ®  t                           .text   èª      «                    h.rdata  O   ®  €   ®              @  H.data   °
+  €°     €°              @  ÈINIT    Â  €»     €»                 â.rsrc   P  €¾  €  €¾              @  B.reloc  „   Ã      Ã              @  B                                                                h9	õ¿é¯  h¹õ¿é¥  h9	õ¿h¹õ¿é–  h9	õ¿éŒ  h9	õ¿éV  h9	õ¿éä  h9	õ¿é	  h9	õ¿él  h9	õ¿h¹õ¿é)  h9	õ¿h¹õ¿é²  h9	õ¿h¹õ¿éŞ  h9	õ¿h¹õ¿é0  h9	õ¿é  h9	õ¿é  U‹ìÄ|ÿÿÿVWS‹u‹U‹}‹N‰M¼‹‡  Óà‰E°‹F‰EÀH‰E¸E   ‰E´‹B‹
+‰Eğƒá;N…  ‹_h‹F@ƒ;3…ù  ‰]¬ºÎ  ¸   fï‹—  ‹u‰UĞ÷   …\  ‹}‹MĞ‹G‹_‰EÈ‰]Ì¯Ë+]ğÛ‰]ø‹ÁëÙ‹GÁèÁ‰EØ3ö‹ƒát¾   Óæ‰uÜ¾   ‰]à‹Ëƒá‰M¤C+Ã‰]ìƒã‰]¨‹Oƒát&‹]Øƒã‰] »ğ   ÒÃ‰]ÔƒÎƒø }ƒæş#]Ü‰]Ü3Àƒøö‰Eä‹µ€°õ¿‰Eü‹u¬‹]‹F‹;ƒX  |;ƒ`  };»h  |;»p  |j WjPSè@b  ‹Fƒ¬   ‰EÄ‹EÈ‹›p  +ÃÉ#ÈÙ‰]Ì+ß‰]èÿUü‹}Ì;}È}.‹EĞ¯EèEàEìEØ‹]jj WSÿ“8  ‹Ç+EğÀ‰Eø‹u¬ë¢ƒEÿM¿şÿÿºÎ  ¸ÿ  fïºÅ  °î[_^ÉÂ ‹}‹MĞ‹G‹_‰EÈ‰]Ì¯Ë+]ğÛ‰]ø‹ÁëÙ‹GÁèÁ‰EØ3ö‹ƒát¾   Óæ‰uÜ¾   ‰]àÇE¤    C+Ã‰]ìƒãó‹Oƒát$ÇE     »ğ   ÒÃ‰]ÔƒÎƒø }ƒæı#]Ü‰]Ü3ÀƒøöÑèö‰…|ÿÿÿÀ‰Eä‹µ °õ¿‰Eü‹u¬‹]‹F‹;ƒX  |;ƒ`  };»h  |;»p  |j WjPSèÜ`  ‹Fƒ¬   ‰EÄ‹EÈ‹›p  +ÃÉ#ÈÙ‰]Ì+ß‰]èÿUü‹}Ì;}È}.‹EĞ¯EèEàEìEØ‹]jj WSÿ“8  ‹Ç+EğÀ‰Eø‹u¬ë¢ƒEÿM·şÿÿºÎ  ¸ÿ  fïºÅ  °î[_^ÉÂ ‹ÿ    ¶õ¿õ¿nõ¿‹G`;GdÒ#ĞB‰W`‰V÷   t‰N‹_hR“‰3‹C;‡è   |;‡ğ   |QjPWÿ—Ô   Y÷   „’   ‹‡¨   ‹{<¸Áá‹Fvÿ$…ğõ¿‹F8‹V<¥Ğ‰G8‹F0‹V4¥Ğ‰G0‹F(‹V,¥Ğ‰G(‹F ‹V$¥Ğ‰G ‹F‹V¥Ğ‰G‹F‹V¥Ğ‰G‹F‹V¥Ğ‰G‹‹V¥Ğ‰‹}é3üÿÿ    Šõ¿`õ¿õ¿S‹‡¨   ‹{ƒùƒßÿ<¸‹ßƒóÁá‹Fvÿ$…Ôõ¿‹F8‹V<¥Ğ‰G8‹F8¥Â‰S8‹F0‹V4¥Ğ‰G0‹F0¥Â‰S0‹F(‹V,¥Ğ‰G(‹F(¥Â‰S(‹F ‹V$¥Ğ‰G ‹F ¥Â‰S ‹F‹V¥Ğ‰G‹F¥Â‰S‹F‹V¥Ğ‰G‹F¥Â‰S‹F‹V¥Ğ‰G‹F¥Â‰S‹‹V¥Ğ‰‹¥Â‰[‹}éNûÿÿºÅ  ‹EÜî‹M‹}à¹°   ‹E¤Eø‹U°‹uè‹Ş#]¸t0‹M¼ÓîFW‹MÄ#E´ŠƒÀ‹ÎˆúIuù_}ĞKuã‹uè;uÀ|,‹Ş#]¸÷Û]À‹M¼ÓîW‹MÄ#E´ŠƒÀ‹ÎˆúIuù_}ĞKuãÃºÅ  ‹EÔî‹M‹}Ø¹°   ‹E Eø‹U°‹uè‹Ş#]¸t0‹M¼ÓîFW‹MÄ#E´ŠƒÀ‹ÎˆúIuù_}ĞKuã‹uè;uÀ|,‹Ş#]¸÷Û]À‹M¼ÓîW‹MÄ#E´ŠƒÀ‹ÎˆúIuù_}ĞKuãÃºÅ  ¸   î‹M‹}ì¹°   ‰}Œ‹uè‹Ş‹EÀ+ØÉ#ËÁ‰Eœ‰E˜#]¸‰]”‰]‹E¨Eø‰Eô‹M¼ÓîF‰uˆ‰u„‹uäFÑî‹U°+Ö+ÖW‹]ˆƒm”ƒÛ ‰]ˆ‹MÄ#E´ŠƒÀèJ   _}ĞÿMœuØ‹uäÑît9‹U°+Ö+Ö‹}ŒG‹EôƒğW‹]„ƒmƒÛ ‰]„‹MÄ#E´ŠƒÀè
+   _}ĞÿM˜uØÃ‹ÎˆƒÇIuøúKuñÃºÅ  ¸   î‹M‹}ì¹°   ‹Eø‹U°+Uä‹uè‹Ş#]¸t;‹M¼ÓîF‰u€W‹MÄ#E´ŠƒÀ‹u€‹|ÿÿÿóf«úNuò_}ĞKuÛ‹uè;uÀ|7‹Ş#]¸÷Û]À‹M¼Óî‰u€W‹MÄ#E´ŠƒÀ‹u€‹|ÿÿÿóf«úNuò_}ĞKuÛÃºÅ  ¸   î‹M‹}ì¹°   ‹Eø‹U°+Uä‹uè‹Ş#]¸t=‹M¼ÓîF‰u€W‹MÄ#E´ŠƒÀ‹u€‹|ÿÿÿóf«ˆúNuğ_}ĞKuÙ‹uè;uÀ|9‹Ş#]¸÷Û]À‹M¼Óî‰u€W‹MÄ#E´ŠƒÀ‹u€‹|ÿÿÿóf«ˆúNuğ_}ĞKuÙÃºÅ  ¸   î‹M‹}ì¹°   G‹Eø‹U°+Uä‹uè‹Ş#]¸t>‹M¼ÓîF‰u€W‹MÄ#E´ŠƒÀ‹u€ˆGÿ‹|ÿÿÿóf«úNuï_}ĞKuØ‹uè;uÀ|:‹Ş#]¸÷Û]À‹M¼Óî‰u€W‹MÄ#E´ŠƒÀ‹u€ˆGÿ‹|ÿÿÿóf«úNuï_}ĞKuØÃºÅ  ¸   î‹M‹}ì¹°   Gÿ|ÿÿÿ‹Eø‹U°+UäƒÂ‹uè‹Ş#]¸t@‹M¼ÓîF‰u€W‹MÄ#E´ŠƒÀ‹u€ˆGÿ‹|ÿÿÿóf«ˆúNuí_}ĞKuÖ‹uè;uÀ|<‹Ş#]¸÷Û]À‹M¼Óî‰u€W‹MÄ#E´ŠƒÀ‹u€ˆGÿ‹|ÿÿÿóf«ˆúNuí_}ĞKuÖÿ…|ÿÿÿÃÌÌU‹ìƒÄ°VWSU‹t$lD$TPVè   ‰D$H‹D$XÀ„Œ   <Åøÿÿÿ|$\‰|$L‹\$T÷Ã   t3‹t$\ƒÆ‰t$P‹‹W‰L$8‰T$<‹Fø‹^ü‹‹V‰D$@‰\$D;t$Lvzë“‹t$\‹D$8‹\$<‹‹W‰L$8‰T$<‹‹V‰t$PëTÇD$T    ‹D$8‹\$<‹L$@‹T$Dë:÷D$T   uÜ‹L$HÉ…?ÿÿÿ][_^ÉÂ ‹t$P;t$LsØ‹‹^‹N‹VƒÆ‰t$P+ÈŒ£  +ÓŒ  ;ÊŒ  ‹t$p‰t$ÇD$aõ¿‹ñòt¶ğóƒæ…Š  Ò„D  ‹t$hÁøÁû;è   |;ğ   |PQRj SVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹®ğ   +ë‹ñÁş»ÿÿÿÿ+ÙÑû‹D$t+Ê;Ñ‰   ÷Ç   t/NŒ5ÿÿÿˆGÚ|!|$Mt`+Ù|ƒî|1ˆ|$ƒÇMt3ˆGÿ+ÙÚ}æƒî|f‰ƒÇÚ|í|$Mt +Ù}ÌëäF…æşÿÿˆéßşÿÿÇD$Õõ¿ÿd$ÇD$ôõ¿ÿd$ÇD$Àõ¿ÿd$÷Ç   t-NŒ¬şÿÿˆGÚ||$MtA+Ù}ƒî|hf‰|$ƒÇMtO+ÙÚ|èƒî|Pˆ|$ƒÇMt,ˆGÿ+Ù|ä|$Mt+Ù|ÅëÛÇD$Iõ¿ÿd$ÇD$„õ¿ÿd$ÇD$võ¿ÿd$ÇD$_õ¿ÿd$F…&şÿÿˆéşÿÿ;Ê„×   ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒÿƒßö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒûƒÛÿ3ß+ß;ÃÀ÷ĞNÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“Ò„  ‹t$h;¾è   |;¾ğ   |PQRj WVÿ–Ô   ZYX‹®ğ   +ï¯|$p¾¨   ø‹t$$+ğ‹D$t+Ê;ÑŠşÿÿéüıÿÿ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒïö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒëÿ3ß+ß;ÃÀ÷ĞNÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“é2ÿÿÿÇD$Óõ¿‹ğóñòƒæ…š   ‹t$hÁøÁû;è   |;ğ   |PQRj SVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹®ğ   +ë‹òÁş+õÛ#Şë‰t$,‹t$p»ÿÿÿÿ+ÚÑû‹D$tM|ˆşÙ|õG+ÚM|ˆşÙ|çG+Úëâ‹D$,ƒø üÿÿÇD$Ÿõ¿ÿd$‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒÿƒßö3ş+ş,‹õÁıƒæt;÷ƒİÿƒà‰l$ x‹ò¯÷‹ùƒãt¯û+÷ƒøƒØÿ3Ç+Ç;ØÛ÷ÓNÁş‹D$0‹|$4+û#ÙŞ+Ú|+Ú@‹t$h;¾è   |;¾ğ   |PQRj WVÿ–Ô   ZYX‰|$¯|$p¾¨   ø‹®ğ   ‹t$ +õÀ#Æè+l$‰t$,‹t$p‹D$téñşÿÿ÷Ù÷Ø+ÓŒ  ;ÊŒ‚  ‹t$p‰t$ÇD$aõ¿‹ğóñòƒæ…  Ò„˜  ‹t$h÷ØÁøÁû;è   |;ğ   |PQRj SVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹®ğ   +ë‹ñÁş»ÿÿÿÿ+ÙÑû‹D$t+Ê;ÑŠ   ÷Ç   u/NŒúÿÿˆOÚ|!|$Mta+Ù|ƒî|2ˆ|$ƒïMt4ˆG+ÙÚ}æƒî|f‰GÿƒïÚ|ì|$Mt +Ù}ËëãF…>úÿÿˆé7úÿÿÇD$|õ¿ÿd$ÇD$œõ¿ÿd$ÇD$gõ¿ÿd$÷Ç   u.NŒúÿÿˆOÚ| |$MtB+Ù}ƒî|if‰Gÿ|$ƒïMtO+ÙÚ|çƒî|Pˆ|$ƒïMt,ˆG+Ù|ä|$Mt+Ù|ÄëÛÇD$ñõ¿ÿd$ÇD$-õ¿ÿd$ÇD$õ¿ÿd$ÇD$õ¿ÿd$F…}ùÿÿˆévùÿÿ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒïö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒëÿ3ß+ß;ÃÀ÷ĞNÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“Ò„o	  ‹t$h÷Ø;¾è   |;¾ğ   |PQRj WVÿ–Ô   ZYX‹®ğ   +ï¯|$p¾¨   ø‹t$$ğ‹D$t+Ê;Ñ•şÿÿéşÿÿÇD$Óõ¿‹ğóñòƒæ…™   ÷Ø‹t$hÁøÁû;è   |;ğ   |PQRj SVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹®ğ   +ë‹òÁş+õÛ#Şë‰t$,‹t$p3Û+ÚÑû‹D$tM|ˆşÙ|õO+ÚM|ˆşÙ|çO+Úëâ‹D$,ƒø ı÷ÿÿÇD$¿õ¿ÿd$‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒÿƒßö3ş+ş,‹õÁıƒæt;÷ƒİÿƒà‰l$ x‹ò¯÷‹ùƒãt¯û+÷ƒøƒØÿ3Ç+Ç;ØÛ÷ÓÁş‹D$0‹|$4+û#ÙŞ+Ú|+Ú@‹t$h÷Ø;¾è   |;¾ğ   |PQRj WVÿ–Ô   ZYX‰|$¯|$p¾¨   ø‹®ğ   ‹t$ +õÀ#Æè+l$‰t$,‹t$p‹D$téğşÿÿ÷Ú÷Û;ÊŒå  ‹t$p÷Ş‰t$ÇD$™õ¿‹ğóñòƒæud÷Ø÷Û‹t$hÁøÁû;è   |;ğ   |PQRjSVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹ë+®è   E‹ñÁş3Û+ÙÑû‹D$t+Ê;Ñ{üÿÿéìûÿÿ;Ê„Í   ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒïö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒëÿ3ß+ß;ÃÀ÷ĞÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“‹t$h÷ß÷Ø;¾è   |;¾ğ   |PQRjWVÿ–Ô   ZYX‹ï+®è   E¯|$p¾¨   ø‹t$$ğ‹D$t+Ê;Ñ¦ûÿÿéûÿÿ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒÿƒßÿƒÿƒßö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒûƒÛÿƒûƒÛÿ3ß+ß;ÃÀ÷ĞÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“éÿÿÿÇD$õ¿‹ğóñòƒæul‹t$h÷Ø÷ÛÁøÁû;è   |;ğ   |PQRjSVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹ë+®è   E‹òÁş+õÛ#Şë‰t$,‹t$p÷Ş3Û+ÚÑû‹D$té~üÿÿ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒïö3ş+ş,‹õÁıƒæt;÷ƒİÿƒà‰l$ x‹ò¯÷‹ùƒãt¯û+÷ƒèÿ3Ç+Ç;ØÛ÷ÓÁş‹D$0‹|$4+û#ÙŞ+Ú|+Ú@‹t$h÷ß÷Ø;¾è   |;¾ğ   |PQRjWVÿ–Ô   ZYX‰|$¯|$p¾¨   ø‹l$‹¶è   N+ît$ î‰t$,‹t$p÷Ş‹D$té¨ûÿÿ÷Ú÷Û;ÊW  ÇD$õ¿‹ğóñòƒæum‹t$h÷ÛÁøÁû;è   |;ğ   |PQRjSVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹ë+®è   E‹òÁş+õÛ#Şë‰t$,‹t$p÷Ş»ÿÿÿÿ+ÚÑû‹D$téúöÿÿ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒïö3ş+ş,‹õÁıƒæt;÷ƒİÿƒà‰l$ x‹ò¯÷‹ùƒãt¯û+÷ƒèÿ3Ç+Ç;ØÛ÷ÓNÁş‹D$0‹|$4+û#ÙŞ+Ú|+Ú@‹t$h÷ß;¾è   |;¾ğ   |PQRjWVÿ–Ô   ZYX‰|$¯|$p¾¨   ø‹l$‹¶è   N+ît$ î‰t$,‹t$p÷Ş‹D$té%öÿÿ‹t$p÷Ş‰t$ÇD$™õ¿‹ğóñòƒæub÷Û‹t$hÁøÁû;è   |;ğ   |PQRjSVÿ–Ô   ZYX‹|$p¯û¾¨   ø‹ë+®è   E‹ñÁş3Û+ÙÑû‹D$t+Ê;Ñ6óÿÿé¨òÿÿ;Ê„Ñ   ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒÿƒßö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒûƒÛÿ3ß+ß;ÃÀ÷ĞÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“‹t$h÷ß;¾è   |;¾ğ   |PQRjWVÿ–Ô   ZYX‹ï+®è   E¯|$p¾¨   ø‹t$$+ğ‹D$t+Ê;Ñ]òÿÿéÏñÿÿ‹ğ‹ûÁşÁÿ‰t$0‰|$4<ƒçƒÿƒßÿƒÿƒßö3ş+ş,‹õÁıƒæt;÷ƒİÿƒã‰l$${‹ñ¯÷‹úƒàt¯ø+÷ƒûƒÛÿƒûƒÛÿ3ß+ß;ÃÀ÷ĞÁş‹\$0‹|$4+Ø#ÂÆ+Á|+ÁG“éÿÿÿS‹\$lQRV‹³ğ   +»¨   j VSÿ“Ô   »¨   ‹«ğ   +î^ZY[‹D$tÿd$S‹\$lQRV‹³è   N+»¨   jVSÿ“Ô   »¨   n+«è   ^ZY[‹D$tÿd$S‹\$lQRV‹³ğ   +»¨   Pj VSÿ“Ô   X»¨   ‹«ğ   +î+ÅÛ#Øë^ZY[‰D$,‹D$tÿd$S‹\$lQRV‹«è   M+»¨   PjUSÿ“Ô   X»¨   E+«è   +ÅÛ#Øë^ZY[‰D$,‹D$tÿd$‹ß‹L$$+ÈzïÿÿÁ÷Ø@ë%‹ß‹L$$+ÈédïÿÿÁ÷ØƒÀÁøÁûÁù„Nïÿÿ‹t$hƒù@Œ­   ÷   „¡   ‹¾  ¯û;H  |;P  |PQj SVÿ–4  YX¾¨   ‹èÁøøƒåt
+‰|$(GƒíÍ‹D$t‹ñ÷Ç   tˆGƒéÁéóf«sˆGºÅ  ƒæt‹Î¸ğ   ÒÀîPX‹D$tˆƒåt‹Í¸   ÓàîPX‹|$(‹D$tˆ°îé”îÿÿ‹|$p¯ûø;è   |;ğ   |Qj SVÿ–Ô   Y¾¨   ‹D$t÷Ç   t
+ˆGI„SîÿÿÑéóf«ƒHîÿÿˆéAîÿÿÌÌU‹ìƒÄˆVWS‹u‹] ‹FL‰E”ƒ}uƒ}0uƒ}$ t÷   „¬  ‹u‹C‰EØ‹ƒàø‰Eè‹E0‹S‰UÔÿ$…@²õ¿‹]‹s‹{+}è‰}ğ‹6ÇEì<!õ¿ë‹]‹s‹{+}è‹6ÇEì^!õ¿>‹ÏÁï}ƒá‹^DÁèƒÃÁë‹Uƒøw;ØÑĞ€ùÑĞ‹^ƒÆÿ$… ±õ¿‰Eø;Ø¸    ÑĞ€ùÑĞ‹^ƒÃÁë‰]ü‹^ƒÆÿ$…²õ¿‹]ÇEìà!õ¿‹{‹s+}è‰}ğ‹6>‹ÏÁïë‹]ÇEì"õ¿‹{‹s+}è‹6>‹ÏÁï‹C+EØ‰E˜F÷eEøƒá‹^DÁèƒÃÁë‹Uƒøw;ØÑĞ€ùÑĞ‹^ƒÆÿ$…À±õ¿‰Eø;Ø¸    ÑĞ€ùÑĞ‹^ƒÃÁë‰]ü‹^ƒÆÿ$…0²õ¿ÿM„ˆ  ‹]ƒÃ‰]‹s‹}ğ}‰}ğ‹6ëÿM„f  ‹]ƒÃ‰]‹s‹{‹6+}è>‹ÏÁï}ƒá‹^DÁèƒÃÁë‹Uƒøw;ØÑĞ€ùÑĞ‹^ƒÆÿ$…p±õ¿‰Eø;Ø¸    ÑĞ€ùÑĞ‹^ƒÃÁë‰]ü‹^ƒÆÿ$… ²õ¿ÿM„ä  ‹]ƒÃ‰]‹s‹}ğ}‰}ğ‹6ëÿM„Â  ‹]ƒÃ‰]‹s‹{‹6+}è>‹ÏÁï‹E˜F÷eEøƒá‹^DÁèƒÃÁë‹Uƒøw;ØÑĞ€ùÑĞ‹^ƒÆÿ$…À±õ¿‰Eø;Ø¸    ÑĞ€ùÑĞ‹^ƒÃÁë‰]ü‹^ƒÆÿ$…0²õ¿Š.FÒí/úKuôÿeìŠ.FÒíˆ/úKuôÿeìŠFˆúKuöÿeìŠFúKuöÿeìf‹ƒÆfÓÈˆgúKuíÿeìf‹ƒÆfÓÈf	úKuïÿeìf‹ƒÆfÓÈf‰úKuïÿeì+ÀŠ&FÓè'ˆGúKuïÿeì+ÀŠFfÓÈf	úKuğÿeì+ÀŠFfÓÈf‰úKuğÿeìf‹ƒÆf‰úKuòÿeìf‹ƒÆf	úKuòÿeìŠÒèf‹fÓÈˆgf‹FƒÆfÓÈˆgúKußÿeìŠÒèf‹fÓÈgf‹FƒÆfÓÈgúKußÿeìŠÒèˆf‹fÓÈˆgf‹FƒÆfÓÈˆgúKußÿeìöÙ€á+Àf‹ƒÆ†àÓàˆgˆGÁèúKuäÿeìöÙ€á+Àf‹ƒÆ†àÓà†àf	GÁèúKuäÿeìöÙ€á+Àf‹ƒÆ†àÓàˆgˆGÁèˆúKuäÿeìf‹f‰ŠFƒÆˆGúKuìÿeìf‹f	ŠFƒÆGúKuìÿeì‹ƒÆ†àÁÈ†àÓè†àf‰GÁèˆG'úKußÿeì‹ƒÆ†àÁÈ†àÓè†àÁÈ†Ä	úKuäÿeì‹ƒÆ†àÁÈ†àÓè†àÁÈ†à‰úKuäÿeìf‹†àÁàŠfƒÆÓè†àf‰GÁèˆG'úKuİÿeìf‹†àÁàŠfƒÆÓè†àÁÈ†à	úKuâÿeìf‹†àÁàŠfƒÆÓè†àÁÈ†à‰úKuâÿeì‹ƒÆ‰úKuôÿeì‹ƒÆ	úKuôÿeì‹Eø‹U+Ğ‰UÜH‹Uü+Ğ‰Uà‰EôŠÒèG‹Uôf‹FfÓÈˆ'GJuóuà}ÜKuàÿeì‹Eø‹U+Ğ‰UÜH‹Uü+Ğ‰Uà‰EôŠÒèG‹Uôf‹FfÓÈ'GJuóuà}ÜKuàÿeì‹Eø‹U+Ğ‰UÜ‹EøH‹Uü+Ğ‰Uà‰EôŠÒèˆG‹Uôf‹FfÓÈˆ'GJuóuà}ÜKuàÿeì‹EøH‹U+Ğ‰UÜH‹Uü+Ğ‰Uà‰EôŠÒèG‹Uôf‹FfÓÈˆ'GJuóŠ&*ÀÓèˆuà}ÜKuØÿeì‹EøH‹U+Ğ‰UÜH‹Uü+Ğ‰Uà‰EôŠÒèG‹Uôf‹FfÓÈ'GJuóŠ&*ÀÓèuà}ÜKuØÿeì‹EøH‹U+Ğ‰UÜH‹Uü+Ğ‰Uà‰EôŠÒèˆG‹Uôf‹FfÓÈˆ'GJuóŠ&*ÀÓèˆuà}ÜKuØÿeì‹U‹Eø+ĞÑèrÑèr"‹Èó¥úKu÷ÿeìÑèr*B‹Èó¥ŠFˆúKuòÿeìƒÂ‹Èó¥f‹ƒÆf‰úKuîÿeìƒÂ‹Èó¥f‹f‰ŠNƒÆˆOúKuèÿeì‹U‹Eø+ĞÑèrÑèr<S‹Ø‹ƒÆ	ƒÇKuóú[KuêÿeìÑèrDBS‹Ø‹ƒÆ	ƒÇKuóŠFú[KuåÿeìƒÂS‹Ø‹ƒÆ	ƒÇKuóf‹f	ƒÆú[KuáÿeìƒÂS‹Ø‹ƒÆ	ƒÇKuóf‹f	ŠNOƒÆú[KuÛÿeìƒ}$ …W  ‹u ‹]‹F‹ƒâøƒÀ+ÂÁè‰Eä‹‹¼   ‰MÌÁà+È‰MÜ‹F÷eÌ‹}èø‹F‰EØ‹u;ƒè   |;ƒğ   |
+j PSÿ“Ô   »¨   ‹UÔ;“ğ   |‹“ğ   +UØŠE(Šà‹ØÁàf‹Ã+Û‹MäŠ"Û„  Àëÿ$`²õ¿}ÜJuã‹]‹ƒğ   9EÔ[_^ÉÂ, ‰EØ+»¨   j PSÿ“Ô   »¨   ë‰Šƒãÿ$ ²õ¿f‰ˆGŠƒãÿ$ ²õ¿f‰ˆGŠƒãÿ$ ²õ¿f‰Šƒãÿ$ ²õ¿ˆf‰GŠƒãÿ$ ²õ¿ˆŠƒãÿ$ ²õ¿f‰GŠƒãÿ$ ²õ¿ˆGˆGŠƒãÿ$ ²õ¿ˆGŠƒãÿ$ ²õ¿ˆGf‰GŠƒãÿ$ ²õ¿ˆˆGŠƒãÿ$ ²õ¿ˆˆGŠƒãÿ$ ²õ¿FƒÇI„øşÿÿŠ"ÛtïÀëÿ$`²õ¿‰GFƒÇI„ÚşÿÿŠ"ÛtÑÀëÿ$`²õ¿f‰GˆGFƒÇI„¸şÿÿŠ"Ût¯Àëÿ$`²õ¿f‰GˆGFƒÇI„–şÿÿŠ"ÛtÀëÿ$`²õ¿f‰GFƒÇI„wşÿÿŠ"Û„jÿÿÿÀëÿ$`²õ¿ˆGf‰GFƒÇI„QşÿÿŠ"Û„DÿÿÿÀëÿ$`²õ¿ˆGFƒÇI„/şÿÿŠ"Û„"ÿÿÿÀëÿ$`²õ¿f‰GFƒÇI„şÿÿŠ"Û„ÿşÿÿÀëÿ$`²õ¿ˆGˆGFƒÇI„çıÿÿŠ"Û„ÚşÿÿÀëÿ$`²õ¿ˆGFƒÇI„ÅıÿÿŠ"Û„¸şÿÿÀëÿ$`²õ¿ˆGf‰GFƒÇI„ŸıÿÿŠ"Û„’şÿÿÀëÿ$`²õ¿ˆGˆGFƒÇI„zıÿÿŠ"Û„mşÿÿÀëÿ$`²õ¿ˆGˆGFƒÇI„UıÿÿŠ"Û„HşÿÿÀëÿ$`²õ¿‹]‹u ‹ƒ  ‰EÌ+À‰E‰EŒ‹F‹Øƒã‹‰U¨Š‹ä²õ¿‹Úƒã‰M Š‹à²õ¿‰M¤ƒâøH+ÂÁè‰EÄ‹‹FƒâüƒÀ+ÂÁèƒøu.¹(.õ¿‹]¤#] €ûÿtv‰]¤H¹È-õ¿÷   …„   ÇE   ë{Pÿ‰Uˆ÷   t&H¹È-õ¿÷   uÇE   ÷F   t,H¹.õ¿ë¹(.õ¿÷F   tH¹ı-õ¿÷F   uÇEŒ   ‹}Ì+ø‰}Ü‹‹~ƒÂƒâøƒÇ+úÁï+}÷ß‰}à‰M¼‹ĞÇE¸×,õ¿+ÿÑê‰U´ÿ‰}¬J‰U°ƒø ‰M¸‹]‹EØ‹È÷eÌ‹>Áïø;‹H  |;‹P  |
+j QSÿ“4  »¨   +À‹ƒâ;ÂÀ‹U,ˆ8Š8ºÎ  ŠcF°fï¸  fïŠe,2e(°fï‰}À‹UÔ;“P  |‹“P  +UØ‰UĞÿe¸‹u‹E¨©   t	G©   tF‹]”‹UĞ÷Ç   uƒ}¬ué‘   ƒ}¬uRë"‹M´ŠŠFŠàÀèf‰ƒÇIuíuà}ÜJuáÿe¼ŠFŠˆG‹M´…ÉtŠŠFŠàÀèf‰ƒÇIuíuà}ÜJuÕÿe¼ŠFŠˆG‹M°…ÉtŠŠFŠàÀèf‰ƒÇIuíŠFŠÁèˆGuà}ÜJuÊÿe¼‹M´…ÉtŠŠFŠàÀèf‰ƒÇIuíŠFŠÁèˆGuà}ÜJuÒÿe¼h .õ¿‹u‹}À‹M‹E¤UºÅ  î‹UÌ‹EĞ‹]”‹mŠÒëõŠˆúHuñ]Ãh .õ¿‹uÄu‹}ˆ}À‹MŒ‹E ëÃè²ÿÿÿèâÿÿÿ°ºÅ  î‹]‹ƒP  9EÔ!ºÏ  °ÿî‹uJŠfD°fï¸   fï[_^ÉÂ, ‹u ‰EØ‹È÷eÌ‹>Áïøj QSÿ“4  »¨   ‹E÷eĞEé3şÿÿ‹u‹{‹C+ø;†H  |;†P  |
+j PVÿ–4  ‹†P  +C;øñÿÿ‰}œ‹C÷¦  ‹;Áïø¾¨   ‰}À‹E,ˆŠºÎ  ŠfF°fï¸  fïŠe,2e(°fï‹–  ‹M‹]ƒE‹}À‹sƒEÀ‹Mœ‹6‹]”ƒÆŠFŠŠàÀèf‰úIuîÿMuÍºÏ  °ÿî‹uJŠfD°fï¸   fï[_^ÉÂ, U‹ìºÎ  °îBì%ü   Šà‹ĞÁâÂ‹U ‰ÉÂ W‹|$‹L$+Àó«_Â U‹ìÄÈıÿÿVWS‹u‹M‹UDÊø‰Eô‹‰…ğıÿÿ‹‹z‹U‹2‹J‹](;ğ~	–‡ÏË   +Æ€  +ù€  }÷Ù÷ßƒË;øruƒËë—‡ñƒË‹Óƒâšè²õ¿‰Eì‰}ä‰]à‹ÖÁú‰UÜ‹ÑÁú‰UØƒæƒá‰uğ‰MèQ÷â—‹Ê÷æÀÏøÊ¬ÏÁù‰MĞ‰}Ô‹EèöÇ…Ø   ötÀuÀËƒŞøÁîëƒèÒ3Â+Â;ğöFÇEÄ    ‹Ã%   =   u3‹EèEäƒà‹UğUìƒâtƒÂ;ĞuÇEÄÿÿÿÿ‹EğÀt
+ƒÀ;Eèu3ö‹Eä‹Uì‰uÌÇEÈ    ƒù |÷Ş#ğ+Ö;ú‹UìrÇEÈ   ‹uğò‹ÎÁîNuÄƒá„*  EèƒàuÀËƒÙøÁéñé  ƒèÒ3Â+Â;Á  Féû   ÇEÌ   Àu3ÒÀËƒŞøÁît(ÇEÌ   ‹UäëƒèÒ3Â+ÂÆ3Òƒø~
+ÇEÌ   ‹UäÇEÄ    ‹Ã%   ƒøu=‹EèEäƒàt‹uğuìƒæƒÀ;ğuÇEÄ   ‹EèÀt‹uğƒÀ;Æu
+ÇEÌ   ‹Uä‹EäÇEÈ    úƒÑ ‹Uì|!+È;ùs+Ê;ùrÇEÈ   ëÇEÈ   ‹uğò‹ÎÁîuÄƒáEèƒàuÀËƒÙøÁéñëƒèÒ3Â+ÂÁƒøƒŞÿ‹MÌV+Ñ¯  ‰UÀ‰M¼öÃ`…–  ‹EÈ+ñF‰u´‹uMÜEØ‹¶¼   öÃt‘öÃt÷Ø÷Ş‰µØıÿÿöÇ…º  U„‰U ÇEü    ÇEøÿÿÿ‹u;†è   |;†ğ   |‰Eœ‹ù‹ËÁéƒáQPVÿ–Ô   ‹Eœ‹ÏöÃt'öÃtx+¾è   ë‹¾ğ   +ø‹u´+÷‰uü~S‰}´ëN‹}äÁï}ØƒÇöÃtº   +–è   ;ú|Ë    ë‹¶ğ   ‹Ö+Ğ;ş|Ë    ƒêd‰Uø}T•„‰U ‹u‹ø÷®¼   †¨   Á‰…Èıÿÿ‹Eì‹Mä‹uÔ‹}Ğ	;Ğ‹UÈv ÷Ã    uƒË‰]à÷Ö÷×ğƒ× ÷ÙÈ÷ÚUÌ‰àıÿÿƒã‹E$˜‹ ‰E¸‹EìÉtaB÷âùÆ×÷ñ‹ğ‹ú3Ò‹Eì÷ñ‰E¨+uÌF…ôıÿÿ‹]´+ù+Şù   ‰0ƒÀ9E v/‹u¨ú|ç+ùF+Şİ   ‰0ƒÀ9E v‹u¨ú|Ë+ùFëÆ¾ÿÿÿë´‰U¤‰]´‰u°‰}¬‰Mä•Èıÿÿ‹MPQRÿU¸‹EøÀp‹u÷Eà   t4‹½Èıÿÿ+¾¨   ‹è   KjSVÿ–Ô   C+†è   ¾¨   ‰½Èıÿÿë0‹½Èıÿÿ+¾¨   ‹ğ   j SVÿ–Ô   ‹†ğ   +Ã¾¨   ‰½ÈıÿÿU„ƒèd‰Eø}‚‰U ‹u°‹}¬‹]´‹U¤‹Mä…ôıÿÿéÿÿÿŞ‰ƒÀƒ}ü S•Èıÿÿ‹MPQRÿU¸‹](öÃ@u)‹U;Uôt‹2‹JƒÂ‰U‹‹zéºúÿÿ¸   [_^ÉÂ$ ‹]àÿMtìƒãı‰]àé­  ‰U¤‰u°‰}¬‰Mä+Ş•Èıÿÿ‹MPQRÿU¸‹u÷Eà   tD‹½Èıÿÿ+¾¨   ‹è   QIjQVÿ–Ô   Y+è   ¾¨   ‰½Èıÿÿ‹Uü…ôıÿÿÛˆ   ë?‹½Èıÿÿ+¾¨   ‹ğ   Qj QVÿ–Ô   X‹ğ   +È¾¨   ‰½Èıÿÿ‹Uü…ôıÿÿÛ}G÷Eà   tÿ…ÈıÿÿëÿÈıÿÿ‹ó÷Ş;Ñ~;ñ|‰ƒÀÙ+Ñ‰Uüé.ÿÿÿ;ò|
+‰ƒÀé¿şÿÿ‰0ƒÀÚ+Ñ~+Ú‰Uü‹}¬‹U¤‹Mäé¥ıÿÿ‹u‰M˜‹~‹×UÀâÿÿÿ‰V‰EœöÇt +UÌU¼‹Â3Ò÷v÷Ú}V÷Ğ‹~,÷×‹Në}Ì+}¼‹Ç3Ò÷v‹~,‹N#F $t÷×‹F ‰äıÿÿDü‰…èıÿÿ+|ƒÁë÷‰Ğıÿÿ÷Ú‰•Ôıÿÿ+äıÿÿ÷Á   t÷×‰½Ìıÿÿ‹Eœ‹M˜é ûÿÿöÃ@…ì   ‹} ƒã<Ÿ‹W‹‹_‹+UÜ;ÊŸ   +EÜ;ğŒ”   +]Ø9]Èˆ   +}Ø‰UŒ‰E;ò|rÿ‹Æ÷eäEÔUĞ÷uì;øf;Ø‹Ã÷eìùEÔUĞ÷uä‹ğ‹UÈ‹E;Á~‹È÷eäEÔUĞ÷uì;Ø~5‹Ğ‰EÈ‹]à‰MÌ;úÅúÿÿ‹Ç÷eìùEÔUĞ÷uäH9MŒ~‰}È‰MÌé£úÿÿ‹]àöÇ„7ıÿÿ‹u‹FEÀ‰F;F‚"ıÿÿ3Ò÷v‰Véıÿÿ‹Eä‰E”‹}‹M¼öÇtMÀI‹ñ+O+7ë‹ñw‰MÌƒÇ‰}‹}‹G‰G‹E”‰Eä÷áEÔUĞ÷uì‰EÈé%úÿÿh7?õ¿é  hû>õ¿éÁ  hû>õ¿é  h7?õ¿éd  h7?õ¿h¿>õ¿éä  hû>õ¿h¿>õ¿é  hû>õ¿hƒ>õ¿éè  h7?õ¿hƒ>õ¿é(  h7?õ¿é-  hû>õ¿éç  h¡Aõ¿éı  heAõ¿é†  heAõ¿é¹  h¡Aõ¿é  h¡Aõ¿h)Aõ¿éĞ  heAõ¿h)Aõ¿éT  heAõ¿hí@õ¿é‚  h¡Aõ¿hí@õ¿éÉ  h¡Aõ¿é  heAõ¿éÙ  U‹ìƒÄ˜VWS‹u‹}‹N‰Mğ‹‹Gƒá;Á…~  ÷   …l  ‹uºÎ  ŠfF€Ì°fïG‰E¼³õ¿‰Eü‹Mƒáƒù…|  è7   ‹uºÎ  ŠfD°fïºÅ  °îƒ}u[_^ÉÂ ¸   ºÎ  fï[_^ÉÂ ‹}‹U‹G‹_‹’  ‰UÈ‰EÀ‰]Ä‹Ê¯Ë+]ğƒã‰]ô‹ÁëÙ‹GÁèÁ‰EĞ3ö‹ƒát¾   Óæ‰uÔ¾   ‰]ØC+Ã‰]ìƒãó‹Oƒát»ğ   ÒÃ‰]ÌƒÎƒø }ƒæı#]Ô‰]Ô3À‹]üƒøöÑèö‰EÜ+Ğ+Ğ‰Uè‹³‰Eø‹]‹;»H  |;»P  |
+j WSÿ“4  ‹EÀ‹›P  +ÃÉ#ÈÙ‰]Ä+ß‰]äÿUø‹}Ä;}À}‹]‰uôj WSÿ“4  ëÊƒEÿMûşÿÿÃ‰O+ÈÒGÒGÒG ÒG!ÒG$ÒG%ÒG(ÒG)ÒG,ÒG-ÒG0ÒG1ÒG4ÒG5ÒG8ÒG9éHşÿÿ€¹µõ¿ tj j jÿuÿuÿuèš  ‹MƒáŠ¡µõ¿€ü tºÎ  °fïˆ³õ¿‰]üuœ‰u¼‹´õ¿‹L´õ¿‹4´õ¿‹G#ÃÂ3Æ‰Eœ‹G #ÃÂ3Æ‰E ‹G$#ÃÂ3Æ‰E¤‹G(#ÃÂ3Æ‰E¨‹G,#ÃÂ3Æ‰E¬‹G0#ÃÂ3Æ‰E°‹G4#ÃÂ3Æ‰E´‹G8#ÃÂ3Æ‰E¸éÄıÿÿG‰E¼³õ¿‰Eüè)   ºÏ  °ÿî‹uJŠfD°fï¸   fïºÅ  °î[_^ÉÂ ‹}‹U‹G‹_‹’  ‰UÈ‰EÀ‰]Ä‹Ê¯Ë+]ğƒã‰]ô‹ÁëÙ‹GÁèÁ‰EĞ3ö‹ƒát¾   Óæ‰uÔ¾   ‰]ØC+Ã‰]ìƒãó‹Oƒát»ğ   ÒÃ‰]ÌƒÎƒø }ƒæı#]Ô‰]Ô3À‹]üƒøöÑè‰EÜö+Ğ+Ğ‰Uè‹³‰Eø‹]÷Æ   tU‹sh‹F;ƒH  |;ƒP  |
+jPSÿ“4  ‹M‹v³¨   ‹AˆŠ‹;»H  |;»P  |?j WSÿ“4  ‹Më0‹;»H  |;»P  |
+j WSÿ“4  ‹M‹uì³¨   ‹AˆŠ‹uºÎ  ŠfF°fï¸  fïŠa2a°fï‹EÀ‹›P  +ÃÉ#ÈÙ‰]Ä+ß‰]äh:õ¿ÿeøºÅ  °î‹}‹]ä‰]à‹]¼‹UèƒÂ‹uô‹¿¨   }ìG‹³ˆgÿ‹MÜIóf«FƒæˆúÿMàuæ‹M+¹¨   O‰}ìÃºÅ  °î‹}‹]ä‰]à‹]¼‹Uè‹uô‹¿¨   }ìG‹³ˆgÿ‹MÜóf«FƒæúÿMàué‹M+¹¨   O‰}ìÃºÅ  °î‹}‹]ä‰]à‹]¼‹Uè‹uô‹¿¨   }ì‹³‹MÜóf«FƒæˆúÿMàuê‹M+¹¨   ‰}ìÃºÅ  °î‹}‹]ä‰]à‹]¼‹Uè‹uô‹¿¨   }ì‹³‹MÜóf«FƒæúÿMàuì‹M+¹¨   ‰}ìÃºÅ  ‹EÔî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ø‹±ˆFƒæúKuò‹M+¹¨   ‰}ØÃºÅ  ‹EÔî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ø‹±ˆ'FƒæúKuò‹M+¹¨   ‰}ØÃºÅ  ‹EÌî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ğ‹±ˆ'FƒæúKuò‹M+¹¨   ‰}ĞÃºÅ  ‹EÌî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ğ‹±ˆFƒæúKuò‹M+¹¨   ‰}ĞÃºÅ  °î‹}‹Uä‰Uà‹U¼‹¿¨   }ì‹uô‹]Ü‹²Fƒæ ' GƒÇKuõ}èÿMàt‹²Fƒæ‹]Üëá‹M+¹¨   ‰}ìÃºÅ  °î‹}‹Uä‰Uà‹U¼‹¿¨   }ì‹uô‹]Ü‹²FƒæÛt)ÇE˜ş?õ¿ ' GƒÇKuõ '}èÿMàt‹²Fƒæ‹]Üÿe˜ÇE˜	@õ¿ëà‹M+¹¨   ‰}ìÃºÅ  °î‹}‹Uä‰Uà‹U¼‹¿¨   }ì‹uô‹]Ü‹²FƒæÛt)ÇE˜k@õ¿  gƒÇKuõ }èÿMàt‹²Fƒæ‹]Üÿe˜ÇE˜v@õ¿ëà‹M+¹¨   ‰}ìÃºÅ  °î‹}‹Uä‰Uà‹U¼‹¿¨   }ì‹uô‹]Ü‹²Fƒæ  gƒÇKuõ}èÿMàuã‹M+¹¨   ‰}ìÃºÅ  ‹EÔî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ø‹± FƒæúKuò‹M+¹¨   ‰}ØÃºÅ  ‹EÔî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ø‹± 'FƒæúKuò‹M+¹¨   ‰}ØÃºÅ  ‹EÌî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ğ‹± 'FƒæúKuò‹M+¹¨   ‰}ĞÃºÅ  ‹EÌî‹}‹]ä‹M¼‹UÈ‹uô‹¿¨   }Ğ‹± FƒæúKuò‹M+¹¨   ‰}ĞÃU‹ìVWS‹u¹    ŠŠf8Äu2ƒÆItPŠ&8Äu6ëëƒÆItBŠ8ãt(8Ãu/Š^8ãt8Ãtå3À[_^ÉÂ ƒÆItŠ8Ãtà8ãuŠ^8ÃtÅ8ãtå3À[_^ÉÂ 8àr†Ä¹   ‹u‹ş8fÛ8fÛ8fÛ8fÛ8fÛ8fÛ8fÛ8&ÛŠûÀÏ‰ƒÇƒÆIuÉ‹u‹}ˆˆ'¸   [_^ÉÂ Ìh
+Jõ¿éÏ  hIõ¿é  h
+Jõ¿hIõ¿éı  hIõ¿é5  hÈIõ¿é¢  hÈIõ¿hIõ¿é  U‹ìƒÄ¨VWSºÎ  ¸   fï‹u‹}‹F;G|‹;}0éè   ‹;¦  éh  ºÎ  ¸ÿ  fïºÅ  °îü[_^ÉÂ ‹U‹G‹’  ‰E¨‹N‹Â‰M°¯Á‹‰M´ÁéÁ3ö‹O‹Ú‰M¬¯Ù‹‰M¼ÁéÙ‹‰}ÄÁï+ù‹M¼ƒátƒÎ‹$µõ¿‰MĞ‰Eä‰]à@CO‰Eø‰]ô‹MÄƒát&ƒÎ‹4µõ¿‰MÌÇß‰EÜ‰]Øƒÿ }
+Gƒö#MĞ‰MĞ‰}è‰UÔ+×‰Uğ‹]‹µÔ´õ¿‰Eü‹ƒ  ÿ$…ô´õ¿ı‹U‹G‹’  ‰E¨‹N‹Â‰M°¯Á‹‰M´O+ÁéÁ¾   ‹O‹Ú‰M¬¯Ù‹O‰MÄÁéÙ‹?‰}¼Áï÷ßù‹MÄƒátƒÎ‹4µõ¿‰MÌ‰EÜ‰]ØHK‰Eø‰]ô‹M¼ƒát'ƒÎ‹$µõ¿‰MĞO+Ç+ß‰Eä‰]àƒÿ }
+Gƒö#MÌ‰MÌ‰}è‰UÔ×‰Uğ‹]‹µÔ´õ¿‰Eü‹ƒ  ÿ$…ô´õ¿‹U‹G‹’  ‰E¨‹NO+O‹Â‰M°I¯Á‹‰M´ÁéÁ3ö‹O‹Ú‰M¬I¯Ù‹‰M¼ÁéÙ‹‰}ÄÁï+ù‹M¼ƒátƒÎ‹$µõ¿‰MĞ‰Eä‰]à@CO‰Eø‰]ô‹MÄƒát&ƒÎ‹4µõ¿‰MÌÇß‰EÜ‰]Øƒÿ }
+Gƒö#MĞ‰MĞ‰}è÷Ú‰UÔ+×‰Uğ‹]‹µÔ´õ¿‰Eü‹ƒ  ÿ$…µõ¿ı‹U‹G‹’  ‰E¨‹NO+O‹Â‰M°I¯Á‹‰M´O+ÁéÁ¾   ‹O‹Ú‰M¬I¯Ù‹O‰MÄÁéÙ‹?‰}¼Áï÷ßù‹MÄƒátƒÎ‹4µõ¿‰MÌ‰EÜ‰]ØHK‰Eø‰]ô‹M¼ƒát'ƒÎ‹$µõ¿‰MĞO+Ç+ß‰Eä‰]àƒÿ }
+Gƒö#MÌ‰MÌ‰}è÷Ú‰UÔ×‰Uğ‹]‹µÔ´õ¿‰Eü‹ƒ  ÿ$…µõ¿‹]‹}¬;»H  |;»P  |
+j WSÿ“4  ‹E°;ƒP  |q‰E¸‰}À‹³P  ‹E¨+ÆÉ#Èñ‰uÈºÎ  ¸ÿ  fïºÅ  °îœüM¼U´RQj j Sèn,  ºÎ  ¸   fï‰u¬+÷u°‹UÔ¯ÖUäUàUøUôUÜUØë%‹›P  +Ø‹U¨+×+ÚÉ#ËÑ‰UìÂú‰E°‰}¬ÿUü‹}¬;}¨ùûÿÿ‹]j WSÿ“4  éAÿÿÿ‹]‹}¬;»H  ~;»P  ~Oj WSÿ“4  G‹E°;ƒH  s‹³H  ‹U¨;ò‹ò‰uÀ‰}ÈÆ+Ç‰E¸ºÎ  ¸ÿ  fïºÅ  °îœüM¼U´RQj j Sè‹+  ºÎ  ¸   fï‰u¬+ş)}°‹UÔ¯×UäUàUøUôUÜUØë+ƒH  +}¨+ÇÉ#Èù‰}ì)}°)}¬ÿUü‹}¬;}¨ûÿÿ‹]Oj WSÿ“4  GéEÿÿÿ‹]‹}¬‹u°;»h  |;»p  |jj WSÿ“8  ;³X  |;³`  |j j VSÿ“8  ‹‹p  ‹U¨+ÊÀ#ÁĞ‹‹`  +×+Î+ÊÀ#ÁĞ‰Uìòú‰u°‰}¬ÿUü‹}¬;}¨Šúÿÿ‹]‹u°;»p  |jj WSÿ“8  ;³`  |Ÿj j VSÿ“8  ë‘‹]‹}¬‹u°;»h  ~;»p  ~OjjWSÿ“8  G;³X  ~;³`  ~Nj jVSÿ“8  F‹‹h  ‹U¨;Ñ‹Ñ+ú+³X  +÷À#Æø‰}ì)}°)}¬ÿUü‹}¬;}¨Şùÿÿ‹]‹u°;»h  OjjWSÿ“8  G;³X  ¥Nj jVSÿ“8  Fë•ºÅ  °î‹}‹Eè‹]ì‹Uğ‹·¬   ‹¿°   uø}ô‹Èó¤òúKuõ‹M+±¬   +¹°   ‰uø‰}ôÃºÅ  ‹EĞî‹M‹]ì‹UÔ‹±¬   ‹¹°   uä}àŠˆòúKuõ+±¬   +¹°   ‰uä‰}àÃºÅ  ‹EÌî‹M‹]ì‹UÔ‹±¬   ‹¹°   uÜ}ØŠˆòúKuõ+±¬   +¹°   ‰uÜ‰}ØÃU‹ìƒÄğVWS‹u‹]‹~;»è   |
+‹“ğ   ;ú|j WSÿ“Ô   ‹“ğ   ‹F+Â‰EøÉ#ÈÑ+×‹ƒÀƒàü‹}‹M¯OÈ+M‰Mğ‹»¼   ¯~ø»¨   ‹N+È|3‹Áƒáü+Á‹6ƒæÁàğ‹›¼   +Ù‹E+ÁÁé‰Mü‹µhKõ¿‹uğ‰Môÿá+È+ø)Eğ‹›¼   ‹EI‹¨Kõ¿‹uğ‰Môÿáƒ}ø [_^ÉÂ VS‹]P‹³ğ   +»¨   j VSÿ“Ô   »¨   ‹“ğ   +Ö‹Eø+Â‰EøÉ#ÈÑX[^ÿeô´Kõ¿úLõ¿€Lõ¿Lõ¿ÅKõ¿Mõ¿™Lõ¿%Lõ¿ÚKõ¿<Mõ¿¶Lõ¿@Lõ¿ñKõ¿aMõ¿ÕLõ¿]Lõ¿ŒMõ¿œMõ¿®Mõ¿‹Müó¥ğûJuôéWÿÿÿ‹Müó¥ŠˆğûJuğéBÿÿÿ‹Müó¥f‹f‰ğûJuîé+ÿÿÿ‹Müó¥f‹f‰ŠNˆOğûJuèéÿÿÿŠNÿˆOÿ‹Müó¥ğûJuîé÷şÿÿŠNÿˆOÿ‹Müó¥ŠˆğûJuêéÜşÿÿŠNÿˆOÿ‹Müó¥f‹f‰ğûJuèé¿şÿÿŠNÿˆOÿ‹Müó¥f‹f‰ŠNˆOğûJuâéœşÿÿf‹Nşf‰Oş‹Müó¥ğûJuìéƒşÿÿf‹Nşf‰Oş‹Müó¥ŠˆğûJuèéfşÿÿf‹Nşf‰Oş‹Müó¥f‹f‰ğûJuæéGşÿÿf‹Nşf‰Oş‹Müó¥f‹f‰ŠNˆOğûJuàé"şÿÿŠNıˆOıf‹Nşf‰Oş‹Müó¥ğûJuæéşÿÿŠNıˆOıf‹Nşf‰Oş‹Müó¥ŠˆğûJuâéàıÿÿŠNıˆOıf‹Nşf‰Oş‹Müó¥f‹f‰ğûJuàé»ıÿÿŠNıˆOıf‹Nşf‰Oş‹Müó¥f‹f‰ŠNˆOğûJuÚéıÿÿŠˆğûJuõé€ıÿÿf‹f‰ğûJuóénıÿÿf‹f‰ŠNˆOğûJuíéVıÿÿÌÌU‹ìVWS‹uU‹m‹F‰E ‹F(ŠÜŠüŠà‹>ƒÆ,‹ƒÆ÷Ç   uFƒé|,tf‹#Ğ3Óf‰ƒÇëêf‹#Ğ3Óf‰ƒÇ} ;õs6‹ƒÆëÏŠ"Ğ2ÓˆG} ;õs‹ƒÆŠ"Ğ2ÓˆGIu®} ;õs‹ƒÆë ]‹u‰>[_^ÉÂ U‹ìVWS‹uU‹m‹NA‹F(‹>ƒÆ,‹ƒÆŠ"Ğ2ÔˆùKuó+ùG;õrç]‹u‰>[_^ÉÂ U‹ìVWS‹uU‹m‹NA‹F(‹>ƒÆ,‹ƒÆŠ"Ğ2ÔˆùKuóO;õré]‹u‰>[_^ÉÂ U‹ìVWS‹uU‹m‹N‹F(‹>ƒÆ,‹ƒÆŠ"Ğ2ÔˆùKuóG;õré]‹u‰>[_^ÉÂ U‹ìƒÄğVWS‹u‹F‰Eô‹F ‰Eø‹^+Øƒë‰]ğ‹V‰Uü‹F(‹N‹V‹>ƒÆ,‹ƒÆÒt ëq}üƒÁ9MøÒ#UğÊ‹]üP‹‰EüX÷ÛtŠ"Ğ2ÔˆGÿMüt.Kuï}ô;us‹ƒÆëà‹u‰>ÇF    ‹}ü‰~‰N[_^ÉÂ ƒÁ9MøÒ#UğÊKP‹‰EüXtû)]ü~ˆ}ô;us‹ƒÆëê‹u‰>ÇFÿ   ‹}ü‰~‰N[_^ÉÂ U‹ìƒÄìVWS‹u‹F‹^÷Ã   t@‰EôÇEğÿÿÿÿ÷Ã   u÷Ø@‰Eğë
+‰EôÇEğ   ‹F ‰Eø‹^+Øƒë‰]ì‹V‰Uü‹F(‹N‹V‹>ƒÆ,‹ƒÆÒtëpƒÁ9MøÒ#UìÊ‹]üP‹‰EüX÷ÛtŠ"Ğ2Ôˆ}ôÿMüt.Kuí}ğ;us‹ƒÆëŞ‹u‰>ÇF    ‹}ü‰~‰N[_^ÉÂ ƒÁ9MøÒ#UìÊKP‹‰EüXt)]üÒ#UüÚ‹Uô¯Óúƒ}ü tÿÿÿ}ğ;us‹ƒÆëÕ‹u‰>ÇFÿ   ‹}ü‰~‰N[_^ÉÂ U‹ìVWS‹uU‹m‹F‰E ‹F(ŠÜŠüŠà‹>ƒÆ,‹ƒÆ÷Ç   u2ƒé|tf‰ƒÇëñf‰ƒÇ} ;õs*‹ƒÆëİˆG} ;õs‹ƒÆˆGIuÈ} ;õs‹ƒÆëº]‹u‰>[_^ÉÂ U‹ìVWS‹uU‹m‹NA‹F(‹>ƒÆ,‹ƒÆˆ'ùKuù+ùG;õrí]‹u‰>[_^ÉÂ U‹ìVWS‹uU‹m‹NA‹F(‹>ƒÆ,‹ƒÆˆ'ùKuùO;õrï]‹u‰>[_^ÉÂ U‹ìVWS‹uU‹m‹N‹F(‹>ƒÆ,‹ƒÆˆ'ùKuùG;õrï]‹u‰>[_^ÉÂ U‹ìƒÄğVWS‹u‹F‰Eô‹F ‰Eø‹^+Øƒë‰]ğ‹V‰Uü‹F(‹N‹V‹>ƒÆ,‹ƒÆÒt ëk}üƒÁ9MøÒ#UğÊ‹]üP‹‰EüX÷Ûtˆ'GÿMüt.Kuõ}ô;us‹ƒÆëæ‹u‰>ÇF    ‹}ü‰~‰N[_^ÉÂ ƒÁ9MøÒ#UğÊKP‹‰EüXtû)]ü~}ô;us‹ƒÆëê‹u‰>ÇFÿ   ‹}ü‰~‰N[_^ÉÂ U‹ìƒÄìVWS‹u‹F‹^÷Ã   t@‰EôÇEğÿÿÿÿ÷Ã   u÷Ø@‰Eğë
+‰EôÇEğ   ‹F ‰Eø‹^+Øƒë‰]ì‹V‰Uü‹F(‹N‹V‹>ƒÆ,‹ƒÆÒtëjƒÁ9MøÒ#UìÊ‹]üP‹‰EüX÷Ûtˆ'}ôÿMüt.Kuó}ğ;us‹ƒÆëä‹u‰>ÇF    ‹}ü‰~‰N[_^ÉÂ ƒÁ9MøÒ#UìÊKP‹‰EüXt)]üÒ#UüÚ‹Uô¯Óúƒ}ü zÿÿÿ}ğ;us‹ƒÆëÕ‹u‰>ÇFÿ   ‹}ü‰~‰N[_^ÉÂ U‹ìƒÄ¨VWS‹u‹¾œ  ‰}¨‹u‹}‹F‹‰U¬+Â‹O‰MÄ‹‰UÀ+Ê;Á}+Àéh  ÇEĞWõ¿+Ò÷ñ‰E¸‹òÒ‰U¼ÑèsñE¬É‰M´+ñ‹]#ÛtF‹C;EÄ}‰EÄ‹;EÀ~(‹UÀ‰EÀ+Â‹È÷e¼ğƒÒÿs‹Æ÷u´+U´‹ò@¯M¸ÁE¬‹EÀ9EÄö  ‹E¸‹}¨‰}ü‹U¼‹]´‹MÄ+MÀQUhòs+ó‰/ƒÇItòrò‰ƒÇIuæÇ    ]Y‹}ƒ}  tPƒùwÇEÔXõ¿‰Møé‡   ‹Ñ÷   uÇEÔËWõ¿Ñê‰UøsoÇEÔ^Xõ¿ëfÇEÔîWõ¿Ñê‰UørXÇEÔXõ¿J‰UøëKƒùwÇEÔ½Wõ¿‰Møë:‹Ñ÷   uÇEÔ=Wõ¿Ñê‰Uøs"ÇEÔWõ¿ëÇEÔSWõ¿Ñê‰UørÇEÔsWõ¿J‰Uø‹÷‹}‹G‹O‰MÌ+Á‹N‰MÜ‹V‰Uà+Ê;Á}+Àéí   +Ò÷ñ‰EÈ‹ÚÒ‰Uè÷m‰Eğ‹EÈÑèsÙEÌÉ‰Mä+Ù‰]ì‹]#ÛtA‹C9EÜ~‰EÜ‹C9Eà}&‰Eà+F‹È÷eèEìƒÒÿs÷uä+Uä‰Uì@¯MÈÁEÌ‹Eà9EÜ~{‹]‹Eà‹s,÷æ‹}À‹MÄ+Ï+ñ‰uôø‹Eà;ƒè   |;ƒğ   |
+j PSÿ“Ô   »¨   ‹u‹E÷mÌ‹u¬ğu‹UÜ;“ğ   |‹“ğ   +Uà‰UØÿUĞ‹]‹ƒğ   9EÜ¸   [_^ÉÂ ‰Eà+»¨   j PSÿ“Ô   »¨   ë±+Û‹Uü‹MøVÿUÔ^uğ‹EìEès+Eäu‰Eì}ôÿMØuÙÃŠ2Š&rƒÂf‰ƒÇIuëÃŠ2ƒÂˆGŠ2Š&rƒÂf‰ƒÇIuëÃŠ2ƒÂˆGŠ2Š&rƒÂf‰ƒÇIuëŠ2ƒÂˆGÃŠ2Š&rƒÂf‰ƒÇIuëŠ2ƒÂˆGÃŠ2ƒÂˆGIuóÃU‹m Š2‹D ŠrŠd ƒÂf‰ƒÇIuã]ÃU‹m Š2‹D ƒÂˆGŠ2‹D ŠrŠd ƒÂf‰ƒÇIuã]ÃU‹m Š2‹D ƒÂˆGŠ2‹D ŠrŠd ƒÂf‰ƒÇIuãŠ2‹D ƒÂˆG]ÃU‹m Š2‹D ŠrŠd ƒÂf‰ƒÇIuãŠ2‹D ƒÂˆG]ÃU‹m Š2‹D ƒÂˆGIuï]ÃÌÌU‹ìƒÄ¼VWSƒ} „~  +ÛŠ]ƒû„p  Šƒµõ¿ˆEÄŠe"£Lµõ¿
+£]µõ¿2£nµõ¿ŠÄ‹ĞÁàf‹Â‰EÀÇE¼ş[õ¿Š£µõ¿"ätºÎ  °fïÇE¼²[õ¿ˆeØ‹}‹G‰EÜ‹_‹ËƒáŠ¡Hµõ¿‹7‹ÎÁé‰Mü+ŞƒæŠ†Dµõ¿KŞÁëu"Ä2äC+É<ÿÉ+Ù‰MÌ"ät	€üÿuƒÁC‰Eà‰]ø‹¤µõ¿‰MĞ#Ûtw€}Ø t¹æZõ¿û   sd‹ôµõ¿‰MÈ¹ÓZõ¿ëSû	   s‹MüMÌƒá‹˜¶õ¿‹™‰MÈ¹ÓZõ¿ë.‹MüMÌ÷Ùƒá‹Ó+Ñ‹ÂÁê‰UôƒàÁáÈ‹´µõ¿‰MÈ¹½Zõ¿‰MÔ‹M‹  ‰Eì+Ã‰Eè€}Ät2è[   ƒEÿM…øşÿÿ€}Ø u[_^ÉÂ ºÎ  ¸   fï[_^ÉÂ ‹EÀPÇEÀÿÿÿÿºÎ  ¸  fïè   ºÎ  ŠeØ°fïX‰EÀë ‹}‹M‹G‰Eä;H  |;P  |
+j PQÿ‘4  ‹E‹]Ü;˜P  |‹˜P  ‹}ä+ß¯}ì¸¨   }üÿeÔSW}Ì‹uô‹Uè‹EÀÿUÈ_[ÿeĞSW}Ì‹Mì‹EÀÿUÈ_[ÿeĞSW}Ì‹uø‹Uè‹EÀ‹ÎŠ'ˆGIuøúKuñ_[ÿeĞŠEàºÅ  î‹Mì‹uøt7‹EÀSÿU¼[‹şŠEáºÅ  î‹EÀhe[õ¿ÿe¼‹MìŠEàºÅ  î‹EÀhe[õ¿ÿe¼‹Mì}øŠEáºÅ  î‹EÀÿU¼ºÅ  °î‹}‹‡P  9EÜ~6‰Eäj PWÿ—4  ‹E‹]Ü;˜P  |‹˜P  ‹}ä+ß¯}ì¸¨   }üÿeÔÃŠ'ˆùKu÷ÃŠ'ˆŠgˆGùKuñÃŠ'ˆŠgˆGŠgˆGùKuëÃŠ'ˆŠgˆGŠgˆGŠgˆGùKuåÃˆùKuùÃf‰ùKuøÃf‰ˆGùKuõÃˆf‰GùKuõÃ‰ùKuùÃ‰ˆGùKuöÃˆ‰GùKuöÃ‰f‰GùKuõÃˆ‰GˆGùKuóÃf‰‰GùKuõÃ‰f‰GˆGùKuòÃˆf‰G‰GùKuòÃf‰‰GˆGùKuòÃˆ‰Gf‰GùKuòÃ‰‰GùKuöÃˆf‰G‰GˆGùKuïÃf‰‰Gf‰GùKuñÃˆ‰Gf‰GˆGùKuïÃ‹Îó«úKu÷Ã‹Îó«ˆGúKuôÃ‹Îó«f‰ƒÇúKuñÃ‹Îó«f‰ˆGƒÇúKuîÃˆG‹Îó«úKuôÃˆG‹Îó«ˆGúKuñÃˆG‹Îó«f‰ƒÇúKuîÃˆG‹Îó«f‰ˆGƒÇúKuëÃf‰ƒÇ‹Îó«úKuñÃf‰ƒÇ‹Îó«ˆGúKuîÃf‰ƒÇ‹Îó«f‰ƒÇúKuëÃf‰ƒÇ‹Îó«f‰ˆGƒÇúKuèÃˆf‰GƒÇ‹Îó«úKuîÃˆf‰GƒÇ‹Îó«ˆGúKuëÃˆf‰GƒÇ‹Îó«f‰ƒÇúKuèÃˆf‰GƒÇ‹Îó«f‰ˆGƒÇúKuåÃÌÌU‹ìVWS‹ufºÄf¸fï²Îf¸ fïf¸ fïºÎ  ŠfD°fïf¸ fïf¸ÿfï[_^ÉÂ V‹t$ÿ¶”   èŞN  ÿ¶À   èÓN  ÿ¶Ä   èÈN  ÿ¶   è½N  ÿ¶$  è²N  ^Â U‹ìƒìSVWœü‹]ƒÎÿ9³ğ   u5‹˜   ‹¨tƒàû‰ÿ“x  ‰³   ‰³  ‰³P  ‰³`  ‰³p  ƒ}‹Eu+ƒÈ   …À3À‹‹À   ¶‹“Ä   ‰‚‹C‹ò»ä   ¥¥¥¥+Bƒ£˜   ü“¨   ‰‰ƒ¬   ‰ƒ°   ‹ƒ¸   ‰M‰E‹E‹ĞÿU€»    t:‹E;¨¶õ¿t/‹E£¨¶õ¿‹E‰Eô‹E‰EøEüPj j jEôPh# ÿsè¶M  _^[ÉÂ ÌU‹ìVWœü‹uƒÏÿ9¾ğ   u5˜   ‹¨tƒàû‰ÿ–x  ‰¾   ‰¾  ‰¾P  ‰¾`  ‰¾p  ƒ} u.‹M‹†À   ¶‹–Ğ   ‹¾Ì   ;Ï‰E‰Mr=‹Ï‹Á+Âë/‹E+†È   …À3À‹À   ¶‹–Ğ   ‹Á+Â‰M‰Ey
+3À‹Ê‰E‰M‹¾Ä   €‡‹‰†ä   ‹B‰†è   ‰‡‹H‰ğ   ‹@‰†ì   ‹F+Bƒ¦˜   ü¨   ‰‰†¬   ‰†°   ‹†¸   ‰E‹E‹UÿU_^]Â U‹ìSVWœüƒ}‹]‹Eu+ƒÈ   …À3À‹‹À   ¶‹“Ä   €Š‹UrÁæƒ<ÿ‰E‰Muk‹ú³˜   ‹ƒ÷öÂ‰}tƒâû‰ÿ“x  ‹E‹MƒÎÿ‰³ğ   ‰³P  ‰³`  ‰³p  Áç‹U¼ô   ‹ñ¥¥¥¥‹u‰„³    ‹{+y‰¼³¬   ‹òÁæ¼ô   ‹ñ¥¥¥¥‹s+q‰„“    ‰´“¬   ‹ƒ    ƒ£˜   ü‰E‹ƒ¤   ‰E‹ƒ¸   ‰E‹E‹UÿU_^[]Â Ìÿt$ÿt$ÿt$è·üÿÿÂ U‹ìSVWœüƒ}‹]‹Eu+ƒÈ   …À3À‹‹À   ¶‹“Ä   ‰‚‹UrÁæƒÏÿ9<‰M‰Eu|³˜   ‹öÂtƒâû‰ÿ“x  ‹M‹E‹U‰»ğ   ‰»P  ‰»`  ‰»p  ‰Uƒu‹uÁæ¼ô   ‹ğ¥¥¥¥‹s+pƒúu‰³¬   ëÆ €  ‰³°   ‹u‰Œ³    ‹òÁæ¼ô   ‹ğ¥¥¥¥‹s+p…Òu‰³¬   ëÆ €  ‰³°   ƒ£˜   ü‰Œ“    ‹ƒ    ‰E‹ƒ¤   ‰E‹ƒ¸   ‰E‹E‹UÿU_^[]Â ÌU‹ìSVWœü‹]ƒÎÿ9³P  u5‹˜   ‹¨uƒÈ‰ÿ“t  ‰³ğ   ‰³   ‰³  ‰³`  ‰³p  ƒ}‹Eu+ƒ(  …À3À‹‹   ¶‹“$  ‰‚‹C‹ò»D  ¥¥¥¥+Bƒ£˜   ü“¨   ‰‰ƒ¬   ‰ƒ°   ‹ƒ  ‰M‰E‹E‹ĞÿU_^[]Â ÌU‹ìVWœü‹uƒÏÿ9¾P  u5˜   ‹¨uƒÈ‰ÿ–t  ‰¾ğ   ‰¾   ‰¾  ‰¾`  ‰¾p  ƒ} u,‹†   ‹M¶‹†0  ‹–,  Á;Â‰M‰Er5‹Â‰Eë.‹E+†(  …À3À‹   ¶‹È+0  ‰E‰My3É‰M‹–$  ‰Š‹9€‰¾D  ‹y‚‰¾H  ‹P‰–P  ‹@‰†L  ‹F+Aƒ¦˜   ü¨   ‰‰†¬   ‰†°   ‹†  ‰E‹E‹UÿU_^]Â ÌU‹ìSVWœüƒ}‹]‹Eu+ƒ(  …À3À‹‹   ¶‹“$  ‹}€ŠOÁáƒ<ÿ‰E‰Uuf³˜   ‹ƒ÷öÁ‰}uƒÉ‰ÿ“t  ‹E‹UÁçƒÉÿ‰‹ğ   ‰‹   ‰‹  ‰‹P  ‹M¼T  ‹ò¥¥¥¥‰„‹    ‹s+r‰´‹¬   ‹MÁá¼T  ‹M‹ò¥¥¥¥‹s+r‰„‹    ‰´‹¬   ‹ƒ    ƒ£˜   ü‰E‹ƒ¤   ‰E‹ƒ  ‰E‹E‹UÿU_^[]Â ÿt$ÿt$ÿt$èıÿÿÂ U‹ìSVWœüƒ}‹]‹Eu+ƒ(  …À3À‹‹   ¶‹‹$  ’‹MƒÁÁáƒÏÿ9<‰U‰Euu³˜   ‹öÁuƒÉ‰ÿ“t  ‹U‹E‹Mƒñ‰»ğ   ‰»   ‰»  ‰»P  ‹ñÁæ¼T  ‹ğ¥¥¥¥‹s+pƒ}u‰³¬   ëÆ €  ‰³°   ‰”‹    ‹MÁá¼T  ‹M‹ğ¥¥¥¥‹s+p…Éu‰³¬   ëÆ €  ‰³°   ƒ£˜   ü‰”‹    ‹ƒ    ‰E‹ƒ¤   ‰E‹ƒ  ‰E‹E‹UÿU_^[]Â U‹ìSVWœüƒ}‹]‹Eu+ƒ(  …À3Àƒ}‹Uu+“(  …Ò3Ò‹‹   ¶¶‹“$  4€4²‰u4‰ƒÏÿ9»`  ²‰E‰M‰Uu6³˜   ‹öÂuƒÊ‰ÿ“t  ‹E‹M‰»ğ   ‰»   ‰»  ‰»P  ‹u»T  ¥¥¥‹S¥‹u»d  ¥¥¥¥‹}‹ò+w‰³¬   ‹u+Vƒ»  ³°   ‰uÂ €  ‰ƒ£˜   ü‰E‰ƒ    ‹ƒ  ‰M‰‹¤   ‰E‹E‹UÿU_^[]Â ÌU‹ìƒì SV‹uW‹}‹G‹O‹_‰Eø‰¼   ‹G‰†´   ‹G$ƒğ   ÿƒ   ÿƒ  ÿÇ‰†¸   ‹GH‰]ğ‰Mt;Ht,H…Â   ¸ €  3Ò÷óÇ†Ô   _õ¿Ç†Ø   äaõ¿‰†Ğ   ë Ç†Ø   À`õ¿ë
+Ç†Ø   Ğaõ¿Ç†Ô   ˜^õ¿‹Eø3Ò÷ñ3ÒhDvg2‰Eä‰†   ‹EøDÿ÷ó€ÁàPjèD  …À‰†Ä   tEhDvg2ÿuäj èD  …À‰†À   t,‹M3Àƒ•ÀH% €ÿÿ   ‰Eü;Eür3Ò‹Ã÷ñ…Òt3Àéë   ‹Eü3Ò÷u‹Ä   3ÿ!y!y‰}ô‰}è‰]Ç  €ÇAÿÿÿ‰A‹Eü;Eøsm!}ì+Eğ‰Eà‹Uè;Us‹†À   Š]ôUˆG;Urë‰Uè‹EğEìE‹Eì‰A$‹EàƒÁ+ÂE3Ò÷u‹UèÿEôÇ  €ÇAÿÿÿ‰yÇ‰A‹EüĞ;Uørœ‹Uô‹]ä‰–Ì   ‰Yë
+‹À   ˆG;û|ò+Eğ3Ò÷u3ÒÆÈ   ‹È‹Eğ÷u‰…Òt…ÉvI‰3À@_^[ÉÂ ÌU‹ìƒìSV‹uW‹}‹G ‹_‹OƒƒP  ÿƒ`  ÿƒp  ÿ‰E‹G(Ç‰†  ‹G,Ç‰†t  ‹G0ÇÁë‰†x  ‰  ‹GÁé‰†  H‰Mìt<Ht-H…‘   ¸ €  3Ò÷uÇ†4  Øcõ¿Ç†8  fõ¿‰†0  ë Ç†8  òdõ¿ë
+Ç†8   fõ¿Ç†4  cõ¿3Ò‹Á÷ó3ÒhDvg2‰Eè‹EDÿ÷u€ÁàPjèëA  …À‰†$  thDvg2ÿuèj èÒA  …À‰†   u3Àé  ‹M3Àƒ•ÀH% €ÿÿ   ‰Eø;Eør3Ò‹Á÷ó…Òtƒ&şéç   ‹Eø3Ò÷ó3ÿ‰Mü‹$  !y!y‰}ô‰}Ç  €ÇAÿÿÿ‰A‹Eø;Eìsi!}ğ+E‰Eäë‹†   ŠUôˆG]‹E;Eürè‹EEğEü‹Eğ‰A$‹Eä+EƒÁEü3Ò÷ó‹UøÿEôÇ  €ÇAÿÿÿ‰yÇ‰A‹EÂ;Eìr´‹Â‹Uô‰–,  ‹Uè;ú‰Q}‹   ŠUôˆG;}è|î+E3Ò÷ó3ÒÆ(  ‹È‹E÷ó‰…Òt…ÉvI‰3À@_^[ÉÂ U‹ìƒì4SV‹uWEPj43ÛEÌPSShT# ÿv‰”   ‰À   ‰Ä   ‰   ‰$  èQ@  hDvg2ÿuĞjèH@  ‹ø;ûtIEPÿuĞ‰¾”   WSShT# ÿvè@  …Àu(‹GWV‰†œ   è#ûÿÿ…ÀtöGtƒWVè+ıÿÿ…Àu
+Vèùğÿÿ3ÀëSSVÿ–Ô   3À@_^[ÉÂ U‹ìSVW‹}‹O…É}3Àë‹Á‹]…Ût	‹C;È~‹Á‹u‹N$I;Á|‹Á;†è   |;†ğ   |
+j PVÿ–Ô   ‹G‹N$;Á|‹Á…Û‰†|  t‹K;Á|‹Á‰†|  …Û‹†¨   ‹M‰A u‹”  Æä   {¥¥¥¥ë~‹E¾„  S‹ò¥¥¥¥ŠKˆˆ˜  ŠKˆˆ™  €K€{ uÆC‹ˆè   9K‰K‹ˆì   9K|‰K‹ˆğ   9K|‰K‹K;K}‹
+;K|3É‰
+‰K‰K‰K‰ˆ|  _^‹Ã[]Â U‹ìS‹]öƒ˜   V‹³ğ   W‰ut	Sÿ“Ü   ë;³|  ˆ   j VSÿ“Ô   ‹ƒ¨   ‹M‰A ‹E;ƒ”  u ‰p‹‹ä   ‰H‹‹ğ   ‰H‹‹ì   ‰HëB‹UH³„  ‹ù¥¥¥¥9P‰P‹“ä   9‰‹‹ì   9H|‰H‹›ğ   9X|‰X3À@ë,‹E;ƒ”  t³„  x¥¥¥¥Š‹˜  ˆHŠ‹™  ˆH3À_^[]Â ÌU‹ìV‹u‹F…ÀW}3À‹};G$˜   ;‡è   |;‡ğ   |
+j PWÿ—Ô   ‹‡ì   ;Wÿ—Ü   ‹‡¨   ‹M‹U‰A ‹‹E‰‹N‰H‹E‹‰
+‹H‰J‹H+HSN‹Ÿğ   ;Ù}‹Ë‰J‹X+^Ù‰Z‹H+‹¿ì   [;ù}‹Ï‰J‹ +Á‰B_^]Â ÌU‹ìQQS‹]‹C+V‹u‰Eü‹C+CW‹}‹O‰EøÁ‹N$;Á‰E|‰Mö†˜   ‹†ğ   ‰Et,Vÿ–Ü   ‹Eü9†ä   |<‹E9†ğ   ¢   Vÿ–Ü   ë$;E   j PVÿ–Ô   ‹†ì   ;Vÿ–Ü   ‹†¨   ‹M‰A ‹†ä   ‹;Á~‹È‹E‹U‰‹M‰H‹C+GÈ‰J‹OMø‹–ğ   ;Ñ}‹Ê‹UÁ‹M‰A‹+‹Ğ‰‹?}ü‹¶ì   ;÷|‹÷ğ3À‰q@ë3À_^[ÉÂ U‹ìVW‹}‹G…À}3À‹u;F$}|;†è   |;†ğ   |
+j PVÿ–Ô   ‹†ì   ;Vÿ–Ü   ‹†¨   ‹M‰A ‹‹E‰‹O‰H‹ğ   ‹W;Ê|‹Ê‰H‹¶ì   ‹;÷|‹÷‰p‹E…Àt‹‹M‰‹@‰A_^]Â ÌU‹ìSV‹u‹N$W‹}‹G;Á‰E|‰Mö†˜   ‹ğ   t*Vÿ–Ü   ‹†ä   ;G|<‹E9†ğ   ˜   Vÿ–Ü   ë$;]†   j SVÿ–Ô   ‹†ì   ;Vÿ–Ü   ‹†¨   ‹M‰A ‹E‰X‹ä   ‹;Ê‹Ù‹Ú‰‹ğ   ‹W;Ê|‹Ê‰H‹¶ì   ‹O;ñ}‹Î‰H‹M…Ét‹1+7‹Uó‰2‹I+OH‰J3À@ë3À_^[]Â Ì‹D$‹L$‹S‹;ÓVW~‹Ú‹|$‰‹P‹q;Ö|‹Ö;Ú‰W}'‹P‹q;Ö‹Ö‰W‹@‹I;Á|‹Á;Ğ‰G}3À@ë¾œ®õ¿¥¥¥¥3À_^[Â U‹ìƒìL‹M‹QSV‹u‹F‹^X‰E‹C ‰EĞ‹C$‰EÌf‹C2f‰EÔ‹‰E‹E…ÀWÇEü   ‰Uôt€x t‹x9}‰}‹@;Ğ|‰Eô‹Ğ‹Eƒà‰Eø‹Ezƒàüƒçü+ø‹A+A3Ò‰EØ¸    ÷÷‹UØ;Â‰Eàr‰Uà‹†œ  ‹U‰C ‹EÔƒÈ‰{$f‰C2‹A‹R;Â‹I‰UØŒ  ‹ú+ÈÏ;¾è   ‰Eì‰MØ|;¾ğ   |
+j WVÿ–Ô   ‹†¨   ‹M‰A ‹Eø+E‹MôÁ‰EÜ‹MØ‹†ğ   ;È‰Mğ|‰Eğ‹EàÇ9Eğ|‰Eğ‹MÜ‹E‹ ‰M¼‹Mğ+Ï‰MÀ‰EÄ‹EøMÄQM´Q‰E´3ÀPPÿu‰}ÈS‰E¸è¼8  !Eü‹EÀ‹Mì<9¾è   ‰}ä|jGÿPVÿ–Ô   ‹†¨   ‹M‰A ë‹}ä‹†ğ   ;ø}‹Ç‹Uì‹è   ;Ñ‰Uè‰Mè‹Mè‹Uø‰EÀEÄPE´Pÿu‹ùÿu+}ìSÿu‰UÄ‹U‰M¸‹Mô‰}È‰U´‰M¼è.8  !Eü…ÿt'‹Eè9†è   |’jHPVÿ–Ô   ‹†¨   ‹M‰A évÿÿÿ‹}ğ;}Ø“  ;¾ğ   ‹Eä‰EìŒÏşÿÿj WVÿ–Ô   ‹†¨   ‹M‰A é´şÿÿ‹ù+øú;¾è   ‰Mì~;¾ğ   ~jGÿPVÿ–Ô   ‹†¨   ‹M‰A ‹Eø+E‹MôÁ‰EÜ‹MØ‹†è   ;È‰Mğ‰Eğ‹Ç+Eà9Eğ‰Eğ‹Mğ‹E‹ ‹UÜ+ù‰MÈ‰EÄ‹EøMÄQM´Q‰E´3ÀPPÿu‰E¸S‰U¼‰}Àè07  ‹}ì+}À!Eü9¾ğ   j WVÿ–Ô   ‹†¨   ‹M‰A ‹†è   ;ø~‹Ç‹Uì‹ğ   ;Ñ‰Uä|‰Mä‹Mø‰MÄ‹È‰E¸‹Eô‰E¼‹Eä‰EÀEÄPE´Pÿu+Ïÿu‰MÈ‹MSÿu‰M´è±6  !Eü‹Eä;Eìt9†ğ   •j Pézÿÿÿ‹Eğ;EØ~-9†è   ‰}ì‹øŒöşÿÿjHPVÿ–Ô   ‹†¨   ‹M‰A éÚşÿÿ‹FX‹MĞ‰H ‹FX‹MÌ‰H$‹FXf‹MÔ_^f‰H2‹Eü[ÉÂ U‹ìƒì\‹M‹SV‹u‹F‹^X‰E‹C ‰EĞ‹C$‰EÌf‹C2f‰EÔ‹A‰E‹E…ÀWÇEü   ‰Uøt€x t‹x;×‰}ø‹×‹@9E|‰Eƒ} t‹} ‹Â+‰E¼‹A+G‰EÀ‹}‹Âƒà‰E ‹A+AƒÇƒâüƒçü+ú‰EØ3Ò¸    ÷÷‹UØ;Â‰Eär‰Uä‹†œ  ‹U‰C ‹EÔƒÈ‰{$f‰C2‹A‹R;Â‹I‰UØ´  ‹ú+ÈÏ;¾è   ‰Eğ‰MØ|;¾ğ   |
+j WVÿ–Ô   ‹†¨   ‹M‹U‰A ‹Eø‹M +ÈÊ+E¼‰Mà‰EÜ‹MØ‹†ğ   ;È‰Mô|‰Eô‹EäÇ9Eô|‰Eô‹Mà‹E‹ ‰M¬‹Mô+Ï‰M°‰EÄ‹E MÄQM¤Q‰E¤3ÀPPÿu‰}ÈS‰E¨è¾4  !Eü‹E°‹Mğ<9¾è   ‰}è|jGÿPVÿ–Ô   ‹†¨   ‹M‰A ë‹}è‹†ğ   ;ø}‹Ç‹Uğ‹è   ;Ñ‰Uì‰Mìÿu,‹Mìÿu(‹U ÿu$‰E°‹EÜ‰E´E´PEÄPE¤Pÿu‰UÄÿu‹Uøÿu‹ù+}ğ‰M¨+MÀSÿu‰U¤‹U‰}È‰U¬‰M¸è4  !Eü…ÿt+‹Eì9†è   ŒrÿÿÿjHPVÿ–Ô   ‹†¨   ‹M‰A éVÿÿÿ‹}ô;}Ø»  ;¾ğ   ‹Eè‰EğŒ¯şÿÿj WVÿ–Ô   ‹†¨   ‹M‰A é”şÿÿ‹ù+øú;¾è   ‰Mğ~;¾ğ   ~jGÿPVÿ–Ô   ‹†¨   ‹M‹U‰A ‹Eø‹M +ÈÊ+E¼‰Mà‰EÜ‹MØ‹†è   ;È‰Mô‰Eô‹Ç+Eä9Eô‰Eô‹Mô‹E‹ ‹Uà+ù‰MÈ‰EÄ‹E MÄQM¤Q‰E¤3ÀPPÿu‰E¨S‰U¬‰}°è
+3  ‹}ğ+}°!Eü9¾ğ   j WVÿ–Ô   ‹†¨   ‹M‰A ‹†è   ;ø~‹Ç‹Uğ‹ğ   ;Ñ‰Uè|‰Mèÿu,‹M ÿu(‰MÄÿu$‹È‰E¨+EÀ+Ï‰E¸E´PEÄPE¤Pÿu‰MÈÿu‹Møÿu‰M¤‹M‰M¬‹MèSÿu‰M°‹MÜ‰M´èu2  !Eü‹Eè;Eğt9†ğ   uÿÿÿj PéZÿÿÿ‹Eô;EØ~-9†è   ‰}ğ‹øŒÖşÿÿjHPVÿ–Ô   ‹†¨   ‹M‰A éºşÿÿ‹FX‹MĞ‰H ‹FX‹MÌ‰H$‹FXf‹MÔ_^f‰H2‹Eü[ÉÂ( U‹ììd  ‹E…ÀÇEø¨Xõ¿u EÿëŠ@ˆEÿ‹M(SV‹ufƒ~0W…É  ‹ö „P  ‹E0¶U1%ÿ   ;Â…<  ¶¸°¶õ¿Gÿƒø‰}‡&  ¶€,õ¿ÿ$… õ¿‹ƒûÿu?‹Y…ÛuQè1  ‹Ø…Û„ú   ‹¨u	ƒÿ…ë   ¨t	ÇEø¥õ¿ëÇEø9õ¿ë‹]¶Eÿƒè „±   H„„   HH…+  ‹j2jj j ÿu‰Eè1  …œüÿÿPh$  ÿuèü0  ‰E0‹…œüÿÿ…Àv;Áà´ üÿÿ½ üÿÿÿuWWèKöÿÿƒÇ;şrïÿu,… üÿÿSÿuPÿµœüÿÿÿuÿUøƒ}0 ué¯  ‹EƒÀPÿuEÀPèöÿÿ…À„”  ÿu,EÀSWPëÿu,SWÿujÿ6ÿUøéu  fƒ~0…c  ‹}…ÿ„  fƒ0…ƒ  }0ÌÌ  ‹6‰u…K  ‹] ‹}‹3‹‹U‹Æ3Á¨…  ‹Eö „  …Òt
+öB„  ¶Eÿƒè „é   H„«   HH…é   ‹C;G|	3À;ñœÀë	3À;ñœÀ@@3ÉQPQQÿuèË/  …œüÿÿPh$  ÿuè±/  ‰E0‹…œüÿÿÁà„ üÿÿ üÿÿ;È‰Eµ üÿÿs6VWVèùôÿÿ…Àt"‹+‰Eğ‹F+GC‰EôEğPVÿuèçÄÿÿƒÆ;urÊƒ}0 uŠéP  ‹EƒÀPWEÀPè¯ôÿÿ…À„7  +7‹C+GuÀEÄ‰uğ‰EôEğPEÀPëSWÿuè“Äÿÿé
+  SWRÿuÿuèÒôÿÿé¦  ÿu0ÿu,ÿu(ÿu$ÿu ÿuÿuÿuÿuVèŠøÿÿé€  }0ÌÌ  ‹‹E‰]…  ƒ,…  …Àt
+ö@„ı   ¶Eÿƒè „Ü   H„˜   HH…á   j2jj j ÿuèx.  ‹]…œüÿÿPh$  ÿuè[.  ‰E0‹…œüÿÿ…ÀvNÁà„ üÿÿ‰Eµ üÿÿSVVè©óÿÿ‹E ‹+ÿw ÿw$‰Mğ‹N+KHEğPVÿu‰MôèğÊÿÿƒÆ;urÅƒ}0 u‹3À@é§  ‹E‹uƒÀPVEÀPèTóÿÿ‹E ‹‹@++FMÀEÄÿw ‰Eôÿw$EğPEÀ‰MğPëÿw ÿw$ÿu ÿuSè‹Êÿÿë§ƒ} t‹M‹E$‹‹q++pë‹uì‹]è‹M‹AUĞRUèRÿu‰E$ÿu PQèQñÿÿÿu0‹EĞÿu,+Ãÿu(‰Eà‹EÔ+Æ‰EäEàPEèPEĞPÿuÿuÿuWÿu$è(-  …À‰E„Ñ   EĞPEèPÿuÿu ÿu$ÿuè’ñÿÿ…Àu¡é¯   ‹U…Ò„©   fƒz0…   ƒ} t‹M‹E$‹‹y++xë‹}ì‹]è‹‹HUĞRUèRÿu‰Eÿu ‰M$QPèÉîÿÿÿu0‹EĞÿu,+Ãÿu(‰Eà‹EÔ+Ç‰EäEàPEèPEĞPÿuÿuÿuÿu$Vèp,  …À‰EtEĞPEèPÿuÿu ÿu$ÿuè.ïÿÿ…Àu¥‹Eë3À_^[ÉÂ,  |õ¿İ{õ¿jõ¿   U‹ììT  SV‹ufƒ~0W…ä  ‹}3Ò;ú„f  fƒ0…[  ‹‹]‹}‹3‹‹Æ3Á¨‰U…-  ö„$  ‹E…Àt
+ö@„  ‹E…ÀtŠ@ë2À¶Àƒè „ì   H„«   HH…ê   ‹C;G|	3À;ñœÀë	3À;ñœÀ@@3ÉQPQQÿuèv+  …¬üÿÿPh$  ÿuè\+  ‰E‹…¬üÿÿÁà„°üÿÿ°üÿÿ;È‰Eµ°üÿÿs6VWVè¤ğÿÿ…Àt"‹+‰Eø‹F+GC‰EüEøPVÿuè’ÀÿÿƒÆ;urÊƒ} uŠé&  ‹EƒÀPWEàPèZğÿÿ…À„  +7‹C+GuàEä‰uø‰EüEøPEàPÿuëSWRè=Àÿÿéß   SWÿuÿuRè|ğÿÿéÕ  ƒ,‹‰]…  ‹E;Ât
+ö@„  ‹E;ÂtŠHë2É¶É+Ê„Õ   I„”   II…Ú   j2jRRPèM*  ‹]…¬üÿÿPh$  ÿuè0*  ‰E‹…¬üÿÿ…ÀvNÁà„°üÿÿ‰Eµ°üÿÿSVVè~ïÿÿ‹E‹+ÿw ÿw$‰Mø‹N+KHEøPVÿu‰MüèÅÆÿÿƒÆ;urÅƒ} u‹3À@é  ‹uƒÀPVEàPè,ïÿÿ‹E‹‹@++FMàEäÿw ‰Eüÿw$EøPEà‰MøPëÿw ÿw$ÿuÿuSècÆÿÿëª‹sEĞPEğPÿuÿuVSèMíÿÿEğPEĞPÿuÿuWVè@)  …À‰EtxEĞPEğPÿuÿuVSè¸íÿÿ…ÀuËë]‹E…Àt[fƒx0uT‹8‹_EĞPEğPÿuÿuSWèëÿÿEğPEĞPÿuÿuSVèá(  …À‰EtEĞPEğPÿuÿuSWè©ëÿÿ…ÀuË‹Eë3À_^[ÉÂ ÌU‹ìƒì‹E‹ ‹ƒá€ùSV‰Eôt3Àéå  W‹}ƒ…Ô  ƒ…Ê  ƒ¸  „½  ƒ,‡³  j\ÿuèv(  ‹ğ…ö„Ÿ  ‹G,ƒø^…£   ‹G ‰Eü‰]ÇEø   ¶ ‹Mô‹IL¶‹Áƒà‹ÑÁâÂÁàÁéÁ‹MƒE‰‹EüG$ÿMø‰EüuÈƒf ‹M‹A‹¸ÿ   #Ğ‰V‹I‹I#È;È‰Nu…Òu$Ç   ë"…Éu9FujÇ   X÷ƒÃHuøëÇ   3À@éï  ƒøu~‹E…ÀtEö@u?‹G ‰]ÇEü   ÇEø   ¶‹U‹RŠŠ‹UÿE@ÿMøˆ
+uæÿMü‹O$DøuÓé‡   ‹G KÇE   ‹‰Qø‹P‰QüG$‹‰‹P‰QG$ƒÁÿMuİëU‹G ‰]ÇEü   ÇEø   ¶‹U‹RÁéŠŠ‹UÿEˆ
+‹U‹R3ÉŠƒáŠŠ‹UÿE@ÿMøˆ
+uËÿMü‹O$Düu¸EPEPSè;»ÿÿ…ÀtBƒf ¶E‰F¶E‰FÇ   €} …ìşÿÿ€}ÿ…âşÿÿjÇ   X÷ƒÃHuøéÌşÿÿƒNÿjX‰ÇF   ÇF   ‹;K uj‹K;K$ub‹K;K(uZ‹K;K,uR‹K;K0uJ‹K;K4uB‹K;K8u:‹K;K<u2‰FjX‰F‹;Ku"‹K;Ku‹K;Ku‹K;Ku
+‰FÇF   ‹F™+ÂÑø…À~"ƒÃ‹Kô;Kø…)şÿÿ‹Kü;…şÿÿƒÃH…ÀáÇ   éşÿÿ3À_^[ÉÂ U‹ìƒì ƒ}SVW„  ¶E¶}¶]3É;ø‰}v‹Ï‹øj‹Á‰}Y;ûv‹×‹û‰}‹ÚƒÉ;Øv	‹Ó‹Ø‹ÂƒÉsPÁáÁêÁîGÁïØû   ‰}†Û   ‹]Øû   Eàvf<»€   +ßt¶7¸õ¿‰Eä‰]àEè‹}+÷TÀj@_+ú+ş+ût‰8¶¹9¸õ¿‰xƒÀ…öt‰0¶±;¸õ¿‰pƒÀ…Ò„>  ¶‰?¸õ¿é*  ÿ‰}‹Ú+ŞTÀ‹uj@_+ş+ú+ût¶3¸õ¿‰Eä‰}àEè…öt‰0¶±7¸õ¿‰pƒÀ…Ût¶±9¸õ¿‰‰pƒÀ…Ò„Ù   ¶‰;¸õ¿éÅ   =€   Eàv`òÑæ‹Ş¾€   +ót¶1¸õ¿‰Eä‰uàEè?j@TÀ_+ú+û+şt¶±3¸õ¿‰8‰pƒÀ…Ût¶±7¸õ¿‰‰pƒÀ…Òtl¶‰9¸õ¿ë[j@<[+ßt¶0¸õ¿‰Eä‰]àEè+ÖÑâ‹òt¶‘1¸õ¿‰0‰PƒÀ‹Uj@_Ò+ş+ú+ût¶±3¸õ¿‰8‰pƒÀ…Òt¶‰7¸õ¿‰H‰ƒÀ‹ÈUà+ÊÁùƒù†ï   ƒù‹uè‹Uğu	;òsMğë;Uøsö‹UøMø;òvMè‹Ö9UàvMà‰E‹A‹…°¸õ¿ÇAÿ   ‹M‰‰Q‰Q‰Q‰Q‰Q‰Q‰Q‰Q ‰Q$‰Q(‰Q,‰Q0‰Q4‰Q8‰Q<ºğ¸õ¿}à‹_ûÿ   u‹‚ëR‹7Š›ğ¹õ¿‰uƒæ‹ÆHtHt	Hu‹Bˆ‹Bˆ‹ˆ²Ámt‹ˆ‹Bˆ‹Bˆ‹BƒÂÿMˆuáƒÇ;}r”éJ  …½   ‹}è9}àr‹Eä‹Uà‹…°¸õ¿‹Eì•ğ¸õ¿ë‹Eì‹…°¸õ¿‹Eä‹}àºğ¸õ¿Š˜ğ¹õ¿‹E‰‰H‰H‰H‰H‰H‰H‰H‰H ‰H$‰H(‰H,‰H0‰H4‰H8‰H<‹Ïƒá‹ñNtNt	Nu‹rˆ0‹rˆ0‹2ˆ0ŠÁï„©   ‹
+ˆ‹Jˆ‹Jˆ‹JƒÂOˆuãé‡   ‹M‹Eä‹…°¸õ¿‰‰A‰A‰A‰A‰A‰A‰A‰A ‰A$‰A(‰A,‰A0‰A4‰A8‰A<ëI‹U3ÀjY‹úó«¶E¶MiÀ—   kÉÁ¶MkÉMÁ¶Ä@Áèt¶ˆ¯·õ¿¶°ï·õ¿HŠ	1…Àuè_3À^@[ÉÂ Ìƒ|$‹D$rÇ@ ºõ¿ƒ|$rÇ@   ƒ|$rÇ    3À@Â ÌU‹ììd  SV¾Dvg2Vh¤  jèÛ   ‹Ø…Û„  Vh   jèÄ   …À‰CH„å   °ÿ   æ ÿÿÿ‰sL3ÀŠĞ€âñÀâŠÈ€á"
+Ñ‰EøÁ}øŠMø€áĞâ‰EüÑ}ü
+ÑŠMü€á"
+Ñˆ@=   |Ç‹E0‰C…ÌşÿÿP…œıÿÿPÿuSèº  …Àtr…ÌşÿÿPSèw  …Àta¸,  9E w‹E W‹}$‹ÈÁéµÌşÿÿó¥‹Èƒá¸0  9Eó¤s‹E‹}‹ÈÁéµœıÿÿó¥‹Èƒáó¤è   3É;Á‰ƒ”  _uSè^  ÿsHèÈ  SèÂ  3Àë@Æ@‹ƒ”  ‰H‹ƒ”  ‰H‹ƒ”  ‹S ‰P‹ƒ”  ‹S$‰P‹ƒ”  Æ@‰‹€  ‹Ã^[ÉÂ, ‹D$‹L$‰AÂ V‹t$ÿ¶”  è–  Vèâ  ÿvHèL  VèF  ^Â U‹ìQQSV‹uWjVèÉ  …À„$  Vè  …À„  ‹F,ÿv‹^$‹~ 3É…ÀŸÁQjPSWè[  …À‰E„í   j ÿvPè?  …À„Ò   ‹EP‰Fè%  …À‰F„»   jSWVè
+  ‹ø…ÿ‰}ü„œ   h{  ÿvWèû  …À„€   V‰~è Şÿÿ…ÀtshDvg2¿    Wjè†  ‹Ø…Û‰œ  tL‹¼   ‹Á™3Â+Â‰Eø‹Ç‹}ø™÷ÿSj jQPQè©  …À‰FTtPè  …À‰FXu6ÿvTèu  ÿ¶œ  è"  Vè.Ïÿÿ‹}üWè[  ÿvèM  ÿuèK  3ÀëVè»  Vè[  ‹Eü_^[ÉÂ ÌV‹t$ÿvXè  ÿvTè  ÿ¶œ  èÈ  ÿvè  Vèö  Vè@  ƒf Vè¼Îÿÿ^Â U‹ìS3ÛW3ÿC9}tV‹uWVè&  V‹Ø‰¾Œ   èê  ^ëEP‹EWWWWh# ÿpèi  …Àt3Û_‹Ã[]Â ÌV G A 2 5 6   U‹ìƒì‹E3Ò¹Ü   ÷ñ‰EüEôPEøPÿuèÁ  …À‰E„¸   ‹U…ÒuiÀÜ   ‰Eé˜   ƒe S‹]øVWƒÃƒ{ì tuƒ}ü t|3Àj7‹úYó«‹ú¾òõ¿¥¥¥f¥fƒbF fÇB@fÇBB¸Ü   f‰BD‹K¯‰Š¨   ‹Kô‰Š¬   ‹Kø‰Š°   ‹Kƒ¢´    ÿMü‰Š¸   ÇBH  | ĞE‹E]ôH‰E…xÿÿÿ_^[ÿuøèa  ‹EÉÂ V‹t$‹‹ÎÿHu‹ ‰ë$‹HH‹HH‹P‹Hx+H‰H‹H Ê‰H‹È‹;ÆuË^Â ‹T$SVW‹‹3ÿ‹ò‹Y;X}‰‹1‰03ÿ‰G‹Á‹ğ‹ ‹;Êuá…ÿuÕ_^[Â ‹T$‹L$‹VW‹1‹x;~~‹÷‹	‹9;w÷‹0‰2‹1‰0‰‹È‹‹p;t$tÔ_^Â ÌU‹ìS‹]‹E÷eƒÒÿx÷u@‹Mƒ}t÷Ø+U‹Â‰[]Â ÌU‹ìQQ‹M‹EV‹qW‹x‹Ö+×‰Uu‹EéF  …ÒS|‹‹‰uø‹u‰}ÇF$   ë‹ ‹÷Ú‰u‹uƒN$ÿ‰U‰}ø…Ò‰]üy3Àé  +Ã~xƒÿÇF    ëƒN ÿ‹Ê÷Ø÷Ù‰…ÀxÖ;Â|™÷}ƒ~ ÿ‰Fu÷Ø‰F‰V‹Uëƒf ‰F‹E‹M‰V‹QƒÀƒàğÁâ;Ğ~‹Â‹ĞÁú‰V‹I‰U‹UøƒÂÁú;Ê|‹Ê+M…É‰N‹Æëx9Et%+E‹Nÿv ¯ÈÙMüQPÿu‰]üÿvWè¶şÿÿ‹]üC‹ĞÁúƒ~ ‰Vuƒàğ+Ã¯F)ë
+Kƒã¯^)Á?‹^‹M‹‹x;ßu	;P~‹Èëì‹‰‰1F([_^ÉÂ U‹ìƒìS‹]V‹uW‹}‰ÇCÿÿÿ‹N…Ét{ötP‹F‹‰Uğ‹P‰Uô‹‰Uø‹PƒÀI‰Uü‰Në+ÿuÿNÿvEøPWSè3şÿÿ‹ø…ÿtQ‹F‹‰Mø‹H‰MüƒÀ‰Fƒ~ uÌÿNötÿuEğPEøPWSèùıÿÿ‹ø…ÿtƒ} tVÿuèN  ‰Eégÿÿÿ3Àë3À@_^[ÉÂ Ul$¤ì„   ‹Ed‹ ƒe8 ƒe< ö S‹˜œ  ‰E@„ô  ‹El…ÀVWuL EgÇE,  øÇE4ÿÿÿ‹uhƒ~†¶  ‹Ux¶Eyâÿ   ;Ğ‰UD…³  BÿƒøwE¶€>˜õ¿ÿ$…2˜õ¿ŠH„ÉˆMgt­€ù…Š  p}(¥¥¥¥ë¦‹Mp‹ƒøÿ„Ä   ‰ElÇEp¨Xõ¿EHPVèw  …À‰ET…¬  ƒ}L‹EPt!ƒ}L…™  ‹;H …  ‹H;H$…‚  ‹@HjğY#Á‰C‹EP‹ H#Á‰‹EP‹@‹3H#Á‹Ö3Ğ‰C‰uX„“   ‹UP‹z‹sO#ù3ş‰ux…:  ‹z‹uXO#ù3ş…)  ‹zO#ù3ø…  ‹BH#Á‰C‹UP‹Ré‰   ‹A…À‰EluQèç  …À‰El„‘  ‹UD‹ ¨u	€ú…  ¨tÇEp¥õ¿é	ÿÿÿÇEp9õ¿éışÿÿ‹EP‹x‹SO#ù3ú‰Ux…§   ‹@H#Á‰C‹UP‹zO#ù3ø…   ‹BH#Á‰C‹UP‹RJ#Ñ3Ğuw‹C;ğ~‰‰së„ó  ‹‹MxÁø@‰‹CÁø@‰C‹C;È~‰C‰Kë„É  ‹CÁø@‰C‹CÁø@€}g‰CuSE(PSènÜÿÿ…À„œ  ÇEx   é}  ‹uh‹F=¸   v'€hDvg2ÁàPj è²  …À‰Eh„z  ÇE<   ë	ƒ   ‰Ehƒex E(PÿuTEHPVÿuhEØPèmüÿÿ…À„6  E ‰E ‹EØÇEÿÿÿ‹xE 9E tE Pèçùÿÿ‹E M ;Áu‹EØMØ;Á„Ú   ‹xëM 9t	E Pèüùÿÿ‹EØ9xuWE PEØPèúÿÿ‹E|‹u ƒà‰ETƒ}T ‹N‰MXt‹F$‹6F$uùë‹6;N}qƒ}x2rÿutÿulÿuDSÿuxÿu@ÿUpƒex ‹MX€}gu/;M(‹M(‹ExÁàÃ‰‹V;U0|‹U0;Ê‰P}'O‰x‰Hë‹ExÁàÃW‰x‰P‰‹N‰HÿEx‹6E ;ğ…cÿÿÿGéışÿÿƒ}x vÿutÿulÿuDSÿuxÿu@ÿUpÇE8   ƒ}< tÿuhè!  _^‹E8[ƒÅ\ÉÂ ¸”õ¿§”õ¿˜õ¿   U‹ìì$  ‹ES‹V‹u€~ t3Àë`€~uÿuƒÆÿuÿuVjSÿUëBj2jj j VèÖ  W…ÜüÿÿPh$  Vè½  ÿu‹øÿu…àüÿÿÿuPÿµÜüÿÿSÿU…ÿuÎ_3À@^[ÉÂ ÌU‹ì‹M‹S‹]V3öö W‹}„   ‹Ó¶Çâÿ   ;Ğ‰Uu{Bÿƒøws¶€Ã™õ¿ÿ$…·™õ¿‹ƒøÿt¹¨Xõ¿ë/‹G;ÆuWè?  ;ÆtF‹U‹öÁuƒúu7öÁ¹¥õ¿u¹9õ¿QÿuPSÿuÿuëh¨Xõ¿3öVVSÿuQèÚşÿÿë:3À@ë5‹ÃÁè3ÉƒàŠ¨ºõ¿ƒãŠ‹ºõ¿‹ÁPÿu‹EWVVHQVPVVÿuè´áÿÿ_^[]Â a™õ¿™õ¿v™õ¿   ÌV‹t$‹F…Àt
+PèÆ  ƒf ‹vP…ötVèO  ^Â ÌVhDvg2h   jèD  …À‹t$‰FP„ş   S2Û2Ò2ÉW3À‹~Pˆ8‹~PˆT8‹~Pˆ\8‹~P€d8 €ÁöÁ?u€ÂöÂ?u€ÃƒÀ=   rÇ¹Ø  3Àé±®õ¿Š˜°®õ¿‹VPˆŠ˜±®õ¿‹VPˆ\Š˜²®õ¿‹VPˆ\Š˜³®õ¿‹VPˆ\Š˜Ø®õ¿‹~P”±®õ¿ˆ:Š˜Ù®õ¿‹VPˆœÙ  Š˜Ú®õ¿‹VPˆœÚ  Š˜Û®õ¿‹VPˆœÛ  ƒÀƒø(r‚3ÿWWWÿvPh   jè³  ‹L$‰F‰$  9~_[uÿvPè+  3Àë3À@^Â U‹ìì  ‹Eƒx@…€   SV3ÒWfÇ…øûÿÿ f‰•úûÿÿ¿   ‹HPƒïŠŠH<Òë´=şûÿÿˆ^ş‹HPŠ\9ŠH<Òëˆ^ÿ‹HPŠ\9ŠH<Òë;úˆVˆuÄMQRRh  øûÿÿQh# ÿpè›  …À_^[t3Àë3À@ÉÂ ÌU‹ìì  ‹E‹M•üûÿÿRPQÿuf‰…øûÿÿf‰úûÿÿèÆ  9Et3ÀëG‹ES3Û9X<uz9]tÿM‹MˆœÿûÿÿuñÿMMQSSh  øûÿÿQh# ÿpè  ÷ØÀ@[ÉÂ ÿM‹UŠH<”•üûÿÿÒ*‹UŠH<”•ıûÿÿÒ*‹UŠH<”•şûÿÿÒ*‹Mˆœÿûÿÿ9]uÁë“Ìÿt$ÿt$ègıÿÿ÷ØÀ÷ØÂ U‹ìƒì$‹U‹SV‹u‹‹Ë+ÈƒáW‹~‰M‹J+û+È‰}ü;ù‹~   E‹R‰M‹N+ù‰MàÏ‰Mè‹N;Ù‰Eì-  ë‹Uø‹Eì+Ë9Mr‰M‹M‰Uğ×‰Uø‰]ÜÙÁ3Ò9U‰]ä‰EôtEÜMìëEìMÜPQRRÿuÿuè÷ãÿÿ‹N‹]ä;Ù|ªéĞ   ‹N+ù‹J‹R+Ñ;ú‰Mğ€   ‹}ü‹N‰]Üß‰]ä‹]+ÃE‰U‹V;Ñ”   ë‹Eô+Ê9Mr‰M‹M‰UàÑ‰Uè‹UğÑÃ‰Uø‰EìÇ3Ò9U‰EôtEÜMìëEìMÜPQRRÿuÿuè\ãÿÿ‹N‹Uè;Ñ|¨ë8‹]ü‹ĞUÏÃE‰Mø3É9M‰Uì‰Eôt‹ÆuìëEìPVQQÿuÿuèãÿÿ_^[ÉÂ ÌU‹ìƒì0‹U‹J+
+S‹]‹ƒ„   +C|V‹sx+sp‰Eø‹ƒˆ   +ƒ€   ‰M‹J+JW‹{t+{l;È‰Eğ‰}ô‰uüw‹uø9uwC|ë‹uü‹}ô;Îw9}wClÿuj PRé·   ‹uü¯Eø¯÷ğ‹Á¯E;ÆwZ‹Eü‹ò}à¥¥¥¥‹ò3Ò÷ñ}Ğ¥¥¥¥‹UĞ¯Eô4‹Eè;Æ}‹ğ‹ş+øƒç‹Ğ+Ö‰uØ‰uà‰}t"+şø‹Eø3Ò÷÷3Ò‹ø‹Á÷uğ;Çr3ÀëQ‹Eè‹}+uĞ…ö~ÿuClj PEĞPSÿuèbıÿÿ‹Eè+Eà…À~‹Eì+Eä…À~ÿuC|WPEàPSÿuè9ıÿÿ¸x  _^[ÉÂ Ì‹L$SV‹q‹¨tX¨tT‹D$3Û+Ãt%HtHuD‰Œ   3À@ë;Sÿt$‰Œ   VQèzşÿÿëç9Œ   ujÿt$VQècşÿÿ;ÃtÇ†Œ      ë3À^[Â U‹ìƒìV‹uEPj j jF(Ph# ÿvèG  …Àu)9Et.!EüEPjEìPjEüPhX# ÿvè  …Àt3ÀëF‹Eô‰FFDPèÿÿVèÍ½ÿÿƒ¦˜   ûƒÈÿ‰†ğ   ‰†   ‰†  ‰†P  ‰†`  ‰†p  3À@^ÉÂ ÌU‹ìQ‹E‹H‰MMüQj j jMQh\# ÿpè¢  ÉÂ ‹D$‹öÁtLöÁtG‹¼   ‹H ƒ`p ƒÂü;Ñ‰Hl‹Ñ‹H$ƒ`| ‰Hx‰ˆ€   ‹ˆ   IIƒ Œ    ‰Pt‰„   ‰ˆˆ   Â U‹ìQQSV‹u‹†¼   W™j@Y÷ù‹Ø‹F$@@;†   ‰]øw<hDvg2ÁàPjè  …À‰Fhuƒ&ùëXƒƒf` O‹È‹†   ‰~dxş;ø}>…Û~1ƒe ‰]ü‰y‹†¼   ¯ÇEj™[÷ûƒ! ƒE@ƒÁÿMü‰AüuÙ‹]øG;¾   |Â_^[ÉÂ ‹D$ö t‹Hh‹@d…À|
+@ƒ! ƒÁHu÷Â ‹D$‹@h…ÀtPèc  Â U‹ìƒìWEüPjEôP3ÿWWh# ÿuèD  …Àt3Àé¢   ‹Eø‹M‰‹Mô¯ÈVhDvg2Qjè#  ;Ç‹u‰u3ÀëxMüQ‹Mô¯MøQPWWh # ÿuèô
+  …Àtÿ6èã
+  ‰>ëÑ‹Mô;Ï‹‰Müt>ÿMüƒxu+‹H@öÁt#öÅuƒxu‹HQÿ…Ñt‹P¯Ñú   v‰8Eø9}üuÂ‹Eô^_ÉÂ U‹ìƒì`S‹]WEüPEPÿsèÿÿÿ3ÿ;Çu3ÀéO  ‹UV‹²¬   ;÷u'9º°   u9º¨   u9º´   u9º¸   ÇE   t‰}‹MH99‰Eøt/9}uC9qu%‹A;‚°   u‹A¯A;‚¨   u‹A;‚¸   t‹EøMü;Çu¿ÿuèà	  3ÀéÃ  ‹A‰C(‹A‰C ‹A‰C$‹A¯A‰C@‹A‰C,‹A4‰C0‹A8‰C4‹A<‰C8öA@ uƒ‹uÇ @  ÇF   ‹A ‰F‹A$‰F‹C ‰F‹C$‰F‹C ‰†   ‹C$‰†  ‹A‰F‹A‰F‹A‰†ø   Ç†ü      ‚¦   ·‰V(· ‰F,ÇF0   ‰~$‹A(‰F4‹A,‰F8‹A0j‰F<X+F4j$‰C<X‰F@‰FD3À@‰FL‰FPEôPjHE PWWhh# ÇFH3   ÇFT   ‰~X‰~\‰~`‰~dÿsèÍ  …À‰¾Œ   ‰¾€   ‰~ttQÇFl,  ÇFpä  ÇFx4  ÇF|¼  Ç†„   x  Ç†ˆ      Ç†´   7  Ç†¸   Ú  ‰¾¼   ¸ N  ëeöE¤‹EÀ‰Fl‹EÄ‰Fp‹EÈ‰Fx‹EÌ‰F|‹EĞ‰†„   ‹EÔ‰†ˆ   ‹E´‰†´   ‹E¸‰†¸   ‹E¼‰†¼   t‹EÜ‰†À   ‹Eà‰†Ä   ‹Eäë‹EØ‰†À   ‰†Ä   ‰†È   ‰¾   ‰¾”   ‰¾˜   ‰¾œ   ‰¾    ‰¾¤   ‰¾¨   ‰¾¬   ‰¾°   ‰¾Ì   ‰¾Ğ   ‰¾Ô   ‰¾Ø   ‰¾Ü   ‰¾à   3ÀÇF    ‹K@@Óàj‰¾ä   ‹}‰FhXjKYÿu‰†è   Ç†ì      ‰†ğ   ‰†ô   ¾ ¯õ¿ó¥èF  3ÀMğQPPj‰Eè‰EìEèPh# ÿsè+  ÷ØÀşÀˆƒ   3À@^_[ÉÂ ÌU‹ìQƒ}0‹E‹@S‹](VW‹}‰Eü…Ã   3Òf9W0…·   9U…®   ‹E$‹;H    ‹H;H”   9ŒŒ   9SŒƒ   ‹C;G{‹C;Gs‹E;Âu3öë	¶pƒşt_ƒ,uY‹M;ÊtöAu‹A;ÂuQèè  …Àuë[3À‹M$‹Q+ú   w'P‹EƒÀ÷Şö#ğVQSÿw$ÿw ÿuüè:­ÿÿ…Àt3À@ë"ÿu0ÿu,Sÿu$ÿu ÿuÿuÿuÿuWÿuè  _^[ÉÂ, Ul$¨ìÌ  ‹E`ƒe|ƒ}|‹UhS‹]xV‹0j‰uTYu:€z u4ƒ{ u.„u*‹Ep‹ ‹Èáÿ   ÁàÈQÿ¶¼   ÿudVèveÿÿ3À@é  ‹ƒex „ÁWt4ƒe@ ¸¨ºõ¿‰E(‰E,3ÀŠC3öF‰u4‰u‰M‰u0#Æ‰E ÇEx   é˜   ‹{…ÿ„   ‹K43É;÷ÇE0   ‰Mvƒî;÷‰Mwô·sI‹{‰MÉ‰M·KIÎ$öØu„‰u(‰M ‹KµŒşÿÿ‰u,À‰E@D€u„;Æ‰M4ÇEx   Œşÿÿr‹74v‰0‰1ƒèƒÁƒÇ;E(sé‹Ep‹ ƒeD ƒMPÿ‰EH÷Ğ‰EL‹E|‹4…°ºõ¿‹şçÿ   u€MyŠD½DÁşˆEŠDµD‹uxÁî
+ƒæÁæˆEŠBÆğºõ¿<‰up„E  ƒe| <uR‹JBƒMx ‹ğ‹ }Ä¥¥¥¥‹z‹R3öF+ò‰UÜ3ÒB‰EØ‰Eä+×‰EøEÄ‰uè‰uô‹up‰}Ô‰Mà‰Uğ‰Mì‰M ‰Uü‰E|EHPÿudèÿ  ‹}L…ÿ‰Eh‹Ï„£   öEHt‹EP‹‰M‹H‰MH‰Mp‰E`OÿëE‰E`‹EP‰EpöEHtƒe  …Év&ÿuxEVÿu|PQj ÿupÿu`ÿuTèë…ÿÿ…Àtl‹EP‹}LöEH‹Løø‰M‹Døü‰Et#ÿuxEVÿu|Pjj EPEPÿuTè®…ÿÿ…Àt/ƒ}h …AÿÿÿöEy„ª   ‹E 3Ò÷u0·À·ÊÁàÁ‰Cé   3Àé‹   ƒMx@Sÿu`RÿudèŸ  …ÌşÿÿPh¸   ÿudè…  ƒ½àşÿÿ ‹øtTöEyt‹…Üşÿÿ·ÜşÿÿÁè¯E0Á‰E$ÿuxEVj Pÿµàşÿÿ…äşÿÿP…ÔşÿÿP…ÌşÿÿPÿuTèø„ÿÿ…À„uÿÿÿ…ÿu‰3À@_^[ƒÅXÉÂ  ÌU‹ìƒìD‹E‹H‹U3À…Ò‰Mt¶Bö‹U ‹SV‹uW‹}‰Uüu…ÿ…ô  …À…ì  ‹F‹NP‹Ùƒâüƒãü;ÚÓ  ƒ~ „É  ƒ} …¿  ‹V€â€ú…°  Yƒàøƒãø+Ø‹F+FÁû‹Ğ¯Ó¹ÿ  ;Ù‰U‡ƒ  ;Á‡{  ú    w‹E‹€œ  ‰EëhDvg2Rè\  …À‰E„S  ‹F‹ÈƒáQ€éQöÙÉƒàƒáü,ƒÁöØÀƒàÈ3À9F•ÀÈ…ÿ‰M „Ã   ‹E$‹ ‹Nƒe ‰E$‹G;È~‰EÀ‹‰E¼‹G‰EÄ‰MÈÇE   ‹F‹;Â~‹EÁàÿE‰T¼‹V‰TÄ‹V‰LÀ‰TÈ‹F‹W;Â}‹EÁàÿE‰LÀ‹N‰L¼‹N‰TÄ‰LÈ‹F‹O;Á}‹EÁàÿE‰LÈ‹‰L¼‹N‰TÄ‰LÀƒ} tj ÿu$E¼jPÿuÿuè¬ÿÿ‹Fƒàq<qt‹EƒÀÁèPÿuèÛ‚ÿÿÿu Fÿu$ÿuüWPÿvSÿuÿ6ÿvÿuèŞrÿÿ}    vÿuè  3À@ëX3ÀëT…ÿ‹M‹Y‹ÇuFÿuSPQèxÀÿÿ‰Eÿu,ÿu(ÿu$ÿu WÿuÿuÿuVSè¸   …À‰EtÿuSÿuècÁÿÿ…ÀuÌ‹E_^[ÉÂ( Ìÿ% ®õ¿ÿ%®õ¿ÿ%®õ¿ÿ%®õ¿ÿ%®õ¿ÿ%®õ¿ÿ%®õ¿ÿ%®õ¿ÿ% ®õ¿ÿ%$®õ¿ÿ%(®õ¿ÿ%,®õ¿ÿ%0®õ¿ÿ%4®õ¿ÿ%8®õ¿ÿ%<®õ¿ÿ%@®õ¿ÿ%D®õ¿ÿ%H®õ¿ÿ%L®õ¿ÿ%P®õ¿ÿ%T®õ¿ÿ%X®õ¿ÿ%\®õ¿ÿ%`®õ¿ÿ%d®õ¿ÿ%h®õ¿ÿ%l®õ¿                        ¼  ,¼  :¼  P¼  ^¼  l¼  x¼  ˆ¼  ¼  ¶¼  Ğ¼  à¼  ğ¼  ½  ½  2½  D½  Z½  l½  €½  ”½  ¨½  ¸½  Ì½  æ½  ¾  ¾  $¾                      T…};       #   ,°  ,°                          €    €  €€    € € €  €€ ÀÀÀ ÀÜÀ ¦Êğ ÿûğ   ¤ €€€ ÿ    ÿ  ÿÿ    ÿ ÿ ÿ  ÿÿ ÿÿÿ ,               ¼         S y s t e m                                                        	                  M S   S a n s   S e r i f                                          	                  C o u r i e r                                                                    RSDSy@cT}bJ £GRv   vga256.pdb                                                  ¹	õ¿     õ¿9	õ¿
+õ¿¹õ¿õ¿#õ¿
+õ¿%õ¿        `õ¿Áõ¿        -õ¿7õ¿9	õ¿9	õ¿Aõ¿Kõ¿9	õ¿9	õ¿Zõ¿iõ¿¹õ¿¹õ¿xõ¿‡õ¿¹õ¿¹õ¿Uõ¿dõ¿‘õ¿    sõ¿‚õ¿›õ¿    S/õ¿S/õ¿S/õ¿S/õ¿"õ¿­"õ¿"õ¿­"õ¿ñ"õ¿?#õ¿,#õ¿?#õ¿©#õ¿9$õ¿$õ¿9$õ¿ª$õ¿1%õ¿%õ¿1%õ¿S/õ¿S/õ¿S/õ¿S/õ¿"õ¿­"õ¿"õ¿­"õ¿Ç"õ¿?#õ¿#õ¿?#õ¿a#õ¿9$õ¿Í#õ¿9$õ¿g$õ¿1%õ¿É$õ¿1%õ¿S/õ¿S/õ¿S/õ¿S/õ¿"õ¿º"õ¿"õ¿º"õ¿İ"õ¿P#õ¿#õ¿P#õ¿…#õ¿P$õ¿ñ#õ¿P$õ¿‹$õ¿@%õ¿ï$õ¿@%õ¿Ã%õ¿É&õ¿†&õ¿É&õ¿O%õ¿É&õ¿ &õ¿É&õ¿‰%õ¿1'õ¿C&õ¿1'õ¿± õ¿ õ¿± õ¿ õ¿ õ¿üõ¿± õ¿ õ¿§(õ¿])õ¿L)õ¿:)õ¿()õ¿)õ¿)õ¿7)õ¿ø(õ¿[)õ¿J)õ¿æ(õ¿×(õ¿Å(õ¿³(õ¿¥(õ¿l)õ¿+õ¿ç*õ¿Á*õ¿œ*õ¿w*õ¿T*õ¿¾*õ¿2*õ¿	+õ¿ä*õ¿*õ¿é)õ¿Ç)õ¿¥)õ¿‡)õ¿ÿÿ€€  €€  €    €   €  ğ­º€   ğ­º?>õ¿ù=õ¿        a=õ¿°=õ¿        $8õ¿.8õ¿7?õ¿û>õ¿88õ¿B8õ¿û>õ¿7?õ¿Q8õ¿`8õ¿¿>õ¿¿>õ¿o8õ¿~8õ¿ƒ>õ¿ƒ>õ¿L8õ¿[8õ¿ˆ8õ¿    j8õ¿y8õ¿’8õ¿    £@õ¿6@õ¿        s?õ¿É?õ¿        œ8õ¿¦8õ¿¡Aõ¿eAõ¿°8õ¿º8õ¿eAõ¿¡Aõ¿É8õ¿Ø8õ¿)Aõ¿)Aõ¿ç8õ¿ö8õ¿í@õ¿í@õ¿Ä8õ¿Ó8õ¿ 9õ¿    â8õ¿ñ8õ¿
+9õ¿            ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ    ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                        ÿÿÿÿ                                    ÿÿÿÿ        ÿÿÿÿÿÿÿÿÿÿÿÿ            ÿÿÿÿ    ÿÿÿÿ    ÿÿÿÿ                ‰Iõ¿¨Bõ¿²Bõ¿¼Bõ¿‰Iõ¿ËBõ¿ÕBõ¿ßBõ¿    eFõ¿!Hõ¿!Hõ¿    DGõ¿ÑHõ¿ÑHõ¿GCõ¿Dõ¿ÌDõ¿“Eõ¿                         ÿÿ  ÿÿÿÿÿÿÿÿÿ ÿÿÿÿÿ      ÿ         ÿ  ÿÿÿ   ÿ ÿ ÿ                          P[õ¿[õ¿m[õ¿9[õ¿æ\õ¿ğ\õ¿ı\õ¿]õ¿ ]õ¿-]õ¿=]õ¿P]õ¿f]õ¿v]õ¿‰]õ¿Ÿ]õ¿¸]õ¿Ë]õ¿á]õ¿ú]õ¿    ²[õ¿¼[õ¿Ì[õ¿â[õ¿    ş[õ¿\õ¿\õ¿'\õ¿/\õ¿E\õ¿k\õ¿§\õ¿    ş[õ¿\õ¿\õ¿'\õ¿:\õ¿Q\õ¿z\õ¿²\õ¿    ş[õ¿\õ¿\õ¿'\õ¿/\õ¿_\õ¿‰\õ¿Ä\õ¿    ş[õ¿\õ¿\õ¿'\õ¿:\õ¿Q\õ¿˜\õ¿Ô\õ¿¶õ¿,¶õ¿P¶õ¿t¶õ¿ÿÿÿÿ                                                                                                                                                            	    
+                                                                                            €€    €€@@@@@@@@€€    €€ 	
+ 
+	 	
+ 	
+ 
+	 
+	 	
+ 	
+    øøøøùùùùúúúúûûûûüüüüıııışşşşÿÿÿÿ    $             6      2      &      "      4      0   	   -      )      ?      ;      /      +      =      9      %      !      7      3      '      #      5      1      ,      (      >      :   
+   .      *      <      8    øùúûüışÿ    ZŒõ¿   Îõ¿   Üõ¿   õ¿   ^õ¿    õ¿)    õ¿   ²‡õ¿   Ä›õ¿   <õ¿   d{õ¿   ¶ªõ¿   D§õ¿   ”õ¿   ¦„õ¿   8¦õ¿(   rŸõ¿   Ò˜õ¿ÿ 
+PUZ_ ¥ª¯ğõúÿ                                                      ÈMõ¿ßNõ¿cNõ¿¢Nõ¿Oõ¿ Põ¿ Põ¿ Põ¿&Qõ¿Rõ¿§Qõ¿àQõ¿MRõ¿,Sõ¿,Sõ¿,Sõ¿                                                                                ¨»          6¾   ®                      ¼  ,¼  :¼  P¼  ^¼  l¼  x¼  ˆ¼  ¼  ¶¼  Ğ¼  à¼  ğ¼  ½  ½  2½  D½  Z½  l½  €½  ”½  ¨½  ¸½  Ì½  æ½  ¾  ¾  $¾      ¸ PATHOBJ_bEnum 7 EngFreeMem  * EngDeviceIoControl   EngAllocMem  EngCopyBits  EngBitBlt  CLIPOBJ_bEnum  CLIPOBJ_cEnumStart   BRUSHOBJ_pvGetRbrush   BRUSHOBJ_pvAllocRbrush   EngCreateClip   EngDeleteClip „ EngUnlockSurface  ( EngDeleteSurface   EngCreateDeviceSurface  V EngLockSurface   EngAssociateSurface  EngCreateBitmap $ EngDeletePalette   EngCreatePalette  ¶ PALOBJ_cGetColors z EngStretchBlt Ù XLATEOBJ_piVector ¹ PATHOBJ_bEnumClipLines  ¾ PATHOBJ_vEnumStartClipLines ~ EngTextOut  ; EngFreeUserMem   EngAllocUserMem WIN32K.SYS                                                                               
+      €   8  €                  P  €                  h  €               	  €                  	      ¿             8¿  ˜                          ˜4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?                       ö   S t r i n g F i l e I n f o   Ò   0 0 0 0 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   l "  F i l e D e s c r i p t i o n     2 5 6   C o l o r   V G A \ S V G A   D i s p l a y   D r i v e r   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( X P C l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   6   I n t e r n a l N a m e   v g a 2 5 6 . d l l     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   >   O r i g i n a l F i l e n a m e   v g a 2 5 6 . d l l     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n       °                                                    T   3333$3.383B3L3V3[3e3j3t3y3ƒ3ˆ3’3œ3Å4)6ô6ø6ü6j7Ø7Ü7à78'>??$??š?¦?²?     ,   '1Î1Î2´3À3Ì374C4O4[4H5î5é6Ä8':ˆ;ø?      l   0'0b0Œ0–0·0181²1Ü1a2‹2k8¯8Á8Ó8â8ô899$939F9W9h9ƒ9¡9Ã9å9:.:P:s:˜:º:à:;*;T;b;‹;Ÿ;È;æ;í;ü;;<É=ş=   0  X   0%8/898C8M8R8\8a8k8p8z88‰8“88§8±8»8Å8Ê8Ô8Ù8ã8è8ò8÷899_9ó:;*;:;A;H;¹;Z=ú?   @  h   #0g00©2³2½2Â2Ì2Ö2à2å2›3¿3ğ3 4c4†4¸4È4(5L555ú56Q6a6î:;h;l;p;t;x;|;€;„;ˆ;Œ;;”;˜;œ; ;¤;¨;¬;°; P  H   Œ4H5a5o5x5†5˜5®5¼5Å5Ó5Ë8×8İ8ã8÷8ı89+9@9r9„9“9›9µ9À9è9ğ92;I;a?k? `     Ó8İ8ï8û89	;;%;1;;; p     03u;¼;Ò;Ù;<<   €  H    1$1(1F8l88”8»8Ñ8â8ù89@9S9f9y9‘9°9Ã9:Y:v:è:ò:ş:	;;;<<4<     D   j0}4„4»4­5¹52868:8999H9O9b9‡99·9»9¿9i:o:{:ˆ:•:¢:¬:µ:Å:Õ:    H   õ5¶7˜8Ì8B=H=N=T=Z=`=f=l=r=x=~=„=Š==–=œ=¢=¨=®=´=º=À=Æ=Ì=Ò=Ø=Ş=ä= °  t  €0ˆ0Œ00”0˜0œ0 0¤0°0´0À0Ä0È0Ì0Ğ0Ô0Ø0Ü0à0ä0è0ì0ğ0ô0ø0ü0 111111 1$1(1,1014181<1@1D1H1L1P1T1X1\1`1d1h1l1p1t1x1|1€1„1ˆ1Œ11”1˜1œ1 1¤1¨1¬1°1´1¸1¼1À1Ä1È1Ì1Ğ1Ô1Ø1Ü1à1ä1è1ì1ğ1ô1ø1ü1 22222222 2$2(2,2024282<2@2D2H2L2P2T2X2\2`2d2h2l2p2t2x2|2€2„2ˆ2Œ22”2˜2œ2 2¤2¨2¬2°2´2¸2¼2À2Ä2È2Ì2Ğ2Ô2Ø2Ü23333(3,3034383<3@3D3H3L3P3T3X3\3`3d3h3l3p3x3|3€3ˆ3Œ3˜3œ3¨3¬3°3´3¸3¼3À3Ä3È3Ì3Ğ3Ô3Ø3Ü3à3ä3è3ì3ğ3ø3ü3 4Ô4Ø4Ü4à4ä4è4ì4ğ4ø4ü4 5555555 5¤5¨5¬5°5´5¸5¼5À5Ä5È5Ì5Ğ5Ô5Ø5Ü5à5ä5è5ì5ğ5ø5ü5 6666666 6$6(6064686<6@6D6H6L6T6X6\6`6d6h6l6p6x6|6€6„6ˆ6Œ66”6˜6œ6 6¤6::::$:,:4:<:D:L:T:\:d:l:t:|:„:Œ:ğ:ô:ø:ü: ;;;;;;;; ;$;(;,;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  MZ       ÿÿ  ¸       @                                   Ğ   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       GºÂ¨Û¬ûÛ¬ûÛ¬ûÛ­ûÛ¬ûùøµû Û¬û”øéûÛ¬ûùøìûÛ¬ûÙø°û	Û¬ûùø‘ûÛ¬ûRichÛ¬û        PE  L õ’};        à ! €7  €      \-     €8    õ¿€   €              G     ~K                                 ?  (    A  X                  €E  (  Ğ8                                             €8  P                           .text   ~5     €5                    h.rdata  Ï  €8     €8              @  H.data   1  €:  €  €:              @  ÈINIT    Ú   ?      ?                 â.rsrc   X   A  €   A              @  B.reloc  2  €E  €  €E              @  B                                                                        h“
+õ¿éÃ  hÍ	õ¿é  h“
+õ¿hÍ	õ¿é  hÍ	õ¿éf  h2
+õ¿é–  h2
+õ¿hÍ	õ¿éM  U‹ìƒÄ¨VWSºÎ  ¸   fï‹u‹}‹F;G|‹;}0éå   ‹;   é_  ºÎ  ¸ÿ  fïºÅ  °îü[_^ÉÂ ‹U‹G‹’ì   ‰E¨‹N‹Â‰M°¯Á‹‰M´ÑéÁ3ö‹O‹Ú‰M¬¯Ù‹‰M¼ÑéÙ‹‰}ÄÑï+ù‹M¼ƒátƒÎ‹Ğ:õ¿‰MĞ‰Eä‰]à@CO‰Eø‰]ô‹MÄƒát&ƒÎ‹Ø:õ¿‰MÌÇß‰EÜ‰]Øƒÿ }
+Gƒö#MĞ‰MĞ‰}è‰UÔ+×‰Uğ‹]‹µ€:õ¿‰Eü‹ƒä   ÿ$… :õ¿ı‹U‹G‹’ì   ‰E¨‹N‹Â‰M°¯Á‹‰M´O+ÑéÁ¾   ‹O‹Ú‰M¬¯Ù‹O‰MÄÑéÙ‹?‰}¼Ñï÷ßù‹MÄƒátƒÎ‹Ø:õ¿‰MÌ‰EÜ‰]ØHK‰Eø‰]ô‹M¼ƒát'ƒÎ‹Ğ:õ¿‰MĞO+Ç+ß‰Eä‰]àƒÿ }
+Gƒö#MÌ‰MÌ‰}è‰UÔ×‰Uğ‹]‹µ€:õ¿‰Eü‹ƒä   ÿ$… :õ¿‹U‹G‹’ì   ‰E¨‹NO+O‹Â‰M°I¯Á‹‰M´ÑéÁ3ö‹O‹Ú‰M¬I¯Ù‹‰M¼ÑéÙ‹‰}ÄÑï+ù‹M¼ƒátƒÎ‹Ğ:õ¿‰MĞ‰Eä‰]à@CO‰Eø‰]ô‹MÄƒát&ƒÎ‹Ø:õ¿‰MÌÇß‰EÜ‰]Øƒÿ }
+Gƒö#MĞ‰MĞ‰}è÷Ú‰UÔ+×‰Uğ‹]‹µ€:õ¿‰Eü‹ƒä   ÿ$…°:õ¿ı‹U‹G‹’ì   ‰E¨‹NO+O‹Â‰M°I¯Á‹‰M´O+ÑéÁ¾   ‹O‹Ú‰M¬I¯Ù‹O‰MÄÑéÙ‹?‰}¼Ñï÷ßù‹MÄƒátƒÎ‹Ø:õ¿‰MÌ‰EÜ‰]ØHK‰Eø‰]ô‹M¼ƒát'ƒÎ‹Ğ:õ¿‰MĞO+Ç+ß‰Eä‰]àƒÿ }
+Gƒö#MÌ‰MÌ‰}è÷Ú‰UÔ×‰Uğ‹]‹µ€:õ¿‰Eü‹ƒä   ÿ$…°:õ¿‹]‹}¬;»  |;»   |
+j WSÿ“  ‹E°;ƒ   |q‰E¸‰}À‹³   ‹E¨+ÆÉ#Èñ‰uÈºÎ  ¸ÿ  fïºÅ  °îœüM¼U´RQj j SèÚ  ºÎ  ¸   fï‰u¬+÷u°‹UÔ¯ÖUäUàUøUôUÜUØë%‹›   +Ø‹U¨+×+ÚÉ#ËÑ‰UìÂú‰E°‰}¬ÿUü‹}¬;}¨üÿÿ‹]j WSÿ“  éAÿÿÿ‹]‹}¬;»  ~;»   ~Oj WSÿ“  G‹E°;ƒ  s‹³  ‹U¨;ò‹ò‰uÀ‰}ÈÆ+Ç‰E¸ºÎ  ¸ÿ  fïºÅ  °îœüM¼U´RQj j Sè÷  ºÎ  ¸   fï‰u¬+ş)}°‹UÔ¯×UäUàUøUôUÜUØë+ƒ  +}¨+ÇÉ#Èù‰}ì)}°)}¬ÿUü‹}¬;}¨*ûÿÿ‹]Oj WSÿ“  GéEÿÿÿ‹]‹}¬‹u°;»8  |;»@  |jj WSÿ“  ;³(  |;³0  |j j VSÿ“  ‹‹@  ‹U¨+ÊÀ#ÁĞ‹‹0  +×+Î+ÊÀ#ÁĞ‰Uìòú‰u°‰}¬ÿUü‹}¬;}¨–úÿÿ‹]‹u°;»@  |jj WSÿ“  ;³0  |Ÿj j VSÿ“  ë‘‹]‹}¬‹u°;»8  ~;»@  ~OjjWSÿ“  G;³(  ~;³0  ~Nj jVSÿ“  F‹‹8  ‹U¨;Ñ‹Ñ+ú+³(  +÷À#Æø‰}ì)}°)}¬ÿUü‹}¬;}¨êùÿÿ‹]‹u°;»8  OjjWSÿ“  G;³(  ¥Nj jVSÿ“  Fë•ºÅ  °î‹}‹Eè‹]ì‹Uğ‹w|‹¿€   uø}ô‹ËƒÃƒáÑë‹
+õ¿ÿá
+õ¿
+õ¿‹Èó¤òú‹Èó¤òúKuí‹M+q|+¹€   ‰uø‰}ôÃºÅ  ‹EĞî‹M‹]ì‹UÔ‹q|‹¹€   uä}à‹ÃƒÃƒàÑë‹…h
+õ¿ÿà‹ÿp
+õ¿x
+õ¿ŠˆòúŠˆòúKuí+q|+¹€   ‰uä‰}àÃºÅ  ‹EÌî‹M‹]ì‹UÔ‹q|‹¹€   uÜ}Ø‹ÃƒÃƒàÑë‹…È
+õ¿ÿàĞ
+õ¿Ø
+õ¿ŠˆòúŠˆòúKuí+q|+¹€   ‰uÜ‰}ØÃÌU‹ìVWS‹ufºÄf¸fï²Îf¸ fïf¸ fïºÎ  ŠfH°fïf¸ fïf¸ÿfï[_^ÉÂ U‹ìºÎ  °îBì%ü   Šà‹ĞÁâÂ‹U ‰ÉÂ ÌV‹t$ÿvdè¡,  ÿ¶   è–,  ÿ¶”   è‹,  ÿ¶ğ   è€,  ÿ¶ô   èu,  ^Â ÌU‹ìƒìSVWœü‹]ƒÎÿ9³À   u1‹Ch¨tƒàû‰Chÿ“H  ‰³Ğ   ‰³à   ‰³   ‰³0  ‰³@  ƒ}‹Eu+ƒ˜   …À3À‹‹   ¶‹“”   ‰‚‹C»´   ‹ò¥¥¥¥+Bƒchü‰Cx‰C|‰ƒ€   ‹ƒˆ   ‰M‰E‹E‹ĞÿU€»l   t9¡à:õ¿;Et/‹E‰Eô‹E‰Eø‹E£à:õ¿EüPj j jEôPh# ÿsèˆ+  _^[ÉÂ ÌU‹ìVWœü‹uƒÏÿ9¾À   u1‹Fh¨tƒàû‰Fhÿ–H  ‰¾Ğ   ‰¾à   ‰¾   ‰¾0  ‰¾@  ƒ} u.‹M‹†   ¶‹–    ‹¾œ   ;Ï‰E‰Mr=‹Ï‹Á+Âë/‹E+†˜   …À3À‹   ¶‹–    ‹Á+Â‰M‰Ey
+3À‹Ê‰E‰M‹¾”   €‡‹‰†´   ‹B‰†¸   ‰‡‹H‰À   ‹@‰†¼   ‹F+Bƒfhü‰Fx‰F|‰†€   ‹†ˆ   ‰E‹E‹UÿU_^]Â ÌU‹ìSVWœüƒ}‹]‹Eu+ƒ˜   …À3À‹‹   ¶‹“”   €Š‹UrÁæƒÏÿ9<‰E‰Mu^‹ò‹ShƒööÂ‰utƒâû‰Shÿ“H  ‹E‹M‰»À   ‰»   ‰»0  ‰»@  Áæ‹U¼Ä   ‹ñ¥¥¥¥‹u‰D³p‹{+y‰|³|‹òÁæ¼Ä   ‹ñ¥¥¥¥‹s+q‰D“p‰t“|‹Cpƒchü‰E‹Ct‰E‹ƒˆ   ‰E‹E‹UÿU_^[]Â Ìÿt$ÿt$ÿt$èïüÿÿÂ U‹ìSVWœüƒ}‹]‹Eu+ƒ˜   …À3À‹‹   ¶‹“”   ‰‚‹UzÁçƒÎÿ94‰M‰Eur‹ShöÂtƒâû‰Shÿ“H  ‹M‹E‹U‰³À   ‰³   ‰³0  ‰³@  ‰Uƒu‹uÁæ¼Ä   ‹ğ¥¥¥¥‹s+pƒúu‰s|ëÆ €  ‰³€   ‹u‰L³p‹òÁæ¼Ä   ‹ğ¥¥¥¥‹s+p…Òu‰s|ëÆ €  ‰³€   ƒchü‰L“p‹Cp‰E‹Ct‰E‹ƒˆ   ‰E‹E‹UÿU_^[]Â U‹ìSVWœü‹]ƒÎÿ9³   u1‹Ch¨uƒÈ‰Chÿ“D  ‰³À   ‰³Ğ   ‰³à   ‰³0  ‰³@  ƒ}‹Eu+ƒø   …À3À‹‹ğ   ¶‹“ô   ‰‚‹C»  ‹ò¥¥¥¥+Bƒchü‰Cx‰C|‰ƒ€   ‹ƒè   ‰M‰E‹E‹ĞÿU_^[]Â U‹ìVWœü‹uƒÏÿ9¾   u1‹Fh¨uƒÈ‰Fhÿ–D  ‰¾À   ‰¾Ğ   ‰¾à   ‰¾0  ‰¾@  ƒ} u,‹†ğ   ‹M¶‹†   ‹–ü   Á;Â‰M‰Er5‹Â‰Eë.‹E+†ø   …À3À‹ğ   ¶‹È+   ‰E‰My3É‰M‹–ô   ‰Š‹9€‰¾  ‹y‚‰¾  ‹P‰–   ‹@‰†  ‹F+Aƒfhü‰Fx‰F|‰†€   ‹†è   ‰E‹E‹UÿU_^]Â U‹ìSVWœüƒ}‹]‹Eu+ƒø   …À3À‹‹ğ   ¶‹“ô   €Š‹UrÁæƒÏÿ9<‰E‰Mu^‹ò‹ShƒööÂ‰uuƒÊ‰Shÿ“D  ‹E‹M‰»À   ‰»Ğ   ‰»à   ‰»   Áæ‹U¼$  ‹ñ¥¥¥¥‹u‰D³p‹{+y‰|³|‹òÁæ¼$  ‹ñ¥¥¥¥‹s+q‰D“p‰t“|‹Cpƒchü‰E‹Ct‰E‹ƒè   ‰E‹E‹UÿU_^[]Â Ìÿt$ÿt$ÿt$è?ıÿÿÂ U‹ìSVWœüƒ}‹]‹Eu+ƒø   …À3À‹‹ğ   ¶‹“ô   ‰‚‹UzÁçƒÎÿ94‰M‰Eur‹ShöÂuƒÊ‰Shÿ“D  ‹M‹E‹U‰³À   ‰³Ğ   ‰³à   ‰³   ‰Uƒu‹uÁæ¼$  ‹ğ¥¥¥¥‹s+pƒúu‰s|ëÆ €  ‰³€   ‹u‰L³p‹òÁæ¼$  ‹ğ¥¥¥¥‹s+p…Òu‰s|ëÆ €  ‰³€   ƒchü‰L“p‹Cp‰E‹Ct‰E‹ƒè   ‰E‹E‹UÿU_^[]Â U‹ìƒì SV‹uW‹}‹G‹O‹_‰Eô‰Œ   ‹G‰†„   ‹G$ƒÀ   ÿƒĞ   ÿƒà   ÿÇ‰†ˆ   ‹GH‰Mt;Ht,H…•   ¸ €  3Ò÷ñÇ†¤   ’õ¿Ç†¨   °õ¿‰†    ë Ç†¨   ¦õ¿ë
+Ç†¨   œõ¿Ç†¤   œõ¿‹Eô3Ò÷ó3ÒhDvg6‰Eè‰F`‹EôDÿ÷ñ€ÁàPjè£#  …À‰†”   thDvg6ÿuèj èŠ#  3Ò;Â‰†   u3Àé  ‹”   3Àƒ‰Uü•À‰Uğ‰U‰Q‰Q3ÒÇ  €H% €ÿÿ   ‹ø‹E‰EøDÿ÷ó;}ô‰}àÇAÿÿÿ‰Asuƒeì Dÿ‰Eä‹E;Eøs ‹†   ‹}üŠUğ]ÿEüˆ‹E;Eørã‹}à‹EEìEø‹Uì‹EäEƒÁ‰Q‹UüÇ  €ÇAÿÿÿ‰Q‰Eä3Ò÷óÿEğ‰A‹EÇ;Eôr–‹Eğ‹Uè‰†œ   ‰Q‹Mü;Ê}‹–   ˆA;Mè|ñ‹Ç+E3Ò÷ó3ÒÆ˜   ‹È‹E÷ó‰…Òt…ÉvI‰3À@_^[ÉÂ ÌU‹ìƒìSV‹uW‹}‹G ‹_‹Oƒƒ   ÿƒ0  ÿƒ@  ÿ‰E‹G(Ç‰†è   ‹G,Ç‰†D  ‹G0ÇÁë‰†H  ‰ì   ‹GÁé‰†ä   H‰Môt<Ht-H…“   ¸ €  3Ò÷uÇ†  zõ¿Ç†  õ¿‰†   ë Ç†  „õ¿ë
+Ç†  zõ¿Ç†  Êõ¿3Ò‹Á÷ó3ÒhDvg6‰Eì‹EDÿ÷u€ÁàPjèu!  …À‰†ô   thDvg6ÿuìj è\!  3Ò;Â‰†ğ   u3Àé  ‹M3Àƒ‰Mü‹ô   •À‰Uø‰U‰Q‰Q3Ò3ÿH% €ÿÿ   ‰EğDÿ÷óÇ  €ÇAÿÿÿ‰A‹Eğ;Eôsp!}è+E‰Eäë‹†ğ   ŠUøˆG]‹E;Eürè‹EEü‹EèEƒÁ‰A‰Eè‹Eä+E3ÒEüÿEøDÿ÷ó‹UğÇ  €ÇAÿÿÿ‰yÇ‰A‹EÂ;Eôr­‹Â‹Uø‰–ü   ‹Uì;ú‰Q}‹ğ   ŠUøˆG;}ì|î+E3Ò÷ó3ÒÆø   ‹È‹E÷ó‰…Òt…ÉvI‰3À@_^[ÉÂ U‹ìƒì4SV‹uWEPj43ÛEÌPSShT# ÿv‰^d‰   ‰”   ‰ğ   ‰ô   èî  hDvg6ÿuĞjèå  ‹ø;ûtCEPÿuĞ‰~dWSShT# ÿvè¿  …Àu%‹GWV‰FlèDûÿÿ…ÀtöGtƒWVèDıÿÿ…Àu
+VèÜòÿÿ3ÀëSSVÿ–¤   3À@_^[ÉÂ ÌU‹ì‹E‹HSV‹u‹V$;ÊW|‹Ê‰L  ‹@…À}3ÀJ;Â|‹Â‹]€{ t‹S;Ğ~‹Â‹S;Ñ|‹Ñ‰–L  ;†¸   |;†À   |
+j PVÿ–¤   ‹Fx‹M‰A €{ th‹E¾T  S‹ò¥¥¥¥ŠKˆˆh  ŠKˆˆi  €K‹ˆ¸   9K‰K‹ˆÀ   9K|‰K‹K;K}‹
+;K|(3É‰
+‰K‰K‰K‰ˆL  ë‹d  Æ´   {¥¥¥¥_^‹Ã[]Â S‹\$V‹³À   ;³L  |1‹D$;ƒd  t!W³T  x¥¥¥¥Š‹h  ˆHŠ‹i  ˆH_3Àëkj VSÿ“¤   ‹Cx‹L$‰A ‹D$‰p‹‹´   ‰H‹‹À   ‰H‹‹¼   ‰H;ƒd  t*‹‹T  9H‰H‹‹\  9H|‰H‹›`  9X|‰X3À@^[Â ÌU‹ìV‹u‹F…ÀW}3À‹};G$•   ;‡¸   |;‡À   |
+j PWÿ—¤   ‹‡¼   ;Wÿ—¬   ‹Gx‹M‹U‰A ‹‹E‰‹N‰H‹E‹‰
+‹H‰J‹H+HSN‹ŸÀ   ;Ù}‹Ë‰J‹X+^Ù‰Z‹H+‹¿¼   [;ù}‹Ï‰J‹ +Á‰B_^]Â U‹ìQQS‹]‹C+V‹u‰Eü‹C+CW‹}‹O‰EøÁ‹N$;Á‰E|‰MöFh‹†À   ‰Et,Vÿ–¬   ‹Eü9†´   |<‹E9†À   Ÿ   Vÿ–¬   ë$;E   j PVÿ–¤   ‹†¼   ;Vÿ–¬   ‹Fx‹M‰A ‹†´   ‹;Á~‹È‹E‹U‰‹M‰H‹C+GÈ‰J‹OMø‹–À   ;Ñ}‹Ê‹UÁ‹M‰A‹+‹Ğ‰‹?}ü‹¶¼   ;÷|‹÷ğ3À‰q@ë3À_^[ÉÂ U‹ìVW‹}‹G…À}3À‹u;F$}y;†¸   |;†À   |
+j PVÿ–¤   ‹†¼   ;Vÿ–¬   ‹Fx‹M‰A ‹‹E‰‹O‰H‹À   ‹W;Ê|‹Ê‰H‹¶¼   ‹;÷|‹÷‰p‹E…Àt‹‹M‰‹@‰A_^]Â U‹ìSV‹u‹N$W‹}‹G;Á‰E|‰MöFh‹À   t*Vÿ–¬   ‹†´   ;G|<‹E9†À   •   Vÿ–¬   ë$;]ƒ   j SVÿ–¤   ‹†¼   ;Vÿ–¬   ‹Fx‹M‰A ‹E‰X‹´   ‹;Ê‹Ù‹Ú‰‹À   ‹W;Ê|‹Ê‰H‹¶¼   ‹O;ñ}‹Î‰H‹M…Ét‹1+7‹Uó‰2‹I+OH‰J3À@ë3À_^[]Â Ì‹D$‹L$‹S‹;ÓVW~‹Ú‹|$‰‹P‹q;Ö|‹Ö;Ú‰W}'‹P‹q;Ö‹Ö‰W‹@‹I;Á|‹Á;Ğ‰G}3À@ë¾ì8õ¿¥¥¥¥3À_^[Â U‹ìƒì0‹U‹RSV‹u‹N‰M‹NPW‹}3À‰Mø‹O@;Ê‰Eü‰UèH  ‹G‹Ú+ÁÃ;¸   ‰M‰Eì|;À   |j SVÿ–¤   ‹Eì‹Nx‹U‰J ‹À   ;Á‰Eğ|‰Mğ‹O‹E‹ ‰MØ‹Mğ+Ë‰MÜ‰Eà‹MàQMĞQ‰EĞ3ÀPPÿu‰]äÿuø‰EÔèt  !Eü‹EÜ‹M9¸   ‰]è|jCÿPVÿ–¤   ‹Fx‹M‰A ‹À   ;Ù}‹Ë‹U‹†¸   ;Ğ‰Uô‰Eô‹‹Uô‰Eà‰EĞ‹G‰EØEàPEĞPÿu‹Úÿu+]ÿuø‰]äÿu‰UÔ‰MÜèğ  !Eü…Ût‹EôjHPVÿ–¤   ‹]èë†‹]ğ;]ì:  ‹Eèj SV‰Eÿ–¤   ‹Fx‹M‰A ‹Eìéíşÿÿ‹_‰]+ÙÚ;¸   ~;À   ~PCÿPVÿ–¤   ‹Fx‹M‰A ‹Mè‹†¸   ;È‰Mğ‰Eğ‹Mğ‹E‹ ‹W+Ù‰Mä‰Eà‹MàQMĞQ‰EĞ3ÀPPÿu‰EÔÿuø‰UØ‰]Üè/  ‹]+]Ü!Eü9À   j SVÿ–¤   ‹Fx‹M‰A ‹¸   ;Ù~‹Ë‹U‹†À   ;Ğ‰Uì|‰Eì‹‰Eà‰EĞ‹G‰EØ‹Eì‰EÜEàPEĞPÿu‹Ñÿu+Óÿuø‰Uäÿu‰MÔèµ  !Eü‹Eì;Etj PëŠ‹Eğ;Eè~‰]‹ØjHéÿÿÿ‹Eü_^[ÉÂ U‹ìƒì<SV‹u‹F3ÒBƒ} ‰E‹FPW‹}‰Uü‰Eøt‹M ‹+‰EÜ‹G+A‰Eà‹E‹@‹O;È‰Eìj  ‹Ø‹G+ÁÃ;¸   ‰M ‰Eğ|;À   |j SVÿ–¤   ‹Eğ‹Nx‹U‰J ‹À   ;Á‰Eô|‰Mô‹O‹E‹ ‰MÌ‹Mô+Ë‰MĞ‰Eä‹MäQMÄQ‰EÄ3ÀPPÿu‰]èÿuø‰EÈè»  !Eü‹EĞ‹M 9¸   ‰]ì|jCÿPVÿ–¤   ‹Fx‹M‰A ‹À   ;Ù}‹Ë‹U ‹†¸   ;Ğ‰U‰Eÿu,‹ÿu(‹Uÿu$‰Eä‰EÄ+EÜ‹Ú‰EÔ‹E+Eà+] ‰EØEÔPEäPEÄPÿu‰UÈÿu‹Wÿu‰]èÿuø‰UÌÿu‰MĞè  !Eü…Ût‹EjHPVÿ–¤   ‹]ìédÿÿÿ‹]ô;]ğY  ‹Eìj SV‰E ÿ–¤   ‹Fx‹M‰A ‹EğéËşÿÿ‹_‰]+ÙØ;¸   ~;À   ~RCÿPVÿ–¤   ‹Fx‹M‰A ‹Mì‹†¸   ;È‰Mğ‰Eğ‹Mğ‹E‹ ‹W+Ù‰Mè‰Eä‹MäQMÄQ‰EÄ3ÀPPÿu‰EÈÿuø‰UÌ‰]ĞèT  ‹]+]Ğ!Eü9À   j SVÿ–¤   ‹Fx‹M‰A ‹†¸   ;Ø~‹Ã‹U‹À   ;Ñ‰U |‰M ÿu,‹ÿu(‹Ğÿu$‰EÈ+Eà+Ó‰EØEÔPEäPEÄPÿu‰Uèÿu‹Wÿu‰Mäÿuø‰MÄ+MÜÿu‰UÌ‹U ‰UĞ‰MÔèÄ  !Eü‹E ;Etj Pékÿÿÿ‹Eğ;Eì~‰]‹ØjHéæşÿÿ‹Eü_^[ÉÂ( U‹ììd  SV‹u…öWu€eÿ ëŠFˆEÿ‹Efƒx0…/  ‹M…É„‰  fƒy0…~  }0ÌÌ  ‹‰U…H  ‹] ‹}‹3‹‹Î3ÈöÁ…  ö„  ‹M…Ét
+öA„  ¶Mÿƒé „í   I„°   II…è   ‹K;O|	3É;ğœÁë	3É;ğœÁAA‹Á3ÉQPQQÿuèÒ  …œüÿÿPh$  ÿuè¸  ‰E ‹…œüÿÿÁà„ üÿÿ üÿÿ;È‰Eµ üÿÿs6VWVèòøÿÿ…Àt"‹+‰Eà‹F+GC‰EäEàPVÿuè€ŞÿÿƒÆ;urÊƒ}  uŠ3À@éÁ  ‹EƒÀPWEÀPè¥øÿÿ…Àtã+7‹C+GuÀEÄ‰uà‰EäEàPEÀPÿuëSWRè,Şÿÿë¸SWÿuÿuRèÎøÿÿén  ÿu0ÿu,ÿu(ÿu$ÿu ÿuÿuVÿuRèJûÿÿéJ  ƒ} ‹‹E‰Uğt‹M$‹8‹p+9+që‹uø‹}ô‹ZMĞQMôQPÿu SRè†öÿÿÿu0‹EĞÿu,+Çÿu(‰Eè‹EÔ+Æ‰EìEèPEôPEĞPÿuÿuÿuÿuSèa  …À‰E$„È   EĞPEôPÿuÿu SÿuğèÅöÿÿ…Àu£é¨   ‹]…Û„¢   fƒ{0…—   ƒ} ‹Mt‹E$‹9‹q+8+pë‹uø‹}ô‹‹XUĞRUôRQÿu ‰EğSPèôÿÿÿu0‹EĞÿu,+Çÿu(‰Eè‹EÔ+Æ‰EìEèPEôPEĞPÿuÿuÿuSÿuè°  …À‰E$tEĞPEôPÿuÿu Sÿuğèrôÿÿ…Àu§‹E$ë3À_^[ÉÂ, U‹ììT  ‹ESV‹ufƒ~0W…¾  …À„b  fƒx0…W  ‹‹]‹}‹3‹‹Æ3Á¨‰U…)  ö„   ‹E…Àt
+ö@„  ‹E…ÀtŠ@ë2À¶Àƒè „ë   H„®   HH…æ   ‹C;G|	3À;ñœÀë	3À;ñœÀ@@3ÉQPQQÿuèÖ  …¬üÿÿPh$  ÿuè¼  ‰E‹…¬üÿÿÁà„°üÿÿ°üÿÿ;È‰Eµ°üÿÿs6VWVèöõÿÿ…Àt"‹+‰Eø‹F+GC‰EüEøPVÿuè„ÛÿÿƒÆ;urÊƒ} uŠ3À@é  ‹EƒÀPWEĞPè©õÿÿ…Àtã+7‹C+GuĞEÔ‰uø‰EüEøPEĞPÿuëSWRè0Ûÿÿë¸SWÿuÿuRèÒõÿÿéµ   ‹6‹~EàPEğPÿuÿuWVèÍóÿÿEğPEàPÿuÿuÿuWèÂ  ‹Ø…ÛtEàPEğPÿuÿuWVè3ôÿÿ…ÀuÊ‹Ãëa…Àt[fƒx0uT‹8‹_EàPEğPÿuÿuSWè¨ñÿÿEğPEàPÿuÿuSVèe  …À‰EtEàPEğPÿuÿuSWè/òÿÿ…ÀuË‹Eë3À_^[ÉÂ ÌU‹ìƒì ƒ}SVW„  ¶E¶}¶]3É;ø‰}v‹Ï‹øj‹Á‰}Y;ûv‹×‹û‰}‹ÚƒÉ;Øv	‹Ó‹Ø‹ÂƒÉsPÁáÁêÁîGÁïØû   ‰}†Û   ‹]Øû   Eàvf<»€   +ßt¶o<õ¿‰Eä‰]àEè‹}+÷TÀj@_+ú+ş+ût‰8¶¹q<õ¿‰xƒÀ…öt‰0¶±s<õ¿‰pƒÀ…Ò„>  ¶‰w<õ¿é*  ÿ‰}‹Ú+ŞTÀ‹uj@_+ş+ú+ût¶k<õ¿‰Eä‰}àEè…öt‰0¶±o<õ¿‰pƒÀ…Ût¶±q<õ¿‰‰pƒÀ…Ò„Ù   ¶‰s<õ¿éÅ   =€   Eàv`òÑæ‹Ş¾€   +ót¶i<õ¿‰Eä‰uàEè?j@TÀ_+ú+û+şt¶±k<õ¿‰8‰pƒÀ…Ût¶±o<õ¿‰‰pƒÀ…Òtl¶‰q<õ¿ë[j@<[+ßt¶h<õ¿‰Eä‰]àEè+ÖÑâ‹òt¶‘i<õ¿‰0‰PƒÀ‹Uj@_Ò+ş+ú+ût¶±k<õ¿‰8‰pƒÀ…Òt¶‰o<õ¿‰H‰ƒÀ‹ÈUà+ÊÁùƒù†ï   ƒù‹uè‹Uğu	;òsMğë;Uøsö‹UøMø;òvMè‹Ö9UàvMà‰E‹A‹…è<õ¿ÇAÿ   ‹M‰‰Q‰Q‰Q‰Q‰Q‰Q‰Q‰Q ‰Q$‰Q(‰Q,‰Q0‰Q4‰Q8‰Q<º(=õ¿}à‹_ûÿ   u‹‚ëR‹7Š›(>õ¿‰uƒæ‹ÆHtHt	Hu‹Bˆ‹Bˆ‹ˆ²Ámt‹ˆ‹Bˆ‹Bˆ‹BƒÂÿMˆuáƒÇ;}r”éJ  …½   ‹}è9}àr‹Eä‹Uà‹…è<õ¿‹Eì•(=õ¿ë‹Eì‹…è<õ¿‹Eä‹}àº(=õ¿Š˜(>õ¿‹E‰‰H‰H‰H‰H‰H‰H‰H‰H ‰H$‰H(‰H,‰H0‰H4‰H8‰H<‹Ïƒá‹ñNtNt	Nu‹rˆ0‹rˆ0‹2ˆ0ŠÁï„©   ‹
+ˆ‹Jˆ‹Jˆ‹JƒÂOˆuãé‡   ‹M‹Eä‹…è<õ¿‰‰A‰A‰A‰A‰A‰A‰A‰A ‰A$‰A(‰A,‰A0‰A4‰A8‰A<ëI‹U3ÀjY‹úó«¶E¶MiÀ—   kÉÁ¶MkÉMÁ¶Ä@Áèt¶ˆç;õ¿¶°'<õ¿HŠ	1…Àuè_3À^@[ÉÂ Ìƒ|$‹D$rÇ@8>õ¿ƒ|$rÇ@   ƒ|$rÇ    3À@Â Ì‹D$‹L$‰AÂ V‹t$ÿ¶d  èˆ
+  VèX
+  ^Â U‹ìQQSV‹uWjVè  …À„  ‹F,ÿv‹~$‹^ 3É…ÀŸÁQjPWSèi
+  …À‰E„Ù   j ÿvPèM
+  …À„¾   ‹EP‰Fè3
+  …À‰F„§   jWSVè
+  ‹ø…ÿ‰}ü„ˆ   h9  ÿvWè	
+  …ÀtpV‰~èŠéÿÿ…ÀtchDvg6»   Sj èª	  …À‰Eø‰FTtA‹N ‹Ã<	™÷ÿÿuøj jWPQèÈ	  …À‰FLtPè¯	  …À‰FPu3ÿvLè”	  ÿvTèV	  ‹}üVèŸÜÿÿWè}	  ÿvèo	  ÿuèm	  3Àë‹Eü_^[ÉÂ ÌV‹t$ÿvPèK	  ÿvLèI	  ÿvTè	  ÿvè9	  Vè]  ƒf VèEÜÿÿ^Â ÌU‹ì3À9EtPÿuè  ëMQPPPP‹Eh# ÿpèÇ  ÷ØÀ@]Â v g a 6 4 k   U‹ìƒì‹E3Ò¹Ü   ÷ñ‰EüEôPEøPÿuè  …À‰E„¸   ‹U…ÒuiÀÜ   ‰Eé˜   ƒe S‹]øVWƒÃƒ{ì tuƒ}ü t|3Àj7‹úYó«‹ú¾T/õ¿¥¥¥f¥fƒbF fÇB@fÇBB¸Ü   f‰BD‹K¯‰Š¨   ‹Kô‰Š¬   ‹Kø‰Š°   ‹Kƒ¢´    ÿMü‰Š¸   ÇBH  | ĞE‹E]ôH‰E…xÿÿÿ_^[ÿuøèÅ  ‹EÉÂ V‹t$ÿv8ÿv4ÿv0j j jèù  ‹L$‰$  3É…À•Á‰F^‹ÁÂ ÌU‹ìì\  SVhDvg6hp  jèz  ‹Ø…Û„—   ÿu…¤ıÿÿ‰C@…Ôşÿÿ‰CD‹E0S‰Cè¯  …Àtl…ÔşÿÿPSètÿÿÿ…Àt[¸,  9E w‹E ‹sDW‹}$‹ÈÁéó¥‹Èƒá¸0  9Eó¤s‹E‹s@‹}‹ÈÁéó¥‹Èƒáó¤3ö‰s@‰sDè8  ;Æ‰ƒd  _u
+SèÍ  3Àë@Æ@‹ƒd  ‰p‹ƒd  ‰p‹ƒd  ‹K ‰H‹ƒd  ‹K$‰H‹ƒd  Æ@‰³P  ‹Ã^[ÉÂ, ÌU‹ì‹E‹ÈÁé3ÒƒáŠ± >õ¿‹MƒàŠ >õ¿‹ÂPÿu3ÀÿuQPPRPQPPÿuèÉñÿÿ]Â ÌU‹ìƒìV‹uEPj j jF(Ph# ÿvè  …Àu)9Et.!EüEPjEìPjEüPhX# ÿvèö  …Àt3ÀëC‹Eô‰FFHPèÙÿÿVè»ØÿÿƒfhûƒÈÿ‰†À   ‰†Ğ   ‰†à   ‰†   ‰†0  ‰†@  3À@^ÉÂ U‹ìQ‹E‹H‰MMüQj j jMQh\# ÿpè~  ÉÂ U‹ìƒìWEüPjEôP3ÿWWh# ÿuèX  …Àt3Àé­   ‹Eø‹M‰‹Mô¯ÈVhDvg6Qjè7  ;Ç‹u‰u3Àé€   MüQ‹Mô¯MøQPWWh # ÿuè  …Àtÿ6èô  ‰>ëÎ‹Mô;Ï‹‰MütFÿMüƒxu3‹H@öÁt+öÅu&ƒxu ‹HQÿ…Ñt‹P¯Ñú   v
+ùˆ  t‰8Eø9}üuº‹Eô^_ÉÂ ÌU‹ìƒìdS‹]V‹s@WEôPEüPÿsèÿÿÿ3ÿ;Ç‰E„‘   ‹E9¸¬   u(9¸°   u 9¸¨   u9¸´   u9¸¸   u3À@‰Eøë3À‰}ø@‹MüÿM99t>9}øuS‹U‹’¬   9Qu+‹Q‹E;°   u‹Q¯Q;¨   u‹Q;¸   t3À@Mô9}u³ÿuüè×  3ÀéÕ  3À@‹Q‰S(‹Q‰S ‹Q‰S$‹Q¯Q‰S<‹Q‰S,‹Q4‰S0‹Q8‰S4‹Q<‰S8öA@ uƒ‰FÇ @  ‹Q ‰V‹Q$‰V‹S ‰V‹S$‰V‹S ‰–   ‹S$‰–  ‹Q‰V‹Q‰V‹Q‰–ø   ‹U‰†ü   Â¦   ‰U·‰V(‹U·‰V,ÇF0   ‰~$‹Q(‰V4‹Q,j$‰V8‹I0‰FL‰FP‰N<YEğPjHEœPWWhh# ‰N@‰NDÇFH3   ÇFT   ‰~X‰~\‰~`‰~dÿsèÏ  …Àto¸ N  ÇFl,  ÇFpä  ‰~tÇFx4  ÇF|¼  ‰¾€   Ç†„   x  Ç†ˆ      ‰¾Œ   Ç†´   7  Ç†¸   Ú  ‰¾¼   ‰†À   ‰†Ä   é†   ‹E¼‰Fl‹EÀ‰Fp‰~t‹EÄ‰Fx‹EÈ‰F|‰¾€   ‹EÌ‰†„   ‹EĞ‰†ˆ   ‰¾Œ   ‹E°‰†´   ‹E´‰†¸   ‹E¸‰†¼   öE t‹EØ‰†À   ‹EÜ‰†Ä   ‹Eàë‹EÔ‰†À   ‹EÔ‰†Ä   ‹EÔƒN ÿj‰†È   XjK‰¾   ‰¾”   ‰¾˜   ‰¾œ   ‰¾    ‰¾¤   ‰¾¨   ‰¾¬   ‰¾°   ‰¾Ì   ‰¾Ğ   ‰¾Ô   ‰¾Ø   ‰¾Ü   ‰¾à   ‰~h‰¾ä   ‰†è   Ç†ì      Ç†ğ      ‰†ô   ‹{DYÿuü¾ 9õ¿ó¥è+  3ÀMìQPPj‰Eä‰EèEäPh# ÿsè  ÷ØÀşÀˆƒl  3À@_^[ÉÂ U‹ìƒì SV‹u W‹~EğPÿuè?  ‹EüÿuƒÀÁø‰Eì‹EôÁø‰Eä‹E‹X‹CP‰EEàPSè8áÿÿ‰Eÿu$‰~Vÿuÿuÿuÿuÿuÿuèé   …À‰E tÿuÿuSè âÿÿ…ÀuË‹E _^[ÉÂ  U‹ì‹ES‹X‹E…ÀV‹sWu‹EƒÀÿuVPSèÏàÿÿ‰Eÿu,ÿu(ÿu$ÿu ÿuÿuÿuÿuÿuVè‰   ‹ø…ÿtÿuVSè—áÿÿ…ÀuË‹Ç_^[]Â( ÿ%€8õ¿ÿ%„8õ¿ÿ%ˆ8õ¿ÿ%Œ8õ¿ÿ%8õ¿ÿ%”8õ¿ÿ%˜8õ¿ÿ%œ8õ¿ÿ% 8õ¿ÿ%¤8õ¿ÿ%¨8õ¿ÿ%¬8õ¿ÿ%°8õ¿ÿ%´8õ¿ÿ%¸8õ¿ÿ%¼8õ¿ÿ%À8õ¿ÿ%Ä8õ¿ÿ%È8õ¿  x?  †?  œ?  ª?  ¸?  Ä?  Ô?  ê?  ú?  @  "@  <@  N@  d@  v@  Š@  š@  ª@  À@          R…};       #   ,:  ,:                                       ¼         S y s t e m                                                        	                  M S   S a n s   S e r i f                                          	                  C o u r i e r                                                                    RSDS]sÃ{AF|ı¡`µª-   vga64k.pdb                                                  Õ	õ¿ õ¿
+õ¿õ¿Õ	õ¿#õ¿-õ¿7õ¿    ±õ¿mõ¿mõ¿    õ¿	õ¿	õ¿Ÿõ¿Yõ¿õ¿âõ¿             ÿÿÿÿ                                                                                                                                                            	    
+                                                                                            €€    €€@@@@@@@@€€    €€ 	
+ 
+	 	
+ 	
+ 
+	 
+	 	
+ 	
+    øøøøùùùùúúúúûûûûüüüüıııışşşşÿÿÿÿ    $             6      2      &      "      4      0   	   -      )      ?      ;      /      +      =      9      %      !      7      3      '      #      5      1      ,      (      >      :   
+   .      *      <      8    øùúûüışÿ    ‚0õ¿   -õ¿   -õ¿   ¸-õ¿   ä.õ¿   /õ¿   è(õ¿)   b/õ¿   ¤&õ¿   ’#õ¿   ¤7õ¿   7õ¿   Š1õ¿ÿ 
+PUZ_ ¥ª¯ğõúÿ                                                                               (?          Î@  €8                      x?  †?  œ?  ª?  ¸?  Ä?  Ô?  ê?  ú?  @  "@  <@  N@  d@  v@  Š@  š@  ª@  À@      7 EngFreeMem  * EngDeviceIoControl   EngAllocMem  EngCopyBits  EngBitBlt  CLIPOBJ_bEnum  CLIPOBJ_cEnumStart    EngDeleteClip „ EngUnlockSurface  ( EngDeleteSurface   EngCreateDeviceSurface  V EngLockSurface   EngAssociateSurface  EngCreateBitmap  EngCreatePalette   EngCreateClip } EngStrokePath ¿ PATHOBJ_vGetBounds  ~ EngTextOut  WIN32K.SYS                                                       
+      €   8  €                  P  €                  h  €               	  €                  	      A             ¸A                              4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?                       ş   S t r i n g F i l e I n f o   Ú   0 0 0 0 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   t &  F i l e D e s c r i p t i o n     3 2 K / 6 4 K   c o l o r   V G A \ S V G A   D i s p l a y   D r i v e r   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( X P C l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   6   I n t e r n a l N a m e   v g a 6 4 k . d l l     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   >   O r i g i n a l F i l e n a m e   v g a 6 4 k . d l l     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n       °                                            P   3333$3.383=3ğ34E4U4µ4Ø4
+55w5›5Î5Ş5F6i66­6ı9::`:h:l:Á:È:Ì:R<k<         4404<4F4E6O6a6m6w6è=      D   |9¢9µ9Ê9ñ9::/:T:v:‰:œ:¯:Ç:æ:ù:Q;;¬;<(<4<?<E<Ó<<=C=j=Ì?   0  t   œ1¨1Ö6888 8&8,82888>8D8J8P8V8\8b8h8n8t8z8€:„:ˆ:Œ::”:˜:œ:¤:¨:¬:´:¸:¼:À:Ä:È:Ì:<>D>L>T>\>d>l>t>|>„>Œ>”>œ>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          MZ       ÿÿ  ¸       @                                   Ø   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       ‡×ÏÃ¶şœÃ¶şœÃ¶şœÃ¶ÿœç¶şœ9•çœÄ¶şœT•»œÂ¶şœ•âœÅ¶şœ9•ÃœÂ¶şœRichÃ¶şœ                        PE  L S…};        à  €                     €   €             €-     D                                \  P   €!  à	                  €+  @                                                   ˜                           .text   º                          h.rdata                         @  H.data   ¬                        @  ÈPAGE    ¯                          `INIT    h     €                    â.rsrc   à	  €!   
+  €!              @  B.reloc  ’  €+     €+              @  B                        U‹ìQQ‹MSV‹u‹F`ƒf ÇF  Àƒx W‹y(‰Eø»  …‡   ‹Hùÿ   w|‹PÑú   woOpÿ €¿„   ˆEv¸  À‰Eü‰Fë<‹F`‰^€HØ  ‹QFX‰‰P‰‰A‹Eƒx ‰]ü”Eÿuh   WèW  ŠUOpÿ ‹Eøë¹  À‰Mü‰N9]üu€} t)Wè¶  ë!‹H‹~‹ÑÁéƒÈÿó«‹Êƒáóª2Ò‹Îÿt ‹Eü_^[ÉÂ Ì‹D$V‹t$W‹x(Vÿl ƒ tşF#ƒF`$Vÿwÿp ‹øë‹~2Ò‹Îÿt ‹Ç_^Â Ì‹D$‹@(ƒx Vt‹T$şB#ƒB`$‹HÿH ‹ğë‹L$‹q2Òÿt ‹Æ^Â Ì‹D$H4QPhâ j jÿp8ÿ5„ ÿ Â U‹ìƒìSVWj jEğPÿ( ‹]‹s`FÜ‹øjYó¥€` ‹C`ƒè$MğÇ@ ‰H Æ@à‹E‹H‹ÓÿH =  u3ÀPPPPEğPÿ€ ‹C_^[ÉÂ Ìj j ÿt$ÿ0 ¸  ÀÂ \ D e v i c e \ A C P I E C   U‹ìƒìSh. EôPÿ< EüP3ÛSSj"EôPhè  ÿuÿ8 ;Ã…   ‹EüƒH‹EüÆ@0‹EüV‹p(‰W†ø  Pˆ„   ˆ…   ˆä  ˆ^$ÇF2   ÇF 
+   Æ†Ö  ˆğ  ÿ j Y3À¾H  ó«†Ø  S‰@‰ SFtPÿ( ƒÆpVÿ4 ‹E‹Mü_‰3À^[ÉÂ U‹ìQQ‹EV3ö;Æ‰uø‰uüu¸  €ë?90w¸  Àë4H‹@3Ò;Æv€9u
+‹q‰t•ø‹uüBƒÁ;Ğré‹E‹Mø‰p‰p‰H3À^ÉÂ ‹D$V‹p(‹D$W‹x`PVèşÿÿ…À|-€~$ u%Vÿwèvÿÿÿ…À|VèÔıÿÿ…À|VèĞ  …À|ÆF$3À_^Â ÌU‹ìQƒeü W‹}…ÿu
+¸  €éÂ   EüPÿuè^şÿÿ…ÀŒ®   S‹]üVWSÿP ‹s(‰~‹=L ‰F¾@0j Pÿ×‰†È   ‹F¾@0j Pÿ×ƒ¾È    ‰†à  ta…Àt]¡` ‹Ó¹` ‰FÿŒ †   PÿD Vhj †(  Pÿ@ VèG  …À|#Vè¥  …À|‹C%ÿÿÿ    ‰C3Àë¸š  À^[_ÉÂ ÌV‹t$‹F`¶PƒúW‹|$‹O(4ƒú}…Òt~:ƒú~ƒúë*VWè›şÿÿ‹øë¿  À2Ò‹Î‰~ÿt ë'ƒêtJt	ƒêuƒf ƒÀ$şF#‰F`‹I‹ÖÿH ‹ø‹Ç_^Â ÌV‹t$‹F`ÿpÿPYVÿ| ¸  À^Â ÌU‹ìj jÿL …Àu"‹M‹ÑW‹}ÿu$ÁéƒÈÿó«‹ÊƒáóªÿU Y_ëa‹H`‹U ‰Qà‹U$‰Qäƒ@`Üƒé$şH#‹H`ƒ} •Âƒaì €ÂˆQÜ‹U‰Qè‹U‰Qà‹M‰H‹H`ƒaü ƒé$‹Ğ‹EÇA& ÆAà‹ÿH ¸  ]ÃÌj jPÿt$è   ÿt$è’  °Â ÌU‹ìQQV‹uŠ†ñ  W¶øŠ”¾H  ŠÈşÉ€âğ€á€ú ŠUuySŠä  
+]¶É8œH  ‰M[u_8”I  uV4¾†I  ş u€ÿj ÿ ‹È·†J  ‹ú™+h l Á×‰Uüx¿ÿÿ  ;Çvƒeü ‹Çf‰†J  éõ   Šä  
+M8Œ¾H  up8”¾I  ugşÀ$ˆ†ñ  ¶Àj Æ„†I  ÿ ‹È+h ‹ú=l ‰}üx¿ÿÿ  ;Ïvƒeü ‹Ï¶¾ñ  f‰Œ¾J  £h ‰l Š†ä   ëeşÀ$ˆ†ñ  ¶Àj ˆ”†I  ÿ ‹È+h ‹ú=l ‰}üx¿ÿÿ  ;Ïvƒeü ‹Ï¶¾ñ  f‰Œ¾J  £h ‰l Š†ä  
+E¶ñ  ˆ„H  _^ÉÂ V‹t$h˜   ÿ6ÿX ‹Ğ…ÒtdSW3Àj&Y‹úó«f!B‹D$‰BfÇBh ‹†ø  ‰B(Šñ  z,‹Ç+ÂƒÀ¶Ù‹œH  şÉ€á‰:ñ  tƒÀƒÇ=˜   vÚRÿT _[^Â U‹ìƒì,S3Û ]ÿ ]ıEÔV‹u‰EØEÔWÆEş‰]ô‰]ğ‰]è‰]ä‰EÔ‹}ğ;ût1;~ÿuì•ÀşÈ$ğ@PVè“ıÿÿÿuìWÿ jÿ  ÿEä‰]ğ‰]è‹}è;ûu9]ô„’   ‰]ôÆEşé†   ‹Eô;Ã…–  €}ş u+öEùt ¿ƒ   Wj0Vè7ıÿÿWÿvÿ †Ğ  ë-EÜë(}äWÿ  öEùu;~ r5†È  ë;~r(†Ì  ;Ã‰EôtSh€   Vèåüÿÿÿv4ÿ5„ ÿ  ÿv‹= ÿEèÿ×ˆEùÿuùjVèºüÿÿ€}ÿ töEùuÿ†Ô  €eÿ €MùöEù„  ÿvÿ×ŠØˆ]àÿuàj Vèüÿÿ¶†ä  H„Ô   Ht9Hth €Vèşÿÿÿ†Ü  éÇ   ÿ†Ø  †å  Šˆä  Æ ÆEÿé§   „Û„‡   Npÿ ¶Û3ÿˆE‹Ëƒá‹ÃÁèGÓç”†ˆ   ‹
+‰EÜ…ÏuIÏ‰
+…¼†¨   t(Šœ3Ì   ‹–Ğ  †Í  ¶Ë‰EèŠ IˆŠ‹Eèˆë†Ì  ŠˆŒ3Ì   ŠMàˆŠUNpÿ ÆEı€¦ä   ë‹†ì  ˆÆ†ä  ƒeè 3ÛéÕıÿÿöEù…Ëıÿÿ¶†ä  ƒè„¿   Ht1H…Í   ‹F€¾æ  €‰EğŠ†ç  ˆEì•ÀşÈ$ıˆ†ä  é£   Š†é  „ÀtIöEùu‹FÆ†ä  Æ†å  ‰EğÆEì‚ëyÿ†ì  ş†ç  şÈˆ†é  ‹F‰EğŠ†æ  Æ†ä  ëM‹€¦ä   €¦é   ‹A‰Y‰X¶è  ‰H‹MØƒÀXUÔ‰‰H‰‰EØë‹F‰Eğ‹†ì  Æ†ä  Š ˆEì9]ğ…Ûüÿÿ€¾ä   …Îüÿÿ€¦ğ   öEù t‹FÆ†ä  ‰EğÆEì„ëhVpØ  ÿd ;Ãtz‹H‹ƒÀ¨‰B‹@‰†ì  ŠAˆ†ç  ŠQ†è  ˆ€9ŠÂ•Á€Á€ÿì  şç  ˆæ  ˆ†é  Æ†ä  ‰]è†(  Pÿ5 †   ÿ5  Pÿ` é!üÿÿ€eş †   Pÿ\ éüÿÿÿ ‹Mä†à  ;v‰ë‹UÔ‰EÔ‰PƒÁ¨2Òÿt ‹MÔEÔ;Èuà€}ı tVè  _^[ÉÂ ÌV‹t$€¾„   ‡Ê   SU‹- W~p‹ÏÿÕ3Û8Ô  ˆD$Æ†Õ  …’   8Ö  Æ†Ô  t@Sj`VˆÖ  èùÿÿÿv4ÿ5„ ÿœ ë ŠT$‹ÏˆÕ  ÿ Vèûÿÿ‹ÏÿÕˆD$8Õ  uØ8„   ˆÔ  vVèx	  8Ö  uSjpVÆ†Ö  è¶øÿÿÿv4ÿ5„ ÿ˜ ŠT$‹Ïÿ _][^Â SV‹t$Wÿvÿ ˆD$ÿt$jVètøÿÿ†ğ  Š€ùÿsşÁˆ€8wh ÀVèóùÿÿ~p‹Ïÿ €¾Ô   ŠØt/†(  Pÿ5 Æ   ÿ5  Vÿ` ŠÓ‹Ïÿ éÃ   U‹- ŠÓ‹ÏÆ†Ô  ÿÕŠä  ¶ÁHtBHt/Ht<HtEHtHt?ëVöD$tO»ƒ   Sj0VèÈ÷ÿÿSÿvÿ ë5öD$u.€¦ä   ë%öD$u€ùuÿì  şç  ş†é  Æ†ä  ‹Ïÿ €¦Ô   ŠĞ‹ÏÿÕ†(  Pÿ5 †   ÿ5  Pÿ` VèØıÿÿ]_^[Â ÌSUV‹t$npW‹Í2Ûÿ …   ¶9Ot	Ou	 şÃëÆŠĞ‹Íÿ „ÛtVè•   _^]¸  À[Â ÌU‹ìQQ3ÀW}ø««‹EÇEü_Q00‹ÈÇEøAeiBÁéŠ‰4 ˆMş‹M‹‘È   ƒàŠ€4 ˆEÿ‹B`ƒ`à ƒè$Æ Ç@ À2 Ç@   ƒJ@Eø‰B‹B`ƒè$Ç@º ‰H Æ@à‹IÿH _ÉÂ QSUV‹t$W^pë_¶†Í  ‹Ğ  @Áà¶l‹ÍÁé¼ˆ   3ÒB‹ÍƒáÓâ÷Ò!‹Ğ  ŠT$ÁŠˆÍ  ‹x‹@‹Ë‰D$ÿ ÿt$Uÿ×‹Ëÿ €¾Í   ŠĞˆT$uŠ€¾…    uzëY¶¾Ì  3í‹ÏƒáEÓå‹ÇÁè„†ˆ   ÷Õ!(Š„>Ì   ‹- ‹Ëˆ†Ì  Æ†…   ÿÕWVè£şÿÿ‹Ëÿ €¾…   ŠĞt/€¾Ì   u€¦…    €¾„   uVè  ‹Ëÿ _^][YÂ ‹ËÆ†…   ÿÕëëÿ%                                                                       !  Æ   $!  ²   ö   Ú       @!        .  B  b  p  ˆ  š  ²  Ä  ş  î  ş     4   N   ^   l   Œ   è  Ø  Â  ¦  š  ‚  t  b  Ø  D                  S…};       #   l  l  Š ‘°—ºĞ½ ª ·³*Repeated Last action this many times:   Queued IO   Clear GPE   Enable GPE  Disable GPE Interrupt   Write Data  Write Cmd   Read Data   Read Status Invalid     RSDS÷Şóîâ>I“£·™T^jÎ   acpiec.pdb                                                                                                                  €ıÿÿÿÿ` T H < 0 $     ô Ì 0123456789ABCDEF                                                                                                                                                                                            QSh  ÿx ‹\$‰D$‹C…À„Š   U‹-| VW‹p(€~$ t0VÆ†„   èKøÿÿ€¾„   t~t3ÀPPPjWÿ€ €¾„   ué~p‹Ïÿ ŠĞ‹Ïÿ ÿ¶È   ÿÕÿ¶à  ÿÕ‹†Ğ  …ÀtPÿ„ ÿ6ÿˆ ‹C…Àu‚_^]ÿt$ÿ [YÂ Ì‹L$ƒa ƒa 2Òÿt 3ÀÂ Ì‹D$V‹t$ƒf ‹H(‹F`‹@- " W¿  ÀtƒèuVQè¯  ëVQèÄ  ‹øÿ  t2Ò‹Î‰~ÿt ‹Ç_^Â U‹ìƒìVW3öVjEèPÿ( ‹}EøPEèPVVVÿwjÿ$ ;Æu¸š  ÀëW‹H`ƒé$Ç@»  À‰pÆÆAÇA¼ fÇA
+ fÇA, ÇA€ ‰q‹O‹ĞÿH =  uVVVVEèPÿ€ ‹Eø_^ÉÂ U‹ìƒì4SVW3ÛSjEàPÿ( 3À}ø««3À}Ì««‹u«««EğPEàPSjEÌPjEøPÿvÇEøAeiBhÀ2 ÇEü_GPEÿ, ;Ãu¸š  ÀëV‹N‹ĞÿH =  uSSSSEàPÿ€ ‹Eğ;Ã|/ƒ}ôr$}ÌAeoBu9]Ôtf9]Øt¸ Àë¶MÜ‰N8ë¸  À_^[ÉÂ Ì‹D$H<Qj PhF jjÿpèúÿÿÂ Ì‹D$2É8ˆ…   u8ˆÔ  u8ˆä  uÆ€„   Â U‹ìƒì‹E‹@`ƒxV‹p‰uôs
+¸#  Àéº  ‹SW‹Á3ÿƒáGÓçÁèhĞ ‰Eø‰}ğÿx ‹]Kp‰Eè‰Mìÿ ˆE‹EøŒƒ¨   ‹…ÇÇE  À…N  Ç‰€»Î   …®   ¶ƒÏ  ‰ED@hEC_VÁàPj ÿh …À‰EüuÇEš  Àé  ‹“Ğ  …Òt.‹E‹}ü@Áá‹ÁÁé‹òó¥‹Èƒáó¤ÿ³Ğ  ÿ„ ‹uô‹}ğ‹Eü€ƒÏ  ƒeü ‰ƒĞ  ‹E@Áà‹‹Ğ  Š“Î  ˆŠMMüÿEüƒÀƒ}üˆ‹Î  rÙ¶‹Î  ‹“Ğ  I‚Šˆ“Î  ‹€¼Ì    tD‹Uø”“ˆ   ÷×!:¶“Ì  …Ò‰Ut(‹>¶”Ì   ;×t	…Ò‰UuíëŠ”Ì   ‹}ˆ”Ì   ‹ˆŒÌ   €  Šƒe ˆP‹V‰P‹V‰P‰NŠU‹Mìÿ ÿuèÿ ‹E_[^ÉÂ U‹ìƒì‹E‹H`ƒy‹A‰Eüs
+¸#  Àé×   ‹SVW‹Ù3ÿƒáGh² ÁëÓçÿx ‹uNp‰Eô‰Møÿ Œ¨   ˆE‹…ÇÇE  Àtv‰}÷U‹U#Ğ‹Eü‰‹ ¶Œ0Ì   œˆ   ‹…Çt5#E‰¶†Í  …Àt%‹–Ğ  <@¶<º;ùt‹Ç…Àuïë<IŠº@ˆ‚ƒe †Î  Š‹¶Ğ  Iˆ–ˆŠU‹Møÿ ÿuôÿ ‹E_^[ÉÂ                                                                                  ‹D$¹º ‰H8‰H@¹  ‰HD‰HH¹F ‰Hp‰ˆ”   ‹HÇ€    Ç€¤   ª Ç@tÔ ÇAÈ Ç@4  3ÀÂ ÌÌÌĞ          ¤   $  ¬          8!     È          Z!                        !  Æ   $!  ²   ö   Ú       @!        .  B  b  p  ˆ  š  ²  Ä  ş  î  ş     4   N   ^   l   Œ   è  Ø  Â  ¦  š  ‚  t  b  Ø  D      ¼MmUnlockPagableImageSection IIoDeleteDevice  L ExFreePool  `KeWaitForSingleObject ZIoFreeIrp MmLockPagableDataSection  ÚIofCompleteRequest  'PoCallDriver  3PoStartNextPowerIrp ÙIofCallDriver *IoBuildSynchronousFsdRequest  KeInitializeEvent (IoBuildDeviceIoControlRequest IKeSetEvent  KeInitializeSpinLock  8IoCreateDevice  RtlInitUnicodeString  KeInitializeDpc KeInitializeTimer InterlockedExchange IoAllocateIrp %IoAttachDeviceToDeviceStack ÔIoWriteErrorLogEntry  IoAllocateErrorLogEntry îKeCancelTimer TKeSetTimer   ExfInterlockedRemoveHeadList  @ ExAllocatePoolWithTag ntoskrnl.exe  O KfReleaseSpinLock L KfAcquireSpinLock B KeQueryPerformanceCounter S READ_PORT_UCHAR I KeStallExecutionProcessor Y WRITE_PORT_UCHAR  HAL.dll  RegisterOpRegionHandler OPRGHDLR.SYS                                               €   8  €                  P  €                  h  €               	  €                  	     ¸%  ¨           "  ”          ”4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?                       ò   S t r i n g F i l e I n f o   Î   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   h    F i l e D e s c r i p t i o n     A C P I   E m b e d d e d   C o n t r o l l e r   D r i v e r   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( x p c l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   6   I n t e r n a l N a m e   a c p i e c . s y s     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   >   O r i g i n a l F i l e n a m e   a c p i e c . s y s     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°        € €    À ÀĞ  ´ % 1 :   T h e   e m b e d d e d   c o n t r o l l e r   ( E C )   h a r d w a r e   r e t u r n e d   d a t a   w h e n   n o n e   w a s   r e q u e s t e d .     T h i s   m a y   i n d i c a t e   t h a t   t h e   B I O S   i s   i n c o r e c t l y   t r y i n g   t o   a c c e s s   t h e   E C   w i t h o u t   s y n c r o n i z i n g   w i t h   t h e   O S .     T h e   d a t a   i s   b e i n g   i g n o r e d .  
+   @ % 1 :   T h e   e m b e d d e d   c o n t r o l l e r   ( E C )   h a r d w a r e   d i d n ' t   r e s p o n d   w i t h i n   t h e   t i m e o u t   p e r i o d .     T h i s   m a y   i n d i c a t e   a n   e r r o r   i n   t h e   E C   h a r d w a r e   o r   f i r m w a r e ,   o r   p o s s i b l y   a   p o o r l y   d e s i g n e d   B I O S   w h i c h   a c c e s s e s   t h e   E C   i n   a n   u n s a f e   m a n n e r .     T h e   E C   d r i v e r   w i l l   r e t r y   t h e   f a i l e d   t r a n s a c t i o n   i f   p o s s i b l e .  
+   ˜ % 1 :   T h e   e m b e d d e d   c o n t r o l l e r   ( E C )   h a r d w a r e   a p p e a r s   t o   h a v e   q u i t   f u n c t i o n i n g .     R e p e a t e d   r e t r i e s   h a v e   r e s u l t e d   i n   n o   f o r w a r d   p r o g r e s s   p r o c e s s i n g   r e q u e s t s .     A l l   r e q u e s t s   t o   t h e   E C   w i l l   f a i l   u n t i l   r e b o o t .  
+                                       ”   N3¯3ó34)4:4d4w4Œ4™4Ÿ4¹4İ4ò4	5"5T5^5z5×5û56ÿ67A7H7Q7^7d7q7ñ7888O8Ê8Ö8a9s9y9×9ß9ç9::=:E:M:w:}:¬:;q;y;Í;ä;<$<-<Ô<N=«>??$?:?h? ?è?î?     ¬   0M0S0_0v0²0Ê0Ö0İ0ç0ó0<1{1•1¡1¨1Ë1í1-2B2w2‡2ò23I3i3›3¶3666666 6$6(6,6067	7#7U7i7s7”7œ7°7Ê78=8V88’8 8µ8Ö8919F9”9::#:q:¶:›;¤;â;í;ÿ;˜<¡<===1=;=B=I=P=                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  MZ       ÿÿ  ¸       @                                   Ğ   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       ÿ}Ø»r‹»r‹»r‹»r‹½r‹AQ
+‹¸r‹AQ,‹ºr‹,QV‹ºr‹aQ‹ºr‹AQ.‹ºr‹Rich»r‹        PE  L S…};        à !    €      J           €   €             €     °                           {   €  (   €                       ,                                                                               .text   Ê                          h.rdata  m      €                  @  H.data      €  €   €              @  È.edata  {      €                  @  @INIT    Æ   €     €                 â.rsrc     €  €  €              @  B.reloc  6      €                  @  B                                Ul$ìÈ   VW¾< }¨¥…€   Pÿu|¥E±P¤ÿ  ¡€ ƒÄ…Ex_^t
+E¨Pè€  YƒÅpÉÃ3ÀÂ ÌEntering RegisterOpRegionHandler
+   Registration IRP was failed by ACPI (%lx)
+  Signature returned from ACPI is invalid.  Registration failed.
+ U‹ìƒì4WhP jèÿÿÿ3À}Ì«««««3À}ø«YY«3ÿWjEàPÿ ‹E‰EĞ‹E‰EÔ‹E‰EØ‹E‰EÜEğPEàPWjEøPjEÌPÿuÇEÌAroHhÀ2 ÿ ;Çu¸š  Àëf‹MV‹Ğÿ ‹ğş  uWWWWEàPÿ ‹uğ;÷}Vht jèfşÿÿƒÄë&}øAuoHth  jèLşÿÿYY¸ Àë
+‹E ‹Mü‰‹Æ^_ÉÂ ÌEntering DeRegisterOpRegionHandler
+ Deregistration IRP was failed by ACPI (%lx)
+ U‹ìƒì VWhÎ jèÍıÿÿY3ÀY}ø«3öV«jEàPÿ ‹E‰EüEğPEàPVVVjEøPÿuÇEøAuoHhÀ2 ÿ ;Æu¸š  Àë<‹M‹Ğÿ ‹øÿ  uVVVVEàPÿ ‹}ğ;ş}Whò jèGıÿÿƒÄ‹Ç_^ÉÂ ÿ%                                                       Ğ  Ü  ô    $  Ä              S…};       %   H  H  OPRGHDLR:   RSDS?¸Œ|`³hE¬¬èvôpp   oprghdlr.pdb                                                                                                                                                        ¸~};    <           (  0  8    à  I  c     OPRGHDLR.SYS DeRegisterOpRegionHandler RegisterOpRegionHandler      ¨          8                         Ğ  Ü  ô    $  Ä      0 DbgPrint  £vsprintf  `KeWaitForSingleObject ÙIofCallDriver (IoBuildDeviceIoControlRequest KeInitializeEvent ntoskrnl.exe                                                                                €                  0  €               	  H   à  ¤                  ¤4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?            
+              S t r i n g F i l e I n f o   Ş   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   n #  F i l e D e s c r i p t i o n     A C P I   O p e r a t i o n   R e g i s t r a t i o n   D r i v e r     d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( x p c l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   :   I n t e r n a l N a m e   o p r g h d l r . s y s     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   B   O r i g i n a l F i l e n a m e   o p r g h d l r . s y s     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°                                                                                                                                ,   3(3-3è34S4j4‚44©4(5G5s5‰5¡5®5Æ5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      MZ       ÿÿ  ¸       @                                   à   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       Ù››*úõyúõyúõy^õúyúõyúôyúõy^õ¨yŠúõy^õ©yœúõy^õ«yœúõy^õªy‡úõy^õ•yŸúõy^õ¯yœúõyRichúõy        PE  L — H        à !
+ ^  D      ^     p   Àk           
+      Ğ    .k                       0l J   T` ğ      0                   ° „  0                             XO  @   x  ì      ,                          .text   z\     ^                   `.data   t'   p  
+   b             @  À.rsrc   0         l             @  @.reloc  â   °     r             @  B” Hp   ,¡H{   ,¡H…  ,¡H{   5¡H’  ² Hš   Ğ H§   c¡H´   ¡H¿   ² Hš   ¡HË   Ü HÕ   ¡Hà           msvcrt.dll ntdll.dll KERNEL32.dll WMI.dll AdvApi32.DLL iphlpapi.dll WS2_32.dll rtutils.dll ole32.dll DNSAPI.dll MSWSOCK.dll                                                                                                                                                             yŞwlİwÉ{İwŸjİwİ~İwW>ßw12ßwïoİwÎ~ŞwÄ³ßw    ‹óv    n¬€|·¤€|æƒ|ıI„|j>†|…Ş€|€|°™€|¸—€|é€|Û®€|ˆœ€|d¡€|ş|¤ ‘|ÿ|Î¿‚|ö—€|
+˜€|µ‚|9§€|×›€|ğ¿‚|‚|Ë=†|e‚|³'|·$€|0%€|R ƒ|F$€|Ù‚|€›‘|ğ|)€|.“€|ˆ|Gé€|F,|&|$À‚|€||Ÿ€|à| |˜€|Z‘|R
+ƒ|§ €|ş|0®€|    ’ì¦q4v¥q    |Œßw    5«q­.«qï5«qÙd«q­
+¬q­.«qS.«q1«qjö«qö¬q!E«qÓŒ«qb”«q€D«qÎ<«qyi«qo*«qB«q+>«qe—«q+«qUj«qN@«qÀ>«qÁE«qS.«q=«q‰Æ«q    T>ÖvQ`Öv cÖv®ÎÖv    ÈùÂMÄÁMpoÃMÌÃM xÃMØ#ÅM°nÃMğuÃM”~ÃM½gÃMã~ÃMk€ÃMgÂMÂÁM°rÃM¸~ÃM”\ÂMa~ÃM    •|€l’|–’|    FîOw~Pw{ïOwDĞOw    ­Gèvù?èv	-èvA'èvZèv            -XH       $    O   C                                 < e r r   % d >     E R R O R :   F i n d A d d r e s s I n L i s t   d i d n ' t   f i n d   % d . % d . % d . % d     U p d a t e R o u t e T a b l e   g o t   e r r o r   % d   U p d a t i n g   r o u t e   % s / % d   i f a c e   % d   m e t r i c   % d   l i f e t i m e   % d / % d   p u b l i s h   % d   s o c k e t   f a i l e d 
+     6 t o 4 . i p v 6 . m i c r o s o f t . c o m .     A d d i n g   a d d r e s s   % h s     E R R O R :   U p d a t e A d d r e s s   g o t   e r r o r   % d       C o n f i g u r e A d d r e s s U p d a t e :   i f   % u   a d d r   % s   l i f e   % u   t y p e   % d   c o n f   % u / % u     L e a v i n g :   A d d A d d r e s s   6 o v e r 4   i f i n d e x = % d   A d d A d d r e s s   % d . % d . % d . % d ,   i s r o u t e r = % d   L e a v i n g :   P r e D e l e t e A d d r e s s       P r e D e l e t e A d d r e s s   % d . % d . % d . % d ,   w a s r o u t e r = % d     L e a v i n g :   D e l e t e A d d r e s s     D e l e t e A d d r e s s   % d . % d . % d . % d   w a s r o u t e r = % d     A d d O r U p d a t e 6 t o 4 R e l a y   % d . % d . % d . % d     + + % u   e v e n t   c o u n t   ( % h s )     - - % u   e v e n t   c o u n t   ( % h s )         L e a v i n g :   O n R e s o l u t i o n T i m e r C a n c e l l e d   RT:CancelResolutionTimer        E n t e r e d :   O n R e s o l u t i o n T i m e r C a n c e l l e d   C a n c e l l i n g   R T   D e l e t e 6 t o 4 R e l a y   % d . % d . % d . % d   L e a v i n g :   U n i n i t i a l i z e R e l a y s   E n t e r e d :   U n i n i t i a l i z e R e l a y s       R e s t a r t R e s o l u t i o n T i m e r :   D u e T i m e   % d   m i n u t e s ,   P e r i o d   % d   m i n u t e s ,   R e t u r n C o d e   % d     RT:RestartResolutionTimer   L e a v i n g :   O n R e s o l u t i o n T i m e o u t         G e t A d d r I n f o W ( % s )   r e t u r n e d   e r r o r   % d     L e a v i n g :   O n R e s o l u t i o n T i m e o u t   ( d i s a b l e d )   E n t e r e d :   O n R e s o l u t i o n T i m e o u t     I C S   p r i v a t e   i n t e r f a c e :   % l s         U p d a t e I n t e r f a c e   i f = % d   a d v = % d   f w d = % d   r e s u l t = % d   L e a v i n g :   E n a b l e R o u t i n g     E n t e r e d :   E n a b l e R o u t i n g     L e a v i n g :   D i s a b l e R o u t i n g   E n t e r e d :   D i s a b l e R o u t i n g       E n a b l i n g   r o u t i n g   o n   i n t e r f a c e   % d :   % l s       P r e - D i s a b l i n g   r o u t i n g   o n   i n t e r f a c e   % d       D i s a b l i n g   r o u t i n g   o n   i n t e r f a c e   % d   AC:StopIpv4RouteChangeNotification  L e a v i n g :   S t a r t R o u t e C h a n g e N o t i f i c a t i o n   AC:StartIpv4RouteChangeNotification E n t e r e d :   S t a r t R o u t e C h a n g e N o t i f i c a t i o n   L e a v i n g :   O n R o u t e C h a n g e     S e r v i c e   d i s a b l e d     E n t e r e d :   O n R o u t e C h a n g e     AC:StopIpv4AddressChangeNotification    L e a v i n g :   S t a r t A d d r e s s C h a n g e N o t i f i c a t i o n   AC:StartIpv4AddressChangeNotification   E n t e r e d :   S t a r t A d d r e s s C h a n g e N o t i f i c a t i o n   A d d i n g   i n t e r f a c e   % l s         C h e c k i n g   f o r   o l d   a d d r e s s   % d . % d . % d . % d         C h e c k i n g   f o r   n e w   a d d r e s s   % d . % d . % d . % d     L e a v i n g :   O n C h a n g e I n t e r f a c e I n f o     n u m   g l o b a l s = % d   n u m   p u b l i c s = % d   E n t e r e d :   O n C h a n g e I n t e r f a c e I n f o     L e a v i n g :   U n i n i t i a l i z e I n t e r f a c e s   C h e c k i n g   % d   o l d   a d d r e s s e s       E n t e r e d :   U n i n i t i a l i z e I n t e r f a c e s   D e l e t i n g   i n t e r f a c e   f o r   % d . % d . % d . % d     C r e a t i n g   i n t e r f a c e   f o r   % d . % d . % d . % d     E n a b l e R o u t i n g       S y s t e m \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ 6 t o 4 \ I n t e r f a c e s   L e a v i n g :   O n C o n f i g C h a n g e       Q u e u e U p d a t e G l o b a l P o r t S t a t e   f a i l e d   U n d o O n S t o p     E n a b l e V 4 C o m p a t     E n a b l e 6 o v e r 4     R e l a y N a m e   R e s o l u t i o n I n t e r v a l     E n a b l e R e s o l u t i o n     E n a b l e S i t e L o c a l s     E n a b l e 6 t o 4         S y s t e m \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ 6 t o 4 \ C o n f i g       L e a v i n g :   O n C o n f i g C h a n g e   ( d i s a b l e d )     E n t e r e d :   O n C o n f i g C h a n g e   I n i t I P v 6 L i b r a r y   f a i l e d   w i t h   e r r o r   % d     W S A S t a r t u p   f a i l e d 
+     StartHelperService  StopHelperService   AC:StartIpv6AddressChangeNotification       D D N S   b u i l d i n g   r e c o r d   s e t   o f   % u   a d d r e s s e s     E n a b l e S i t e L o c a l D d n s       6 t o 4 s v c :   D n s R e p l a c e R e c o r d S e t ( % l s )   % s :   s t a t u s   % d   replace delete  E r r o r :   D n s R e p l a c e R e c o r d S e t   r e t u r n e d   % d     D D N S   r e g i s t e r i n g   % l s   t o   s e r v e r   % d . % d . % d . % d     .       S e t S i t e I d   i f = % d   s i t e = % d   r e s u l t = % d   L e a v i n g :   O n I p v 6 A d d r e s s C h a n g e     E r r o r :   m a l l o c   f a i l e d         E r r o r :   G e t A d a p t e r s A d d r e s s e s   r e t u r n e d   % d   E n t e r e d :   O n I p v 6 A d d r e s s C h a n g e     AC:StopIpv6AddressChangeNotification    ¶@Ix"/J‘›©ô1öÄéÂ¹ÁhBM§¡çj&˜*ÖT e r e d o   E x t e r n a l   P o r t   ( % S : % u )     T e r e d o   I n t e r n a l   P o r t   ( % S : % u )         T e r e d o   P o r t   M a p p i n g   R e f r e s h   P e r i o d   ( % u )   \ \ . \ I p 6   E n t e r e d :   R e c o n n e c t I n t e r f a c e   E n t e r e d :   U p d a t e I n t e r f a c e     E n t e r e d :   U p d a t e R o u t e T a b l e   E n t e r e d :   U p d a t e A d d r e s s     G o t   e r r o r   % u     G o t   a c t u a l   I P v 6   a d d r e s s :   % h s     C o n f i r m I P v 6 R e a c h a b i l i t y :   % h s     E n t e r e d :   G e t I n t e r f a c e S t a c k I n f o     C r e a t e d   6 o v e r 4   i n t e r f a c e   % d   D e l e t i n g   i n t e r f a c e   % d   D e v i c e I o C o n t r o l   e r r o r   % d         S e t t i n g   r o u t e r   l i n k   a d d r e s s   o n   i f   % d   t o   % d . % d . % d . % d   N e i g h b o r   D o e s n ' t   E x i s t     G e t A d d r I n f o W ( % s ) :   % x     L e a v i n g :   I s a t a p T i m e r C a l l b a c k     E n t e r e d :   I s a t a p T i m e r C a l l b a c k     IsatapCleanupTimer  IsatapInitializeTimer   i s a t a p     I s a t a p R o u t e r N a m e     I s a t a p R e s o l u t i o n I n t e r v a l     E n a b l e I s a t a p R e s o l u t i o n     I s a t a p S t a t e   v 6 t o v 6     v 6 t o v 4     v 4 t o v 6     v 4 t o v 4     Send    Receive Accept  Connect N e w C o n n e c t i o n   R + +   % d   % x   % s     S t a r t i n g   a n   a c c e p t   w i t h   n e w   s o c k e t   % x   o v l   % p         S t a r t i n g   a   c o n n e c t   w i t h   s o c k e t   % x   o v l   % p     S t a r t C o n n e c t     R e a d F i l e   % x   % p   % d   % p     S t a r t R e c e i v e     s t a r t i n g   R e a d F i l e   o n   s o c k e t   % x   w i t h   D i r   % p   o v l   % p   W r i t e F i l e   1   f a i l e d   % d   S t a r t S e n d       s t a r t i n g   W r i t e F i l e   o n   s o c k e t   % x   w i t h   D i r   % p   o v l   % p     P r o x y i n g   % h s   t o   % h s   B i n d I o C o m p l e t i o n C a l l b a c k ( )   f a i l e d   w i t h   e r r o r   % u   l i s t e n ( )   f a i l e d   w i t h   e r r o r   % u   b i n d ( )   f a i l e d   w i t h   e r r o r   % u   s o c k e t ( )   f a i l e d   w i t h   e r r o r   % u   ÿÿÿÿŒÈÀk’ÈÀkC l o s e C o n n e c t i o n       C l o s i n g   c l i e n t   s o c k e t   % x   a n d   s e r v e r   s o c k e t   % x   R - -   % d   % x   % s     S h u t   d o w n   p o r t   % u   t c p       S y s t e m \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ P o r t P r o x y   S O _ U P D A T E _ A C C E P T _ C O N T E X T   f a i l e d   o n   s o c k e t   % x   w i t h   e r r o r   % u     B i n d I o C o m p l e t i o n C a l l b a c k   f a i l e d   o n   s o c k e t   % x   w i t h   e r r o r   % u     A c c e p t   f a i l e d   w i t h   p o r t = % p   n b = % d   e r r = % x   P r o c e s s C o n n e c t     S O _ U P D A T E _ C O N N E C T _ C O N T E X T   f a i l e d   o n   s o c k e t   % x   w i t h   e r r o r   % u   C o n n e c t   s u c c e e d e d   w i t h   % d   b y t e s   w i t h   o v l   % p   s o c k e t   % x   P r o c e s s C o n n e c t E r r o r       P r o c e s s C o n n e c t E r r o r   s a w   e r r o r   % x     P r o c e s s S e n d   P r o c e s s S e n d E r r o r     s h u t d o w n   f a i l e d   w i t h   e r r o r   % u   =   0 x % x         S t a r t i n g   a   s h u t d o w n   o n   s o c k e t   % x     S e n d   f a i l e d   w i t h   e r r o r   % u   C o n n e c t i o n   % p   % h s   w a s   r e s e t   outbound    inbound     W r i t e F i l e   o n   o v l   % p   f a i l e d   w i t h   e r r o r   % u   =   0 x % x   P r o c e s s R e c e i v e     D i r   % d   g o t   % d   b y t e s   P r o c e s s R e c e i v e E r r o r   R e c e i v e   f a i l e d   w i t h   e r r o r   % u         R e a d F i l e   o n   o v l   % p   f a i l e d   w i t h   e r r o r   % u   =   0 x % x     T p P r o c e s s W o r k I t e m   g o t   e r r   % x   o p e r a t i o n = % h s   o v l   % p   b y t e s = % d     T e r e d o C r e a t e P a c k e t :   % p     T e r e d o D e s t r o y P a c k e t :   % p       T e r e d o A d a p t e r :   % s   \ D e v i c e \     T e r e d o O p e n D e v i c e :   % u     T e r e d o C r e a t e S e c o n d a r y S o c k e t :   % u   T e r e d o C r e a t e S o c k e t :   % u     G e t P r e f e r r e d S o u r c e A d d r e s s :   % u   T e r e d o R e s o l v e S e r v e r :   % u       ÿÿÿÿøÀkøÀkÁk€ÁkĞÁk ÁkpÁk@ÁkÁkàÁk  Ákp Ák            T e r e d o C l i e n t T y p e C h a n g e N o t i f i c a t i o n :   % u   - >   % u .   T e r e d o S t a r t C l i e n t   T e r e d o S t o p C l i e n t     T e r e d o C l i e n t P r o b e C o n e   T e r e d o C l i e n t P r o b e N o n e   T e r e d o C l i e n t P r o b e R e s t r i c t e d   T e r e d o C l i e n t Q u a l i f i e d   TeredoInitializeClient  TeredoCleanupClient     T e r e d o C l i e n t T r a n s m i t M u l t i c a s t B u b b l e   T e r e d o C l i e n t T r a n s m i t B u b b l e     T e r e d o C l i e n t R e c e i v e M u l t i c a s t B u b b l e     T e r e d o C l i e n t R e c e i v e E c h o R e p l y     T e r e d o C l i e n t R e c e i v e B u b b l e   T e r e d o C l i e n t R e c e i v e R o u t e r A d v e r t i s e m e n t     T e r e d o C l i e n t R e c e 

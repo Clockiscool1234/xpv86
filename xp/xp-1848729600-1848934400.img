@@ -1,0 +1,1510 @@
+12
+DefaultDestDir=12
+
+[Manufacturer]
+%Ericsson%     = Ericsson
+%Motorola%     = Motorola
+%Standard%     = Standard
+%Nokia%        = Nokia
+%Siemens%      = Siemens
+
+[Ericsson]
+%Eric1% = Eric1,IRENUM\ERI0001 ; SH888
+%Eric2% = Eric1,IRENUM\ERI0002 ; DI27
+%Eric3% = Eric1,IRENUM\ERI0003 ; CF888
+%Eric4% = Eric1,IRENUM\ERI0004 ; DI28
+%Eric5% = Eric1,IRENUM\ERI0005 ; I888
+%Eric6% = Eric1,IRENUM\ERI0010 ; R320
+%Eric7% = Eric2,IRENUM\ERI0012 ; R520m
+%Eric8% = Eric2,IRENUM\ERI0014 ; T39
+
+[Motorola]
+;%Motorola_Timeport% = TimeportCellPhone, IRENUM\MOT0002
+;%Moto1%=Moto1,IRENUM\MOT0001
+
+[Nokia]
+%Nokia1%=Nokia1,IRENUM\NMPV6210 ; 6210
+%Nokia2%=Nokia2,IRENUM\NMPV88X  ; 8xxx
+%Nokia3%=Nokia3,IRENUM\NMPV7110 ; 7110
+%Nokia4%=Nokia3,IRENUM\NMPV6250 ; 6250
+%Nokia5%=Nokia5,IRENUM\NMPD911  ; 9110
+
+[Standard]
+%Standard_phone% = GenericCellPhone, NO_HARDWARE_ID1, IRENUM\PNPC103
+%Standard_phone% = GenericCellPhone, NO_HARDWARE_ID2, IRENUM\PNPC104
+%null_modem_in%  = GenericNullModem, IRENUM\IR_NULL_IN
+%null_modem_out% = GenericNullModem, IRENUM\IR_NULL_OUT
+
+[Siemens]
+%Siemens1% = Siemens1, IRENUM\SIA0001
+%Siemens2% = Siemens2, IRENUM\SIA0002
+
+;
+;
+;
+[GenericCellPhone.NT]
+AddReg=All, GenericAddReg, EXTERNAL
+CopyFiles=MSIRCOMM.CopyFiles
+; Do not install for Sony Ericsson following IDs--they are not compatible with generic driver.  Must use Sony Ericsson Driver.
+ExcludeID=IRENUM\SERB001, IRENUM\SERB002, IRENUM\SERB003, IRENUM\SERB005, IRENUM\SERB006, IRENUM\SERB008, IRENUM\SERB009, IRENUM\SERB010, IRENUM\SERB011, IRENUM\SERB012
+
+[GenericCellPhone.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[GenericCellPhone.NT.HW]
+AddReg=LowerFilterAddReg
+
+;
+;
+;
+[GenericNullModem.NT]
+AddReg=All, NullModem, Serial
+CopyFiles=MSIRCOMM.CopyFiles
+
+[GenericNullModem.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[GenericNullModem.NT.HW]
+AddReg=LowerFilterAddReg
+
+;
+;
+;
+[TimeportCellPhone.NT]
+AddReg=All, GenericAddReg, EXTERNAL, GSM
+CopyFiles=MSIRCOMM.CopyFiles
+
+[TimeportCellPhone.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[TimeportCellPhone.NT.HW]
+AddReg=LowerFilterAddReg
+;
+;
+;
+[Eric1.NT]
+AddReg=All, Eric.Addreg, Eric.Responses, External
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Eric1.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Eric1.NT.HW]
+AddReg=LowerFilterAddReg
+
+
+[Eric2.NT]
+AddReg=All, Eric.Addreg, Eric2.Addreg, Eric.Responses, External
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Eric2.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Eric2.NT.HW]
+AddReg=LowerFilterAddReg
+;
+;
+;
+[Nokia1.NT]
+AddReg=All, External, Nokia.Addreg, Nokia1.Addreg, Nokia.Responses
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Nokia1.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Nokia1.NT.HW]
+AddReg=LowerFilterAddReg
+
+
+[Nokia2.NT]
+AddReg=All, External, Nokia.Addreg, Nokia2.Addreg, Nokia.Responses
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Nokia2.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Nokia2.NT.HW]
+AddReg=LowerFilterAddReg
+
+
+[Nokia3.NT]
+AddReg=All, External, Nokia.Addreg, Nokia3.Addreg, Nokia.Responses
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Nokia3.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Nokia3.NT.HW]
+AddReg=LowerFilterAddReg
+
+
+[Nokia5.NT]
+AddReg=All, External, Nokia5.Addreg
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Nokia5.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Nokia5.NT.HW]
+AddReg=LowerFilterAddReg
+
+;
+;
+;
+[Moto1.NT]
+AddReg=All, Moto.Addreg, External, GSM
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Moto1.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Moto1.NT.HW]
+AddReg=LowerFilterAddReg
+
+;
+;
+;
+[Siemens1.NT]
+AddReg=All, Siemens.Addreg, Siemens1.Addreg, Siemens.Responses, External
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Siemens1.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Siemens1.NT.HW]
+AddReg=LowerFilterAddReg
+
+
+[Siemens2.NT]
+AddReg=All, Siemens.Addreg, Siemens2.Addreg, Siemens.Responses, External
+CopyFiles=MSIRCOMM.CopyFiles
+
+[Siemens2.NT.Services]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[Siemens2.NT.HW]
+AddReg=LowerFilterAddReg
+
+
+;
+; Sample of how invoke from oem inf to install msircomm
+;
+; [Modem1_w2k.nt]
+; include=MDMIRMDM.inf
+; needs=MDMIRMDM.MSIRCOMM.CopyFiles
+; AddReg=All, MfgAddReg
+;
+;
+; [Modem1_w2k.NT.Services]
+; include=MDMIRMDM.inf
+; needs=MDMIRMDM.MSIRCOMM.AddService
+;
+; [Modem1_w2k.NT.HW]
+; include=MDMIRMDM.inf
+; needs=MDMIRMDM.MSIRCOMM.LowerFilterAddReg
+
+
+;
+; called by needs entry in oem inf - DON'T REMOVE
+;
+[MDMIRMDM.MSIRCOMM.CopyFiles]
+CopyFiles=MSIRCOMM.CopyFiles
+
+[MDMIRMDM.MSIRCOMM.AddService]
+AddService= MSIRCOMM, 0, MSIRCOMM.AddService
+
+[MDMIRMDM.MSIRCOMM.LowerFilterAddReg]
+AddReg=LowerFilterAddReg
+
+;
+; called by needs entry in oem inf - DON'T REMOVE
+;
+
+[MSIRCOMM.CopyFiles]
+MSIRCOMM.sys
+
+[MSIRCOMM.AddService]
+DisplayName     = %MSIRCOMM.DisplayName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\MSIRCOMM.sys
+
+
+
+[LowerFilterAddReg]
+HKR,,"LowerFilters",0x00010000,MSIRCOMM
+
+
+
+[All]
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+
+; DeviceTypes
+[EXTERNAL]
+HKR,, DeviceType, 1, 01
+
+[SERIAL]
+HKR,, DeviceType, 1, 00
+
+
+[GenericAddReg]
+HKR,, Properties, 1, 80,01,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 10,01,00,00, 00,c2,01,00, 00,c2,01,00
+HKR, Init, 1,, "ATQ0E0V1<cr>"
+HKR, Init, 2,, "AT&C1&D2<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Answer, 1,, "ATA<cr>"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR,, Reset,, "ATZ<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+
+HKR, Settings, FlowControl_Off,,  ""
+HKR, Settings, FlowControl_Hard,, ""
+HKR, Settings, FlowControl_Soft,, ""
+
+; DTE/DCE speeds will not be exact for generic modems because we will
+; treat CONNECT ### as a DCE speed when some modems will report it as DTE.
+HKR, Responses, "<cr>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<lf>",        1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",     1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>",       1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>",       1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "3<cr>",       1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "6<cr>",       1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "7<cr>",       1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "8<cr>",       1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "OK",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RING",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO CARRIER",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "ERROR",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIALTONE", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO DIAL TONE",1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BUSY",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "NO ANSWER",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "FAX",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DATA",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "VOICE",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RINGING",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DIALING",     1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "RRING",       1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "DELAYED",     1, 1d, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "BLACKLISTED", 1, 1c, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "+FCERROR",    1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "CONNECT",                 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/ARQ",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/REL",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/MNP",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/LAP-M",           1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/V42BIS",          1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT/V42b",            1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300",             1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/ARQ",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/REL",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/MNP",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/LAP-M",       1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/V42BIS",      1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 300/V42b",        1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600",             1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/ARQ",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/REL",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/MNP",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/LAP-M",       1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/V42BIS",      1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 600/V42b",        1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600",            1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/ARQ",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/REL",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/MNP",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/LAP-M",      1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/V42BIS",     1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 0600/V42b",       1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200",            1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/ARQ",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/REL",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/MNP",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/LAP-M",      1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/V42BIS",     1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/V42b",       1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/ARQ",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/REL",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/MNP",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/LAP-M",   1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/V42BIS",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200/75/V42b",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/ARQ", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/REL", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/MNP", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/LAP-M", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/V42BIS",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 1200TX/75RX/V42b",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/ARQ",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/REL",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/MNP",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/LAP-M",   1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/V42BIS",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75/1200/V42b",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/ARQ", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/REL", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/MNP", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/LAP-M", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/V42BIS",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 75TX/1200RX/V42b",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400",            1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/ARQ",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/REL",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/MNP",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/LAP-M",      1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/V42BIS",     1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 2400/V42b",       1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800",            1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/ARQ",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/REL",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/MNP",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/LAP-M",      1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/V42BIS",     1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 4800/V42b",       1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200",            1, 02, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/ARQ",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/REL",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/MNP",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/LAP-M",      1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/V42BIS",     1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 7200/V42b",       1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600",            1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/ARQ",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/REL",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/MNP",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/LAP-M",      1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/V42BIS",     1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 9600/V42b",       1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000",           1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/ARQ",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/REL",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/MNP",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/LAP-M",     1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/V42BIS",    1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 12000/V42b",      1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400",           1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/ARQ",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/REL",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/MNP",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/LAP-M",     1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/V42BIS",    1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 14400/V42b",      1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800",           1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/ARQ",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/REL",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/MNP",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/LAP-M",     1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/V42BIS",    1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 16800/V42b",      1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200",           1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/ARQ",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/REL",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/MNP",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/LAP-M",     1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/V42BIS",    1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 19200/V42b",      1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600",           1, 02, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/ARQ",       1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/REL",       1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/MNP",       1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/LAP-M",     1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/V42BIS",    1, 02, 03, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 21600/V42b",      1, 02, 03, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000",           1, 02, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000/ARQ",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000/REL",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000/MNP",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000/LAP-M",     1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000/V42BIS",    1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 24000/V42b",      1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400",           1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/ARQ",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/REL",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/MNP",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/LAP-M",     1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/V42BIS",    1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 26400/V42b",      1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800",           1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/ARQ",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/REL",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/MNP",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/LAP-M",     1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/V42BIS",    1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 28800/V42b",      1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "CONNECT 38400",           1, 02, 00, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 38400/ARQ",       1, 02, 02, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 38400/REL",       1, 02, 02, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 38400/MNP",       1, 02, 02, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 38400/LAP-M",     1, 02, 02, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 38400/V42BIS",    1, 02, 03, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 38400/V42b",      1, 02, 03, 00,00,00,00, 00,96,00,00
+HKR, Responses, "CONNECT 57600",           1, 02, 00, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 57600/ARQ",       1, 02, 02, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 57600/REL",       1, 02, 02, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 57600/MNP",       1, 02, 02, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 57600/LAP-M",     1, 02, 02, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 57600/V42BIS",    1, 02, 03, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 57600/V42b",      1, 02, 03, 00,00,00,00, 00,E1,00,00
+HKR, Responses, "CONNECT 115200",          1, 02, 00, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115200/ARQ",      1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115200/REL",      1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115200/MNP",      1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115200/LAP-M",    1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115200/V42BIS",   1, 02, 03, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115200/V42b",     1, 02, 03, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200",         1, 02, 00, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200/ARQ",     1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200/REL",     1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200/MNP",     1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200/LAP-M",   1, 02, 02, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200/V42BIS",  1, 02, 03, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 115,200/V42b",    1, 02, 03, 00,00,00,00, 00,C2,01,00
+HKR, Responses, "CONNECT 230400",          1, 02, 00, 00,00,00,00, 00,84,03,00
+HKR, Responses, "CONNECT 230400/ARQ",      1, 02, 02, 00,00,00,00, 00,84,03,00
+HKR, Responses, "CONNECT 230400/REL",      1, 02, 02, 00,00,00,00, 00,84,03,00
+HKR, Responses, "CONNECT 230400/MNP",      1, 02, 02, 00,00,00,00, 00,84,03,00
+HKR, Responses, "CONNECT 230400/LAP-M",    1, 02, 02, 00,00,00,00, 00,84,03,00
+HKR, Responses, "CONNECT 230400/V42BIS",   1, 02, 03, 00,00,00,00, 00,84,03,00
+HKR, Responses, "CONNECT 230400/V42b",     1, 02, 03, 00,00,00,00, 00,84,03,00
+
+HKR, Responses, "CARRIER 300",     1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200",    1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 1200/75", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 75/1200", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 2400",    1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 4800",    1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 7200",    1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 9600",    1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 12000",   1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 14400",   1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 16800",   1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 19200",   1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 21600",   1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 24000",   1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 26400",   1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "CARRIER 28800",   1, 01, 00, 80,70,00,00, 00,00,00,00
+
+HKR, Responses, "COMPRESSION: CLASS 5",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: MNP5",     1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42BIS",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 BIS", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42bis",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: V.42 bis", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: ADC",      1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "COMPRESSION: NONE",     1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "PROTOCOL: NONE",                   1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ERROR-CONTROL/LAPB",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ERROR-CONTROL/LAPB/HDX", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ERROR-CONTROL/LAPB/AFT", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: X.25/LAPB",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: X.25/LAPB/HDX",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: X.25/LAPB/AFT",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM/HDX",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M/HDX",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAPM/AFT",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: LAP-M/AFT",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: ALT-CELLULAR",           1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP2",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP3",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "PROTOCOL: MNP4",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "AUTOSTREAM: LEVEL 1", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "AUTOSTREAM: LEVEL 2", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "AUTOSTREAM: LEVEL 3", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+; 33.6 responses
+HKR,Responses,"CARRIER 31200 V.23",1,01,00,E0,79,00,0,0,0,0,0
+HKR,Responses,"CARRIER 31200",1,01,00,E0,79,00,0,0,0,0,0
+HKR,Responses,"CARRIER 31200/VFC", 1,01,00,E0,79,00,0,0,0,0,0
+HKR,Responses,"CARRIER 33600 V.23",1,01,00,40,83,00,0,0,0,0,0
+HKR,Responses,"CARRIER 33600",1,01,00,40,83,00,0,0,0,0,0
+HKR,Responses,"CARRIER 33600/VFC", 1,01,00,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 EC", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 EC/V42", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 EC/V42BIS", 1,02,03,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 REL", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 REL/MNP5", 1,02,03,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 REL/V42", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200 REL/V42BIS", 1,02,03,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200", 1,02,00,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/ARQ", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/LAP-M", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/MNP", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/REL", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/REL-LAPM V.42 BIS", 1,02,03,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/REL-LAPM", 1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/V42B", 1,02,03,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/V42BIS", 1,02,03,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 EC", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 EC/V42", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 EC/V42BIS", 1,02,03,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 REL", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 REL/MNP5", 1,02,03,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 REL/V42", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600 REL/V42BIS", 1,02,03,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600", 1,02,00,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/ARQ", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/LAP-M", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/MNP", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/REL", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/REL-LAPM V.42 BIS", 1,02,03,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/REL-LAPM", 1,02,02,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/V42B", 1,02,03,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/V42BIS", 1,02,03,40,83,00,0,0,0,0,0
+HKR,Responses,"CONNECT 31200/REL-MNP",1,02,02,E0,79,00,0,0,0,0,0
+HKR,Responses,"CONNECT 33600/REL-MNP",1,02,02,40,83,00,0,0,0,0,0
+
+[Eric.Addreg]
+HKR,,ConfigDelay, 1, A0,0F,00,00
+HKR,, DeviceType, 1, 01
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,C2,01,00, 80,25,00,00
+HKR,, DCB, 1, 1C,00,00,00, 00,C2,01,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+HKR, Settings, CompatibilityFlags, 1, 01 ,00 ,00, 00
+
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&F<cr>"
+HKR, Init,1,, "AT<cr>"
+HKR, Init,2,, "AT &F<cr>"
+HKR, Init,3,, "AT V1E0S0=0&D2&C1<cr>"
+HKR, Init,4,, "AT +CMEE=1<cr>"
+HKR, Settings, FlowControl_Hard,, "+IFC=2,2;"
+HKR, Settings, FlowControl_Off,,  "+IFC=0,0;"
+HKR, Settings, FlowControl_Soft,, "+IFC=1,1;"
+
+HKR, Settings, CallSetupFailTimer,, "S7=<#>;"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, InactivityTimeout,, ""
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+
+HKR, Protocol\GSM\V110_2DOT4K,1,,"AT+CBST=68,,1<cr>"
+HKR, Protocol\GSM\V110_4DOT8K,1,,"AT+CBST=70,,1<cr>"
+HKR, Protocol\GSM\V110_9DOT6K,1,,"AT+CBST=71,,1<cr>"
+HKR, Protocol\GSM\ANALOG_RLP,1,,"AT+CBST=0,,1<cr>"
+
+[Eric2.Addreg]
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,C2,01,00, 00,C2,01,00
+
+HKR, Protocol\GSM\V110_9DOT6K,  1,,"AT+CBST=71,0,1;+CHSN=1,1,0,4<cr>"
+HKR, Protocol\GSM\V110_14DOT4K, 1,,"AT+CBST=75,0,1;+CHSN=0,1,0,12<cr>"
+HKR, Protocol\GSM\V110_19DOT2K, 1,,"AT+CBST=79,0,1;+CHSN=0,2,0,12<cr>"
+HKR, Protocol\GSM\V110_28DOT8K, 1,,"AT+CBST=80,0,1;+CHSN=0,2,0,12<cr>"
+
+HKR, Settings, Compression_On,, "+DS=3,0,2048,32;"
+HKR, Settings, Compression_Off,, "+DS=0;"
+
+[Eric.Responses]
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "1<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING
+HKR, Responses, "3<cr>", 1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "5<cr>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "6<cr>", 1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE
+HKR, Responses, "7<cr>", 1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY
+HKR, Responses, "8<cr>", 1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+
+HKR, Responses, "<cr><lf>OK<cr><lf>"         ,            1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>"       ,            1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>" ,            1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>"      ,            1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",            1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>",           1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>"       ,            1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>"  ,            1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",                1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",           1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",           1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",           1, 02, 00, 80,25,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>FAX<cr><lf>",                    1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATA<cr><lf>",                   1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>VOICE<cr><lf>",                  1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RINGING<cr><lf>",                1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DELAYED<cr><lf>",                1, 1D, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DELAYED NUMBER<cr><lf>",         1, 1D, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>",            1, 1C, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED NUMBER<cr><lf>",     1, 1C, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",               1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>+CME ERROR: 0<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00   ; Phone failure.
+HKR, Responses, "<cr><lf>+CME ERROR: 1<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00   ; No connection to phone.
+HKR, Responses, "<cr><lf>+CME ERROR: 2<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00   ; Phone modem link reserved.
+HKR, Responses, "<cr><lf>+CME ERROR: 3<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00   ; Operation not permitted.
+HKR, Responses, "<cr><lf>+CME ERROR: 4<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00   ; Operation not supported.
+HKR, Responses, "<cr><lf>+CME ERROR: 5<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00   ; PH-SIM card PIN required.
+HKR, Responses, "<cr><lf>+CME ERROR: 10<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; SIM card not inserted.
+HKR, Responses, "<cr><lf>+CME ERROR: 11<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; SIM card PIN required.
+HKR, Responses, "<cr><lf>+CME ERROR: 12<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; SIM card PUK required.
+HKR, Responses, "<cr><lf>+CME ERROR: 13<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; SIM card failure.
+HKR, Responses, "<cr><lf>+CME ERROR: 14<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; SIM card busy.
+HKR, Responses, "<cr><lf>+CME ERROR: 15<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; SIM card wrong.
+HKR, Responses, "<cr><lf>+CME ERROR: 16<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Incorrect password.
+HKR, Responses, "<cr><lf>+CME ERROR: 20<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Memory full.
+HKR, Responses, "<cr><lf>+CME ERROR: 21<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Invalid index.
+HKR, Responses, "<cr><lf>+CME ERROR: 22<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Not found.
+HKR, Responses, "<cr><lf>+CME ERROR: 23<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Memory failure.
+HKR, Responses, "<cr><lf>+CME ERROR: 24<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Text string too long.
+HKR, Responses, "<cr><lf>+CME ERROR: 25<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Invalid character in text string.
+HKR, Responses, "<cr><lf>+CME ERROR: 26<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Dial string too long.
+HKR, Responses, "<cr><lf>+CME ERROR: 27<cr><lf>",   1, 03, 00, 00,00,00,00, 00,00,00,00   ; Invalid character in dial string.
+HKR, Responses, "<cr><lf>+CME ERROR: 100<cr><lf>",  1, 03, 00, 00,00,00,00, 00,00,00,00   ; Unknown.
+HKR, Responses, "<cr><lf>+CMS ERROR: ",             1, 03, 00, 00,00,00,00, 00,00,00,00   ; CMS errors
+
+[Moto.Addreg]
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,C2,01,00, 80,25,00,00
+HKR,, InactivityScale, 1, 0a,00,00,00
+HKR, Init, 1,, "AT<cr>"
+HKR, Init, 2,, "AT &F0 &D2 &C1 E0<cr>"
+HKR, Init, 3,, "AT V1 W1 S95=47 ATS0=0<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+HKR,, Reset,, "AT&FS0=0<cr>"
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, SpeakerVolume_Low,, "L0"
+HKR, Settings, SpeakerVolume_Med,, "L2"
+HKR, Settings, SpeakerVolume_High,, "L3"
+HKR, Settings, SpeakerMode_Off,, "M0"
+HKR, Settings, SpeakerMode_Dial,, "M1"
+HKR, Settings, SpeakerMode_On,, "M2"
+HKR, Settings, SpeakerMode_Setup,, "M3"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+HKR, Settings, ErrorControl_Off,, "\N0"
+HKR, Settings, ErrorControl_On,, "\N3"
+HKR, Settings, ErrorControl_Forced,, "\N2"
+HKR, Settings, Compression_On,, "%%C3"
+HKR, Settings, Compression_Off,, "%%C0"
+HKR, Settings, Modulation_CCITT,, "B0"
+HKR, Settings, Modulation_Bell,, "B1"
+HKR, Settings, SpeedNegotiation_Off,, "N0"
+HKR, Settings, SpeedNegotiation_On,, "N1"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, Blind_Off,, "X4"
+HKR, Settings, Blind_On,, "X3"
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",     1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>",       1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+HKR, Responses, "2<cr>",       1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING
+HKR, Responses, "3<cr>",       1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER
+HKR, Responses, "4<cr>",       1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR
+HKR, Responses, "6<cr>",       1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE
+HKR, Responses, "7<cr>",       1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY
+HKR, Responses, "8<cr>",       1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",                1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",          1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",               1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",         1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>",        1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",                1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",           1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>FAX<cr><lf>",                 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATA<cr><lf>",                1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>VOICE<cr><lf>",               1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RINGING<cr><lf>",             1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DELAYED<cr><lf>",             1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",            1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",                 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/ARQ<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/REL<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/MNP<cr><lf>",             1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/LAP-M<cr><lf>",           1, 02, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/V42BIS<cr><lf>",          1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT/V42b<cr><lf>",            1, 02, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300<cr><lf>",             1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/ARQ<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/REL<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/MNP<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/LAP-M<cr><lf>",       1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/V42BIS<cr><lf>",      1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300/V42b<cr><lf>",        1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600<cr><lf>",             1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/ARQ<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/REL<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/MNP<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/LAP-M<cr><lf>",       1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/V42BIS<cr><lf>",      1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600/V42b<cr><lf>",        1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600<cr><lf>",            1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/ARQ<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/REL<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/MNP<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/LAP-M<cr><lf>",      1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/V42BIS<cr><lf>",     1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 0600/V42b<cr><lf>",       1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>",            1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/ARQ<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/REL<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/MNP<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/LAP-M<cr><lf>",      1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42BIS<cr><lf>",     1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/V42b<cr><lf>",       1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75<cr><lf>",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/ARQ<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/REL<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/MNP<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/LAP-M<cr><lf>",   1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/V42BIS<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75/V42b<cr><lf>",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/MNP<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/LAP-M<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/V42BIS<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX/V42b<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200<cr><lf>",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/ARQ<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/REL<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/MNP<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/LAP-M<cr><lf>",   1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/V42BIS<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200/V42b<cr><lf>",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/ARQ<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/REL<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/MNP<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/LAP-M<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/V42BIS<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX/V42b<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",            1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/ARQ<cr><lf>",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/REL<cr><lf>",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/MNP<cr><lf>",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/LAP-M<cr><lf>",      1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V42BIS<cr><lf>",     1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/V42b<cr><lf>",       1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",            1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/ARQ<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/REL<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/MNP<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/LAP-M<cr><lf>",      1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/V42BIS<cr><lf>",     1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/V42b<cr><lf>",       1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>",            1, 02, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/ARQ<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/REL<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/MNP<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/LAP-M<cr><lf>",      1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/V42BIS<cr><lf>",     1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200/V42b<cr><lf>",       1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",            1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/ARQ<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/REL<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/MNP<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/LAP-M<cr><lf>",      1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/V42BIS<cr><lf>",     1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/V42b<cr><lf>",       1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>",           1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/ARQ<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/REL<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/MNP<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/LAP-M<cr><lf>",     1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/V42BIS<cr><lf>",    1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000/V42b<cr><lf>",      1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",           1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/ARQ<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/REL<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/MNP<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/LAP-M<cr><lf>",     1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/V42BIS<cr><lf>",    1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/V42b<cr><lf>",      1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>",           1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/ARQ<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/REL<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/MNP<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/LAP-M<cr><lf>",     1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/V42BIS<cr><lf>",    1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800/V42b<cr><lf>",      1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>",           1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/ARQ<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/REL<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/MNP<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/LAP-M<cr><lf>",     1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/V42BIS<cr><lf>",    1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200/V42b<cr><lf>",      1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>",           1, 02, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/ARQ<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/REL<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/MNP<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/LAP-M<cr><lf>",     1, 02, 02, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/V42BIS<cr><lf>",    1, 02, 03, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600/V42b<cr><lf>",      1, 02, 03, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>",           1, 02, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/ARQ<cr><lf>",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/REL<cr><lf>",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/MNP<cr><lf>",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/LAP-M<cr><lf>",     1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/V42BIS<cr><lf>",    1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000/V42b<cr><lf>",      1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>",           1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/ARQ<cr><lf>",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/REL<cr><lf>",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/MNP<cr><lf>",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/LAP-M<cr><lf>",     1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/V42BIS<cr><lf>",    1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400/V42b<cr><lf>",      1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>",           1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/ARQ<cr><lf>",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/REL<cr><lf>",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/MNP<cr><lf>",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/LAP-M<cr><lf>",     1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/V42BIS<cr><lf>",    1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800/V42b<cr><lf>",      1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200<cr><lf>",           1, 02, 00, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200/ARQ<cr><lf>",       1, 02, 02, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200/REL<cr><lf>",       1, 02, 02, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200/MNP<cr><lf>",       1, 02, 02, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200/LAP-M<cr><lf>",     1, 02, 02, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200/V42BIS<cr><lf>",    1, 02, 03, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200/V42b<cr><lf>",      1, 02, 03, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600<cr><lf>",           1, 02, 00, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600/ARQ<cr><lf>",       1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600/REL<cr><lf>",       1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600/MNP<cr><lf>",       1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600/LAP-M<cr><lf>",     1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600/V42BIS<cr><lf>",    1, 02, 03, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600/V42b<cr><lf>",      1, 02, 03, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>",           1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/ARQ<cr><lf>",       1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/REL<cr><lf>",       1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/MNP<cr><lf>",       1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/LAP-M<cr><lf>",     1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/V42BIS<cr><lf>",    1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400/V42b<cr><lf>",      1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>",           1, 02, 00, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/ARQ<cr><lf>",       1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/REL<cr><lf>",       1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/MNP<cr><lf>",       1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/LAP-M<cr><lf>",     1, 02, 02, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/V42BIS<cr><lf>",    1, 02, 03, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600/V42b<cr><lf>",      1, 02, 03, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>",          1, 02, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/ARQ<cr><lf>",      1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/REL<cr><lf>",      1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/MNP<cr><lf>",      1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/LAP-M<cr><lf>",    1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/V42BIS<cr><lf>",   1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200/V42b<cr><lf>",     1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200<cr><lf>",         1, 02, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/ARQ<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/REL<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/MNP<cr><lf>",     1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/LAP-M<cr><lf>",   1, 02, 02, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/V42BIS<cr><lf>",  1, 02, 03, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200/V42b<cr><lf>",    1, 02, 03, 00,C2,01,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CARRIER 300<cr><lf>",     1, 01, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200<cr><lf>",    1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 1200/75<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 75/1200<cr><lf>", 1, 01, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 2400<cr><lf>",    1, 01, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 4800<cr><lf>",    1, 01, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 7200<cr><lf>",    1, 01, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 9600<cr><lf>",    1, 01, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 12000<cr><lf>",   1, 01, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 14400<cr><lf>",   1, 01, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 16800<cr><lf>",   1, 01, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 19200<cr><lf>",   1, 01, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 21600<cr><lf>",   1, 01, 00, 60,54,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 24000<cr><lf>",   1, 01, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 26400<cr><lf>",   1, 01, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 28800<cr><lf>",   1, 01, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 31200<cr><lf>",   1, 01, 00, E0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CARRIER 33600<cr><lf>",   1, 01, 00, 40,83,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>COMPRESSION: CLASS 5<cr><lf>",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: MNP5<cr><lf>",     1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42BIS<cr><lf>",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 BIS<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42bis<cr><lf>",  1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: V.42 bis<cr><lf>", 1, 01, 03, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: ADC<cr><lf>",      1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>COMPRESSION: NONE<cr><lf>",     1, 01, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>PROTOCOL: NONE<cr><lf>",                   1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB<cr><lf>",     1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB/HDX<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ERROR-CONTROL/LAPB/AFT<cr><lf>", 1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB/HDX<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: X.25/LAPB/AFT<cr><lf>",          1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M<cr><lf>",                  1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM/HDX<cr><lf>",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M/HDX<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAPM/AFT<cr><lf>",               1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: LAP-M/AFT<cr><lf>",              1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: ALT-CELLULAR<cr><lf>",           1, 01, 0A, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP2<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP3<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: MNP4<cr><lf>",                   1, 01, 02, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>PROTOCOL: RLP<cr><lf>",                    1, 01, 02, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>AUTOSTREAM: LEVEL 1<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>AUTOSTREAM: LEVEL 2<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>AUTOSTREAM: LEVEL 3<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Nokia.Addreg]
+HKR,, Reset,, "ATZ<cr>"
+HKR,, ConfigDelay, 1, 88, 13, 00, 00
+HKR,, DeviceType, 1, 01
+
+HKR, Init, 1,, "AT<cr>"
+HKR, Init, 2,, "AT&FV1E0&D2&S0&C1S0=0<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, FlowControl_Off,, "&K0"
+HKR, Settings, FlowControl_Hard,, "&K3"
+HKR, Settings, FlowControl_Soft,, "&K4"
+
+;HKR, Settings, Compression_Off,, "+DS=0,0;"
+;HKR, Settings, Compression_On,,  "+DS=3,0;"
+
+HKR, Fax\Class2\AdaptiveAnswer\AnswerCommand, 1,, "ATS7=90S25=2"
+HKR, Fax\Class2\AdaptiveAnswer\AnswerCommand, 2,, "ATA"
+HKR, Fax\Class2\AdaptiveAnswer, ModemResponseFaxConnect,, "+FCO"
+HKR, Fax\Class2\AdaptiveAnswer, ModemResponseDataDetect,, "CARRIER"
+HKR, Fax\Class2\AdaptiveAnswer, ModemResponseDataConnect,, "CONNECT"
+
+HKR,Protocol\GSM\V110_2DOT4K,1,,"AT+CBST=68,,1<cr>"
+HKR,Protocol\GSM\V110_4DOT8K,1,,"AT+CBST=70,,1<cr>"
+HKR,Protocol\GSM\V110_9DOT6K,1,,"AT+CBST=71,,1<cr>"
+HKR,Protocol\GSM\ANALOG_RLP,1,,"AT+CBST=0,,1<cr>"
+
+[Nokia1.Addreg] ;6210
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 31,00,00,00, 00,C2,01,00, 00,E1,00,00
+
+HKR, Settings, Compression_Off,, "+DS=0,0;"
+HKR, Settings, Compression_On,, "+DS=3,0;"
+
+HKR,Protocol\GSM\V110_14DOT4K,1,, "AT+CBST=81,0,1;+CHSN=2,0,0,0<cr>"
+HKR,Protocol\GSM\V110_19DOT2K,1,, "AT+CBST=81,0,1;+CHSN=3,0,0,0<cr>"
+HKR,Protocol\GSM\V110_28DOT8K,1,, "AT+CBST=81,0,1;+CHSN=4,0,0,0<cr>"
+
+[Nokia2.Addreg] ;8xxx
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,C2,01,00, 40,38,00,00
+
+HKR, Fax,FixModemClass,,"2"
+
+HKR, Fax\Class2\AdaptiveAnswer\AnswerCommand, 1,, "ATS7=90S25=2"
+HKR, Fax\Class2\AdaptiveAnswer\AnswerCommand, 2,, "ATA"
+HKR, Fax\Class2\AdaptiveAnswer, ModemResponseFaxConnect,, "+FCO"
+HKR, Fax\Class2\AdaptiveAnswer, ModemResponseDataDetect,, "CARRIER"
+HKR, Fax\Class2\AdaptiveAnswer, ModemResponseDataConnect,, "CONNECT"
+
+
+[Nokia3.Addreg] ;7110, 6250
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 31,00,00,00, 00,C2,01,00, 40,38,00,00
+
+HKR, Settings, Compression_Off,, "+DS=0,0;"
+HKR, Settings, Compression_On,, "+DS=3,0;"
+
+[Nokia5.Addreg]
+HKR,, Properties, 1, 00,00,00,00, FF,00,00,00, FF,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,E1,00,00, 40,38,00,00
+HKR,, ConfigDelay, 1, F4, 01, 00, 00
+HKR,, InactivityScale, 1, 3c,00,00,00
+HKR,, Reset,, "ATZ<cr>"
+
+HKR, Init, 1,, "AT<cr>"
+HKR, Init, 2,, "AT&FV0E0&D2&C1S0=0<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Hangup, 1,, "ATH<cr>"
+HKR, Answer, 1,, "ATA<cr>"
+
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, InactivityTimeout,, "S30=<#>"
+
+HKR, Protocol\GSM\V110_2DOT4K,1,,"AT+CBST=68,,1<cr>"
+HKR, Protocol\GSM\V110_4DOT8K,1,,"AT+CBST=70,,1<cr>"
+HKR, Protocol\GSM\V110_9DOT6K,1,,"AT+CBST=71,,1<cr>"
+HKR, Protocol\GSM\ANALOG_RLP,1,,"AT+CBST=0,,1<cr>"
+HKR, Protocol\GSM\ANALOG_NRLP,1,,"AT+CBST=7,,0<cr>"
+
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "1<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "3<cr>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "5<cr>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "7<cr>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "8<cr>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "13<cr>", 1, 1D, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "14<cr>", 1, 1C, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "17<cr>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+
+; Compression
+HKR, Responses, "<cr><lf>+DR: NONE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: V42B<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: V42B RD<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: V42B TD<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: MNP5<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+
+; Error Control Reporting
+HKR, Responses, "<cr><lf>+ER: NONE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+ER: LAMP<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+ER: ALT<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+[Nokia.Responses]
+; OK
+HKR, Responses, "<cr><lf>OK<cr><lf>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "0<cr>", 1, 00, 00, 00,00,00,00, 00,00,00,00
+
+; Negotiation Progress
+HKR, Responses, "<cr><lf>CARRIER<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "16<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>SMS<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "17<cr>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+; Connect
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>", 1,  02,  00,  00,00,00,00,  00,00,00,00
+HKR, Responses, "1<cr>", 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300<cr><lf>", 1, 02, 00, 2c,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "5<cr>", 1, 02, 00, b0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "10<cr>", 1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>", 1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "11<cr>", 1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "12<cr>", 1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "17<cr>", 1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>", 1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "18<cr>", 1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>", 1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "19<cr>", 1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>", 1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "20<cr>", 1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000<cr><lf>", 1, 02,00, 80,BB,00,00, 00,00,00,00
+HKR, Responses, "21<cr>", 1, 02,00, 80,BB,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000<cr><lf>", 1, 02,00, C0,DA,00,00, 00,00,00,00
+HKR, Responses, "22<cr>", 1, 02,00, C0,DA,00,00, 00,00,00,00
+
+; Error
+HKR, Responses, "<cr><lf>ERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "+F4<cr>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+
+; No Carrier
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "3<cr>", 1, 04, 00, 00,00,00,00, 00,00,00,00
+
+;No Dial Tone
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "13<cr>", 1, 05, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>", 1, 1C, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "14<cr>", 1, 1C, 00, 00,00,00,00, 00,00,00,00
+
+; Busy
+HKR, Responses, "<cr><lf>BUSY<cr><lf>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "7<cr>", 1, 06, 00, 00,00,00,00, 00,00,00,00
+
+; No Answer
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "8<cr>", 1, 07, 00, 00,00,00,00, 00,00,00,00
+
+; Ring
+HKR, Responses, "<cr><lf>RING<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "2<cr>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+
+; Compression
+HKR, Responses, "<cr><lf>+DR: NONE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: V42B<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: V42B RD<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: V42B TD<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+DR: MNP5<cr><lf>", 1, 01, 01, 00,00,00,00, 00,00,00,00
+
+; Service Reporting Control
+HKR, Responses, "<cr><lf>+CR: ASYNC<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CR: REL ASYNC<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+; Error Control Reporting
+HKR, Responses, "<cr><lf>+ER: NONE<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+ER: LAMP<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+ER: ALT<cr><lf>", 1, 01, 00, 00,00,00,00, 00,00,00,00
+
+; Distinctive Ring
+HKR, Responses, "<cr><lf>+CRING: ASYNC<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: REL ASYNC<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: FAX<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: VOICE<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: VOICE/ASYNC<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: VOICE/REL ASYNC<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: ALT VOICE/ASYNC<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: ALT VOICE/REL ASYNC<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: ALT ASYNC/VOICE<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: ALT REL ASYNC/VOICE<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: ALT VOICE/FAX<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+CRING: ALT FAX/VOICE<cr><lf>", 1, 08, 00, 00,00,00,00, 00,00,00,00
+
+[NullModem]
+HKR,, DCB, 1, 1C,00,00,00, 00,c2,01,00, 15,20,00,00, 00,00, 0a,00, 0a,00, 08, 00, 00, 11, 13, 00, 00, 00
+HKR, Init, 1,, "None"
+HKR, Init, 2,, "NoResponse"
+HKR, Monitor, 1,, "None"
+HKR, Answer, 1,, "CLIENTSERVER"
+HKR, Answer, 2,, "NoResponse"
+HKR, Settings, DialPrefix,, "CLIENT"
+HKR,, Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,c2,01,00, 00,c2,01,00
+HKR, Responses, "CLIENT",       1, 08, 00, 00, 00, 00, 00, 00,00,00,00 ; Server side - the client is requesting a connection
+HKR, Responses, "<h00>CLIENT",  1, 08, 00, 00, 00, 00, 00, 00,00,00,00 ; Server side - the client is requesting a connection
+HKR, Responses, "CLIENTSERVER", 1, 02, 00, 00, 00, 00, 00, 00,00,00,00 ; Client side - the server has acknowledged and the connection is completed
+
+[Siemens.Addreg]
+HKR,,ConfigDelay, 1, 9a,10,00,00
+HKR,,Reset,,                            "AT&F<cr>"
+
+HKR, Init,      1,,                     "AT<cr>"
+HKR, Init,      2,,                     "AT&FE0V1&D2&C1Q0S0=0<cr>"
+HKR, Init,      3,,                     "AT+FCLASS=0<cr>"
+HKR, Monitor,   1,,                     "ATS0=0<cr>"
+HKR, Monitor,   2,,                     "None"
+HKR, Hangup,    1,,                     "ATH<cr>"
+HKR, Hangup,    2,,                     "AT+CHUP<cr>"
+HKR, Answer,    1,,                     "ATA<cr>"
+
+HKR, Settings, Prefix,,                 "AT"
+HKR, Settings, DialSuffix,,             ";"
+HKR, Settings, Terminator,,             "<cr>"
+HKR, Settings, DialPrefix,,             "D"
+HKR, Settings, FlowControl_Off,,        "\Q0"
+HKR, Settings, FlowControl_Hard,,       "\Q3"
+HKR, Settings, FlowControl_Soft,,       "\Q1"
+HKR, Settings, CallSetupFailTimer,,     "S7=<#>"
+
+[Siemens1.Addreg]
+HKR,, Properties, 1, 00,00,00,00, 3C,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,C2,01,00, 80,25,00,00
+
+HKR, Protocol\GSM\ANALOG_RLP,1,,         "AT+CBST=7,,1<cr>"   ; or ATB13
+HKR, Protocol\GSM\V110_2DOT4K,1,,        "AT+CBST=68,,1<cr>"  ; or ATB25
+HKR, Protocol\GSM\V110_4DOT8K,1,,        "AT+CBST=70,,1<cr>"  ; or ATB27
+HKR, Protocol\GSM\V110_9DOT6K,1,,        "AT+CBST=71,,1<cr>"  ; or ATB29
+
+[Siemens2.Addreg]
+HKR,, Properties, 1, 00,00,00,00, 3C,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 30,00,00,00, 00,C2,01,00, 40,38,00,00
+
+HKR, Protocol\GSM\ANALOG_RLP,1,,         "AT+CBST=7,,1<cr>"   ; or ATB13
+HKR, Protocol\GSM\V110_2DOT4K,1,,        "AT+CBST=68,,1<cr>"  ; or ATB25
+HKR, Protocol\GSM\V110_4DOT8K,1,,        "AT+CBST=70,,1<cr>"  ; or ATB27
+HKR, Protocol\GSM\V110_9DOT6K,1,,        "AT+CBST=71,,1<cr>"  ; or ATB29
+HKR, Protocol\GSM\V110_14DOT4K,1,,       "AT+CBST=75,,1<cr>"  ; or ATB31
+HKR, Protocol\GSM\GPRS,1,,               "AT<cr>"
+
+[Siemens.Responses]
+HKR, Responses, "<cr><lf>OK<cr><lf>",                   1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",                1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",                 1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",           1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",          1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",                 1, 06, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",              1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",         1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",         1, 02, 00, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",         1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",        1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400/RLP<cr><lf>",     1, 02, 0a, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800/RLP<cr><lf>",     1, 02, 0a, c0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600/RLP<cr><lf>",     1, 02, 0a, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400/RLP<cr><lf>",    1, 02, 00, 40,38,00,00, 00,00,00,00
+
+
+[GSM]
+HKR, Protocol\GSM\V110_2DOT4K,1,,"AT+CBST=68,,1<cr>"
+HKR, Protocol\GSM\V110_4DOT8K,1,,"AT+CBST=70,,1<cr>"
+HKR, Protocol\GSM\V110_9DOT6K,1,,"AT+CBST=71,,1<cr>"
+HKR, Protocol\GSM\ANALOG_RLP,1,,"AT+CBST=0,,1<cr>"
+HKR, Protocol\GSM\ANALOG_NRLP,1,,"AT+CBST=7,,0<cr>"
+
+
+[Strings]
+MSFT               = "Microsoft"
+
+Ericsson           = "Ericsson"
+Eric1      = "Ericsson SH888"
+Eric2      = "Ericsson DI27"
+Eric3      = "Ericsson CF888"
+Eric4      = "Ericsson DI28"
+Eric5      = "Ericsson I888"
+Eric6      = "Ericsson R320 IR modem"
+Eric7      = "Ericsson R520 IR Modem"
+Eric8      = "Ericsson T39 IR Modem"
+
+MSIRCOMM.DisplayName= "Microsoft IR Communications Driver"
+
+Motorola           = "Motorola"
+Motorola_Timeport  = "Motorola Timeport"
+
+Standard           = "Standard Cell Phones"
+Standard_phone     = "Standard Modem over IR link"
+
+null_modem_in      = "Direct IrCOMM Connect Server"
+null_modem_out     = "Direct IrCOMM Connect Client"
+
+Moto1      = "Motorola L7089 Tri-Band"
+
+Nokia      = "Nokia"
+Nokia1     = "Nokia 6210"
+Nokia2     = "Nokia 8xxx Series"
+Nokia3     = "Nokia 7110"
+Nokia4     = "Nokia 6250"
+Nokia5     = "Nokia 9110"
+
+Siemens    = "Siemens AG"
+Siemens1   = "Siemens SL45"
+Siemens2   = "Siemens S45"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         INDX( 	 –!™            (   x  Ë       €  e a   N         Ù
+     ` P     2      ÙCﬂ4€v@◊éO4€v@◊éO4€∂/+ﬂ4€       d              k o c . P N F Î     h T     2        |"À+¡  |"À+¡.∑π	4€Ê?cX4€       R              	k o d a k . i n f     ˛     h T     2      :˛	4€†µÏéO4€†µÏéO4€¸È	4€ 0      ‰'              	k o d a k . P N F    €     ` N     2       ÂÏ†ù» ÂÏ†ù»àº	4€&‚Uo4€ †      Äê              k s . i n f r ˝     ` N     2      x	4€~ÔèO4€~ÔèO4 :˛	4€ p     4e             k s . P N F u ›     p Z     2       ÂÏ†ù» ÂÏ†ù»àº	4€¯+¡o4€ `      ™]              k s c a p t u r . i n f       ¸     p Z     2      bÚ	4€«èO4€«èO4€jÎ˚	4€ ∞      Ï©              k s c a p t u r . P N F       ﬂ     p Z     2       ÂÏ†ù» ÂÏ†ù»àº	4€S»o4€ 0      ∞&              k s f i l t e r . i n f       ˚     p Z     2      å±·	4€Üû6èO4€Üû6èO4€NùÌ	4€ p      @`              k s f i l t e r . P N F      „     h V    2       ∑6Òù» ∑6Òù»‚{æ	4€»T™¶4€ `     ã^             
+l a y o u t . i n f n z	     h V     2      xÿ/ß4€‹&d£M4€‹&d£M4€r≈%≈4€ P     @O             
+L A Y O U T . P N F n Ú     p Z     2        |"À+¡  |"À+¡‚{æ	4€zu⁄X4€       =              l e g c y d r v . i n f       b
+     p Z     2      ¥Œ]…4€
+vNèO4€
+vNèO4€†/…4€       T              l e g c y d r v . P N F      ˘     h X     2       4Ì†ù» 4Ì†ù»<ﬁ¿	4€úøóp4€ P     +N             m a c h i n  . i n f c
+     h X     2      N|¨…4€BkèO4€BkèO4€Ó°“…4€ ‡     Ù€             m a c h i n e . P N F ˝     h T     2       4Ì†ù» 4Ì†ù»<ﬁ¿	4€I°p4€ @      ¬?              	m c h g r . i n f i n d
+     h T     2      æ¥Â…4€zÆáèO4€zÆáèO4€∆c 4€ Ä      dw              	m c h g r . P N F i n      h R     2      Ä9>. Ä9>. ñ@√	4€ÿp4€ 0      ˙+              m d a c . i n f . i n ˙     h R     2      ÿÏ‹	4€‘äèO4€‘äèO4€2Oﬂ	4€ P      DD              m d  c . P N F . i n      p Z     2       „Íùöù» „Íùöù»fS÷	4€ÿp4€ p      Ñh              m d m b t m d m . i n f                     f       ¯     p Z     2      FÓΩ	4€⁄…	4€⁄…	4€⁄…	4€ ∞     ¿¶             m d m i r m d m . P N F            p Z     2        |"À+¡  |"À+¡O3	4€÷5Y4€ê      â              m d m s e t u p . i n f       e
+     p Z     2      ÿ* 4€RÍ\ 4€†˘	4€RÍ\ 4€       †              m d m s e t u p . P N F           h X     2        |"À+¡  |"À+¡∞T	4€å
+íY4€ @      À3              m e m c a r d . i n f ˜     h X     2      y®	4€ﬁd¥	4€ﬁd¥	4€ﬁd¥	4€ P      C              m e m c a r d . P N F      p Z     2        |"À+¡  |"À+¡∞T	4€å
+íY4€       —              m e m s t p c i . i n f       z
+     p Z     2      ¸÷ —4€Bö$—4€†˘	4€Bö$—4€ 0      ‰"              m e m s t p c i . P N F N          ` N     2        |"À+¡  |"À+¡∞T	4€ÙìõY4€       $              m f . i n f   f
+     ` N     2      ÷h 4€Zôå 4€˙[	4€Zôå 4€        ÿ              m f . P N F .      h V     2       ¥^0.  ¥^0.  õ`	4€	±Y4€(      %              
+m i n i o c . i n f   ˆ     h V     2      ¬¶	4€¬¶	4€¬¶	4€¬¶	4€       t              
+m i n i o c . P N F n      p Z     2        |"À+¡  |"À+¡$˛b	4€¸BÀY4€        "              m o d e m c s a . i n f       ı     p Z     2       +ö	4€h¥£	4€h¥£	4€h¥£	4€ 0      Ù-              m o d e m c s a . P  F      )     h X     2        |"À+¡  |"À+¡$˛b	4€&∏‡Y4€ –      ïÀ              m o n i t o r . i n f g
+     h X     2      ÆÉ∑ 4€®‡ 4€˙[	4€®‡ 4€ ∞     ú¶             m o n i t o r . P N F "     p Z     2        |"À+¡  |"À+¡~`e	4€∞–Y4€ ¿      r∫              m o n i t o r 2 . i n f       Ù     p Z     2      ‰‹ã	4€Lfï	4€Lfï	4€Lfï	4€ ê     ã             m o n i t o r 2 . P N F                                                                            MZê       ˇˇ  ∏       @                                   ‡   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$       ≤i/B”|B”|B”|B”|¡”|Å‹Z|E”|Å‹[|C”|Å‹Y|C”|Å‹X|Z”|Å‹]|C”|RichB”|                        PE  L Â†H        ‡ !
+ å         ≤x      †    vv                  –     ª                       ô  k   é  P    ∞                     ¿  (                                        x  L                                .text   [ä      å                    `.data   ¸   †      ê              @  ¿.rsrc      ∞      î              @  @.reloc  @   ¿      ö              @  B,°H(   ,°H2  ,°H(   æ†H?           ntdll.dll KERNEL32.dll GDI32.dll                                                                                                                                                                                                                                                                                                                                œÛwıßÙwyÍÒwºßÙw˝¥ÒwéÒw:ÚwL{ÒwÆ:Úw”ÛwÔ”ÛwîÒwíÚw|åÒwÍ”ÒwÜÄÒw‘ÒwàÑÒwÀ®ÒwÓ‰ÚwòÚwóçÒwM©ÒwŸ÷ÒwÿïÒwÆ◊ÒwVjÒw›êÒw¿aÙwÃ_ÙwÁ]ÙwãÒwÎ‘ÚwNNÙw˙OÙw‚ÕÛw´cÙwí√Ûw˘bÙwâÎÚwúMÙwuÔÒwÆÈÒwk‘ÚwﬂãÒw_nÒwG¥Òw|≥Òw‡_ÒwïüÒw˙kÒw¿∂Òw¿Òwp[Òw≠Òwá´ÒwyoÒwû∞ÒwõÜÒwÔaÒwÊÒwÊPÙw2ÜÒw
+∂ÒwçÒw¡aÒwHÙw⁄µÒw}Úw
+¢Òw:OÙw-ÓÚwèìÒw6ÿÛwáŸÒw†ÌÒws‡Òw6ÏÚw€^ÒwÙ˝Òwt´Ùwû0ÚwÒúÛwôEÚwÚwiZÒw+ ÚwZuÚw≥ÉÒwYŸÒw∏¨Òw•æÛwE°Òw_Ùwr’ÚwtxÒwÜwÒwê]Ùw9]Ùw“ÏÚwt^ÙwRÌÚw    ˝IÑ|j>Ü|ÖﬁÄ|Ä|ÈÄ|∞ôÄ|∏óÄ|.ìÄ|∑§Ä| ê|‡ê|ÅüÄ|Zë|d°Ä|Ó¥á|VòÄ|	É|˛ê|öÄ|øôÄ|    ïê|∞’ê|PŸê|–œê|?˚í|m*ë|∫ê|ı ê|                    SH       #   ƒ  ƒ            ‡?      A  ¥√  ¥C  Äø   ?   ø            
+◊#<MF3216: bParseWin32Metafile, IsValidEnhMetaRecord failed
+   D i s a b l e M e t a F i l e s         \ R e g i s t r y \ M a c h i n e \ S o f t w a r e \ M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ G R E _ I n i t i a l i z e   MF3216: bHandleStrectchDIBits failed
+   MF3216: bHandleSetDIBitsToDevice failed
+    MF3216: bHandleBitBlt failed
+   MF3216: bHandleStretchBlt failed
+   MF3216: bHandleMaskBlt failed
+  MF3216: bHandlePlgBlt failed
+   MF3216: bHandleCreateDIBPatternBrush failed
+    MF3216: bHandleExtTextOut failed
+   MF3216: bHandlePolyTextOut failed
+  RSDSMj–=IîÖÊ^ÔˇÕ   mf3216.pdb       ãˇUãÏVãuˇvˇ∞vvÖ¿Ñ  Wˇvˇ¨vvã¯ÖˇÑ†  ãEDÉ¯,Sá÷   Ñ≠   HHÑé   ÉËtrÉË$tDHt$HÖƒ   j?[ˇu$ˇu ˇuˇuˇvˇ®vvÈ5  j?[ˇu$ˇu ˇuˇuˇvˇ§vvÈ  ŸE@j@[QQŸ\$ŸE<Ÿ$ˇu8ˇuˇuˇvˇ†vvÈÔ   j@[ˇuˇuˇvˇúvvÈÿ   j@[ˇuˇuˇvˇòvvÈ¡   j?[ˇu,ˇu(ˇu$ˇu ˇuˇuˇvˇîvvÈû   ÉË-tuHtLHt#ÉË	t3ˇÈ•   j@[ˇuˇuˇuˇvˇêvvÎpj?[ˇu4ˇu0ˇu,ˇu(ˇu$ˇu ˇuˇuˇvˇåvvÎJj?[ˇu4ˇu0ˇu,ˇu(ˇu$ˇu ˇuˇuˇvˇàvvÎ$j@[ˇu4ˇu0ˇu,ˇu(ˇu$ˇu ˇuˇuˇvˇÑvvã¯ÖˇtˇvˇÄvvã¯Öˇt	SVË?9  ã¯[jˇˇvˇ|vvÖˇtXÉ}DtCÉ}D)tÉ}D8uFˇuˇuˇuˇvˇêvvÎ2ŸE@QQŸ\$ŸE<Ÿ$ˇu8ˇuˇuˇvˇ†vvÎˇuˇuˇvˇúvvã«_^]¬@ ÃÃÃÃÃãˇUãÏãEˆ@tKãMIIt3ÉÈtÉÈ3t3¿Î`ˇuˇuˇuˇpˇêvvÎLˇuˇuˇpˇúvvÎ;ˇuˇuˇpˇòvvÎ*ˇuŸÓQQŸ\$3…ŸÓŸ$QQQQQQQQQˇuˇuˇuPË;˝ˇˇ]¬ ÃÃÃÃÃãˇUãÏj8ˇuˇuˇuˇuË\ˇˇˇ]¬ ÃÃÃÃÃãˇUãÏjˇuj ˇuˇuË<ˇˇˇ]¬ ÃÃÃÃÃãˇUãÏjˇuj ˇuˇuËˇˇˇ]¬ ÃÃÃÃÃãˇUãÏVj ˇ¿vvãÖˆtjVˇºvvˇuVˇ∏vvÖ¿uVˇ¥vv3¿Îã∆^]¬ ÃÃÃÃÃãˇUãÏÉÏ<SVj(^3€SçEƒPãESSSˇuâ]Ïˇpâuƒfâ]“â]‘ˇƒvvÖ¿Ñ  fÉ}–âu¸u0fÉ}“t)fÉ}“ t"ãE‰;√ufÉ}“s,äM“3¿@”‡çÖ(   âE¸Îf«E– f«E“ â]‘â]ÿâ]‰â]ËãEÿ;√u"ãEÃ;√}˜ÿã»∑E“ØE»É¿É‡‡ôj^˜˛Ø¡ã5‰vvWˇu¸âEÙSˇ÷ã¯;˚â}tˇuÙSˇ÷;√âE¯t]j
+YçuƒÛ•ãEÃ;√}˜ÿãuSˇuˇu¯PSˇuˇvˇƒvvÖ¿t0ˇuÙˇu¯ˇu¸ˇuˇu0ˇu,ˇu(ˇu$ˇu ˇuˇuˇuˇuVË1M  âEÏˇuã5Ëvvˇ÷9]¯tˇu¯ˇ÷_ãEÏ^[…¬, ÃÃÃÃÃãˇUãÏQQãEâE¯ãEâE¸jçE¯PˇuËWW  Ö¿tãEP¡ËPˇu¸ˇu¯h  ˇuËÛH  …¬ ÃÃÃÃÃãˇUãÏˇuh  ˇuËH  ]¬ ÃÃÃÃÃãˇUãÏÉÏ`ãM3¿Wã}œâE‹âE¯âE¸âE‡âEËâEÏâEÙâE‰ãEâM‘âM®âM∞ãMâE§âE¨¡âEÿâE¥âEºjçE†Pˇuâ}†â}∏Ë≤V  Ö¿Ñ`  ãU∏Vãu∞;Úã∆|ã¬Sã]®;ÿ}ã√Î;Úã∆|ã¬ãM†;»}âM¿Î;Úã∆|ã¬;ÿ}â]¿Î
+;Úâu¿|âU¿ãM¥ãUº; ã¡|ã¬9E¨}ãE¨Î; ã¡|ã¬ã]§;ÿ}â]ƒÎ; ã¡|ã¬ã]¨;ÿ|Ï; âMƒ|âUƒãE∏;~ã∆9E®~ãE®Î	ãE∏;~ã∆ã]†;ÿ~â]»ÎãE∏;~ã∆ã]®;ÿÎãE∏;âu»âE»; ã¡ã¬ãu¨;~ã∆Î; ã¡ã¬ã]§;ÿ; ã¡ã¬;~ãﬁÎ; ãŸã⁄ãuã∆%  3ÛâuÅe  ÃÃ¡‡9EâE–Ñ<  ãEƒ   PËT¸ˇˇÖ¿âE¸Ñ  ˇu<j ˇ‰vvÖ¿âE‰Ñµ  ãM<ãu8ˇu4ã—¡Èã¯Û•ã É·Û§ãM»+M¿É` ã5ÿvvPâHj ãÀ+MƒjâHPãEˇpˇ÷Ö¿âEÙÑh  Pˇu¸ˇ‘vvÖ¿âEÏÑD  ˇu0Ë…˚ˇˇÖ¿âE¯Ñ  ˇu4ãEˇu8ˇu@jˇu8ˇpˇ÷Ö¿âEËÑ˛   Pˇu¯ˇ‘vvÖ¿âE‡ÑÈ   ãEƒj ˜ÿPãE¿˜ÿPˇu¸ˇ–vvh  Ã ˇu,ˇu(ˇu$ˇu ˇu¯ˇuˇuˇuˇuˇu¸ˇÃvvÖ¿Ñ°   ˇuÏˇu¸ˇ‘vvÖ¿Ñç   ã}ãuˇuË!  Ö¿t{jˇuÿˇu‘ˇuWˇuË¯7  Ö¿tYãE–9EVt&ãM»+M¿ã√+EƒPQj j PQˇuƒˇu¿ˇuÙˇuË˚ˇˇÎ'+]ƒ3¿¡ÓVPPPãE»+E¿SPˇuƒˇu¿h@	  ˇuËzG  âE‹jˇˇuËÈ   É}Ï tˇuÏˇu¸ˇ‘vvÉ}Ù t	ˇuÙˇ»vvã5¥vv3ˇ9}¸tˇu¸ˇ÷9}‡tˇu‡ˇu¯ˇ‘vv9}Ët	ˇuËˇ»vv9}¯tˇu¯ˇ÷9}‰t	ˇu‰ˇËvv[^ãE‹_…¬< ÃÃÃÃÃãˇUãÏÉÏ VãuˆFt5ˇu@ˇu<ˇu8ˇu4ˇu0ˇu,ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuVËÍ˚ˇˇÈ≠  ãEãUãMâE¬âE¯ãEâMÙ»jçEPVâM¸ËŒR  Ö¿Ñ}  SWã}ã«¡‡3«©  ÃÃu.ãE¸+EÙW¡ÔW3€SSSPãE¯+EPˇuÙˇuh@	  VËAF  È:  ˇu0ËMM  É¯u
+jˇ‡vvÎ.ãE ãU(ãM$ˇu0âE‡¬âEËãE,âM‰»jçE‡PâMÏËAO  Ö¿u3¿ÈÓ   ãE83€9]4u|fÉxuufãHfÉ˘tfÉ˘tfÉ˘tfÉ˘uY9XuTãp ;ÛãufÉ˘s3ˆF”Êç≤ˇuDˇu@RPãEÏ+E‰WPãEË+E‡Pˇu‰ãE¸ˇu‡+EÙPãE¯+EPˇuÙˇuˇuËIG  ãÿÎfãH;Àt	É˘tjÎjYˇu4Pˇu@QPˇvˇÿvvã;Ût;ãEÏ+E‰WPãEË+E‡Pˇu‰ãE¸ˇu‡+EÙPãE¯+EPˇuÙˇuVˇuËÅ¯ˇˇVãÿˇ»vvã√_[^…¬@ ÃÃÃÃÃãˇUãÏÉÏV3ˆ9u4âu¸u3¿È›   Sˇu4Vˇ‰vvãÿ;ﬁÑƒ   ãM4ãu0ã¡W¡Èã˚Û•ã»ãE,É·Û§âCãE<âCãEâEÙãEâE¯jçEÙPˇuËìP  Ö¿t{ãEÙã}ãM¯ãu âE‰«âEÏjçE‰PˇuâMËŒâMËÖP  Ö¿tMãCÖ¿}˜ÿˇu<+Eˇu8+∆ˇu4E(Sˇu$h¨†vvVWPˇuãE+EËh  Ã PãEÏ+E‰PˇuËˇu‰ˇuË˝ˇˇâE¸SˇËvv_ãE¸[^…¬8 ÃÃÃÃÃãˇUãÏãM4ãAÖ¿}˜ÿˇu@+E$ˇu<+E,ˇu8Qˇu0ãMh¨†vvˇu,ã—ˇu(¡‚3—Å‚  ÃÃ˜⁄“#–Rˇu QˇuˇuˇuˇuˇuË£¸ˇˇ]¬< ÃÃÃÃÃãˇUãÏÉÏ<ãEã»¡·S3€3»˜¡  ÃÃâ]Ïu$SSSSSSSSSSPˇuˇuˇuˇuˇuË[¸ˇˇÈ*  Vj(^SçEƒPSSSˇu4âuƒˇu0fâ]“â]‘ˇƒvvÖ¿Ñ¸   fãU“fÉ˙âu¸t&fÉ˙ t ãE‰;√ufÉ˙s3¿@ä ”‡çÖ(   âE¸Î«E¸4   ãEÿ;√u(ãEÃ;√}˜ÿã»∑E–∑“Ø¬ØE»É¿É‡‡ôj^˜˛Ø¡ã5‰vvWˇu¸âE¯Sˇ÷ã¯;˚â}Ùtyˇu¯Sˇ÷;√âEtWj
+YSˇuÙçuƒPÛ•ˇuÃSˇu4ˇu0ˇƒvvÖ¿t6ˇu¯ˇuˇu¸ˇuÙSˇu8ˇu,ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇuËI˚ˇˇâEÏˇuÙã5Ëvvˇ÷9]tˇuˇ÷_ãEÏ^[…¬4 ÃÃÃÃÃãˇUãÏÉÏSã]VW3ˇãÛWâ}¸¡ÓÅ„  ˇ ˇ¿vv;«âEÑ  ˇu,ˇu8ˇu0ËT'  ;«âE,ÑÙ   Pˇuˇ‘vv;«âE¯Ñ÷   ãEˇu âEãEâEÙjçEËPâ}Ëâ}ÏËﬁJ  Ö¿Ñ¢   ãM+MËãEÙ+EÏ;œâM0âE8}3“B+—U$Ö¿}3“B+–U(ø¨†vvWˇu,Å„  Ã ˇuÅÀ  " PQˇu(ˇu$SˇuˇuˇuˇuˇuË£˝ˇˇÖ¿t?Wˇu,ÅÊ  3 ˇuÅŒ  à ˇu8ˇu0ˇu(ˇu$VˇuˇuˇuˇuˇuËk˝ˇˇÖ¿t«E¸   ˇu¯ˇuˇ‘vvˇu,ˇ»vvˇuˇ¥vvãE¸_^[…¬8 ÃÃÃÃÃãˇUãÏÉÏ ãMVW3ˇã¡ãÒ¡ËÅÊ  ˇ 9}Pâ}â}¸â}Ùâ}¯âEu8ˇu<ˇu8ˇu4ˇu0ˇu,ˇu(ˇuˇuˇu$ˇu VˇuˇuˇuˇuˇuËj˘ˇˇÈ§  ã¡¡‡3¡©  ÃÃu2ˇuXˇuTˇuPˇuLˇuHˇuDˇu@ˇu(QˇuˇuˇuˇuˇuË˛ˇˇÈd  SWˇ¿vvãÿ;ﬂâ]PÑK  jSˇºvvWã}0jjˇwˇwˇÏvvÖ¿âE4ÑÔ  PSˇ‘vvÖ¿âE<Ñ”  jBˇwˇwj j SˇËvvÖ¿Ñ´  ãE ã}ãM$ã]ˇu(âE‡«âEËçâEÏjçE‡PâM‰Ë…H  Ö¿Ñx  ãEË9E‡~âE‡ãE‰;EÏ~ãEÏâE‰ãMLãQ+EDh  Ã ˇuHâUãQQˇuTˇuRj j ˇuRPãE‡+E@PˇuPˇ‰vvÖ¿Ñ  ˇu(ˇuPˇ∏vvÖ¿Ñ  ˇu(Ë8ÚˇˇÖ¿âE¸Ñ¯  ˇu,ãEˇu0ˇu8jˇu0ˇpˇÿvvÖ¿âE¯Ñ”  Pˇu¸ˇ‘vvÖ¿âEÙÑæ  h∆ à ˇu$ˇu ˇuPSWˇu$ˇu ˇu¸ˇ‡vvÖ¿Ñó  ˇu(ã∆ˇu¯%  Ã ˇu¸  " SWˇu$ˇu PSWˇuˇuˇuËﬁ˙ˇˇÖ¿Ña  h&ª ˇu$ˇu ˇuPSWˇu$ˇu ˇu¸ˇ‡vvÖ¿Ñ:  ˇu(ÅÊ  3 ˇu¯ÅŒ  à ˇu¸SWˇu$ˇu VãuSWˇuˇuVËÄ˙ˇˇÖ¿Ñ  ˇuÙˇu¸ˇ‘vvÖ¿ÑÔ   ˇu,ãE0Pˇu8ˇpj ˇu¯ˇvˇ‹vvÖ¿ÑÃ   ˇu¯ˇu¸ˇ‘vvÖ¿Ñ∏   h&" ˇu$ˇu ˇuPSWˇu$ˇu ˇu¸ˇ‡vvÖ¿Ñë   ˇu(ãuˇu¯ã∆ˇu¸%  Ã SWˇu$  " ˇu PSWˇuˇuˇuË’˘ˇˇÖ¿t\hÜ Ó ˇu$ˇu ˇuPSWˇu$ˇu ˇu¸ˇ‡vvÖ¿t9ˇu(ÅÊ  3 ˇu¯ÅŒ  à ˇu¸SWˇu$ˇu VSWˇuˇuˇuËÄ˘ˇˇÖ¿t«E   ˇu<ã]PSˇ‘vvˇu4ˇ»vvã5¥vvSˇ÷3ˇ9}ÙtˇuÙˇu¸ˇ‘vv9}¯t	ˇu¯ˇ»vv9}¸tˇu¸ˇ÷ãE[_^…¬T ÃÃÃÃÃãˇUãÏÅÏò   S3€3¿9]HVï¿Wjâ]†â]¸â]¨â]‹âEúãEãHããxãpâMºãHã@âEƒ+∆EºâM¿âEÃçE∞+ Pˇuœâ]–â]‡â]Ùâ]¯â]ÿâ]‘âU∞âu¥â}∏âM»Ë7H  Ö¿Ñ€  ãU¿ãu»;÷ã¬|ã∆ã}∏;¯}ã«Î;÷ã¬|ã∆ãM∞;»}âM‰Î;÷ã¬|ã∆;¯}â}‰Î
+;÷âU‰|âu‰ãMƒãUÃ; ã¡|ã¬ãuº;}ã∆Î; ã¡|ã¬ã}¥;¯}â}ËÎ; ã¡|ã¬;}âuËÎ
+; âMË|âUËãE¿;E»ãE»9E∏~ãE∏ÎãE¿;E»ãE»ã}∞;¯ãE¿;E»ãE»ã}∏;¯ãE¿ã}»;«âEÏâ}Ï; ã¡ã¬;~ã∆Î; ã¡ã¬ã}¥;¯~â}Î; ã¡ã¬;~âuÎ
+; âMâUãE‰+MË+UË+}Ë+uËˇu )E∞)E∏)E¿)E»â}¥âuºâMƒâUÃËÓˇˇ;√âEÑâ  ˇu$ˇu(ˇu0jˇu(Pˇÿvv;√âEîÑ&  Pˇuˇ‘vv;√âEêÑË  Sˇ¿vv;√âE¸Ñª  ˇu,Sˇ‰vv;√âE¯Ñ¶  ãM,ãu(ˇu$ã—¡Èã¯Û•ã É·Û§ãMÏ+M‰PSAjâMòâHãM+MË_WPˇu¸AâM0âHâXˇÿvv;√âE‹ÑU  Pˇu¸ˇ‘vv;√âE¨Ñ@  SSSˇuçE∞ˇuˇuˇuˇuPˇu¸ˇÙvvÖ¿Ñ  ˇu$ˇu¯SSSˇu‹ˇu¸ˇƒvvÖ¿Ñ¸  ãM¯ãA;√u)ãA;√}˜ÿ∑Qã∑AØ¬ØAÉ¿É‡‡ôjY˜˘Ø∆PSâE ˇ‰vv;√âE‘Ñ≥  ˇu$ãE¯Pˇu‘ˇpSˇu‹ˇu¸ˇƒvvÖ¿Ñë  3…A9]út(ˇu@ˇuLˇuDË…  ;√âE‡Ñp  Pˇuˇ‘vvÈç   j(XSQâEHâÖhˇˇˇãE(ãpQâ}@ãxVçïhˇˇˇWâUDâΩlˇˇˇâµpˇˇˇfâçtˇˇˇfâçvˇˇˇâùxˇˇˇâù|ˇˇˇâ]Äâ]Ñâ]àâ]åˇÏvv;√âE‡Ñ¯  Pˇuˇ‘vvÖ¿ÑÊ  hb ˇ VWSSˇuˇËvvÖ¿ÑÃ  ˇuHSˇ‰vv;√âEÙÑ∑  ãMHãuDã—¡Èã¯Û•Sã ãU0jÉ·Û§ãMòjRQâHâPâXâXˇÏvv;√âE–Ñw  Pˇu¸ˇ‘vvÖ¿Ñe  ãEÙjBˇpˇpSSˇu¸ˇËvvÖ¿ÑG  9]út%ãE8âE§ãE<âE®jçE§PˇuˇvvÖ¿Ñ  ÎãEâE§ãEâE®SSSˇuçE∞ˇuˇu®ˇu§ˇuPˇu¸ˇÙvvÖ¿ÑÍ   ãMÙãA;√}˜ÿ∑Qã¯∑AØ¬ØAÉ¿É‡‡jYô˜˘ãØ˜VSˇ‰vv;√âEÿÑ©   ˇu@ãEÙPˇuÿˇpSˇu–ˇu¸ˇƒvvÖ¿Ñá   ˇuËw  Ö¿t{ã}jWËkA  Ö¿tdjSWË–B  Ö¿tWSSWËmB  Ö¿tKSSWËB  Ö¿t?VˇuÿˇuHˇuÙˇu@SSˇu ˇu‘ˇu,ˇu¯ˇu$h¨†vvSSh  Ã™ˇu0ˇuòˇuËˇu‰WËˆˇˇâE†jˇWËN  ˇuêã5‘vvˇuˇ÷9]¨tˇu¨ˇu¸ˇ÷ˇuîã5»vvˇ÷9]‹tˇu‹ˇ÷9]‡tˇu‡ˇ÷9]–tˇu–ˇ÷ˇuã5¥vvˇ÷9]¸tˇu¸ˇ÷9]¯ã5Ëvvtˇu¯ˇ÷9]ÙtˇuÙˇ÷9]‘tˇu‘ˇ÷9]ÿtˇuÿˇ÷ãE†_^[…¬L ÃÃÃÃÃãˇUãÏQQSã]VãuW3ˇ9û   â}¯u3¿@ÈC  Å˚  Ät;û@  É,  ãÜD  ãò;«Ñ  Îjˇvv;«âEÑ  çE
+Pjˇuˇ vvÖ¿ÑÔ   ∑E
+çÖ   PWˇ‰vvã¯ÖˇÑ“   f« fãE
+fâGçGP∑E
+Pj ˇuˇ¸vvjSVË„  É¯ˇâE¸Ñï   WVËπ9  Ö¿ÑÜ   jˇuˇvˇ¯vvÖ¿ttˇu¸h4  VËé2  Ö¿tbÉæ$  ˇtCˇ∂   VË]  É¯ˇtHãé$  ãñ  «    ãé¸   ÉÅˇ3¿fãÜ$  Ph  VË>2  ãE¸âû   âÜ$  «E¯   WˇËvvãE¯_^[…¬ ÃÃÃÃÃãˇUãÏWã}Åˇ  Äu3¿@ÎGVãu;æ@  s8ãÜD  ã∏Ö¿t+ˇuPˇvvÖ¿t9æ   uˇuh9  VËø1  Î3¿@Î3¿^_]¬ ÃÃÃÃÃãˇUãÏWã}Åˇ  Äu3¿@ÎNVãu;æ@  s?ãÜD  ã∏Ö¿t2ˇuˇuˇuPˇ vvÖ¿t9æ   uˇuˇuˇuVËı7  Î3¿@Î3¿^_]¬ ÃÃÃÃÃãˇUãÏj5ˇuËÔ0  ]¬ ÃÃÃÃÃãˇUãÏãE=  ÄSVWÑ“   ã];É@  Éø   ã¯ãÉD  ¡ÁÉ< Ö™   ãE∑@çÖ   Pj ˇ‰vvãÖˆÑâ   ãE∑Hçç   QPVˇvvfÉF∑F∆Ü ∑F∆DÜ ∑F∆DÜ ∑F∆DÜ ∑F∆DÜ¸ˇ∑F∆DÜ˝ˇ∑F∆DÜ˛ˇ∑FÉƒV∆DÜˇ ˇvvããD  VâˇËvvãÉD  É< u3¿Î3¿@_^[]¬ ÃÃÃÃÃãˇUãÏãMãEQˇpâà  ˇvv˜ÿ¿˜ÿ]¬ ÃÃÃÃÃãˇUãÏãM3“Éπ  uBŸÅƒ   ŸÅ–   ŸUŸ¡ÿ<vvﬂ‡ˆƒzQÿ<vvﬂ‡ˆƒAuF›ÿ3¿Ö“î¿ã–ãI É˘|É˘	3¿Ö“î¿ã–Ö“tãEããPVãpâ0ãpâpâHâP^]¬ ›ÿÿ<vvﬂ‡ˆƒAu∏ŸEÿ<vvﬂ‡ˆƒz®ÎùÃÃÃÃÃãˇUãÏVãujVˇuË‰=  Ö¿t/ããN;¡~ââFãFãN;¡~âNâFˇFˇFjVˇuËë=  ^]¬ ÃÃÃÃÃãˇUãÏÉÏÉe¸ SãvvVãuçEÙPˇvˇ”Ö¿t}Wˇu ã=vvˇuˇu ˇuˇuˇuˇuˇuˇvˇ◊Ö¿t@ˇu,ˇvˇ”Ö¿t4ˇu(ˇu$ˇu(ˇu$ˇuˇuˇuˇuˇvˇ◊Ö¿tˇu0ˇvˇ”Ö¿t«E¸   j ˇu¯ˇuÙˇvˇvvãE¸_^[…¬, ÃÃÃÃÃãˇUãÏÉÏ VãuãF®Ñ   ãE,ÉË*Ñ    HÑ©   HÑÇ   HtYHt0Ht3¿Èí  ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇvˇåvvÈl  ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇvˇàvvÈF  ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇvˇÑvvÈ   ˇu ˇuˇuˇuˇuˇuˇvˇîvvÈ   ˇuˇuˇuˇuˇvˇ®vvÈÊ  ˇuˇuˇuˇuˇvˇ§vvÈÃ  ®t;ˇu,ŸÓQQŸ\$ŸÓŸ$j ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuj j j VË÷ﬂˇˇÈç  ãEâE‡ãEâE‰ãEâEËãEâEÏãEâEãE âEÙãE$Wã},Éˇ-âE¯ãE(âE¸rÉˇ/w
+çEPVËÃ¸ˇˇÉˇ,çE‡tjPVËæ;  Ö¿Ñ+  ÎIjPVË´;  Ö¿Ñ  jˇuVËV9  jˇuÙâEVËH9  jˇu¯âEÙVË:9  jˇu¸âE¯VË,9  âE¸çE‡PVË˝ˇˇÖ¿ÑŒ   ãœÉÈ*Ñ¨   IÑí   ItpItHIt&IÖ¨   ˇu¸ˇu¯ˇuÙˇuˇuÏˇuËˇu‰ˇu‡h  Î<ˇu¸ˇu¯ˇuÙˇuˇuÏˇuËˇu‰ˇu‡h0  Îˇu¸ˇu¯ˇuÙˇuˇuÏˇuËˇu‰ˇu‡h  VË¸-  ÎIˇuÙˇuˇuÏˇuËˇu‰ˇu‡h  VË\-  Î*ˇuÏˇuËˇu‰ˇu‡h  ÎˇuÏˇuËˇu‰ˇu‡h  VËF,  _^…¬( ÃÃÃÃÃãˇUãÏj-ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇuË¸¸ˇˇ]¬$ ÃÃÃÃÃãˇUãÏÉÏVãuˆFt#ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇvˇvvÎlçEPçE¯Pˇu(ˇu$ˇu ˇuˇuˇuˇuˇuVËÏ˚ˇˇÖ¿t2ˇu¸ˇu¯VË®  Ö¿t"ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuVËCˇˇˇÖ¿u3¿ÎˇuÙˇuVËï  ^…¬$ ÃÃÃÃÃãˇUãÏj.ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇuË!¸ˇˇ]¬$ ÃÃÃÃÃãˇUãÏj*3¿PPPPˇuˇuˇuˇuˇuË˜˚ˇˇ]¬ ÃÃÃÃÃãˇUãÏj/ˇu(ˇu$ˇu ˇuˇuˇuˇuˇuˇuË«˚ˇˇ]¬$ ÃÃÃÃÃãˇUãÏÉÏ ãMŸEãA®SVWt#QQŸ\$ŸEŸ$ˇuˇuˇuˇqˇ†vvÈq  ®ÖA  ÿTvvﬂ‡ˆƒAÑ0  ÿPvvﬂ‡ˆƒã  ãuŸ†vvã]ÿMãMã√+∆Ÿ]âE‡ã¡+∆âE‰ŒÖˆç3âu€EâEËâMÏ}‹Hvv›@vvŸEŸˇÿ ÿ¡Ë›U  ŸEŸ˛ã¯˚ÿ ÿ¡ËÀU  ŸEÿ√ãM+»âMÙÿ†vvŸ¿ŸˇÿÀÿ¬Ë´U  Ÿ˛ãÿ]ÿ ÿ¡ËõU  ›ÿãM›ÿ+»;˚âM¸u*9MÙu%j)QQŸ\$3¿ŸEŸ$VPPPPPPˇuˇuPPPˇuÎtãuÿ<vvãÜ  âEﬂ‡ˆƒzjXÎ3¿@PVËì¯ˇˇˇu¸SˇuÙWˇuÏˇuËˇu‰ˇu‡VËV˝ˇˇˇuã¯VËn¯ˇˇã«Î(j)QQŸ\$3¿ŸEŸ$ˇuPPPPPPˇuˇuPPPQË)€ˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏÉÏ<°∏¢vvSVãuWã}jˇ63€WâE¸â]ƒË˘4  9fâE»}	ãE»˜ÿfâE»jˇvWË›4  9^fâE }	ãE ˜ÿfâE fãFfâEÃfãFfâEŒfãFfâE–äFàE“äFàE”äFàE‘äFàE’äFàE÷äFàE◊äFàEÿäFàEŸj çFPçE⁄PËT'  jˇuWË∆  ãÿÉ˚ˇtVˇ vvãè  âDŸçE»PWËŸ*  âEƒãM¸ãEƒ_^[ËÿR  …¬ ÃÃÃÃÃãˇUãÏVãuWã}Vˇwˇ$vvV¡ÓVh1  WË¢'  _^]¬ ÃÃÃÃÃãˇUãÏÉÏVãuˆFtˇuˇuˇvˇ(vvÎwçEPˇvˇvvÖ¿tˇuÙˇuVËo  Ö¿u3¿ÎRSã]Wã}WSˇvˇ(vvÖ¿tjçE¯PVâ]¯â}¸ËÃ5  Ö¿u3¿ÎãM¸ãE¯QPh  VâÜ‹   âé‡   Ëˇ&  _[^…¬ ÃÃÃÃÃãˇUãÏ3…9M~ãEfã»fâàfãT»fâTàA;M|Ë]¬ ÃÃÃÃÃãˇUãÏãEˆ@t6ãMÉÈtIu#ˇuˇuˇpˇ0vvÎˇuˇuˇpˇ,vvâEãEÈä   ãE=ˇˇ  Vvj3ˆˇ‡vvÎpãS¡ÊVj ˇ‰vvãÿÖ€u3ˆÎVWˇuãŒãuã¡¡Èã˚Û•ã»SˇuÉ·Û§Ë”4  ãÖˆ_t&ˇuSË*ˇˇˇ3¿É}î¿$  PˇuSˇuËV)  ãSˇËvv[ã∆^]¬ ÃÃÃÃÃãˇUãÏSã]ˆCtˇuˇuˇsˇ4vvÎJWã}Öˇu3¿@Î<Vãuˇvˇ6SË˛ˇˇÖ¿u3¿Î$3¿@;¯tjWVSË‘˛ˇˇÖ¿tÁç˛ˇp¸ˇp¯SË	  ^_[]¬ ÃÃÃÃÃãˇUãÏS3¿W3ˇ@3€9}v&VãEã4∏ãEjVçÿPˇuËâ˛ˇˇÖ¿tﬁG;}r‹^_[]¬ ÃÃÃÃÃãˇUãÏQQãEâE¯ãEâE¸jçE¯PˇuËπ3  Ö¿tˇuãEP¡ËPˇu¸ˇu¯hH  ˇuË√%  …¬ ÃÃÃÃÃãˇUãÏQQãEVãuâE¯ãEâE¸jçE¯PVËk3  Ö¿t:ãE¯9Ü‹   ãM¸u9é‡   u3¿@ÎQPh  VËô$  ãM¯âé‹   ãM¸âé‡   ^…¬ ÃÃÃÃÃãˇUãÏSã]ˇsˇ∞vvÖ¿thL  j ˇ‰vvÖ¿u3¿Î!VWjSYã¯jãÛÛ•ˇÉ(  SâÉ,  Ëõ#  _^[]¬ ÃÃÃÃÃãˇUãÏÉ} ~3¿È´   Wˇuã}ˇwˇ|vvÖ¿Ñí   Sãü,  Vã∑(  uÎã√ãõ,  PˇËvv;≥(  rÈãá0  âÉ0  ãá4  âÉ4  ãá8  âÉ8  ãá<  âÉ<  ãá   jSâÉ   ãá  YâÉ  ãÛSÛ•ˇËvvˇuh'  ˇuË#  ^[_]¬ ÃÃÃÃÃãˇUãÏˇuh  ˇuËÛ"  ]¬ ÃÃÃÃÃãˇUãÏVˇuãuˇvˇ8vvˇuh  VË«"  ^]¬ ÃÃÃÃÃãˇUãÏãEãMPâÅ  ¡ËPh  QËı"  ]¬ ÃÃÃÃÃãˇUãÏÅÏà   Sã]ãC$3…;»âM¿âM¸âM¯É.  çS,Åz¸ EMFuÅ:   vAÉ¬;»rÁ;»É
+  ã¡¡‡ãD4çDÉ¡P¡·ˇ4ˇ\vvÖ¿âEƒÑ‚  VãuçÖxˇˇˇPh  ˇvËöN  Ö¿Ñô  Wã=Tvvjˇvˇ◊j
+ˇvâEËˇ◊jˇvâEÏˇ◊jˇvâEˇ◊€EËâEÙãF⁄u€@H⁄pPﬁ˘Ÿ]êŸÓŸ]îŸÓŸ]ò€EÏ⁄uÙ€@L⁄pTçEêPçÖxˇˇˇPPﬁ˘Ÿ]úŸÓŸ]†ŸÓŸ]§ˇPvvÖ¿Ñ  ãKãSçCã[ âEã âE»âE‡çÖxˇˇˇPjçE»PâMÃâU–âM‘âUÿâ]‹â]‰ËA-  Ö¿Ñ”  ãU»ã]–;”ã |ãÀã}ÿ;œ};”}ã ÎãÀÎãœãE‡;»};”ã |ãÀ;œ};”}ã¬Îã√Îã«ˇuËk¿dˇuãÿvvPˇ”ãU»âE®ãE–;–ã ã»ã}ÿ;œ~;–~ã Îã»Îãœ;M‡~;–ã ã»;œ~;–~ã¬Îã«ÎãE‡ˇuËk¿dˇuPˇ”ãUÃâE∞ãE‘;–ã |ã»ã}‹;œ};–}ã Îã»Îãœ;M‰};–ã |ã»;œ};–}ã¬Îã«ÎãE‰ˇuÏk¿dˇuÙPˇ”ãUÃâE¨ãE‘;–ã ã»ã}‹;œ~;–~ã Îã»Îãœ;M‰~;–ã ã»;œ~;–~ã¬Îã«ÎãE‰ˇuÏk¿dˇuÙPˇ”j âE¥çE®Pj ˇvˇLvvã¯Öˇâ}¸Ñf  jWˇºvvÖ¿ÑU  çÖxˇˇˇPWˇ∏vvÖ¿Ñ?  ˇuˇuƒWˇHvvWˇDvvˇvã@vv3…jQQPâE¯âM¸ˇ”ã¯ÖˇÑ	  Wj ˇ‰vvÖ¿âEÑı  ˇvjPWˇu¯ˇ”;¯Öÿ  ã}fãG
+fÖ¿tyãû   ∑¿çÅ˘ˇˇ  â]á±  √âÜ   j¡‡Pˇ∂  ˇ‹vvÖ¿u∑G
+)Ü   ÈÑ  ;û   âÜ  ã√s!ãé  «¡   ãé  Éd¡ @;Ü   rﬂãû   KxãÜ  çÿÉ8uKÉËÖ€}ÛCj _fâ}∏â}∫fâ}æt0ãÜ  É<¯uçE∏PVË€%  Ö¿Ñ  ãÜ  «¯	   G;˚r–ãE∑@
+çDˇçé8  ;~âjVË  Ö¿ÑÃ  ã}É«È  fãO∑¡∫  ;¬iÑ  ='  Ñ›   =)  é“   =+  éû   =,  t=-  Ñå   =  ÑÅ   È•   3¿fãGfÖ¿Ññ   √fâGãé  ∑¿Îu-  Ñï   ÉËt7ÉËtG-ı  t+-˝  ubfÅ˘&u[É?vVfÉuOÅ
+WMFCuFÉt[Î>f_∑Gãé  «¡   f_fÅfãGãé  ∑¿t	«¡   Î«¡   ã—‡PWVËB.  Ö¿ÑØ   WVËü.  ãç<GfÉ Ö◊˛ˇˇhˇˇ  h'  VË˚  Ö¿ÑÄ   3ˇÖ€v.ãÜ  É<¯	uWh  VË’  Ö¿t^ãÜ  «¯   G;˚r“ãE3“f9P
+t:;û   çCˇsãé  çŸÉ9tBã√CÉ¡;û   rÏãM @;»vã¡âÜ   «E¿   ˇuˇËvv_ˇuƒã5<vvˇ÷É}¸ tˇu¸ˇDvvâE¯É}¯ tˇu¯ˇ÷^ãE¿[…¬ ÃÃÃÃÃãˇUãÏj ˇuËÂ  ]¬ ÃÃÃÃÃãˇUãÏQQVãuçE¯PˇuˇuˇvˇvvˆFuˇuˇuVË\˜ˇˇ^…¬ ÃÃÃÃÃãˇUãÏãEÉxrÅxGDICuÅx  @uPˇuË%˘ˇˇÎ3¿@]¬ ÃÃÃÃÃãˇUãÏQãE∑@8SVãuÉ¿Wã=‰vvâÜ  ¡‡3€PSâ]¸ˇ◊;√âÜ¸   Ñò   3¿9û  vãé¸   ÉÅˇ@;Ü  rÌãÜ     =ˇˇ  âÜ   wc¡‡PSˇ◊;√âÜ  tR3¿9û   v ãé  «¡   ãé  â\¡@;Ü   r‡ãE∑@8âÜ@  ¡‡Pj@ˇ◊;√âÜD  t	«E¸   Î*ãÜ¸   ;√ã=Ëvvt	Pˇ◊âû¸   Å∆  ã;√tPˇ◊âãE¸_^[…¬ ÃÃÃÃÃãˇUãÏãMãEãê  Qh  P«    Ëy  ]¬ ÃÃÃÃÃãˇUãÏãM3¿9Å   Vvãë  ãÚÉ>t@É∆;Å   rÔÉ»ˇ^]¬ ãuâ4¬ãë  Éd¬ Å¡8  ;|‡âÎ‹ÃÃÃÃÃãˇUãÏãEÖ¿y%ˇˇˇÉ¯vÎãMÉ¿;Å  rÉ»ˇ]¬ ÃÃÃÃÃãˇUãÏWˇuã}WÉ ˇËπˇˇˇÉ¯ˇt,Vããá¸   ¡ÊÉ<ˇuˇuWËAˇˇˇã–É˙ˇt	ãá¸   â^ã¬_]¬ ÃÃÃÃÃãˇUãÏVãuWã}WV3“ËfˇˇˇÉ¯ˇÑé   É¯w3¿@ÈÉ   ãéD  Ö…t¡ÁãÖ…tQˇ»vvãéD  É$ Î\ã¯ãÜ¸   ¡ÁSãÉ˚ˇtEãÜ  ãDÿÖ¿tPˇ»vvãÜ  Édÿ ãÜ  S«ÿ   ãÜ¸   Éˇh  VËÍ  ã–[ã¬_^]¬ ÃÃÃÃÃãˇUãÏÉÏ`°∏¢vvâE¸ãEVãuW%ˇˇˇP3ˇˇvvÖ¿t?çM†Qj\Pˇ`vvÉ¯~-É¯\sj\Y+»ã—¡Èç|†3¿Û´ã É·Û™çE†PˇuVËˇˇã¯ãM¸ã«_^ËƒC  …¬ ÃÃÃÃÃãˇUãÏÉÏÉe¸ VãuãÖ¿t
+É¯tÉ¯uaSWç}Ë•••ã]ËÉ˚uÉ}v3€ãujˇuVË0˛ˇˇã¯Éˇˇt2ˇuˇdvvãé  âD˘ãEÏâEˆfãEfâE˙çEÙPVfâ]ÙË;  âE¸_[ãE¸^…¬ ÃÃÃÃÃãˇUãÏVãuWj jjˇvˇvˇÏvvã¯ÖˇtˇuVˇuˇvj Wj ˇ‹vvã«_^]¬ ÃÃÃÃÃãˇUãÏÉÏ@°∏¢vvÉe» Sã]VãuWj
+YjˇuâE¸ãEç}Ãâu¿Û•ÉeÙ SâEƒ«E¯ˇˇˇ Ë`˝ˇˇãÉ˛ˇtEˇu ˇuƒˇu¿Ëcˇˇˇã¯ÖˇtWˇhvvãã  WâDÒˇ»vvjj ˇuçEÃˇuƒj0PSË§  âE»ãM¸ãE»_^[ËKB  …¬ ÃÃÃÃÃãˇUãÏÉÏ,Ée¸ Sã]WjˇuSË·¸ˇˇã¯ÉˇˇÑ	  Vˇu ãuVˇlvvãã  âD˘fÉ~u-fãFf= t#f=  tjˇu ˇuˇuˇuVSË  âE¸Èº   ˇu VˇujVˇsˇÿvvÖ¿âEÑû   j
+Yç}‘Û•ãE‹3ˇ;«f«E‡ f«E‚ â}‰â}Ëâ}Ùâ}¯}˜ÿã»ãEÿç@ç≈   É‡‡j^ô˜˛ãØÒVWˇ‰vv;«âE t0WçM‘QPˇu‹WˇuˇsˇƒvvÖ¿tjWVˇu çE‘j(PSËu  âE¸ˇuˇ»vv9} t	ˇu ˇËvv^ãE¸_[…¬ ÃÃÃÃÃãˇUãÏÉÏãEãSVãÚ3€ÉÊÉ˛Wâ]¸vÉ˛uj^Î3ˆãH+Àã}tItItãè  Îj^â]ÎãHâM˜¬   uâ]ÙÎã@âEÙjˇuWËP˚ˇˇãÿÉ˚ˇt<ˇuˇuÙVˇpvvãè  jˇuÙâDŸWË !  ˇufÉe
+ fâEçEPVWË   âE¸ãE¸_^[…¬ ÃÃÃÃÃãˇUãÏÉÏãEãÉeÏ Ée¯ Å…   âM‰ãHã@âEçE‰PˇuâMËˇuËˇˇˇ…¬ ÃÃÃÃÃãˇUãÏãMã¡%ˇˇˇÉ¯v6É¯vÉ¯	vBÉ¯vÉ¯u8QˇuËó˚ˇˇÎ/É¿˙¡‡X†vvPQˇuËvˇˇˇÎç@çÖ†vvPQˇuËË˚ˇˇÎ3¿]¬ ÃÃÃÃÃãˇUãÏWˇuã}WÉ ˇË
+˙ˇˇÉ¯ˇt5ãè¸   Vã¡ÊãÉ˙ˇu É¯wˇuWËYˇˇˇÖ¿tãá¸   ãÎÉ ˇ^ã¬_]¬ ÃÃÃÃÃãˇUãÏQÉe¸ SVãuWã}WVËãˇˇˇãÿÉ˚ˇt?ãÜ  çÿÉ8uâæ  É8uâæ  ã@Ö¿t
+Pˇvˇ‘vvSh-  VË  âE¸ãE¸_^[…¬ ÃÃÃÃÃãˇUãÏãEˇpÉHˇ¨vv]¬ ÃÃÃÃÃãˇUãÏãEˇpÉ`˜ˇÄvv]¬ ÃÃÃÃÃãˇUãÏãEˇpˇtvv]¬ ÃÃÃÃÃãˇUãÏÉ}Sã]WtÉ}tÉ}uGjSËn  Ö¿t;∏ˇ  PP∏ ÄˇˇPPˇÄvvã¯Öˇt1VjWˇsˇ|vvã˜ﬁˆW˜ﬁˇ»vvÖˆ^tˇuˇsˇxvvÖ¿u3¿ÎSË_  _[]¬ ÃÃÃÃÃãˇUãÏãEˇpˇÑvv]¬ ÃÃÃÃÃãˇUãÏãEˇpÉ`˜ˇàvv]¬ ÃÃÃÃÃãˇUãÏãEˇpˇåvv]¬ ÃÃÃÃÃãˇUãÏÉÏ(VãuWˇv3ˇâ}¯â}ˇÑvvÖ¿ÑÎ  SWWWˇvã5tvvˇ÷ãÿÉ˚ˇâ]‰ÑÕ  Ö€u«E   ÈΩ  ç€Pj ˇ‰vvÖ¿âE¯Ñ¶  ã»çŸSPâE‡ãEQˇpˇ÷;√Öã  ã√ô+¬ã—˛Ûã∆k¿Pj ˇ‰vvã¯ÖˇÑh  ç˜âMÙç±3ˆ3¿;ﬁâM‹âu¸~àãU‡äã]¯àã√ã÷¡‚â:ã]¯ã\√@âuËF;E‰âUÿâ\:ç£   ã]¯ç√ç˜â]Ïã]‡äà1ã]Ïãâã]Ïã[ÉEÏ@âZFÉ¬Ä|1ˇu;E‰|“äT1ˇÄ˙uHNã÷+UËÉ˙uãuËÎDãMÙã]¸âôÎ3Ä˙tBÄ˙u/ã]¸∆D1ˇ∆ãMÿã9â˜ãL9ãUÙâL˜FãŒ+MËâöˇE¸ãM‹;E‰å,ˇˇˇÎNÎãU¸ãMÙã∆+EËˇE¸âëÖˆÑñ˛ˇˇÉ}@uˇu¸ˇuÙWˇuËXÎˇˇâEÎEÉ}>uãEãò  h  ÄPË|¸ˇˇÖ¿t'Îã]ˇu¸VˇuÙWˇuË«   É}>âEu	SˇuËQ¸ˇˇ[ãEÉË>t"HtHu(ãEˇpˇxvvÎãEˇpˇîvvÎãEˇpˇêvvÖˇã5ËvvtWˇ÷É}¯ tˇu¯ˇ÷ãE_^…¬ ÃÃÃÃÃãˇUãÏãMÉ	ˇÉ} ∏ÄwãUrÉ˙ˇwâ3¿]¬ ÃÃÃÃÃãˇUãÏãMãUÉ
+ˇVãuŒ;Œ∏Ä^râ
+3¿]¬ ÃÃÃÃÃãˇUãÏÉÏãEV3ˆˆ@âu¸tˇuˇuˇuˇpˇpvvÈ§  Wã};˛u3¿@Èì  çEPWˇuâuÏËáˇˇˇÖ¿åx  çE¯PãEjY˜·RPË?ˇˇˇÖ¿å]  Sˇu¯Vã5‰vvˇ÷ãÿÖ€â]ÙÑB  çE¯PjYã«˜·RPËˇˇˇÖ¿å  ˇu¯j ˇ÷Ö¿âE¸Ñ   3¿ÖˇvãMfãÅãU¸fâB@;«rÌãEãuÉe ÖˇâEâuÜë   ãEãMãàÉ¯âEËÇ∫   çM¯QjY˜·RPËõ˛ˇˇÖ¿å¢   ãM¯ãuã¡¡Èã˚Û•ã»É·Û§ãMËã¡·ç;P¯uãS;P¸tãâãSâPãE¸ãUÉ√ˇEçPfˇ MŸˇEãE;EÇuˇˇˇã}ãuÅ˛ˇˇ  v
+jˇ‡vvÎ,VˇuÙˇuË‡  Ö¿tVˇuÙË:ÁˇˇWVˇu¸ˇuÙˇuË‘  âEÏˇuÙã5Ëvvˇ÷É}¸ tˇu¸ˇ÷[ãEÏ_^…¬ ÃÃÃÃÃãˇUãÏˇuh  ˇuËá  ]¬ ÃÃÃÃÃãˇUãÏj+3¿PPPPˇuˇuˇuˇuˇuËˇﬁˇˇ]¬ ÃÃÃÃÃãˇUãÏj,j j ˇu ˇuˇuˇuˇuˇuˇuË—ﬁˇˇ]¬ ÃÃÃÃÃãˇUãÏSã]WjSËè   Ö¿t;∏ˇ  PP∏ ÄˇˇPPˇÄvvã¯Öˇt\VjWˇsˇ|vvã˜ﬁˆW˜ﬁˇ»vvÖˆ^t;ãEÉËtHu4ˇuˇuˇuˇuˇsˇhvvÎˇuˇuˇuˇuˇsˇlvvÖ¿u3¿ÎSËU   _[]¬ ÃÃÃÃÃãˇUãÏVW3ˆVVVVˇÄvvã¯3¿;˛t$É}ï¿@PãEWˇpˇdvvÖ¿uFWˇ»vvã∆_^]¬ ÃÃÃÃÃãˇUãÏÉÏ(Sã]W3ˇWh,  Sâ}Ïâ}¸â}â}¯â}ÙË  Ö¿Ñ∆  VWWWWˇÄvvã;˜âuËÑ≠  jVˇsˇdvvÉ¯ˇÑ]  ;«ÑN  WWã=TvvVˇ◊ãÖˆÑ@  Vj ˇ‰vvÖ¿âE¯Ñ,  PVˇuËˇ◊;∆Ö  ˇu¯çÉ¨   VPˇXvvÖ¿âE¸Ñ  çEÿPˇu¸ˇ\vvÖ¿ÑÏ   ∏–äˇˇ9Eÿ}âEÿ9E‹}âE‹∏0u  9E‡~âE‡9E‰~âE‰ˇu‰ˇu‡ˇu‹ˇuÿh  SË‰  Ö¿Ñ£   ˇu‰ˇu‡ˇu‹ˇuÿˇÄvvÖ¿âEÑÜ   jˇu¸Pˇu¸ˇ`vvÖ¿tsj j ˇu¸ˇ◊ãÖˆtdV3€Sˇ‰vv;√âEÙtSPVˇu¸ˇ◊;∆uHãuÙã~Öˇ~7É∆(3¿fãFP3¿fãP3¿fãF¸P3¿fãF¯Ph  ˇuËL  Ö¿tCÉ∆;ﬂ|Ã«EÏ   ˇuËã5»vvˇ÷3ˇ9}¸tˇu¸ˇ÷9}tˇuˇ÷9}¯ã5Ëvvtˇu¯ˇ÷9}ÙtˇuÙˇ÷^ãEÏ_[…¬ ÃÃÃÃÃãˇUãÏÉÏS3€SSˇuˇTvv;√âEu3¿Ès  Vã5‰vvWPSˇ÷ã¯;˚u3¿ÈX  WˇuˇuˇTvvÖ¿t09_uhà†vvjˇuË*  ãÿÎ∑Gç@çÖD   PSˇ÷ã;ÛuWˇËvvÈ	  fãGfâFfãGfâFfãGfâFfãGfâF9_«E¸   â]â]¯â]ÙçFÜã   ãM¡·çL9 fãY3“fâXfãYâUfâXÉ¡ÙfãY∑“çTPfâfãYfâZãUBBˇEã]É¡;_âUsã;YuãY;Yt≈ˇE¯f;UÙ∑ fâfâTHvâUÙçL	M¸¡ãM3€;OÇuˇˇˇãE¸fãM¯fâFVÉ¿˛PˇufâN
+fãMÙfâf«F «Fˆ  fâNË  Wã=Ëvvãÿˇ◊Vˇ◊ã√_^[…¬ ÃÃÃÃÃãˇUãÏQÉe¸ VãuWˇuçÜƒ   ˇuÉœˇPˇXvvÖ¿âEÑ¬   jVËÏÌˇˇÉ¯ˇâEÑ•   ˇuVË˛ˇˇÖ¿Ñã   É} tˇuVË˘Ûˇˇã¯ÉˇˇtuãE ÉËGtVHt HtHudˇuh+  Îˇuh*  VË   ÎGjˇuVË∞  jˇuâEVË¢  Éˇˇt,ˇuWPˇuh)  VËá  ÎÉˇˇtˇuWh(  VË  âE¸ˇuVËÌˇˇˇuˇ»vvãE¸_^…¬ ÃÃÃÃÃãˇUãÏQSVãuWjVË˚˙ˇˇÉ} u'Ö¿t3¿@ÈØ   ˇuj ˇvˇ|vvã˜ﬁˆ˜ﬁÈÑ   Ö¿ã=|vvã»vvtIÉ}tÉ}tÉ}u7∏ˇ  PP∏ ÄˇˇPPˇÄvvÖ¿âE¸tUjPˇvˇ◊ˇu¸ã˜ﬁˆ˜ﬁˇ”Öˆt<ãuˇuˇuj ˇXvvÖ¿âEt$ˇuPˇvˇ◊ˇuã˜ﬁˆ˜ﬁˇ”Öˆt
+ˇuËà˙ˇˇÎ3¿_^[…¬ ÃÃÃÃÃãˇUãÏVãujVË˙ˇˇÖ¿t3¿@ÎˇvˇPvvÖ¿tVËK˙ˇˇ^]¬ ÃÃÃÃÃãˇUãÏÉÏSã]VãuWã}WSˇvˇLvvÖ¿t2jVËÃ˘ˇˇÖ¿uVË˙ˇˇÎAÉe ÉeÙ jçEPVâ]¯â}¸Ë*  Ö¿u3¿ÎãM¸ãE¯+MÙ+EQPh   VâE¯âM¸Ë]  _^[…¬ ÃÃÃÃÃãˇUãÏÉÏ j j ˇuˇDvvjçM‡QPˇHvvãE‰…¬ ÃÃÃÃÃãˇUãÏÉÏPãESV3€Wã}ˆGâE¸â]¯â]Ùâ]‹tVÉ}(ã5ºvvtˇu(ˇwˇ÷É},Sˇu$ˇu ˇuˇuˇuˇuˇuˇwuˇ8vvÎˇ<vvÉ}(ãÿtjˇwˇ÷ã√Èâ  ˇwˇ@vvâE‡Ée‡âE‰t5çEËPˇwˇvvÖ¿ÑÁ  ˇuÏˇuËWËä‡ˇˇÖ¿Ñ”  ãEËâEãEÏâEãEâEÃãEâE–jçEÃPWËÏ  Ö¿Ñß  ˆEÑ/  ãuç}∞••••ãuˆFu;jçE∞PVËª  Ö¿ã˛Ñt  fãE∞fâE‘fãE¥fâE÷fãE∏fâEÿfãEºfâE⁄È·   ˆEÑô   ãÜ  âEÏãÜ  h  ÄVâE(ËäˇˇÖ¿tnãÜ  ãæ  Ée¿ Ée» âEƒçE¿PÉÔWVË·ÎˇˇÖ¿t<WVËVˇˇÖ¿t*ˇuºˇu∏ˇu¥ˇu∞VËûˆˇˇÖ¿tãE%˝ˇ  âE¸ˇu(VË(ˇˇWVËiÍˇˇˇuÏVËˇˇˆE¸Ö©  ˆE¸t5ˇuË∏ﬂˇˇÖ¿Ñì  Åe¸˚ˇ  jˇuºˇu∏ˇu¥ˇu∞ˇuËëˆˇˇÖ¿Ñn  ã}É},TÖ†  ˇwË¢˝ˇˇã5–vv3…QQQQˇu âEˇuQPˇ÷;E âEÏu2ˇu j ˇ‰vv3…;¡âE¯âE(Ñ   QQˇu Pˇu ˇuQˇuˇ÷Èç   çx¡Ôçø¡‡Pj ˇ‰vvÖ¿âE¯ÑÊ  ã]¯3¿PPˇuÏ«E,S   Sˇu ˇuPˇuˇ÷ãM$Ö…ãEÏâ]â](âE t93ˆÖ¿ç<ªv-âM$ãE$ã â∑3¿äPˇuˇ‘vvÖ¿tFÉ$∑ ÉE$F;uÏr÷â}$ã}ãu ¡ÊçFPj ˇ‰vvãÿÖ€Ñ`  ãEâãEâCãE 3“@B;¬âE~(ãUãM$JçCâUãPÙÉ¡âP¸ãUâÉ¿ˇMuË3“BˆGu`ãE @PSWËJ  Ö¿Ñ  3¿9E ~fãL√f+√fâC@;E |ÌSˇu çE‘ˇu(Pˇu¸ˇu–ˇuÃWËb  Ö¿Ñ…   È§   ãEâE(È=ˇˇˇãM‰É·3¿IItÉÈuã+DâUÙô+¬—¯Î	ã+DâUÙãU 3…BÖ“~ÀA; |¯RSWË≤  Ö¿tX3ˆ9uÙtãE‰É‡˘Ph.  WËñ  Ö¿t;É}  ~.ãE(j j∆P3¿fãDÛj ˇu¸P3¿fãÛPWËª  Ö¿tF;u |“«E‹   É}Ù tˇu‰h.  WËC  Îã}ˆEtˆE¸ujˇWË\›ˇˇÉ}¯ ã5Ëvvtˇu¯ˇ÷Ö€tSˇ÷É}‹ tCÉ}‡ t=É},Sˇu$ˇu ˇuˇuˇuˇuˇuˇwuˇ8vvÎˇ<vv∏ˇˇˇâá‹   âá‡   ãE‹_^[…¬( ÃÃÃÃÃãˇUãÏVˇuãuˇvˇ4vvˇuh.  VËó   ^]¬ ÃÃÃÃÃãˇUãÏãEãMPâÅ  ¡ËPh	  QË≈   ]¬ ÃÃÃÃÃãˇUãÏãEç Qˇuj Pˇuˇvv]¬ ÃÃÃÃÃãˇUãÏQQfãEVfâE¸jçE¯Pˇu«E¯   Ë2  ãçE¯PˇuËê  ã∆^…¬ ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEVãufâE¯fãEWfâE˙jçEÙPV«EÙ   Ë‡  ã¯çEÙPVË@  ãM¸ã«_^Ë+  …¬ ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEfâEÙfãEVãufâEˆfãEWfâE¯j
+çEPV«E   Ë  ã¯çEPVËﬂ  ãM¸ã«_^ËÆ*  …¬ ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEfâEfãEfâEÚfãEfâEÙfãEVãufâEˆfãEWfâE¯jçEÏPV«EÏ   Ë  ã¯çEÏPVËn  ãM¸ã«_^Ë=*  …¬ ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEfâEfãE fâEÚfãEfâEÙfãEfâEˆfãEVãufâE¯fãEWfâE˙jçEÏPV«EÏ   Ëï  ã¯çEÏPVËı  ãM¸ã«_^Ëƒ)  …¬ ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEfâEÏfãE$fâEÓfãE fâEfãEfâEÚfãEfâEÙfãEVãufâEˆfãEWfâE¯jçEËPV«EË	   Ë  ã¯çEËPVËt  ãM¸ã«_^ËC)  …¬  ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEfâEËfãE,fâEÍfãE(fâEÏfãE$fâEÓfãE fâEfãEfâEÚfãEfâEÙfãEVãufâEˆfãEWfâE¯jçE‰PV«E‰   ËÉ  ã¯çE‰PVË„  ãM¸ã«_^Ë≤(  …¬( ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvâE¸fãEfâEËfãE0fâEÍfãE,fâEÏfãE(fâEÓfãE$fâEfãE fâEÚfãEfâEÙfãEfâEˆfãEVãufâE¯fãEWfâE˙jçE‰PV«E‰   ËÍ  ã¯çE‰PVËJ  ãM¸ã«_^Ë(  …¬, ÃÃÃÃÃãˇUãÏÉÏ<°∏¢vvSã]VãuWjY«Eƒ   f«E»˚ç} Û•âE¸j8çEƒPSf•Ëç  ãçEƒPSËÌ  ãM¸_ã∆^[Ëª'  …¬ ÃÃÃÃÃãˇUãÏQQãEVã»¡·∑ÒWfâE˛jçN—ÈçE¯PˇuâM¯fãMfâM¸Ë5  ã¯ÖˇtVˇuˇuË#  ã¯çE¯PˇuËÅ  ã«_^…¬ ÃÃÃÃÃãˇUãÏQQSã]VãuçD^—‡∑¿W—ËâE¯jçE¯Pˇuf«E¸8fâu˛Ë“  ã¯Öˇt+∑∆—‡PˇuˇuËª  ã¯Öˇt∑√¡‡PˇuˇuË£  ã¯çE¯PˇuË  ã«_^[…¬ ÃÃÃÃÃãˇUãÏÉÏãE0fÉxt3¿È†   ãE<SVWã}4çD—ËâE‰ãE,âEÍfãE(fâEÓfãE$ã]fâEfãE fâEÚfãEfâEÙfãEfâEˆfãEfâE¯fãEfâE˙fãEfâE¸jçE‰PSf«EËAË  ãÖˆtWˇu0SËÒ  ãÖˆtˇu<ˇu8SËﬂ  ãçE‰PSË?  _ã∆^[…¬8 ÃÃÃÃÃãˇUãÏÉÏ$°∏¢vv∑M âE¸ãEâE‹ãE$âE‡çAôSã]V+¬ã—˛—ÊÉ}‡ Wã}ã∆tçHãMã—É¿É‚uÉË—ËfâE‰¡ËfÖ“fâEÊfãEfâEÍfãEfâEÏfãE jfâEÓf«EË2
+fâMXt"fãfâEÚfãGfâEÙfãGfâEˆfãGjfâE¯XPçE‰PSË  ã¯Öˇt*Vˇu‹SË  ã¯ÖˇtÉ}‡ tãE ¿∑¿Pˇu‡SË„
+  ã¯çE‰PSËC  ãM¸ã«_^[Ë%  …¬  ÃÃÃÃÃãˇUãÏQQVãuçF—ËâE¯jçE¯Pˇuf«E¸ˇËö
+  VˇuˇuËé
+  ãçE¯PˇuËÏ
+  ã∆^…¬ ÃÃÃÃÃãˇUãÏÉÏãEVã¡ÊfâE¸j
+çN
+—ÈçEÙPˇuâMÙfãMf«E¯7 fâM˙Ë;
+  VˇuˇuË/
+  ãçEÙPˇuËç
+  ã∆^…¬ ÃÃÃÃÃãˇUãÏQQVWã}∑wç4µ   çF—ËâE¯jçE¯Pˇuf«E¸˜ Ë‚	  VWˇuËÿ	  ãçE¯PˇuË6
+  _ã∆^…¬ ÃÃÃÃÃãˇUãÏÉÏãEãã@VâE˙jçEPˇu«E   f«EÙ¸âMˆËã	  ãçEPˇuËÈ	  ã∆^…¬ ÃÃÃÃÃãˇUãÏÉÏSã]VWã}çD;—ËâEÙfãE fâE˙fãEfâE¸j
+çEÙPˇuf«E¯BË3	  ãÖˆt1SˇuˇuË!	  ãÖˆtG—Ô—ÁWˇuˇuË
+	  ãçEÙPˇuËh	  _ã∆^[…¬ ÃÃÃÃÃãˇUãÏÉÏfãEfâEˆãEã âE¯ãEVâE¸jçEPˇu«E   f«EÙ˙Ë¥  ãçEPˇuË	  ã∆^…¬ ÃÃÃÃÃãˇUãÏVãuWj,VˇuËÖ  ã¯Öˇtˇv ˇuˇuËq  ã¯VˇuË“  ã«_^]¬ ÃÃÃÃÃãˇUãÏãE€@T€@Lﬁ˘€@P€@HãEﬁ˘€@$€@,ﬁ˘ﬁ˘ŸXdŸÓŸXhŸÓŸXtŸÓŸXl€@(€@0ﬁ˘ÿ˘ŸXp›ÿŸÓŸXx]¬ ÃÃÃÃÃãˇUãÏW3ˇ9}v:ãEVãuç˛ŸçT˛ŸG;}Ÿ¡ÿŸ¡ÿHﬁ¡ÿ@ŸÿHŸ¡ÿHﬁ¡ÿ@Ÿ›ÿrŒ^_]¬ ÃÃÃÃÃãˇUãÏÉÏÉ}ŸÓŸ]ŸÓŸ]Ùu
+€EŸ]¯ŸÓÎŸÓŸ]¯€EˇuŸ]¸çEjPËtˇˇˇŸE¸ÿeÙŸE¯ÿeŸ¿ÿ…Ÿ¬ÿÀﬁ¡Ÿ˙‹@vvË∂"  ›ÿ›ÿ…¬ ÃÃÃÃÃãˇUãÏŸ<vvãMŸA⁄Èﬂ‡ˆƒDzŸ<vvŸA⁄Èﬂ‡ˆƒDz3¿Î3¿@]¬ ÃÃÃÃÃãˇUãÏVãuWç~4Wh  ˇvËj"  ã»Ö…t`çFLPh  ˇvËS"  ã»Ö…tIçÜ¨   PWçÜƒ   PˇPvvã»Ö…t.Ÿ<vvŸF8⁄Èﬂ‡ˆƒDzŸ<vvŸF<⁄Èﬂ‡ˆƒDzÉf˚ÎÉN_ã¡^]¬ ÃÃÃÃÃãˇUãÏV3ˆ3¿F9E~+ãMãÅÅ˘ Äˇˇ|Å˘ˇ  @;E|‰Îh  3ˆˇ‡vvã∆^]¬ ÃÃÃÃÃãˇUãÏSˇuã]SËÕ˝ˇˇãC É¯t~*É¯~dÉ¯ VWjY∏¨†vvjç{|ãÛ•Yçªî   ãÛ•_^çC|PçCdPçÉ¨   PˇPvvÖ¿tãEˇpTˇpPˇpLˇpHˇsËF!  Ö¿Öé   3¿Èç   €C$çÖº†vv⁄s,ÿ€C(⁄s0ÿŸ¡Ÿ[|ŸÓŸõÄ   ŸÓŸõÑ   Ÿ¿Ÿ‡Ÿõà   ŸÓŸõå   ŸÓŸõê   ŸËÿÚŸõî   ŸÓŸõò   ŸÓŸõú   ŸXvvÿÒŸõ†   ›ÿ›ÿŸÓŸõ§   ŸÓŸõ®   È:ˇˇˇSË˛ˇˇ[]¬ ÃÃÃÃÃãˇUãÏQÉe¸ É} éñ   ›hvvSŸ`vvVãuŸ\vvWã}¸ãE¡Áç€ç|€Ÿ¿ÿNŸ¬ÿﬁ¡ÿFŸ]ÿNŸ¡ÿNﬁ¡ÿF›ŸŸEÿ‹ﬂ‡ˆƒzŸ¬ÎŸ¡ÿEË   ÿ”âﬂ‡ˆƒzŸ¬ÎŸ¡ÿ¡ËÍ  ›ÿˇE¸âãE¸;E|ã›ÿ_›ÿ^›ÿ[ãE¿PˇuËÂ˝ˇˇ…¬ ÃÃÃÃÃãˇUãÏˇuãEƒ   PˇuËé¸ˇˇ]¬ ÃÃÃÃÃãˇUãÏVˇuãuˇvˇ,vvÖ¿tVË˝ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVãuj ˇuˇuˇuˇuˇvˇ(vvÖ¿tVËŸ¸ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVãuj ˇuˇuˇuˇuˇvˇ$vvÖ¿tVË•¸ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVãuj ˇuˇuˇvˇ vvÖ¿tVËw¸ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVãuj ˇuˇuˇvˇvvÖ¿tVËI¸ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVãuj ˇuˇuˇvˇvvÖ¿tVË¸ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVãuj ˇuˇuˇvˇvvÖ¿tVËÌ˚ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVˇuãuˇvˇ∏vvÖ¿tVËƒ˚ˇˇ^]¬ ÃÃÃÃÃãˇUãÏVˇuãuˇuˇvˇvvÖ¿tVËò˚ˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEÉ¿|PˇuˇuËh˝ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEî   PˇuˇuËF˝ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEÉ¿4PˇuˇuË&˝ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEÉ¿LPˇuˇuË˝ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEƒ   PˇuˇuË‰¸ˇˇ]¬ ÃÃÃÃÃãˇUãÏÉÏŸpvvVãu€F,Wã}⁄v$ÿ…Ÿ]€F0⁄v(ÿ…Ÿ]¸›ÿ€GÿMÿN|ÿ\vvË  €GâEÙÿM¸ÿéà   ÿ\vvË˚  âE¯jçEÙPË˚ˇˇÖ¿u3¿Îuˇu¯ˇuÙh  VËµˇˇÖ¿tÁãG +GâE€EÿMÿ\vvË∂  âEÏãG$+GâE€EÿM¸ÿ\vvËô  âEjçEÏPË¨˙ˇˇÖ¿tûˇuˇuÏh  VËWˇˇ˜ÿ¿˜ÿ_^…¬ ÃÃÃÃÃãˇUãÏVãuWãæ0  É¶0   ã«—ËâÜÓ   fãÜ8  f@fâÜÚ   ãÜ4  âÜÙ   jçÜË   PVËπ   âæ0  _^]¬ ÃÃÃÃÃãˇUãÏVˇuãuVË‘”ˇˇÖ¿ÑÑ   ˇuVËM˙ˇˇÖ¿twÉ¶Ó    fÉ¶Ú    É¶Ù    fÉ¶¯    çÜË   jPVf«  f«ÜÏ    f«ÜÍ   	 Ë=   Ö¿t/ˆFt
+VË~  Ö¿t3¿fãF Ph  VËˇÓˇˇÖ¿t	ˇuVË˛ˇˇ^]¬ ÃÃÃÃÃãˇUãÏV3ˆFÉ=¿¢vv uNãUãJˆ¡ãEu:Sãö0  ç4;rwãuWãz˚ã»ãŸ¡ÈÛ•ãÀÉ·Û§3ˆF_ÎÅ…   ÄâJ3ˆ[Ç0  ã∆^]¬ ÃÃÃÃÃãˇUãÏãEãMã	4  9sâ]¬ ÃÃÃÃÃãˇUãÏãEãà<  ;à‰   u
+ãEÉ  3¿ÎãUâ
+ãà<  ãQ—âê<  3¿@]¬ ÃÃÃÃÃãˇUãÏ3¿S@É=¿¢vv Vãÿu2Wã}9u'Å( EMFuãuWˇ∂H  Ëå  Ö¿uhtvvËZ  Y3¿_^[]¬ â~ãG0âFãG0«;«âæ<  âÜ‰   rŸÎ+ã}Wˇ∂H  ËE  Ö¿t(ãÉ¯aVWˇÖÿ†vvˆFÄãÿuçEPVËˇˇˇÖ¿u«ÎhtvvËÎ  Y3€ã√ÎçÃÃÃÃÃãˇUãÏSVãuãFW3ˇ;«tPˇ¥vvãÜ¸   ;«ãËvvtPˇ”9æD  t.Éæ@   vãÜD  ã∏Ö¿tPˇ»vvG;æ@  r„ˇ∂D  ˇ”3ˇ9æ  t.9æ   vãÜ  ãD¯Ö¿tPˇ»vvG;æ   r‚ˇ∂  ˇ”ãÜ,  Ö¿tã∏,  Pˇ”Öˇã«uÒVˇ”_^[]¬ ÃÃÃÃÃãˇUãÏÉÏ,VãuãFf«Eÿ&f«E⁄ «EﬁWMFC«E‚   ã@,âEÊãFW3ˇçàˇ  ¡È;«fâ}Íâ}ÏâMâE¸âE¯tFÅ}¯    ãE¯r∏    )E¯çH,—ÈâEÙâM‘çH"ãF«PçE‘PVfâM‹ËçÙˇˇÖ¿âEt	}ÙÉ}¯ u∫ãE_^…¬ ÃÃÃÃÃãˇUãÏãEãHãÄ0  V—Ë3ˆ3“Ö¿âu~fã4QfuB;–|Ûãu˜ﬁ3¿fâq(@^]¬ ÃÃÃÃÃãˇUãÏÅÏ‹   °∏¢vvVWj'âE¸YçÖ`ˇˇˇPæÿvvçΩ`ˇˇˇÛ•ã5vvçÖ@ˇˇˇ3ˇPâ=¿¢vvˇ÷çÖ@ˇˇˇâÖ0ˇˇˇçÖ(ˇˇˇPh  çÖHˇˇˇP«Ö(ˇˇˇ   âΩ,ˇˇˇ«Ö4ˇˇˇ@   âΩ8ˇˇˇâΩ<ˇˇˇˇÙvvÖ¿|`h∞vvçÖ@ˇˇˇPˇ÷çÖ$ˇˇˇPjçÖLˇˇˇPjçÖ@ˇˇˇPˇµHˇˇˇˇ¯vvÖ¿|ÉΩTˇˇˇuÉΩPˇˇˇuãÖXˇˇˇ£¿¢vvˇµHˇˇˇˇ¸vvãM¸_^Ë  …√ÃÃÃÃÃãˇUãÏÉ}uh‡¢vvˇ»vvË‚˛ˇˇÎÉ} uh‡¢vvˇÃvv3¿@]¬ ÃÃÃÃÃãˇUãÏSVWøL  Wj@3€ˇ‰vvã;Ûu3¿Èø   ˆEâ>tÉNSSSh¨¢vvˇvv;√âFÑí   ã]ã=TvvÉé8  ˇjSˇ◊jSâF$ˇ◊jSâF(ˇ◊j
+SâF,ˇ◊Éé$  ˇâF0ãEjˇvâF ∏ˇˇˇâ^«Ü     âÜ‹   âÜ‡   «Ü    Ä«Ü     Ä«Ü     Ä«Ü  ˇˇˇ ˇºvvãﬁÎVË5¸ˇˇã√_^[]¬ ÃÃÃÃÃãˇUãÏÉ}uË^  ]È¿˛ˇˇÃÃÃÃÃãˇUãÏQV3ˆ95¿¢vvâu¸t3¿È∏   Sª‡¢vvSˇ¿vvÉ}åñ   É}èå   9uÑÉ   ˜E ˛ˇˇˇuzˇu ˇuˇuËô˛ˇˇãÖˆtfãEâÜH  ãEÖ¿VˇuuÉNËœ˙ˇˇÉ¯u>ãÜ0  âE¸Î3âFãEâFË±˙ˇˇÉ¯u VË“¯ˇˇÉ¯uˆFãÜ0  âE¸tVË¥¸ˇˇVËD˚ˇˇSˇƒvvãE¸[^…¬ ÃÃÃÃÃ3¿@¬ ÃÃÃÃÃãˇUãÏˇuˇuËéÃˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHãPVãpÉ¿PVRQˇuËö∂ˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEãHÉ¿PQˇuË˛∂ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuË–∂ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuË€µˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËK¥ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuË5·ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHÉ¿PQˇuË˘ﬂˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuËƒ‡ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHjJÉ¿PQ3¿PPPˇuËªﬁˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHjIÉ¿PQ3¿PPPˇuËìﬁˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHãP Vãp$WãxjHÉ¿(PWVRQˇuËbﬁˇˇ_^]¬ ÃÃÃÃÃãˇUãÏãEãHãPjGÉ¿ PRj j QˇuË5ﬁˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHãPVãpã@jPVRQˇuËwŸˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEãHãPVãpã@jPVRQˇuËJŸˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEˇpãPãHRQˇuË“ùˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãPãHVˇpãpVRQˇuËG¡ˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEˇp É¿PˇuËRÙˇˇ]¬ ÃÃÃÃÃãˇUãÏãEÉ¿PˇuËÙˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpÉ¿PˇuËåõˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHQçL»QÉ¿PˇuË%õˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpÉ¿PˇuË&õˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuË˚—ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuË“ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuË≠“ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuËœ“ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuËõ“ˇˇ]¬ ÃÃÃÃÃãˇUãÏj@ˇuËª“ˇˇ]¬ ÃÃÃÃÃãˇUãÏj>ˇuË£“ˇˇ]¬ ÃÃÃÃÃãˇUãÏj?ˇuËã“ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuËÅ—ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuË—ˇˇ]¬ ÃÃÃÃÃãˇUãÏÉÏ,SVãuãFãN<âE‘ãFã^8âEÿãF âEËãF$âEÏãF(âEãF,âMãN@Wã~0âEÙãF4âM¯ãNDPâM‰ãNHWâE¸ãEVˇ∞H  âM‹ãNLâM‡Ë‘  Ö¿tKˇuãESVˇ∞H  ËΩ  Ö¿t4ˇuﬁSˇu¸˛Wˇu¯ˇuÙˇuˇuÏˇuËˇu‰ˇu‡ˇu‹ˇuÿˇu‘ˇuËî¢ˇˇÎhtvvËK  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏÉÏ(SVãuãFãN<âEÿãFã^8âE‹ãF âE‡ãF$âE‰ãF(âEËãF,Wã~0âEÏãF4âMãN@PâMãNDWâE¸ãEVˇ∞H  âMÙãNHâM¯Ë  Ö¿tHˇuãESVˇ∞H  ËÓ  Ö¿t1ˇuﬁSˇu¸˛Wˇu¯ˇuÙˇuˇuÏˇuËˇu‰ˇu‡ˇu‹ˇuÿˇuË«†ˇˇÎhúvvË  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏÉÏ$SVãuãFâE‹ãFâE‡ãF ãN`âE¯ãF$ã^\âE¸ãF(âE‰ãF,âEËãF0âEÏãFPWã~TâEãFXPWâEÙãEVˇ∞H  âMË?  Ö¿tOˇuãESVˇ∞H  Ë(  Ö¿t8ˇuﬁSˇuÙ˛WˇuÉ∆4Vˇu¸ˇu¯ˇuÏˇuËˇu‰ˇu¸ˇu¯ˇu‡ˇu‹ˇuË¸ùˇˇÎh»vvË≤  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏÉÏ$SVãuãFâE‹ãFâE‡ãF ãN`âE‰ãF$ã^\âEËãF(âEÏãF,âEãF0âEÙãFPWã~TâE¯ãFXPWâE¸ãEVˇ∞H  âMËr  Ö¿tQˇuãESVˇ∞H  Ë[  Ö¿t:ˇuãFdãNhﬁSˇu¸˛Wˇu¯É∆4VQPˇuÙˇuˇuÏˇuËˇu‰ˇu‡ˇu‹ˇuË-ùˇˇÎhËvvË„  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏÉÏ@SVãuãFã^TâE¿ãFãN\âEƒãF âE»ãF$âEÃãF(âE–ãF,âE‘ãF0âEÿãFPWã}âE‹ãFXPSVˇ∑H  âM¯ãN`âE‡âM¸Ë†  Ö¿Ñ∫   ˇu¸ˇu¯Vˇ∑H  ËÜ  Ö¿Ñ†   ãFdãNtãVxâE‰ãFhâEËãFlQâEÏãFpPVˇ∑H  âUãV|âEâMÙâUËF  Ö¿tdˇuˇuVˇ∑H  Ë0  Ö¿tNˇuãE∆PˇuÙãE∆PˇuÏãE¯ˇuË∆ˇu‰ﬁˇu¸É∆4Pˇu‡Sˇu‹Vˇuÿˇu‘ˇu–ˇuÃˇu»ˇuƒˇu¿WË!¢ˇˇÎhvvË§  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏÉÏ4SVãuãF0ãNdã^hãVlâEÃãF4âE–ãF8âE‘ãF<Wã}âEÿãF\QâE‹ãF`PVˇ∑H  âE‡âM‰â]ËâU¸Ëp  Ö¿Ñπ   ˇu¸SVˇ∑H  ËX  Ö¿Ñ°   ãFpã^|ãéÑ   âEÏãFtâEãFxâEÙãÜÄ   PSVˇ∑H  âMãéà   âE¯âMË  Ö¿t_ˇuˇuVˇ∑H  Ë¸  Ö¿tIˇuãE∆Pˇu¯ãEËﬁSˇuÙ∆ˇuˇuÏˇu¸Pˇu‰ãE‡∆Pˇu‹çF@PˇuÿÉ∆ˇu‘ˇu–ˇuÃVWË	•ˇˇÎh,vvËu  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏˇuË±∫ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËÎ∫ˇˇ]¬ ÃÃÃÃÃãˇUãÏˇuËp¬ˇˇ3¿@]¬ ÃÃÃÃÃãˇUãÏˇuˇuË˜Óˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãPãHVˇpãpVRQˇuËfÎˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEãPãHVˇpãpVRQˇuËpÎˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuËÉÎˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuËëÎˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuËüÎˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuË≠Îˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËvÍˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËM≠ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHŸ@Ÿ@ãPVãpQQŸ\$Ÿ$VRQˇuË*≥ˇˇ^]¬ ÃÃÃÃÃãˇUãÏQãESãXãPãHVãpWˇp$ãxâ]¸ãXâ]ãX Sˇuˇu¸WVRQˇuËÆ±ˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏQãESãXãPãHVãpWˇp$ãxâ]¸ãXâ]ãX Sˇuˇu¸WVRQˇuË5±ˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏãEãPãHVˇpãpVRQˇuË≤ˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËë»ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËΩ¬ˇˇ]¬ ÃÃÃÃÃãˇUãÏÉÏãEãHâMÙãHâM¯ãHã@âM¸çMÙQPˇuËø√ˇˇ…¬ ÃÃÃÃÃãˇUãÏãEãHãPSãXVãpWãxWâMˇuãH–RS»QVˇuËTƒˇˇ_^[]¬ ÃÃÃÃÃãˇUãÏÉÏSVãuãFãNã^âEÙãFWã~âE¸ãFPWâE¯ãEVˇ∞H  âMËI  Ö¿t3ˇuãESVˇ∞H  Ë2  Ö¿tˇu¸ﬁˇu˛Sˇu¯WˇuÙˇuË}ƒˇˇÎhLvvËÿ  Y3¿_^[…¬ ÃÃÃÃÃãˇUãÏãEãHÉ¿PQˇuËI∆ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHÉ¿PQˇuËg≈ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuË—æˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpãHQˇuËé≥ˇˇ]¬ ÃÃÃÃÃãˇUãÏQãESãXãPãHVãpWˇp$ãxâ]¸ãXâ]ãX Sˇuˇu¸WVRQˇuË‡Øˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏQãESãXãPãHVãpWˇp$ãxâ]¸ãXâ]ãX Sˇuˇu¸WVRQˇuËÒØˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏãEãHjQÉ¿PˇuË≠≥ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpÉ¿PˇuËd¥ˇˇ]¬ ÃÃÃÃÃãˇUãÏÅÏ  Ée¸ Sã]VãsÅ˛Ä   WQçΩ¸˚ˇˇ3…ÖˆvçCøP˛âœøâTœAÉ¿;ŒrÍã]ãÉËUtbHtQHtJHt;Ht,ÉËu^VçD≥PWˇuËèˇˇÎJã∆¡‡Pj ˇ‰vvã¯Öˇu°ÎIVWˇuË ≥ˇˇÎ(VWˇuËèˇˇÎjÎjVWˇuË’≤ˇˇÎ
+VWˇuË€éˇˇâE¸Å˛Ä   ~WˇËvvãE¸_^[…¬ ÃÃÃÃÃãˇUãÏãEãHQçP RçDà PˇuË÷≥ˇˇ]¬ ÃÃÃÃÃãˇUãÏÅÏ  Ée¸ SVãuãFWã~ÅˇÄ   âE¯çF âEÙwPçùÙ˚ˇˇÉe Öˇv&ãE¯çDÜ øãM¡·ˇEâøPÉ¿9}âTr·ã6ÉÓZt+Nu:ˇu¯WˇuÙSˇuË˙»ˇˇÎ%ã«¡‡Pj ˇ‰vvãÿÖ€u¢Î$ˇu¯ˇuÙSˇuË,≥ˇˇâE¸ÅˇÄ   vSˇËvvãE¸_^[…¬ ÃÃÃÃÃãˇUãÏãEãHjQÉ¿PˇuË¶±ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãHãPQRçP RçDà PˇuËn»ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEãPãHVˇpãpVRQˇuË? ˇˇ^]¬ ÃÃÃÃÃãˇUãÏãEãPãHSãXVãpWˇpãxSWVRQˇuË5 ˇˇ_^[]¬ ÃÃÃÃÃãˇUãÏÉÏSVãuãF(ã^$âEãF4âEÙçF8âE¯ãF0ç0Wã~,ÖˇâM¸ãNâMt=j PãEVˇ∞H  ËÊ  Ö¿tãEj ˇvHVˇ∞H  ËŒ  Ö¿uh|vvËê  Y3¿Î!ˇ6ãFHˇu∆PWˇu¸ˇu¯ˇuÙˇuSˇuË—ˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏÉÏSV3¿Wã}É?`ãOï¿Ée âM¯É¿SâE¸ãG$Ö¿âE~wçwLãFËãç8ﬂÉ~‰ âMÙt-j PãEWˇ∞H  Ë6  Ö¿tUãEj ˇ6Wˇ∞H  Ë  Ö¿t>ˇu¸çFˇu¯Sˇv‰ˇuÙPˇvÏˇv‡ˇv‹ˇuË{–ˇˇÖ¿t#ˇEãEÉ∆(;E|å3¿@_^[…¬ h†vvË£  Y3¿ÎÍÃÃÃÃÃãˇUãÏãEãHÉ¿PQˇuËô≠ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuË$≥ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuË€≤ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuË9Æˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËÒ«ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËi≤ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuË%çˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuË‘ˇˇ]¬ ÃÃÃÃÃãˇUãÏãEˇpˇuËê‘ˇˇ]¬ ÃÃÃÃÃãˇUãÏÉÏ°∏¢vvÖ¿t=@ª  uMVçE¯Pˇ¨vvãu¸3u¯ˇ∞vv3ˇ¥vv3ˇ∏vv3çEPˇºvvãEÙ3E3∆%ˇˇ  ^u∏@ª  £∏¢vv˜–£¥¢vv…√ÃÃÃÃÃ;∏¢vvu	˜¡  ˇˇu√È   ÃÃÃÃÃãˇUãÏÅÏ0  WâÖÿ˝ˇˇâç‘˝ˇˇâï–˝ˇˇâùÃ˝ˇˇâµ»˝ˇˇâΩƒ˝ˇˇfåï˝ˇˇfåç‰˝ˇˇfåù¿˝ˇˇfåÖº˝ˇˇfå•∏˝ˇˇfå≠¥˝ˇˇúèÖË˝ˇˇ«Ö(˝ˇˇ  ãEâÖ‡˝ˇˇçEâÖÏ˝ˇˇçEã@¸âÖ‹˝ˇˇjY3¿çΩ–¸ˇˇÛ´«Ö–¸ˇˇ	 ¿ãEâÖ‹¸ˇˇçÖ–¸ˇˇâE¯çÖ(˝ˇˇâE¸°∏¢vvâÖ ˝ˇˇ°¥¢vvâÖ$˝ˇˇj ˇúvvçE¯Pˇ†vvh  ˇ§vvPˇ®vv_…√ÃÃÃÃÃÃˇ%vvÃÃÃÃÃÃˇ% vvÃÃÃÃÃÃˇ%XvvÃÃÃÃÃÃˇ%0vvÃÃÃÃÃÃˇ%vvÃÃÃÃÃÃˇ%vvÃÃ0ë  ˇˇˇˇˇˇˇˇÃë    ‹ê  ˇˇˇˇˇˇˇˇzì  ú  @è  ˇˇˇˇˇˇˇˇÊô                         rï  »ô  ºô  §ô  åô  zô  hô  Tô  @ô  *ô  ô  ô  ò  ‡ò  “ò  ƒò  ¥ò  ûò  Üò  vò  hò  Xò  Fò  :ò  ,ò  ò  ò  ˆó  Ëó  ﬁó  –ó  àì  îì  ûì  §ì  ¨ì  ≤ì  æì   ì  ÿì  Ëì  Ùì  ˛ì  
+î  î   î  ,î  @î  Rî  hî  tî  Ñî  íî  ®î  ∏î   î  ÷î  ‡î  î  ˙î  
+ï  ï  ï  .ï  Bï  Pï  bï  Üï  ñï  ®ï  ¥ï  ºï  ‘ï  Íï  ¸ï  ñ  ñ  ñ  *ñ  6ñ  Jñ  `ñ  tñ  Üñ  úñ  ∞ñ  ¿ñ  –ñ  Êñ  Ùñ  
+ó   ó  :ó  Fó  Ró  dó  xó  àó  ñó  ¢ó  ∞ó  ºó      \ì  @ì  ,ì  ì  ˛í  Ëí  “í  ¬í  ®í  êí  xí  \í  Dí  .í  í  í   í  ë  ‚ë  ÷ë      ¥ë  ®ë  ñë  åë  Äë  fë  ^ë  Të      Ûmemmove ≤_ftol KRtlUnicodeToMultiByteN   DbgPrint  g NtClose NtQueryValueKey « NtOpenKey vRtlInitUnicodeString  ntdll.dll NLocalFree JLocalAlloc  SetLastError  QLocalReAlloc  fMulDiv  ,IsDBCSLeadByteEx  ÇWideCharToMultiByte  DeleteCriticalSection InitializeCriticalSection CLeaveCriticalSection  ñ EnterCriticalSection  îQueryPerformanceCounter ‘GetTickCount  >GetCurrentThreadId  <GetCurrentProcessId ¿GetSystemTimeAsFileTime JTerminateProcess  ;GetCurrentProcess [UnhandledExceptionFilter  6SetUnhandledExceptionFilter KERNEL32.dll  RestoreDC ô EndPath  Arc  Chord ‡Pie ËPolyDraw  RoundRect ÊPolyBezier  ÁPolyBezierTo   AngleArc  î Ellipse ˜Rectangle  BeginPath SaveDC  å DeleteDC  ESetWorldTransform %SetGraphicsMode - CreateCompatibleDC  kGetDIBits è DeleteObject  JStretchBlt  ÷OffsetViewportOrgEx SelectObject  3 CreateDIBitmap   SetDIBits  BitBlt  KStretchDIBits ﬁPatBlt  ' CreateBitmap  Q DPtoLP  ÂPlgBlt  SelectPalette õGetPaletteEntries ñGetObjectA  ¶GetStockObject   ResizePalette 1SetPaletteEntries E CreatePalette SetArcDirection “MoveToEx   ArcTo fGetCurrentPositionEx  = CreateFontIndirectW -SetMapperFlags  ŒLineTo  ÓPolygon ÔPolyline  PolylineTo  SetBkMode ç DeleteEnhMetaFile ¬GetWinMetaFileBits   CloseEnhMetaFile  ·PlayEnhMetaFile 7 CreateEnhMetaFileA  " CombineTransform  lGetDeviceCaps øGetTransform  #SetEnhMetaFileBits  òGetObjectW  ) CreateBrushIndirect F CreatePatternBrush  1 CreateDIBPatternBrushPt G CreatePen WWidenPath SelectClipPath  ‹ ExtSelectClipRgn  K CreateRectRgn Í FlattenPath  AbortPath  CloseFigure Á FillPath  LStrokeAndFillPath MStrokePath  úGetPath ÍPolyPolygon ◊ ExcludeClipRect »IntersectClipRect °GetRandomRgn  ! CombineRgn  •GetRgnBox Ÿ ExtCreateRegion £GetRegionData /SetMetaRgn  ‘OffsetClipRgn QTranslateCharsetInfo  ØGetTextCharsetInfo  ¨GetTextAlign  ﬁ ExtTextOutW › ExtTextOutA ;SetTextAlign  ASetVirtualResolution  ,SetMapMode  
+ScaleWindowExtEx  	ScaleViewportExtEx  ?SetViewportExtEx  @SetViewportOrgEx  CSetWindowExtEx  DSetWindowOrgEx  —ModifyWorldTransform   IsValidEnhMetaRecord  A CreateICA ÀIsValidEnhMetaRecordOffExt  GDI32.dll     ı7H    ,ö           ö   ö  (ö  Õx  ≤x  7ö  Gö     mf3216.dll ConvertEmfToWmf Mf3216DllInitialize                                                                                                                                                                                                                                                                                                                                                                                                                                       çvv    Òè<        ˇˇˇ         ¿¿¿         ÄÄÄ         @@@                                        ˇˇˇ                            ˇˇˇ    ˆ                               Ä?          Ä?           A  »Bœ˜{@·zBm≈bB    ùÉvvü|vv
+ävvàvvY|vv&àvv"âvv-ävvJÑvvjÑvv
+Ñvv*Ñvv™yvvÑÉvvŒ{vvxåvväÑvv\åvvîåvv∞åvvÃåvvËåvv™yvvçvv@åvvlzvv1ávv∞zvv°{vvt{vv‡Évv∂ÉvvRÉvvhÉvv<|vv|vv¥ÖvvÔÜvvÏÖvv–Övv¬ÑvväÖvvWävvÅävvAÖvvqávv∫ávvPzvv˘yvvŒyvv0zvvzvvÚ{vvQávv¯Ñvvy|vv¶Ñvv™yvvø|vv’|vv}vvE}vv]}vv-}vvÎ|vvu}vvã}vv}vv™yvvµyvvI{vv{vvÓzvv∆zvvåzvvHvvÄvv‰Ävv#Çvv|~vvß}vvåvv∑ävv∑ävvFàvvFàvvFàvvFàvvFàvvHâvvHâvvFàvv"ÜvvbÜvvávvZãvvZãvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvv™yvvDISPLAY øDˇˇ@ª                                                                                                                                                                                                                                                                                                                                                          Ä                  0  Ä               	  H   `∞  ¨                  ¨4   V S _ V E R S I O N _ I N F O     ΩÔ˛     à(
+  à(
+?                           S t r i n g F i l e I n f o   Ë   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   z )  F i l e D e s c r i p t i o n     3 2 - b i t   t o   1 6 - b i t   M e t a f i l e   C o n v e r s i o n   D L L     b !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 0 5 )     6   I n t e r n a l N a m e   m f 3 2 1 6 . d l l     Ä .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   >   O r i g i n a l F i l e n a m e   m f 3 2 1 6 . d l l     j %  P r o d u c t N a m e     M i c r o s o f t Æ   W i n d o w s Æ   O p e r a t i n g   S y s t e m     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   D    V a r F i l e I n f o     $    T r a n s l a t i o n     	∞                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       `   ˚45^5{5§5ª5“5ı5&6L6r6ò6ß6¬6Í677`7q7Ç7&858?8J8ç89_9ú9⁄;<<<Ö<ß<–<‰<ã=ö=†=Ω=À=„=ø>°?‚?    ê   0±0‚01æ152r2µ2ı2#3Ö3444’4Î4ˇ4505º5–566D6°6Ï67#7J7¶77˘7ˇ78#8':<:N:c:¥:…:Û:;V;{;Æ;<&<@<R<í<ß<≈<Ì<"=`=Ö==>8>a>v>˛>?3?^?ê?   0  h   0W0ƒ0\1}1”1„12W2d2∑2«293T3√344Z4Ä4†4∫4‘47J8]8n8Ç8∑8Ω88P9Ÿ9í:◊:;";M;Ó;ˇ;<0<ê<ª<>/>Ñ>Æ>?[? @  l   050®0F1S2i22î2õ2§2∆2&3∆5–5·536¢6h7„89c9|9ç9*:~:ô:≥:;;Ç;”;.<K<n<|<=Ã=‚=•>ÿ>ˆ>?U?h?w?à?≤?–?Í?   P  |   0&0R0ë02,2:2B2·243A4x445G5V5{5í5æ5‹5Ë526K6d6z6•6Ω6 7:7W7∫7€78&8E8S8Ä8á9¡9é:–:Â:Î:;D;†;”;M<Z<ï<√<À<Í<=ú>¬>˛>]?à? `  L   1N1V1ã1Ë1=2ñ2˜2h3·3b4Û4å5ê7Ì;
+<<à<î<¶<=@=k=ü=˚=F>M>W>$?X?å?∫?Ë?   p  `   0D0m0ô0_1é1®1Ì1
+2W3&4U4ß4ƒ44˛4(5`5ë6•6≥6¬677F7g7s7î7ö7¨7≤7÷7˜7˝78ñ8ÿ8Í8Ò8ò9d>0?˝?   Ä  H   Ã02:3◊6¡89Œ9˜9;<)=?=K=S=[=g=Å=à=ï=j>u>É>ç>ò>ü>Æ>∫>∆>“>ﬁ>Í>   †  Ù    0‹0‡0‰0Ë0Ï00Ù0¯0¸0 11111111 1$1(1,1014181<1@1D1H1L1P1T1X1\1`1d1h1l1p1t1x1|1Ä1Ñ1à1å1ê1î1ò1ú1†1§1®1¨1∞1¥1∏1º1¿1ƒ1»1Ã1–1‘1ÿ1‹1‡1‰1Ë1Ï11Ù1¯1¸1 22222222 2$2(2,2024282<2@2D2H2L2P2T2X2\2`2d2h2l2p2t2x2|2Ä2Ñ2à2å2ê2î2ò2ú2†2§2®2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          MZê       ˇˇ  ∏       @                                   –   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$       ÏJ<
+®+RY®+RY®+RY®+SYö+RYk$Y≠+RYk$Y©+RYk$Y¶+RYk$Y©+RYRich®+RY                PE  L ∏RH        ‡ 
+ÄL  Ä©      Q„           Ä   Ä              ˘     çâ                              ò„  <    È  ‡                   Ì    –                                                –                           .text   ¿                          h.rdata  v     Äv                 @  H.data   †"  ÄÅ   #  ÄÅ              @  »PAGE    ">  Ä§  Ä>  Ä§                 `INIT    ¬   „      „                 ‚.rsrc   ‡   È      È              @  B.reloc  ™   Ì      Ì              @  B                                      ãˇUãÏãMãAHtHtHt∏ª  ¿Î.ãEÉ¿ÎãEÉ¿ÎãEÉ¿Äy t	3…A¡ÎÉ…ˇ¡3¿]¬ ÃÃÃÃÃãˇUãÏãUãMãA(Å8MfFdVãr`RVPQuËi  ÎËP  ^]¬ ÃÃÃÃÃ∏ª  ¿¬ ÃÃÃÃÃÃãˇUãÏSVWã}2€É«8ã7Îj ˇuçFPˇ( Ñ¿uã6;˜uÁÎ≥_^ä√[]¬ ÃÃÃÃÃÃãˇUãÏ3¿PPPPãEÉ¿(Pˇ4 ]¬ ÃÃÃÃÃÃãˇUãÏãEj j É¿(Pˇ8 ]¬ ÃÃÃÃÃÃãˇUãÏQãEVãp(ˆFÄumãFDS3€;√Wã= «FÄ   tSPˇ◊ãFH;√tSPˇ◊ãFP;√tSPˇ◊ãFX;√tSPˇ◊çF\ã0;∆ãâE¸tçFPËÉ”  j Vˇ◊ãÛ9u¸ãuÈˇuˇ _[^…¬ ÃÃÃÃÃãˇUãÏj jˇuˇ8 ∏  ¿]¬ Ãd:\xpsp\base\busdrv\mf\fdo.c ÃÃÃÃÃãˇUãÏSVãuWã}jh«  h¬ Vç_|Sˇ@ ãMäA<w∂¿ãÖ£ Ö¿tQWVˇ–ÎVˇ\ ˛F#ÉF`$Vˇw@ˇX jVSã¯ˇ< ã«_^[]¬ ÃÃÃÃÃãˇUãÏVãuVˇ\ ãE˛F#ÉF`$Éf Vˇp@ˇX ^]¬ ÃÃÃÃÃãˇUãÏãEã@`ÉxuãMãI(ã@âA3¿]¬ ÃÃÃÃÃãˇUãÏSã]VWSˇ\ ãs`çF‹jã¯YÛ•3…àHãC`ÉË$«@å âH ∆@@ãESâKˇp@ˇX _^[]¬ ÃÃÃÃÃãˇUãÏVãuˆFÄuçF8PËD  ˇv$ÄNÄˇ ^]¬ ÃÃÃÃÃÃãˇUãÏSVãuWã}Wjˇv$ˇl ãÿãF(Ö¿â~tWSPËd  Pˇv(Ë-  _^ã√[]¬ ÃÃÃÃÃÃãˇUãÏãEÄHjPË¶ˇˇˇ3¿]¬ ÃÃÃÃÃÃ¬ ÃÃÃÃÃãˇUãÏãE3…9Hw
+9Hw9HvãEÉH 3¿]¬ ÃÃÃÃÃÃãˇUãÏãMf˜AÄVWuIÉy( tCãUäB<w∂¿ãÖÑ£ Ö¿tã}RQWˇ–ãÎ.ã}Wˇ\ ãw2“ãœˇ  _ã∆^]¬ ã}Wˇ\ æ  ¿Å˛ª  ¿t‘âwÎ“ÃÃÃÃÃãˇUãÏãEÉxuˇpˇuË—˛ˇˇˇuˇ\ 3¿]¬ ÃÃÃÃÃÃãˇUãÏˇuˇ\ 3¿]¬ ÃÃÃÃÃÃãˇUãÏãEäãMàQäPàQfãPfâQ∂JtgJtVJtaJtEJJt#ÉÍ{t
+∏  ¿ÈÖ   ãPâQãPâQã@âAÎoÉx t‹ãPâQãPâQãPã@çDˇÎ›ãPâQã@ÎCãPâQã@âAÎ8Éx t•ãPâQãPVâQãpW3ˇpx3“B+ÚÉﬂ âyâqã@_âQ^âA3¿]¬ ÃÃÃÃÃãˇUãÏSVãuãF3€;√Wã= tSPˇ◊â^ãF;√tSPˇ◊â^ãF;√tSPˇ◊â^ãF;√tSPˇ◊â^ãF;√tSPˇ◊â^_^[]¬ ÃÃÃÃÃÃãˇUãÏSVãuWç~dãœˇ ãMçLéhˇ	ãMçLéhˇ3€çNhÉ9 	CÉ¡É˚|Úä–ãœˇ  É˚uj[_^ã√[]¬ ÃÃÃÃÃÃãˇUãÏãEããEj j PâHˇ8 3¿]¬ ÃÃÃÃÃãˇUãÏÉÏV3ˆVjçEÏPˇD VçEÏPh&	 ˇujˇuˇå ;∆|VVVVçEÏPˇ4 ãE¸^…¬ ÃÃÃÃÃÃãˇUãÏãUãM3¿9Qt	Rˇq Ëïˇˇˇ]¬ ÃÃÃÃÃãˇUãÏQâM¸j ˇ5§ ˇ5§ ˇu¸h˜   ˇî ÃÃÃÃÃÃ;§ u	˜¡  ˇˇu√ÈøˇˇˇÃÃÃÃÃˇ%† ÃÃÃÃÃÃˇ%P ÃÃÃÃÃÃˇ% ÃÃÃÃÃÃˇ%, ÃÃÃÃÃÃˇ%H ÃÃÃÃÃÃˇ%t ÃÃÃÃÃÃˇ%| ÃÃÃÃÃÃˇ%§ ÃÃÃÃÃÃˇ%® ÃÃÃÃÃÃˇ%¨ ÃÃÃÃÃÃˇ%∞ ÃÃÃÃÃÃˇ%¥ ÃÃÃÃÃÃˇ%∏ ÃÃÃÃÃÃˇ%¿ ÃÃÃÃÃÃˇ%ƒ ÃÃÃÃÃÃˇ%»                                                                 ‚Á  ˆÁ      ‹‰  ˆ‰  
+Â  "Â  4Â  RÂ  hÂ  xÂ  êÂ  öÂ  ¥Â  ÃÂ  ⁄Â  ÚÂ  
+Ê  Ê  6Ê  Œ‰  hÊ  ~Ê  éÊ  §Ê  ¿Ê  ÿÊ  ÍÊ  ¸Ê  Á  &Á  8Á  JÁ  bÁ  ÇÁ  ¢Á  ∂Á  ƒÁ  ∏‰  HÊ  §‰  Ë  *Ë  >Ë  JË  \Ë  nË  ÇË  òË  §Ë  ≤Ë          ∏RH          ÏÄ  ÏÄ  STATUS_CLUSTER_POISONED STATUS_CLUSTER_NETWORK_NOT_INTERNAL STATUS_CLUSTER_NO_SECURITY_CONTEXT  STATUS_CLUSTER_NODE_NOT_PAUSED  STATUS_CLUSTER_NODE_PAUSED  STATUS_CLUSTER_NODE_UP  STATUS_CLUSTER_NO_NET_ADAPTERS  STATUS_CLUSTER_INVALID_NETWORK  STATUS_CLUSTER_JOIN_NOT_IN_PROGRESS STATUS_CLUSTER_NODE_NOT_MEMBER  STATUS_CLUSTER_NODE_UNREACHABLE STATUS_CLUSTER_NODE_DOWN    STATUS_CLUSTER_INVALID_NETWORK_PROVIDER STATUS_CLUSTER_INVALID_REQUEST  STATUS_CLUSTER_NETINTERFACE_NOT_FOUND   STATUS_CLUSTER_NETINTERFACE_EXISTS  STATUS_CLUSTER_NETWORK_NOT_FOUND    STATUS_CLUSTER_NETWORK_EXISTS   STATUS_CLUSTER_LOCAL_NODE_NOT_FOUND STATUS_CLUSTER_NODE_NOT_FOUND   STATUS_CLUSTER_JOIN_IN_PROGRESS STATUS_CLUSTER_NODE_EXISTS  STATUS_CLUSTER_INVALID_NODE STATUS_SXS_PROCESS_TERMINATION_REQUESTED    STATUS_SXS_SYSTEM_DEFAULT_ACTIVATION_CONTEXT_EMPTY  STATUS_SXS_MULTIPLE_DEACTIVATION    STATUS_SXS_INVALID_DEACTIVATION STATUS_SXS_EARLY_DEACTIVATION   STATUS_SXS_PROCESS_DEFAULT_ALREADY_SET  STATUS_SXS_RELEASE_ACTIVATION_CONTEXT   STATUS_SXS_ASSEMBLY_MISSING STATUS_SXS_THREAD_QUERIES_DISABLED  STATUS_SXS_WRONG_SECTION_TYPE   STATUS_SXS_VERSION_CONFLICT STATUS_SXS_KEY_NOT_FOUND    STATUS_SXS_ACTIVATION_CONTEXT_DISABLED  STATUS_SXS_MANIFEST_PARSE_ERROR STATUS_SXS_MANIFEST_FORMAT_ERROR    STATUS_SXS_ASSEMBLY_NOT_FOUND   STATUS_SXS_INVALID_ACTCTXDATA_FORMAT    STATUS_SXS_CANT_GEN_ACTCTX  STATUS_SXS_SECTION_NOT_FOUND    STATUS_PNP_IRQ_TRANSLATION_FAILED   STATUS_PNP_TRANSLATION_FAILED   STATUS_PNP_BAD_MPS_TABLE    STATUS_CTX_SHADOW_NOT_RUNNING   STATUS_CTX_SHADOW_ENDED_BY_MODE_CHANGE  STATUS_CTX_CLIENT_LICENSE_IN_USE    STATUS_CTX_CLIENT_LICENSE_NOT_SET   STATUS_RDP_PROTOCOL_ERROR   STATUS_CTX_SHADOW_DISABLED  STATUS_CTX_SHADOW_INVALID   STATUS_CTX_WD_NOT_FOUND STATUS_CTX_INVALID_WD   STATUS_CTX_WINSTATION_ACCESS_DENIED STATUS_CTX_SHADOW_DENIED    STATUS_CTX_CONSOLE_CONNECT  STATUS_CTX_CONSOLE_DISCONNECT   STATUS_CTX_CLIENT_QUERY_TIMEOUT STATUS_CTX_NOT_CONSOLE  STATUS_CTX_GRAPHICS_INVALID STATUS_CTX_BAD_VIDEO_MODE   STATUS_CTX_WINSTATION_BUSY  STATUS_CTX_WINSTATION_NAME_COLLISION    STATUS_CTX_WINSTATION_NOT_FOUND STATUS_CTX_LICENSE_EXPIRED  STATUS_CTX_LICENSE_NOT_AVAILABLE    STATUS_CTX_LICENSE_CLIENT_INVALID   STATUS_CTX_TD_ERROR STATUS_CTX_MODEM_RESPONSE_VOICE STATUS_CTX_MODEM_RESPONSE_BUSY  STATUS_CTX_MODEM_RESPONSE_NO_DIALTONE   STATUS_CTX_MODEM_RESPONSE_NO_CARRIER    STATUS_CTX_MODEM_RESPONSE_TIMEOUT   STATUS_CTX_RESPONSE_ERROR   STATUS_CTX_INVALID_MODEMNAME    STATUS_CTX_MODEM_INF_NOT_FOUND  STATUS_CTX_NO_OUTBUF    STATUS_CTX_CLOSE_PENDING    STATUS_CTX_CDM_DISCONNECT   STATUS_CTX_CDM_CONNECT  STATUS_CTX_PD_NOT_FOUND STATUS_CTX_INVALID_PD   STATUS_CTX_WINSTATION_NAME_INVALID  STATUS_ACPI_POWER_REQUEST_FAILED    STATUS_ACPI_REG_HANDLER_FAILED  STATUS_ACPI_INVALID_TABLE   STATUS_ACPI_RS_ACCESS   STATUS_ACPI_MUTEX_NOT_OWNER STATUS_ACPI_MUTEX_NOT_OWNED STATUS_ACPI_INVALID_MUTEX_LEVEL STATUS_ACPI_NOT_INITIALIZED STATUS_ACPI_ALREADY_INITIALIZED STATUS_ACPI_ACQUIRE_GLOBAL_LOCK STATUS_ACPI_INVALID_ACCESS_SIZE STATUS_ACPI_INVALID_REGION  STATUS_ACPI_INVALID_DATA    STATUS_ACPI_HANDLER_COLLISION   STATUS_ACPI_INVALID_EVENTTYPE   STATUS_ACPI_ADDRESS_NOT_MAPPED  STATUS_ACPI_INCORRECT_ARGUMENT_COUNT    STATUS_ACPI_INVALID_TARGETTYPE  STATUS_ACPI_INVALID_OBJTYPE STATUS_ACPI_INVALID_ARGTYPE STATUS_ACPI_INVALID_SUPERNAME   STATUS_ACPI_FATAL   STATUS_ACPI_INVALID_ARGUMENT    STATUS_ACPI_INVALID_INDEX   STATUS_ACPI_ASSERT_FAILED   STATUS_ACPI_STACK_OVERFLOW  STATUS_ACPI_INVALID_OPCODE  RPC_NT_SEND_INCOMPLETE  RPC_NT_INVALID_ASYNC_CALL   RPC_NT_INVALID_ASYNC_HANDLE RPC_NT_PIPE_EMPTY   RPC_NT_PIPE_DISCIPLINE_ERROR    RPC_NT_PIPE_CLOSED  RPC_NT_WRONG_PIPE_VERSION   RPC_NT_INVALID_PIPE_OPERATION   RPC_NT_INVALID_PIPE_OBJECT  RPC_NT_WRONG_STUB_VERSION   RPC_NT_WRONG_ES_VERSION RPC_NT_INVALID_ES_ACTION    RPC_NT_NOT_CANCELLED    RPC_NT_SEC_PKG_ERROR    RPC_NT_UUID_LOCAL_ONLY  RPC_NT_NOT_RPC_ERROR    RPC_NT_NO_PRINC_NAME    RPC_NT_UNSUPPORTED_AUTHN_LEVEL  RPC_NT_COMM_FAILURE RPC_NT_BINDING_INCOMPLETE   RPC_NT_CALL_CANCELLED   RPC_NT_NO_INTERFACES    RPC_NT_INVALID_OBJECT   EPT_NT_CANT_CREATE  RPC_NT_GROUP_MEMBER_NOT_FOUND   RPC_NT_NO_MORE_BINDINGS RPC_NT_CALL_IN_PROGRESS RPC_NT_BAD_STUB_DATA    RPC_NT_BYTE_COUNT_TOO_SMALL RPC_NT_ENUM_VALUE_OUT_OF_RANGE  RPC_NT_NULL_REF_POINTER RPC_NT_SS_CANNOT_GET_CALL_HANDLE    RPC_NT_SS_HANDLES_MISMATCH  RPC_NT_SS_CONTEXT_DAMAGED   RPC_NT_SS_CONTEXT_MISMATCH  RPC_NT_SS_IN_NULL_CONTEXT   RPC_NT_SS_CHAR_TRANS_SHORT_FILE RPC_NT_SS_CHAR_TRANS_OPEN_FAIL  RPC_NT_NO_MORE_ENTRIES  RPC_NT_FP_OVERFLOW  RPC_NT_FP_UNDERFLOW RPC_NT_FP_DIV_ZERO  RPC_NT_ADDRESS_ERROR    RPC_NT_ZERO_DIVIDE  RPC_NT_INTERNAL_ERROR   RPC_NT_NO_CONTEXT_AVAILABLE RPC_NT_CANNOT_SUPPORT   RPC_NT_INVALID_NAF_ID   RPC_NT_NAME_SERVICE_UNAVAILABLE RPC_NT_ENTRY_NOT_FOUND  RPC_NT_ENTRY_ALREADY_EXISTS RPC_NT_INTERFACE_NOT_FOUND  RPC_NT_NOT_ALL_OBJS_UNEXPORTED  RPC_NT_NO_MORE_MEMBERS  RPC_NT_INVALID_VERS_OPTION  RPC_NT_INCOMPLETE_NAME  RPC_NT_NOTHING_TO_EXPORT    EPT_NT_NOT_REGISTERED   EPT_NT_CANT_PERFORM_OP  EPT_NT_INVALID_ENTRY    RPC_NT_UNKNOWN_AUTHZ_SERVICE    RPC_NT_INVALID_AUTH_IDENTITY    RPC_NT_UNKNOWN_AUTHN_LEVEL  RPC_NT_UNKNOWN_AUTHN_SERVICE    RPC_NT_BINDING_HAS_NO_AUTH  RPC_NT_PROCNUM_OUT_OF_RANGE RPC_NT_PROTSEQ_NOT_FOUND    RPC_NT_STRING_TOO_LONG  RPC_NT_MAX_CALLS_TOO_SMALL  RPC_NT_UNKNOWN_AUTHN_TYPE   RPC_NT_DUPLICATE_ENDPOINT   RPC_NT_UUID_NO_ADDRESS  RPC_NT_UNSUPPORTED_NAME_SYNTAX  RPC_NT_INVALID_NAME_SYNTAX  RPC_NT_NO_ENTRY_NAME    RPC_NT_INVALID_BOUND    RPC_NT_INVALID_TAG  RPC_NT_UNSUPPORTED_TYPE RPC_NT_UNSUPPORTED_TRANS_SYN    RPC_NT_PROTOCOL_ERROR   RPC_NT_CALL_FAILED_DNE  RPC_NT_CALL_FAILED  RPC_NT_NO_CALL_ACTIVE   RPC_NT_INVALID_NETWORK_OPTIONS  RPC_NT_SERVER_TOO_BUSY  RPC_NT_SERVER_UNAVAILABLE   RPC_NT_OUT_OF_RESOURCES RPC_NT_CANT_CREATE_ENDPOINT RPC_NT_NO_PROTSEQS  RPC_NT_NO_BINDINGS  RPC_NT_UNKNOWN_IF   RPC_NT_UNKNOWN_MGR_TYPE RPC_NT_NOT_LISTENING    RPC_NT_NO_PROTSEQS_REGISTERED   RPC_NT_ALREADY_LISTENING    RPC_NT_TYPE_ALREADY_REGISTERED  RPC_NT_ALREADY_REGISTERED   RPC_NT_OBJECT_NOT_FOUND RPC_NT_INVALID_TIMEOUT  RPC_NT_NO_ENDPOINT_FOUND    RPC_NT_INVALID_NET_ADDR RPC_NT_INVALID_ENDPOINT_FORMAT  RPC_NT_INVALID_STRING_UUID  RPC_NT_INVALID_RPC_PROTSEQ  RPC_NT_PROTSEQ_NOT_SUPPORTED    RPC_NT_INVALID_BINDING  RPC_NT_WRONG_KIND_OF_BINDING    RPC_NT_INVALID_STRING_BINDING   DBG_APP_NOT_IDLE    DBG_NO_STATE_CHANGE STATUS_WOW_ASSERTION    STATUS_DRIVER_FAILED_PRIOR_UNLOAD   STATUS_SMARTCARD_CERT_EXPIRED   STATUS_PKINIT_CLIENT_FAILURE    STATUS_REVOCATION_OFFLINE_C STATUS_ISSUING_CA_UNTRUSTED STATUS_SMARTCARD_CERT_REVOKED   STATUS_DOWNGRADE_DETECTED   STATUS_SMARTCARD_IO_ERROR   STATUS_SMARTCARD_NO_KEYSET  STATUS_SMARTCARD_NO_CERTIFICATE STATUS_SMARTCARD_NO_KEY_CONTAINER   STATUS_SMARTCARD_NO_CARD    STATUS_SMARTCARD_CARD_NOT_AUTHENTICATED STATUS_SMARTCARD_CARD_BLOCKED   STATUS_SMARTCARD_WRONG_PIN  STATUS_DS_SHUTTING_DOWN STATUS_INVALID_IMPORT_OF_NON_DLL    STATUS_SYSTEM_HIVE_TOO_LARGE    STATUS_DRIVER_DATABASE_ERROR    STATUS_DRIVER_BLOCKED   STATUS_DRIVER_BLOCKED_CRITICAL  STATUS_MCA_OCCURED  STATUS_INVALID_DEVICE_OBJECT_PARAMETER  STATUS_MOUNT_POINT_NOT_RESOLVED STATUS_WAIT_FOR_OPLOCK  STATUS_DEVICE_ENUMERATION_ERROR STATUS_FAILED_DRIVER_ENTRY  STATUS_ACCESS_DISABLED_BY_POLICY_OTHER  STATUS_ACCESS_DISABLED_BY_POLICY_PUBLISHER  STATUS_ACCESS_DISABLED_BY_POLICY_PATH   STATUS_ACCESS_DISABLED_BY_POLICY_DEFAULT    STATUS_NOT_SAFE_MODE_DRIVER STATUS_ALL_SIDS_FILTERED    STATUS_APPHELP_BLOCK    STATUS_NETWORK_SESSION_EXPIRED  STATUS_BAD_BINDINGS STATUS_INVALID_IMAGE_WIN_64 STATUS_INVALID_IMAGE_WIN_32 STATUS_DS_AG_CANT_HAVE_UNIVERSAL_MEMBER STATUS_PRENT4_MACHINE_ACCOUNT   STATUS_AUDITING_DISABLED    STATUS_DS_VERSION_CHECK_FAILURE STATUS_DEBUGGER_INACTIVE    STATUS_PORT_NOT_SET STATUS_EFS_ALG_BLOB_TOO_BIG STATUS_UNSUPPORTED_PREAUTH  STATUS_HOST_DOWN    STATUS_NO_KERB_KEY  STATUS_SMARTCARD_SUBSYSTEM_FAILURE  STATUS_PKINIT_FAILURE   STATUS_CSS_RESETS_EXHAUSTED STATUS_CSS_REGION_MISMATCH  STATUS_CSS_SCRAMBLED_SECTOR STATUS_CSS_KEY_NOT_ESTABLISHED  STATUS_CSS_KEY_NOT_PRESENT  STATUS_CSS_AUTHENTICATION_FAILURE   STATUS_COPY_PROTECTION_FAILURE  STATUS_MFT_TOO_FRAGMENTED   STATUS_WMI_ALREADY_ENABLED  STATUS_WMI_ALREADY_DISABLED STATUS_WMI_GUID_DISCONNECTED    STATUS_NOT_SUPPORTED_ON_SBS STATUS_SERVER_SHUTDOWN_IN_PROGRESS  STATUS_SHUTDOWN_IN_PROGRESS STATUS_KDC_UNKNOWN_ETYPE    STATUS_KDC_UNABLE_TO_REFER  STATUS_KDC_INVALID_REQUEST  STATUS_SMARTCARD_LOGON_REQUIRED STATUS_PKINIT_NAME_MISMATCH STATUS_NO_PA_DATA   STATUS_TOO_MANY_PRINCIPALS  STATUS_STRONG_CRYPTO_NOT_SUPPORTED  STATUS_MUST_BE_KDC  STATUS_MAX_REFERRALS_EXCEEDED   STATUS_CRYPTO_SYSTEM_INVALID    STATUS_WRONG_CREDENTIAL_HANDLE  STATUS_NO_IP_ADDRESSES  STATUS_OBJECTID_NOT_FOUND   STATUS_NO_TGT_REPLY STATUS_UNFINISHED_CONTEXT_DELETED   STATUS_DS_SAM_INIT_FAILURE_CONSOLE  STATUS_DS_INIT_FAILURE_CONSOLE  STATUS_SYSTEM_SHUTDOWN  STATUS_CANNOT_MAKE  STATUS_CURRENT_DOMAIN_NOT_ALLOWED   STATUS_MULTIPLE_FAULT_VIOLATION STATUS_DS_MACHINE_ACCOUNT_QUOTA_EXCEEDED    STATUS_DS_NO_FPO_IN_UNIVERSAL_GROUPS    STATUS_DS_LOCAL_MEMBER_OF_LOCAL_ONLY    STATUS_DS_GC_REQUIRED   STATUS_SAM_INIT_FAILURE STATUS_DS_INIT_FAILURE  STATUS_DS_CANT_START    STATUS_SAM_NEED_BOOTKEY_FLOPPY  STATUS_SAM_NEED_BOOTKEY_PASSWORD    STATUS_INSUFFICIENT_POWER   STATUS_WMI_NOT_SUPPORTED    STATUS_DS_HAVE_PRIMARY_MEMBERS  STATUS_DS_LOCAL_CANT_HAVE_CROSSDOMAIN_LOCAL_MEMBER  STATUS_DS_GLOBAL_CANT_HAVE_CROSSDOMAIN_MEMBER   STATUS_DS_UNIVERSAL_CANT_HAVE_LOCAL_MEMBER  STATUS_DS_GLOBAL_CANT_HAVE_UNIVERSAL_MEMBER STATUS_DS_GLOBAL_CANT_HAVE_LOCAL_MEMBER STATUS_DS_NO_NEST_LOCALGROUP_IN_MIXEDDOMAIN STATUS_DS_NO_NEST_GLOBALGROUP_IN_MIXEDDOMAIN    STATUS_DS_INVALID_GROUP_TYPE    STATUS_POWER_STATE_INVALID  STATUS_PNP_REBOOT_REQUIRED  STATUS_SYSTEM_IMAGE_BAD_SIGNATURE   STATUS_DS_CANT_MOD_PRIMARYGROUPID   STATUS_JOURNAL_ENTRY_DELETED    STATUS_PNP_RESTART_ENUMERATION  STATUS_DS_SENSITIVE_GROUP_VIOLATION STATUS_ONLY_IF_CONNECTED    STATUS_DS_SAM_INIT_FAILURE  STATUS_TRANSPORT_FULL   STATUS_REG_NAT_CONSUMPTION  STATUS_COMMITMENT_MINIMUM   STATUS_WMI_SET_FAILURE  STATUS_WMI_READ_ONLY    STATUS_DATATYPE_MISALIGNMENT_ERROR  STATUS_CORRUPT_SYSTEM_FILE  STATUS_MUTUAL_AUTHENTICATION_FAILED STATUS_DRIVER_FAILED_SLEEP  STATUS_DS_ADMIN_LIMIT_EXCEEDED  STATUS_NOINTERFACE  STATUS_JOURNAL_NOT_ACTIVE   STATUS_JOURNAL_DELETE_IN_PROGRESS   STATUS_DEVICE_REMOVED   STATUS_FLOAT_MULTIPLE_TRAPS STATUS_FLOAT_MULTIPLE_FAULTS    STATUS_CANT_ENABLE_DENY_ONLY    STATUS_REPARSE_ATTRIBUTE_CONFLICT   STATUS_DIRECTORY_SERVICE_REQUIRED   STATUS_DS_GC_NOT_AVAILABLE  STATUS_DS_CROSS_DOM_MOVE_FAILED STATUS_DS_CANT_MOD_OBJ_CLASS    STATUS_DS_CANT_ON_RDN   STATUS_DS_CANT_ON_NON_LEAF  STATUS_DS_OBJ_CLASS_VIOLATION   STATUS_DS_RIDMGR_INIT_ERROR STATUS_DS_INCORRECT_ROLE_OWNER  STATUS_DS_NO_MORE_RIDS  STATUS_DS_NO_RIDS_ALLOCATED STATUS_DS_UNAVAILABLE   STATUS_DS_BUSY  STATUS_DS_ATTRIBUTE_OR_VALUE_EXISTS STATUS_DS_ATTRIBUTE_TYPE_UNDEFINED  STATUS_DS_INVALID_ATTRIBUTE_SYNTAX  STATUS_DS_NO_ATTRIBUTE_OR_VALUE STATUS_SERVER_SID_MISMATCH  STATUS_NO_TRACKING_SERVICE  STATUS_REMOTE_STORAGE_MEDIA_ERROR   STATUS_REMOTE_STORAGE_NOT_ACTIVE    STATUS_VOLUME_NOT_UPGRADED  STATUS_POLICY_ONLY_IN_DS    STATUS_POLICY_OBJECT_NOT_FOUND  STATUS_SHARED_POLICY    STATUS_WMI_TRY_AGAIN    STATUS_WMI_ITEMID_NOT_FOUND STATUS_WMI_INSTANCE_NOT_FOUND   STATUS_WMI_GUID_NOT_FOUND   STATUS_WAKE_SYSTEM  STATUS_FILE_ENCRYPTED   STATUS_NOT_EXPORT_FORMAT    STATUS_FILE_NOT_ENCRYPTED   STATUS_NO_USER_KEYS STATUS_WRONG_EFS    STATUS_NO_EFS   STATUS_NO_RECOVERY_POLICY   STATUS_RANGE_NOT_FOUND  STATUS_DECRYPTION_FAILED    STATUS_ENCRYPTION_FAILED    STATUS_DEVICE_DOOR_OPEN STATUS_DEVICE_REQUIRES_CLEANING STATUS_REINITIALIZATION_NEEDED  STATUS_MAGAZINE_NOT_PRESENT STATUS_ILLEGAL_ELEMENT_ADDRESS  STATUS_DESTINATION_ELEMENT_FULL STATUS_SOURCE_ELEMENT_EMPTY STATUS_RANGE_LIST_CONFLICT  STATUS_DIRECTORY_IS_A_REPARSE_POINT STATUS_REPARSE_POINT_NOT_RESOLVED   STATUS_IO_REPARSE_TAG_NOT_HANDLED   STATUS_IO_REPARSE_DATA_INVALID  STATUS_IO_REPARSE_TAG_MISMATCH  STATUS_IO_REPARSE_TAG_INVALID   STATUS_NOT_A_REPARSE_POINT  STATUS_NO_MORE_MATCHES  STATUS_NO_MATCH STATUS_VALIDATE_CONTINUE    STATUS_WX86_FLOAT_STACK_CHECK   STATUS_WX86_INTERNAL_ERROR  STATUS_VOLUME_DISMOUNTED    STATUS_DFS_UNAVAILABLE  STATUS_DRIVER_UNABLE_TO_LOAD    STATUS_DLL_INIT_FAILED_LOGOFF   STATUS_LICENSE_VIOLATION    STATUS_ILLEGAL_DLL_RELOCATION   STATUS_EVALUATION_EXPIRATION    STATUS_FILE_IS_OFFLINE  STATUS_QUOTA_LIST_INCONSISTENT  STATUS_TOO_MANY_LINKS   STATUS_RESOURCE_NOT_OWNED   STATUS_DRIVER_ENTRYPOINT_NOT_FOUND  STATUS_DRIVER_ORDINAL_NOT_FOUND STATUS_INVALID_PLUGPLAY_DEVICE_PATH STATUS_INVALID_HW_PROFILE   STATUS_UNSUPPORTED_COMPRESSION  STATUS_PLUGPLAY_NO_DEVICE   STATUS_PWD_HISTORY_CONFLICT STATUS_PWD_TOO_RECENT   STATUS_PWD_TOO_SHORT    STATUS_LICENSE_QUOTA_EXCEEDED   STATUS_NO_CALLBACK_ACTIVE   STATUS_PATH_NOT_COVERED STATUS_REGISTRY_QUOTA_LIMIT STATUS_IP_ADDRESS_CONFLICT2 STATUS_IP_ADDRESS_CONFLICT1 STATUS_LPC_REPLY_LOST   STATUS_BAD_SERVICE_ENTRYPOINT   STATUS_BAD_DLL_ENTRYPOINT   STATUS_INSUFFICIENT_LOGON_INFO  STATUS_IMAGE_MP_UP_MISMATCH STATUS_LOGIN_WKSTA_RESTRICTION  STATUS_LOGIN_TIME_RESTRICTION   STATUS_CONNECTION_COUNT_LIMIT   STATUS_TIMER_RESOLUTION_NOT_SET STATUS_AUDIT_FAILED STATUS_USER_MAPPED_FILE STATUS_BAD_COMPRESSION_BUFFER   STATUS_CONNECTION_ABORTED   STATUS_REQUEST_ABORTED  STATUS_PORT_UNREACHABLE STATUS_PROTOCOL_UNREACHABLE STATUS_HOST_UNREACHABLE STATUS_NETWORK_UNREACHABLE  STATUS_CONNECTION_ACTIVE    STATUS_CONNECTION_INVALID   STATUS_ADDRESS_NOT_ASSOCIATED   STATUS_ADDRESS_ALREADY_ASSOCIATED   STATUS_GRACEFUL_DISCONNECT  STATUS_CONNECTION_REFUSED   STATUS_HANDLE_NOT_CLOSABLE  STATUS_ACCOUNT_LOCKED_OUT   STATUS_DOMAIN_CONTROLLER_NOT_FOUND  STATUS_INVALID_VARIANT  STATUS_MARSHALL_OVERFLOW    STATUS_PROPSET_NOT_FOUND    STATUS_ALLOCATE_BUCKET  STATUS_FOUND_OUT_OF_SCOPE   STATUS_RETRY    STATUS_CONVERT_TO_LARGE STATUS_OBJECTID_EXISTS  STATUS_DUPLICATE_OBJECTID   STATUS_FAIL_CHECK   STATUS_STACK_OVERFLOW_READ  STATUS_RECOVERY_FAILURE STATUS_NOT_TINY_STREAM  STATUS_NOT_FOUND    STATUS_PASSWORD_MUST_CHANGE STATUS_CLIENT_SERVER_PARAMETERS_INVALID STATUS_LOST_WRITEBEHIND_DATA    STATUS_IMAGE_CHECKSUM_MISMATCH  STATUS_MAPPED_ALIGNMENT STATUS_REPLY_MESSAGE_MISMATCH   STATUS_DRIVER_CANCEL_TIMEOUT    STATUS_VDM_HARD_ERROR   STATUS_NO_BROWSER_SERVERS_FOUND STATUS_DATA_NOT_ACCEPTED    STATUS_SYSTEM_PROCESS_TERMINATED    STATUS_DEBUG_ATTACH_FAILED  STATUS_CANNOT_LOAD_REGISTRY_FILE    STATUS_NOT_CLIENT_SESSION   STATUS_NOT_SERVER_SESSION   STATUS_TRANSACTION_INVALID_TYPE STATUS_TRANSACTION_INVALID_ID   STATUS_TRANSACTION_RESPONDED    STATUS_TRANSACTION_NO_MATCH STATUS_TRANSACTION_NO_RELEASE   STATUS_TRANSACTION_TIMED_OUT    STATUS_TRANSACTION_ABORTED  STATUS_TOO_MANY_NODES   STATUS_CONNECTION_RESET STATUS_CONNECTION_DISCONNECTED  STATUS_ADDRESS_CLOSED   STATUS_ADDRESS_ALREADY_EXISTS   STATUS_TOO_MANY_ADDRESSES   STATUS_INVALID_ADDRESS_WILDCARD STATUS_INVALID_ADDRESS_COMPONENT    STATUS_INVALID_BUFFER_SIZE  STATUS_INSUFF_SERVER_RESOURCES  STATUS_RESOURCE_LANG_NOT_FOUND  STATUS_USER_SESSION_DELETED STATUS_NO_USER_SESSION_KEY  STATUS_FS_DRIVER_REQUIRED   STATUS_DOMAIN_TRUST_INCONSISTENT    STATUS_NOLOGON_SERVER_TRUST_ACCOUNT STATUS_NOLOGON_WORKSTATION_TRUST_ACCOUNT    STATUS_NOLOGON_INTERDOMAIN_TRUST_ACCOUNT    STATUS_EVENTLOG_FILE_CHANGED    STATUS_REMOTE_SESSION_LIMIT STATUS_NETWORK_CREDENTIAL_CONFLICT  STATUS_POSSIBLE_DEADLOCK    STATUS_ACCOUNT_EXPIRED  STATUS_NETLOGON_NOT_STARTED STATUS_MUTANT_LIMIT_EXCEEDED    STATUS_TRUST_FAILURE    STATUS_EVENTLOG_CANT_START  STATUS_EVENTLOG_FILE_CORRUPT    STATUS_TRUSTED_RELATIONSHIP_FAILURE STATUS_TRUSTED_DOMAIN_FAILURE   STATUS_NO_TRUST_SAM_ACCOUNT STATUS_NO_TRUST_LSA_SECRET  STATUS_TOO_LATE STATUS_LOG_FILE_FULL    STATUS_BACKUP_CONTROLLER    STATUS_DEVICE_PROTOCOL_ERROR    STATUS_IO_DEVICE_ERROR  STATUS_INVALID_DEVICE_STATE STATUS_DRIVER_INTERNAL_ERROR    STATUS_DEVICE_CONFIGURATION_ERROR   STATUS_CHILD_MUST_BE_VOLATILE   STATUS_KEY_HAS_CHILDREN STATUS_LM_CROSS_ENCRYPTION_REQUIRED STATUS_TOO_MANY_SIDS    STATUS_NO_LOG_SPACE STATUS_KEY_DELETED  STATUS_INVALID_MEMBER   STATUS_NO_SUCH_MEMBER   STATUS_NO_MEDIA STATUS_EOM_OVERFLOW STATUS_UNABLE_TO_UNLOAD_MEDIA   STATUS_UNABLE_TO_LOCK_MEDIA STATUS_DEVICE_NOT_PARTITIONED   STATUS_INVALID_BLOCK_LENGTH STATUS_PARTITION_FAILURE    STATUS_BIOS_FAILED_TO_CONNECT_INTERRUPT STATUS_FT_ORPHANING STATUS_SHARED_IRQ_BUSY  STATUS_DISK_RESET_FAILED    STATUS_DISK_OPERATION_FAILED    STATUS_DISK_RECALIBRATE_FAILED  STATUS_FLOPPY_BAD_REGISTERS STATUS_FLOPPY_UNKNOWN_ERROR STATUS_FLOPPY_WRONG_CYLINDER    STATUS_FLOPPY_ID_MARK_NOT_FOUND STATUS_FLOPPY_VOLUME    STATUS_UNDEFINED_CHARACTER  STATUS_UNMAPPABLE_CHARACTER STATUS_ILLEGAL_CHARACTER    STATUS_ILL_FORMED_SERVICE_ENTRY STATUS_FT_MISSING_MEMBER    STATUS_DOMAIN_CTRLR_CONFIG_ERROR    STATUS_NT_CROSS_ENCRYPTION_REQUIRED STATUS_NOT_REGISTRY_FILE    STATUS_LOGON_TYPE_NOT_GRANTED   STATUS_TOO_MANY_CONTEXT_IDS STATUS_FULLSCREEN_MODE  STATUS_INTERNAL_DB_ERROR    STATUS_SECRET_TOO_LONG  STATUS_TOO_MANY_SECRETS STATUS_LOGON_NOT_GRANTED    STATUS_ALIAS_EXISTS STATUS_MEMBER_IN_ALIAS  STATUS_MEMBER_NOT_IN_ALIAS  STATUS_NO_SUCH_ALIAS    STATUS_SERIAL_NO_DEVICE_INITED  STATUS_UNRECOGNIZED_VOLUME  STATUS_NO_EVENT_PAIR    STATUS_REGISTRY_IO_FAILED   STATUS_REGISTRY_CORRUPT STATUS_PIPE_BROKEN  STATUS_ILLEGAL_FLOAT_CONTEXT    STATUS_WRONG_PASSWORD_CORE  STATUS_INVALID_LEVEL    STATUS_NO_PAGEFILE  STATUS_PAGEFILE_CREATE_FAILED   STATUS_APP_INIT_FAILURE STATUS_UNHANDLED_EXCEPTION  STATUS_MISSING_SYSTEMFILE   STATUS_DLL_INIT_FAILED  STATUS_INVALID_ADDRESS  STATUS_INVALID_CONNECTION   STATUS_LINK_TIMEOUT STATUS_LINK_FAILED  STATUS_REMOTE_RESOURCES STATUS_REMOTE_DISCONNECT    STATUS_LOCAL_DISCONNECT STATUS_CONTROL_C_EXIT   STATUS_ENTRYPOINT_NOT_FOUND STATUS_ORDINAL_NOT_FOUND    STATUS_IO_PRIVILEGE_FAILED  STATUS_OPEN_FAILED  STATUS_DLL_NOT_FOUND    STATUS_SYNCHRONIZATION_REQUIRED STATUS_TIME_DIFFERENCE_AT_DC    STATUS_LOGON_SERVER_CONFLICT    STATUS_INVALID_IMAGE_WIN_16 STATUS_INVALID_IMAGE_PROTECT    STATUS_INVALID_IMAGE_NOT_MZ STATUS_INVALID_IMAGE_LE_FORMAT  STATUS_COMMITMENT_LIMIT STATUS_PAGEFILE_QUOTA_EXCEEDED  STATUS_TOKEN_ALREADY_IN_USE STATUS_THREAD_NOT_IN_PROCESS    STATUS_TOO_MANY_THREADS STATUS_FILE_CLOSED  STATUS_MEMBERS_PRIMARY_GROUP    STATUS_SPECIAL_USER STATUS_SPECIAL_GROUP    STATUS_SPECIAL_ACCOUNT  STATUS_FILE_DELETED STATUS_INVALID_COMPUTER_NAME    STATUS_CANNOT_DELETE    STATUS_CANCELLED    STATUS_TOO_MANY_OPENED_FILES    STATUS_MAPPED_FILE_SIZE_ZERO    STATUS_RXACT_COMMIT_FAILURE STATUS_RXACT_INVALID_STATE  STATUS_INVALID_IMAGE_NE_FORMAT  STATUS_INVALID_LDT_DESCRIPTOR   STATUS_INVALID_LDT_OFFSET   STATUS_INVALID_LDT_SIZE STATUS_NO_LDT   STATUS_ABIOS_INVALID_SELECTOR   STATUS_ABIOS_SELECTOR_NOT_AVAILABLE STATUS_ABIOS_INVALID_LID    STATUS_ABIOS_INVALID_COMMAND    STATUS_ABIOS_NOT_LID_OWNER  STATUS_ABIOS_LID_ALREADY_OWNED  STATUS_ABIOS_LID_NOT_EXIST  STATUS_ABIOS_NOT_PRESENT    STATUS_IMAGE_ALREADY_LOADED STATUS_CANNOT_IMPERSONATE   STATUS_NO_GUID_TRANSLATION  STATUS_INVALID_LOGON_TYPE   STATUS_PROCESS_IS_TERMINATING   STATUS_MESSAGE_NOT_FOUND    STATUS_CONNECTION_IN_USE    STATUS_FILES_OPEN   STATUS_NAME_TOO_LONG    STATUS_LOGON_SESSION_COLLISION  STATUS_BAD_LOGON_SESSION_STATE  STATUS_NOT_A_DIRECTORY  STATUS_FILE_CORRUPT_ERROR   STATUS_DIRECTORY_NOT_EMPTY  STATUS_VARIABLE_NOT_FOUND   STATUS_BAD_FUNCTION_TABLE   STATUS_NO_SUCH_PACKAGE  STATUS_STACK_OVERFLOW   STATUS_REDIRECTOR_STARTED   STATUS_REDIRECTOR_NOT_STARTED   STATUS_INVALID_PARAMETER_12 STATUS_INVALID_PARAMETER_11 STATUS_INVALID_PARAMETER_10 STATUS_INVALID_PARAMETER_9  STATUS_INVALID_PARAMETER_8  STATUS_INVALID_PARAMETER_7  STATUS_INVALID_PARAMETER_6  STATUS_INVALID_PARAMETER_5  STATUS_INVALID_PARAMETER_4  STATUS_INVALID_PARAMETER_3  STATUS_INVALID_PARAMETER_2  STATUS_INVALID_PARAMETER_1  STATUS_LOGON_SESSION_EXISTS STATUS_NOT_LOGON_PROCESS    STATUS_UNEXPECTED_MM_EXTEND_ERR STATUS_UNEXPECTED_MM_MAP_ERROR  STATUS_UNEXPECTED_MM_CREATE_ERR STATUS_UNEXPECTED_IO_ERROR  STATUS_INVALID_USER_BUFFER  STATUS_BAD_DESCRIPTOR_FORMAT    STATUS_GENERIC_NOT_MAPPED   STATUS_INTERNAL_ERROR   STATUS_INTERNAL_DB_CORRUPTION   STATUS_INVALID_OPLOCK_PROTOCOL  STATUS_OPLOCK_NOT_GRANTED   STATUS_DOMAIN_LIMIT_EXCEEDED    STATUS_DOMAIN_EXISTS    STATUS_NO_SUCH_DOMAIN   STATUS_INVALID_DOMAIN_ROLE  STATUS_INVALID_DOMAIN_STATE STATUS_INVALID_SERVER_STATE STATUS_CANT_TERMINATE_SELF  STATUS_CANT_ACCESS_DOMAIN_INFO  STATUS_PIPE_EMPTY   STATUS_CANT_WAIT    STATUS_NO_SECURITY_ON_OBJECT    STATUS_VIRTUAL_CIRCUIT_CLOSED   STATUS_FILE_RENAMED STATUS_NOT_SAME_DEVICE  STATUS_PROFILING_AT_LIMIT   STATUS_NET_WRITE_FAULT  STATUS_REDIRECTOR_PAUSED    STATUS_REQUEST_NOT_ACCEPTED STATUS_SHARING_PAUSED   STATUS_TOO_MANY_SESSIONS    STATUS_TOO_MANY_NAMES   STATUS_BAD_NETWORK_NAME STATUS_BAD_DEVICE_TYPE  STATUS_NETWORK_ACCESS_DENIED    STATUS_NETWORK_NAME_DELETED STATUS_PRINT_CANCELLED  STATUS_NO_SPOOL_SPACE   STATUS_PRINT_QUEUE_FULL STATUS_BAD_REMOTE_ADAPTER   STATUS_UNEXPECTED_NETWORK_ERROR STATUS_INVALID_NETWORK_RESPONSE STATUS_ADAPTER_HARDWARE_ERROR   STATUS_TOO_MANY_COMMANDS    STATUS_DEVICE_DOES_NOT_EXIST    STATUS_NETWORK_BUSY STATUS_BAD_NETWORK_PATH STATUS_DUPLICATE_NAME   STATUS_REMOTE_NOT_LISTENING STATUS_NOT_SUPPORTED    STATUS_FILE_IS_A_DIRECTORY  STATUS_COULD_NOT_INTERPRET  STATUS_PROFILING_NOT_STOPPED    STATUS_PROFILING_NOT_STARTED    STATUS_FILE_FORCED_CLOSED   STATUS_IO_TIMEOUT   STATUS_INVALID_READ_MODE    STATUS_PIPE_LISTENING   STATUS_PIPE_CONNECTED   STATUS_PIPE_CLOSING STATUS_PIPE_DISCONNECTED    STATUS_ILLEGAL_FUNCTION STATUS_PIPE_BUSY    STATUS_INVALID_PIPE_STATE   STATUS_PIPE_NOT_AVAILABLE   STATUS_INSTANCE_NOT_AVAILABLE   STATUS_INSTRUCTION_MISALIGNMENT STATUS_BAD_MASTER_BOOT_RECORD   STATUS_BAD_TOKEN_TYPE   STATUS_BAD_VALIDATION_CLASS STATUS_CANT_OPEN_ANONYMOUS  STATUS_BAD_IMPERSONATION_LEVEL  STATUS_INVALID_GROUP_ATTRIBUTES STATUS_DEVICE_NOT_READY STATUS_MEDIA_WRITE_PROTECTED    STATUS_WORKING_SET_QUOTA    STATUS_MEMORY_NOT_ALLOCATED STATUS_FREE_VM_NOT_AT_BASE  STATUS_DEVICE_POWER_FAILURE STATUS_DEVICE_NOT_CONNECTED STATUS_DEVICE_DATA_ERROR    STATUS_DFS_EXIT_PATH_FOUND  STATUS_INSUFFICIENT_RESOURCES   STATUS_ALLOTTED_SPACE_EXCEEDED  STATUS_FILE_INVALID STATUS_TOO_MANY_PAGING_FILES    STATUS_PRIVILEGED_INSTRUCTION   STATUS_INTEGER_OVERFLOW STATUS_INTEGER_DIVIDE_BY_ZERO   STATUS_FLOAT_UNDERFLOW  STATUS_FLOAT_STACK_CHECK    STATUS_FLOAT_OVERFLOW   STATUS_FLOAT_INVALID_OPERATION  STATUS_FLOAT_INEXACT_RESULT STATUS_FLOAT_DIVIDE_BY_ZERO STATUS_FLOAT_DENORMAL_OPERAND   STATUS_ARRAY_BOUNDS_EXCEEDED    STATUS_RESOURCE_NAME_NOT_FOUND  STATUS_RESOURCE_TYPE_NOT_FOUND  STATUS_RESOURCE_DATA_NOT_FOUND  STATUS_NOT_MAPPED_DATA  STATUS_SECTION_NOT_EXTENDED STATUS_INVALID_VOLUME_LABEL STATUS_AGENTS_EXHAUSTED STATUS_INVALID_ID_AUTHORITY STATUS_GUIDS_EXHAUSTED  STATUS_TOO_MANY_GUIDS_REQUESTED STATUS_SERVER_NOT_DISABLED  STATUS_SERVER_DISABLED  STATUS_DISK_FULL    STATUS_RANGE_NOT_LOCKED STATUS_BAD_INHERITANCE_ACL  STATUS_NO_TOKEN STATUS_INVALID_IMAGE_FORMAT STATUS_PROCEDURE_NOT_FOUND  STATUS_INVALID_SECURITY_DESCR   STATUS_INVALID_SID  STATUS_INVALID_ACL  STATUS_INVALID_SUB_AUTHORITY    STATUS_LUIDS_EXHAUSTED  STATUS_TOO_MANY_LUIDS_REQUESTED STATUS_NONE_MAPPED  STATUS_ACCOUNT_DISABLED STATUS_PASSWORD_EXPIRED STATUS_INVALID_WORKSTATION  STATUS_INVALID_LOGON_HOURS  STATUS_ACCOUNT_RESTRICTION  STATUS_LOGON_FAILURE    STATUS_PASSWORD_RESTRICTION STATUS_ILL_FORMED_PASSWORD  STATUS_WRONG_PASSWORD   STATUS_LAST_ADMIN   STATUS_MEMBER_NOT_IN_GROUP  STATUS_MEMBER_IN_GROUP  STATUS_NO_SUCH_GROUP    STATUS_GROUP_EXISTS STATUS_NO_SUCH_USER STATUS_USER_EXISTS  STATUS_INVALID_ACCOUNT_NAME STATUS_PRIVILEGE_NOT_HELD   STATUS_NO_SUCH_PRIVILEGE    STATUS_NO_SUCH_LOGON_SESSION    STATUS_NO_LOGON_SERVERS STATUS_CANT_DISABLE_MANDATORY   STATUS_NO_IMPERSONATION_TOKEN   STATUS_INVALID_PRIMARY_GROUP    STATUS_INVALID_OWNER    STATUS_REVISION_MISMATCH    STATUS_UNKNOWN_REVISION STATUS_CTL_FILE_NOT_SUPPORTED   STATUS_DELETE_PENDING   STATUS_LOCK_NOT_GRANTED STATUS_FILE_LOCK_CONFLICT   STATUS_EA_CORRUPT_ERROR STATUS_NO_EAS_ON_FILE   STATUS_NONEXISTENT_EA_ENTRY STATUS_EA_TOO_LARGE STATUS_EAS_NOT_SUPPORTED    STATUS_SECTION_PROTECTION   STATUS_INCOMPATIBLE_FILE_MAP    STATUS_BAD_WORKING_SET_LIMIT    STATUS_THREAD_IS_TERMINATING    STATUS_SUSPEND_COUNT_EXCEEDED   STATUS_SECTION_NOT_IMAGE    STATUS_PORT_ALREADY_SET STATUS_SEMAPHORE_LIMIT_EXCEEDED STATUS_MUTANT_NOT_OWNED STATUS_INVALID_PAGE_PROTECTION  STATUS_QUOTA_EXCEEDED   STATUS_SHARING_VIOLATION    STATUS_INVALID_PORT_HANDLE  STATUS_PORT_CONNECTION_REFUSED  STATUS_SECTION_TOO_BIG  STATUS_CRC_ERROR    STATUS_DATA_ERROR   STATUS_DATA_LATE_ERROR  STATUS_DATA_OVERRUN STATUS_OBJECT_PATH_SYNTAX_BAD   STATUS_OBJECT_PATH_NOT_FOUND    STATUS_OBJECT_PATH_INVALID  STATUS_DEVICE_ALREADY_ATTACHED  STATUS_PORT_DISCONNECTED    STATUS_OBJECT_NAME_COLLISION    STATUS_OBJECT_NAME_NOT_FOUND    STATUS_OBJECT_NAME_INVALID  STATUS_DISK_CORRUPT_ERROR   STATUS_INVALID_QUOTA_LOWER  STATUS_INVALID_PARAMETER_MIX    STATUS_PORT_MESSAGE_TOO_LONG    STATUS_INVALID_PORT_ATTRIBUTES  STATUS_NOT_COMMITTED    STATUS_UNABLE_TO_DECOMMIT_VM    STATUS_PARITY_ERROR STATUS_NOT_LOCKED   STATUS_INVALID_UNWIND_TARGET    STATUS_BAD_STACK    STATUS_UNWIND   STATUS_INVALID_DISPOSITION  STATUS_NONCONTINUABLE_EXCEPTION STATUS_OBJECT_TYPE_MISMATCH STATUS_BUFFER_TOO_SMALL STATUS_ACCESS_DENIED    STATUS_ALREADY_COMMITTED    STATUS_INVALID_FILE_FOR_SECTION STATUS_INVALID_VIEW_SIZE    STATUS_INVALID_LOCK_SEQUENCE    STATUS_ILLEGAL_INSTRUCTION  STATUS_INVALID_SYSTEM_SERVICE   STATUS_UNABLE_TO_DELETE_SECTION STATUS_UNABLE_TO_FREE_VM    STATUS_NOT_MAPPED_VIEW  STATUS_CONFLICTING_ADDRESSES    STATUS_NO_MEMORY    STATUS_MORE_PROCESSING_REQUIRED STATUS_NONEXISTENT_SECTOR   STATUS_UNRECOGNIZED_MEDIA   STATUS_NO_MEDIA_IN_DEVICE   STATUS_WRONG_VOLUME STATUS_END_OF_FILE  STATUS_INVALID_DEVICE_REQUEST   STATUS_NO_SUCH_FILE STATUS_NO_SUCH_DEVICE   STATUS_INVALID_PARAMETER    STATUS_TIMER_NOT_CANCELED   STATUS_INVALID_CID  STATUS_BAD_INITIAL_PC   STATUS_BAD_INITIAL_STACK    STATUS_INVALID_HANDLE   STATUS_PAGEFILE_QUOTA   STATUS_IN_PAGE_ERROR    STATUS_ACCESS_VIOLATION STATUS_INFO_LENGTH_MISMATCH STATUS_INVALID_INFO_CLASS   STATUS_NOT_IMPLEMENTED  STATUS_UNSUCCESSFUL STATUS_CLUSTER_NODE_ALREADY_MEMBER  STATUS_CLUSTER_NETWORK_ALREADY_OFFLINE  STATUS_CLUSTER_NETWORK_ALREADY_ONLINE   STATUS_CLUSTER_NODE_ALREADY_DOWN    STATUS_CLUSTER_NODE_ALREADY_UP  DBG_EXCEPTION_NOT_HANDLED   STATUS_UNWIND_CONSOLIDATE   STATUS_PLUGPLAY_QUERY_VETOED    STATUS_CLEANER_CARTRIDGE_INSTALLED  STATUS_LONGJUMP STATUS_ALREADY_DISCONNECTED STATUS_SERVER_HAS_OPEN_HANDLES  STATUS_REDIRECTOR_HAS_OPEN_HANDLES  STATUS_NO_DATA_DETECTED STATUS_SETMARK_DETECTED STATUS_MEDIA_CHECK  STATUS_BEGINNING_OF_MEDIA   STATUS_END_OF_MEDIA STATUS_BUS_RESET    STATUS_MEDIA_CHANGED    STATUS_FILEMARK_DETECTED    STATUS_NO_MORE_ENTRIES  STATUS_RXACT_COMMIT_NECESSARY   STATUS_EXTRANEOUS_INFORMATION   STATUS_VERIFY_REQUIRED  STATUS_INVALID_EA_FLAG  STATUS_EA_LIST_INCONSISTENT STATUS_INVALID_EA_NAME  STATUS_NO_MORE_EAS  STATUS_DEVICE_BUSY  STATUS_DEVICE_OFF_LINE  STATUS_DEVICE_POWERED_OFF   STATUS_DEVICE_PAPER_EMPTY   STATUS_PARTIAL_COPY STATUS_GUID_SUBSTITUTION_MADE   STATUS_NO_INHERITANCE   STATUS_HANDLES_CLOSED   STATUS_WAKE_SYSTEM_DEBUGGER STATUS_NO_MORE_FILES    STATUS_BUFFER_OVERFLOW  STATUS_SINGLE_STEP  STATUS_BREAKPOINT   STATUS_DATATYPE_MISALIGNMENT    STATUS_GUARD_PAGE_VIOLATION DBG_CONTROL_BREAK   DBG_RIPEXCEPTION    DBG_PRINTEXCEPTION_C    DBG_CONTROL_C   DBG_TERMINATE_PROCESS   DBG_TERMINATE_THREAD    DBG_UNABLE_TO_PROVIDE_HANDLE    DBG_REPLY_LATER STATUS_RESUME_HIBERNATION   STATUS_HIBERNATED   STATUS_MP_PROCESSOR_MISMATCH    STATUS_WX86_CREATEWX86TIB   STATUS_CARDBUS_NOT_SUPPORTED    STATUS_ARBITRATION_UNHANDLED    STATUS_TIMER_RESUME_IGNORED STATUS_NO_YIELD_PERFORMED   STATUS_IMAGE_MACHINE_TYPE_MISMATCH_EXE  STATUS_WX86_EXCEPTION_CHAIN STATUS_WX86_EXCEPTION_LASTCHANCE    STATUS_WX86_EXCEPTION_CONTINUE  STATUS_WX86_BREAKPOINT  STATUS_WX86_SINGLE_STEP STATUS_WX86_CONTINUE    STATUS_WX86_UNSIMULATE  STATUS_ALREADY_WIN32    STATUS_LOG_HARD_ERROR   STATUS_WAS_LOCKED   STATUS_SERVICE_NOTIFICATION STATUS_WAS_UNLOCKED STATUS_PREDEFINED_HANDLE    STATUS_FATAL_APP_EXIT   STATUS_CHECKING_FILE_SYSTEM STATUS_EVENT_PENDING    STATUS_EVENT_DONE   STATUS_RECEIVE_PARTIAL_EXPEDITED    STATUS_RECEIVE_EXPEDITED    STATUS_RECEIVE_PARTIAL  STATUS_IMAGE_MACHINE_TYPE_MISMATCH  STATUS_NULL_LM_PASSWORD STATUS_SERIAL_COUNTER_TIMEOUT   STATUS_FT_WRITE_RECOVERY    STATUS_FT_READ_RECOVERY_FROM_BACKUP STATUS_REGISTRY_RECOVERED   STATUS_SERIAL_MORE_WRITES   STATUS_BAD_CURRENT_DIRECTORY    STATUS_LOCAL_USER_SESSION_KEY   STATUS_SEGMENT_NOTIFICATION STATUS_RXACT_STATE_CREATED  STATUS_IMAGE_NOT_AT_BASE    STATUS_WORKING_SET_LIMIT_RANGE  STATUS_THREAD_WAS_SUSPENDED STATUS_OBJECT_NAME_EXISTS   DBG_CONTINUE    DBG_EXCEPTION_HANDLED   STATUS_PROCESS_IN_JOB   STATUS_PROCESS_NOT_IN_JOB   STATUS_NOTHING_TO_TERMINATE STATUS_DS_MEMBERSHIP_EVALUATED_LOCALLY  STATUS_TRANSLATION_COMPLETE STATUS_RESOURCE_REQUIREMENTS_CHANGED    STATUS_REPARSE_OBJECT   STATUS_BUFFER_ALL_ZEROS STATUS_CRASH_DUMP   STATUS_CACHE_PAGE_LOCKED    STATUS_PAGE_FAULT_PAGING_FILE   STATUS_PAGE_FAULT_GUARD_PAGE    STATUS_PAGE_FAULT_COPY_ON_WRITE STATUS_PAGE_FAULT_DEMAND_ZERO   STATUS_PAGE_FAULT_TRANSITION    STATUS_PRIMARY_TRANSPORT_CONNECT_FAILED STATUS_NO_QUOTAS_FOR_ACCOUNT    STATUS_NOTIFY_ENUM_DIR  STATUS_NOTIFY_CLEANUP   STATUS_RXACT_COMMITTED  STATUS_VOLUME_MOUNTED   STATUS_OPLOCK_BREAK_IN_PROGRESS STATUS_SOME_NOT_MAPPED  STATUS_NOT_ALL_ASSIGNED STATUS_MORE_ENTRIES STATUS_REPARSE  STATUS_PENDING  STATUS_TIMEOUT  STATUS_ALERTED  STATUS_KERNEL_APC   STATUS_USER_APC STATUS_ABANDONED_WAIT_63    STATUS_ABANDONED_WAIT_0 STATUS_WAIT_63  STATUS_WAIT_3   STATUS_WAIT_2   STATUS_WAIT_1   STATUS_WAIT_0   ï∏ÆÜU—çÑ †…≤DíJlœ™–ç* †…≤DÖÒDÊå–æœ +‚	/RSDSõKµCùÖKàU'{ÛÃéÄ   mf.pdb                                                                                                                          ¨Ä    úÄ    åÄ    |Ä ?   lÄ Ä   TÄ ø   8Ä ¿   (Ä    Ä   Ä   Ù   ‰   ‘   ¿   ®   ê   p 	  X 
+  @   (      ~   »~   ®~   à~   h~   H~   (~   ~   ¯}   ‡}   »}   †}    Ñ} !  \} "  @} #  $} $  }   Ù|   ‰|    @»|   @¨|   @å|   @p|   @T|   @8|   @|   @¯{   @‹{ 	  @¿{ 
+  @ú{   @Ä{   @`{   @H{   @${   @{   @z   @Ãz   @∏z   @†z   @Ñz   @lz   @Pz   @<z   @ z   @z   @Ùy   @‹y   @ƒy   @¨y   @îy   @|y    @\y !  @8y "  @y #  @Ùx $  @ÿx %  @ºx &  @úx '  @|x (  @`x )  @@x *  @,x +  @x  @ x  @‡w  @»w  @∞w  @†w  @àw  @tw  @`w   ÄDw   Ä$w   Äw   Ä¸v   Ä‰v   ÄÃv   Ä∞v 
+  Äòv   ÄÄv   Ä`v   ÄLv   Ä0v   Äv   Ä¸u   ÄËu   Ä‘u   Äºu   Ä†u   Äàu   Äpu   ÄPu   Ä0u   Äu   Ä¸t   Ä‰t   Ä–t   Äºt   Ä†t    Äåt !  Ätt "  Ä\t #  Ä8t $  Ät %  Ä¸s &  ÄÏs '  Ä»s (  Ä®s )  Äås  Äps  ÄPs  Ä,s  Äs  Ä‹r  Ä∏r   ¿§r   ¿år   ¿pr   ¿Tr   ¿<r   ¿$r   ¿r   ¿Ùq 	  ¿ÿq 
+  ¿¿q   ¿¨q   ¿êq   ¿tq   ¿\q   ¿Hq   ¿(q   ¿q   ¿ q   ¿‰p   ¿»p   ¿¨p   ¿åp   ¿xp   ¿Xp   ¿@p   ¿$p   ¿p   ¿‰o   ¿»o   ¿®o   ¿åo    ¿lo !  ¿Po "  ¿8o #  ¿ o $  ¿o %  ¿‰n &  ¿»n '  ¿∏n (  ¿§n )  ¿Ñn *  ¿pn +  ¿\n ,  ¿<n -  ¿$n .  ¿n /  ¿‰m 0  ¿ƒm 1  ¿®m 2  ¿åm 3  ¿pm 4  ¿Pm 5  ¿0m 7  ¿m 8  ¿Ùl 9  ¿ÿl :  ¿∏l ;  ¿òl <  ¿Ñl =  ¿ll >  ¿Xl ?  ¿Dl @  ¿,l A  ¿l B  ¿k C  ¿‘k D  ¿ºk E  ¿úk F  ¿Ñk G  ¿dk H  ¿Lk I  ¿0k J  ¿k K  ¿j L  ¿–j M  ¿∞j N  ¿îj O  ¿xj P  ¿dj Q  ¿Hj R  ¿0j S  ¿j T  ¿¸i U  ¿‰i V  ¿Ãi W  ¿¨i X  ¿îi Y  ¿xi Z  ¿`i [  ¿@i \  ¿ i ]  ¿ i ^  ¿Ëh _  ¿»h `  ¿¨h a  ¿êh b  ¿th c  ¿`h d  ¿Lh e  ¿8h f  ¿ h g  ¿h h  ¿Ïg i  ¿ÿg j  ¿¿g k  ¿§g l  ¿àg m  ¿pg n  ¿Tg o  ¿8g p  ¿g q  ¿g r  ¿Ïf s  ¿ÿf t  ¿∏f u  ¿†f v  ¿Äf w  ¿lf x  ¿Xf y  ¿8f z  ¿f {  ¿ f |  ¿e }  ¿‘e ~  ¿ºe   ¿®e Ä  ¿êe Å  ¿te Ç  ¿Te É  ¿<e Ñ  ¿ e Ö  ¿e Ü  ¿Ïd á  ¿–d à  ¿∏d â  ¿òd ä  ¿xd ã  ¿Xd å  ¿8d ç  ¿d é  ¿¸c è  ¿‡c ê  ¿¿c ë  ¿®c í  ¿åc ì  ¿tc î  ¿Tc ï  ¿<c ñ  ¿c ó  ¿¸b ò  ¿Ëb ô  ¿»b ö  ¿®b õ  ¿åb ú  ¿pb ù  ¿Tb û  ¿8b ü  ¿b †  ¿ b °  ¿‰a ¢  ¿ƒa £  ¿¨a §  ¿åa •  ¿la ¶  ¿Pa ß  ¿4a ®  ¿a ©  ¿¸` ™  ¿‹` ´  ¿º` ¨  ¿†` ≠  ¿Ñ` Æ  ¿p` Ø  ¿X` ∞  ¿<` ±  ¿(` ≤  ¿` ≥  ¿¯_ ¥  ¿‹_ µ  ¿»_ ∂  ¿¨_ ∑  ¿å_ ∏  ¿l_ π  ¿P_ ∫  ¿4_ ª  ¿_ º  ¿ _ Ω  ¿Ë^ æ  ¿–^ ø  ¿º^ ¿  ¿ú^ ¡  ¿Ä^ ¬  ¿`^ √  ¿@^ ƒ  ¿ ^ ≈  ¿^ ∆  ¿Ï] «  ¿‘] »  ¿º] …  ¿†]    ¿Ä] À  ¿h] Ã  ¿P] Õ  ¿8] Œ  ¿] œ  ¿] –  ¿Ë\ —  ¿Ã\ “  ¿¥\ ”  ¿ò\ ‘  ¿Ä\ ’  ¿l\ ÷  ¿L\ ◊  ¿,\ ÿ  ¿\ Ÿ  ¿\ ⁄  ¿‰[ €  ¿»[ ‹  ¿¨[ ›  ¿ê[ ﬁ  ¿t[ ﬂ  ¿\[ ‡  ¿D[ ·  ¿$[ ‚  ¿[ „  ¿ËZ ‰  ¿»Z Â  ¿∞Z Ê  ¿îZ Á  ¿tZ Ë  ¿XZ È  ¿<Z Í  ¿Z Î  ¿¸Y Ï  ¿‹Y Ì  ¿¿Y Ó  ¿§Y Ô  ¿àY   ¿lY Ò  ¿PY Ú  ¿4Y Û  ¿Y Ù  ¿¸X ı  ¿‡X ˆ  ¿ƒX ˜  ¿®X ¯  ¿åX ˘  ¿pX ˙  ¿TX ˚  ¿4X ¸  ¿X ˝  ¿ X ˛  ¿ËW ˇ  ¿ÃW   ¿∞W  ¿îW  ¿xW  ¿`W  ¿@W  ¿ W  ¿W  ¿ÙV  ¿ÿV 	 ¿ºV 
+ ¿úV  ¿ÄV  ¿dV  ¿HV  ¿,V  ¿V  ¿ÙU  ¿‘U  ¿∏U  ¿òU  ¿|U  ¿XU  ¿8U  ¿(U  ¿U  ¿ÙT  ¿‘T  ¿¥T  ¿òT  ¿|T  ¿\T  ¿<T   ¿(T ! ¿T " ¿S # ¿‹S $ ¿ƒS % ¿¨S & ¿òS ' ¿xS ( ¿dS ) ¿LS * ¿,S + ¿S , ¿R - ¿ÿR . ¿∏R / ¿úR 0 ¿|R 1 ¿`R 2 ¿@R 3 ¿ R 4 ¿ R 5 ¿ËQ 6 ¿‘Q 7 ¿∏Q 8 ¿úQ 9 ¿ÄQ : ¿hQ ; ¿PQ < ¿4Q = ¿Q > ¿Q ? ¿ÙP @ ¿ÿP A ¿¿P B ¿®P C ¿åP D ¿pP E ¿XP F ¿8P G ¿$P H ¿P I ¿O J ¿–O K ¿ºO L ¿§O M ¿àO N ¿pO O ¿TO P ¿4O Q ¿O R ¿ O S ¿ËN T ¿‘N U ¿∏N V ¿†N W ¿àN X ¿lN Y ¿TN Z ¿8N [ ¿N \ ¿¸M ] ¿ÿM ^ ¿¥M _ ¿òM ` ¿xM a ¿\M b ¿@M c ¿$M d ¿M e ¿ÏL f ¿ÃL g ¿∞L h ¿îL i ¿tL j ¿TL k ¿8L l ¿ L m ¿L n ¿‰K r ¿»K s ¿¨K t ¿åK u ¿pK v ¿PK w ¿<K x ¿,K z ¿K { ¿¸J | ¿ËJ } ¿‘J ~ ¿ºJ  ¿òJ Ä ¿ÄJ Å ¿`J Ç ¿<J É ¿J Ñ ¿ J Ö ¿ËI Ü ¿»I á ¿¨I à ¿îI â ¿ÑI ä ¿hI ã ¿LI å ¿,I ç ¿I é ¿ËH è ¿ÃH ê ¿¥H ë ¿îH í ¿xH ì ¿`H î ¿DH ï ¿ H ñ ¿H ó ¿‰G ò ¿∏G ô ¿åG ö ¿hG õ ¿DG ú ¿(G  ¿G  ¿F  ¿–F  ¿∞F  ¿îF  ¿pF  ¿PF 	 ¿4F 
+ ¿F  ¿¸E  ¿‹E  ¿ƒE  ¿¨E  ¿êE  ¿pE  ¿PE  ¿4E  ¿E  ¿ÙD  ¿‘D  ¿∏D  ¿úD  ¿xD  ¿\D  ¿8D  ¿D  ¿¸C  ¿‰C  ¿ƒC  ¿§C   ¿åC ! ¿lC " ¿LC # ¿$C $ ¿C % ¿ÙB & ¿‹B ' ¿ƒB ( ¿®B ) ¿îB * ¿xB + ¿`B , ¿HB - ¿8B . ¿B / ¿B 0 ¿ËA 1 ¿ÃA 2 ¿¥A 3 ¿êA 4 ¿tA 5 ¿XA 6 ¿<A 7 ¿ A 8 ¿¸@ 9 ¿‹@ : ¿¿@ ; ¿§@ < ¿à@ = ¿p@ > ¿T@ ? ¿<@ @ ¿$@ A ¿@ B ¿Ë? C ¿–? D ¿º? E ¿ú? F ¿|? G ¿\? H ¿<? I ¿ ? P ¿ ? Q ¿‰> R ¿ƒ> S ¿¨> T ¿ê> U ¿t> V ¿X> W ¿@> X ¿$> Y ¿> Z ¿Ï= [ ¿‘= \ ¿∏= ^ ¿ú= _ ¿|= ` ¿`= a ¿<= b ¿= c ¿¯< d ¿‹< e ¿ƒ< f ¿§< g ¿å< h ¿l< i ¿L< j ¿0< k ¿< l ¿; m ¿ÿ; n ¿º; o ¿†; p ¿Ä; q ¿d; r ¿T; s ¿<; u ¿ ; v ¿ ; w ¿‡: x ¿¿: y ¿ú: Ä ¿x: Å ¿T: Ç ¿8: É ¿: Ñ ¿¸9 Ö ¿‹9 Ü ¿¿9 á ¿†9 à ÄÄ9 â Äh9 ä ¿L9 ã ¿09 å ¿9 ç ¿¸8 é ¿Ï8 è ¿ÿ8 ê ¿ƒ8 ë ¿®8 í ¿å8 ì ¿t8 î @`8 ï ¿D8 ñ ¿$8 ó ¿8 ò ¿7 ô ¿ÿ7 ö ¿∏7 õ ¿ú7 ú ¿Ä7 ù ¿\7 û ¿87 ü ¿7 † ¿ 7 ° ¿‡6 ¢ ¿º6 £ ¿ò6 § ¿t6 • ¿d6 ¶ ¿L6 ß ¿06 ® ¿6 © ¿¯5 ™ ¿‹5 ´ ¿º5 ¨ ¿†5 ≠ ¿à5 Æ ¿h5 Ø ¿H5 ∞ ¿,5 ± ¿5 ≤ ¿‰4 ≥ ¿ƒ4 ¥ ¿§4 µ ¿à4 ∂ ¿p4 ∑ ¿L4 ∏ ¿04 π ¿4 ¡ ¿¸3 ¬ ¿‡3 √ ¿º3 ƒ ¿†3 ≈ ¿|3 ∆ ¿d3 « ¿L3 » ¿03 … ¿3   ¿¸2 À ¿‡2 Ã ¿ƒ2 Õ ¿†2 Œ ¿Ä2 œ ¿`2 – ¿<2 — ¿2 “ ¿¸1 ” ¿‡1 ‘ ¿¿1 ’ ¿ê1 ÷ ¿d1 ◊ ¿<1 ÿ ¿1 Ÿ ¿‰0 ⁄ ¿¥0 € ¿Ä0 ‹ ¿`0 › ¿D0 ﬁ ¿(0 ﬂ ¿0 ‡ ¿‰/ · ¿Ã/ ‚ ¿¥/ „ ¿ú/ ‰ ¿Ñ/ Â ¿\/ Ê ¿4/ Á ¿/ Ë ¿Ë. È ¿ƒ. Í ¿∞. Î ¿ò. Ï ¿x. Ì ¿T. Ó ¿0. Ô ¿.  ¿ . Ò ¿Ë- Ú ¿»- Û ¿®- Ù ¿à- ı ¿t- ˆ ¿P- ˜ ¿4- ¯ ¿ - ˘ ¿- ˙ ¿‰, ˚ ¿», ¸ ¿¨, ˝ ¿ê, ˛ ¿t, ˇ ¿P,   ¿4,  ¿,  ¿¯+  ¿‹+  ¿¿+  ¿†+  ¿|+  ¿`+  ¿@+ 	 ¿$+ 
+ ¿+  ¿Ï*   ¿‘* ! ¿∞* " ¿ú* P ¿à* Q ¿l* R ¿P* S ¿<* T ¿ * U ¿ * V ¿‰) W ¿ƒ) X ¿ú) Y ¿Ä) Z ¿d) [ ¿P) \ ¿0) ] ¿) ^ ¿¸( _ ¿‡( a ¿¥( b ¿å( c ¿`( d ¿8( e ¿( f ¿¸' g  ‰' h ¿ƒ' i ¿ú' j ¿à' k ¿h' l ¿P' m ¿0' n ¿' o ¿Ï& p @‘& Ä ¿∏& Å ¿ò& Ç ¿p& É ¿T& Ñ ¿0& Ö ¿& Ü ¿Ù% á ¿ÿ% à ¿º% â ¿ú% ä ¿Ä% ã ¿d% å ¿D% ç ¿$% é ¿ % òò ¿Ë$  ¿‘$  ¿¿$  ¿†$  ¿Ä$  ¿h$  ¿H$  ¿,$  ¿$  ¿#  ¿ÿ# 	 ¿º# 
+ ¿§#  ¿å#  ¿p#  ¿P#  ¿4#  ¿#  ¿¸"  ¿‰"  ¿–"  ¿º"  ¿®"  ¿å"  ¿t"  ¿X"  ¿@"  ¿ "  ¿"  ¿Ù!  ¿‹!  ¿ƒ!  ¿§! ! ¿å! " ¿x! # ¿`! $ ¿H! % ¿,! & ¿! ( ¿Ù  ) ¿ÿ  * ¿º  + ¿†  , ¿à  - ¿l  . ¿P  / ¿4  0 ¿  1 ¿¯ 2 ¿ÿ 3 ¿∏ 4 ¿† 5 ¿à 6 ¿p 7 ¿T 8 ¿< 9 ¿  : ¿ ; ¿Ë < ¿Ã = ¿∞ > ¿ò ? ¿x @ ¿` A ¿H B ¿, C ¿ D ¿  E ¿Ë F ¿‘ G ¿¿ H ¿¨  ¿î  ¿t  ¿T  ¿8  ¿  ¿   ¿‰  ¿¿ 	 ¿® 
+ ¿à  ¿l  ¿T I ¿< J ¿$ K ¿ L ¿ M ¿ÿ O ¿¿ P ¿® Q ¿å R ¿x S ¿X T ¿@ U ¿( V @ W ¿¯ X ¿‡ Y ¿ƒ Z ¿¨ [ ¿ê \ ¿t ] ¿T ^ ¿8 _ ¿$ ` ¿ a ¿ b ¿‘ c ¿∏ Ø @†  ¿Ñ  ¿h  ¿L  ¿0  ¿  ¿¸  ¿‹  ¿¿ 	 ¿§ 
+ ¿Ñ  ¿\  ¿<  ¿  ¿¸  ¿‡  ¿ƒ  ¿§  ¿Ñ  ¿d  ¿H  ¿(  ¿  ¿  ¿ÿ  ¿º   ¿ú ! ¿x  
+¿T  
+¿<  
+¿$  
+@  
+@  
+¿‘  
+¿º  
+¿ú 	 
+¿| 
+ 
+¿`  
+¿<  
+¿  
+¿Ï  
+¿Ã  
+¿¨  
+¿ò  
+¿t  
+¿P  
+¿4  
+¿  
+¿Ï  
+¿–  
+¿¥ " 
+¿ò $ 
+¿Ä & 
+¿` ' 
+¿@ ( 
+¿$ * 
+¿ + 
+¿‰ . 
+¿Ã / 
+¿¥ 0 
+¿ò 1 
+¿| 2 
+¿` 3 
+¿< 4 
+¿ 5 
+¿ 6 
+¿– 5 ¿¥ 6 ¿î 7 ¿p  ¿P  ¿4  ¿  ¿Ï  ¿»  ¿®  ¿Ä  ¿d 	 ¿H 
+ ¿(  ¿  ¿Ë  @¿  ¿ò  ¿x  ¿X  ¿4  ¿   ¿‘  ¿∏  ¿ú  ¿|  ¿\  ¿8  ¿  ¿Ù  ¿– 	 ¿® 
+ ¿à  ¿`  ¿D  ¿$  ¿  ¿‡  ¿¿  ¿†  ¿à  ¿l  ¿L  ¿(  ¿  ¿Ï ˇˇˇˇ    T≥ ∏¥ ⁄¥ å¥ Z± f¥ å¥ ∞µ ≤∂ R∑ Z± Z± Z± Z± Z± Z± Z± Z± Z± Z± Z± Z±  jµ Z±         ¥ Z     ÿ∏  π ,π ≤π å öπ ≤π ºπ Ëº ™Ω û“ §æ 
+ø å å :ß :ß :ß :ß ^ø ¶ :ß  ~ å         N |        ∂¿ ^¡ Ê¡ ñ V¬    ∂¿ ^¡ Ê¡ ñ V¬    ∂¿ ^¡ Ê¡ ñ V¬    ∂¿ ^¡ Ê¡ ñ V¬    ∂¿ ^¡ Ê¡ ñ V¬ øDˇˇ@ª                                                                                                          R o o t     M f   A r b i t e r   ÃÃÃÃÃÃãˇUãÏVWã}∂PË’  ãÖˆu∏  ¿ÎA∂ãUSj'YâBj çZ3¿hÄ§ hå§ ã˚Û´ãFˇrâBHãFˇuâBLãFSâBDË‡;  [_^]¬ ÃÃÃÃÃãˇUãÏÉÏ SVWçE‡Pˇ ãuç^ÎR∂ãE;HuDçM¸QçMÙQSˇP@ã¯3…;˘|YãE¸;¡v%EÙQQjQM¯É¿ˇÉ—ˇQPˇu¯çE‡ˇuÙPˇP ã¯Öˇ|)É√ãF¡‡çD0;ÿr†çE‡PãEˇpˇò ã¯Öˇ|3ˇçE‡Pˇ† ã«_^[…¬ ÃÃÃÃÃÃãˇUãÏQVãuãFDÖ¿Ñ∫   çHãFDãP¡‚çD;»SWâMsoãEäÑ…xPtNç^\ã;ÿt∂…9Ht=ã ;ÿuıhMfArh®   jˇ ã¯Öˇt<ˇuˇv WËr˛ˇˇÖ¿âE¸|0ãââ_âxâ;ãFDãHÉE¡·çD9Erëç^\ã;Î#∏ö  ¿Î"j Wˇ ãE¸ÎˇvDçGPËç˛ˇˇã?;ﬂuÓ3¿_[^…¬ ÃÃÃÃÃÃãˇUãÏQÉe¸ VçE¸PË  ãÖˆ|"ãE¸ãp(ãEPâF$ˇu¸ˇ Ö¿âF@uæ  ¿É}¸ t	ˇu¸ˇ ã∆ÎãE¸ÄH ãE¸Ä`3¿^…¬ ÃÃÃÃÃÃãˇUãÏãUãMãA(Å8MfFdVãr`RVPQuËs
+  ÎËD  ^]¬ ÃÃÃÃÃãˇUãÏãEÉ¿PˇuãEã@(ˇp Ë7  ]¬ ÃÃÃÃÃãˇUãÏãEã@(Å8MfFdVuã@@ãU˛B#ÉB`$ã»ˇ$ ãÎãM∏ª  ¿2“ãâAˇ  ã∆^]¬ ÃÃÃÃÃãˇUãÏVãuhMfRMçFPjˇ Ö¿u∏ö  ¿Î!ãŒã—â0ãu¡ÈWçxÛ•ã É·Û§ãMâ3¿_^]¬ ÃÃÃÃÃãˇUãÏãEVj	3“Y˜ÒÖ“ãt∏  ¿ÎUWçFˇ¡‡hMfVMÉ¿Pjˇ ã¯Öˇu∏ö  ¿Î/Öˆâ7çWtãMÉ¡äA˚àãA¸âBãâBÉ¡	É¬NuÁãEâ83¿_^]¬ ÃH a r d w a r e I D     C o m p a t i b l e I D     R e s o u r c e M a p   V a r y i n g R e s o u r c e M a p     M F F l a g s   ÃÃÃÃÃÃãˇUãÏÉÏSVãuWçFPçE¯Pjj3€hv® ˇuâ]â]Ùâ]Ëâ]Ïâ]¯à]ˇËÛ  ã¯;˚|∆EˇÎÅˇ4  ¿Ö  ãE¯fâFfâF
+çFPçE¯Pjjhé® ˇuâ]¯Ë¥  ã¯;˚|∆EˇÎÅˇ4  ¿Ö€   8]ˇãE¯fâFfâFu
+ø  ¿È¡   çEÙPçEÏPSjh™® ˇuËj  ã¯;˚}Åˇ4  ¿Öó   9]Ùt"çFPˇuÏˇuÙËƒ˝ˇˇSˇuÙã¯ˇ ;˚â]Ù|pçEPçEËPSjh¬® ˇuË  ã¯;˚}Åˇ4  ¿uJ9]t"çFPˇuËˇuË«˝ˇˇSˇuã¯ˇ ;˚â]|#çF PSSjhÍ® ˇuËœ  ã¯;˚}Åˇ4  ¿tVËÒ]ˇˇÅˇ$  ¿uÉ«Èã«Î3¿_^[…¬ ÃM F \   ÃÃÃÃÃÃãˇUãÏSã]∑CLhMfDIÉ¿Pjˇ Ö¿u∏ö  ¿ÎQVWæå™ ã¯•f•∑sLãKP—ÓçPç4qÎ#fã1fÉ˛\uf«# Îfâ2∑sLã{PBBAA—Óç4w;ŒrŸfÉ" ãM_â3¿^[]¬ ÃÃÃÃÃãˇUãÏSã]ãC(∑@T∑K8hMfIIçDPjˇ Ö¿âEu∏ö  ¿Î]Vãs(∑NTãvXã—¡ÈWã¯Û•ã É·Û§ãK(∑IT—ÈçHf«# ∑K8ãs<ã¡B¡ÈBã˙Û•ã»É·Û§∑C8ãM—ËfÉ$B ãE_â3¿^[]¬ ÃÃÃÃÃÃãˇUãÏQQÉe¯ VãuV∆Eˇ ËXˇˇçN8ã;¡Ñ§   Wã}SãP$Ö“t(ã ãçrçLÎä:Mu	ˇE¯É}¯wuã
+FçL;ÒrÂãp(ÖˆtQãŒã¡„çVçLÎ=ä
+:Mu*ã]Ö€tãJ;˘w
+ﬂ;Àr;˘rãZŸ;˚s	ˇE¯É}¯w"ãÉ¬¡·çL1;—røãMã É¡8;¡ÖiˇˇˇÎ∆Eˇ[_ˇuËpWˇˇäEˇ^…¬ ÃÃÃÃÃÃãˇUãÏÉÏ∂ESã]ãKD;AWv'ãEˆ@XtãUj3¿Yã˙Û´àBÈæ   ∏  ¿È¥   V¡‡çtç}Ë••••äMËÑ…xu∂¡PËó  ãÖˆu
+∏  ¿ÈÑ   É} t.çEPçE¯PçEËPˇVÖ¿|kãEˇu3…E¯M¸QPçEËPˇVÖ¿|Pã}WçEËPˇVÖ¿|AˇuˇuˇuSË_˛ˇˇÑ¿t,∆GÎ&ãEàHäMÈàHfãMÍfâHãMÏâHãMâHãMÙâH3¿^_[…¬ ÃÃÃÃÃÃãˇUãÏÉÏ<SVãu3¿WâE¸âE¯âEÙçE¸Pª  Sjˇv$ˇ0 ã¯Öˇå√   çEËPçE¯PSj Èë   Öˇå´   j	Y3¿ç}ƒÛ´çEËPVËúUˇˇÑ¿uNãEËâEƒãEÏâE»çEƒPˇuÙˇu¯Ë„˙ˇˇÖ¿|:çEPVËÁ  Ö¿|ãEãx(j	É«8YçuƒÛ•ãuÎçEƒPËZˇˇÎj ˇuÏˇ ˇu¯ˇ, ˇEÙçEËPçE¯PSˇuÙˇu¸ËK  ã¯Åˇ  ÄÖYˇˇˇçF89 u,ø  ¿É}¸ t	ˇu¸ˇ, É}¯ t	ˇu¯ˇ, ã«_^[…¬ ˇu¸ˇ, 3¿ÎÏÃÃÃÃÃãˇUãÏÉÏh°§ SVWâE¸3¿j	ã]Yç}ÿÛ´ç}º´´´´´çEº3ˆâE‰VçEÿPˇs$âu‘∆Eÿ∆EŸ«E‹ºÄ f«E‡ f«E‚ Ëe  ;∆åå   j	Y3¿ç}òÛ´çEòPVˇu¿ˇUÃ;∆|VçEòPSËFTˇˇÑ¿u!çE–PSË∞  Ö¿|ãE–ãx(j	É«8YçuòÛ•Î	çEòPË‚XˇˇˇE‘j	Y3¿ç}òÛ´çEòPˇu‘ˇu¿ˇUÃÖ¿}™=  ÄuçC89 u∏  ¿Îˇu¿ˇU»3¿ãM¸_^[Ë#Zˇˇ…¬ ÃÃÃÃÃÃãˇUãÏQSã]ãC(W3ˇ9xDâ}¸uãE!83¿È1  ãCTÖ¿tã âE¸ã¯ãCPÖ¿t8â}¸VO¡ÁhMfCQÉ«HWjâ}ˇ ãÖˆu"«E¸ö  ¿ãEÉ  Öˆt	j Vˇ ãE¸È’   3¿ãœã—¡Èã˛Û´ã É·Û™ãEâãC(ã@Dã@âFãC(ã@Dã@âF3¿@âFfâF fâF"ãE¸âF$çF(âEãCPÖ¿t7çxÎ%ˇu3¿äj j PSˇs(Ë›˚ˇˇÖ¿âE¸ånˇˇˇÉE GãCPãçD;¯rŒã{TÖˇt>É«Î)ˇu3¿ˇwäˇwPSˇs(Ëù˚ˇˇÖ¿âE¸å.ˇˇˇÉE É«ãCTã¡·çD;¯r«ãEâ03¿^_[…¬ ÃÃÃÃÃãˇUãÏˇuË[¸ˇˇÖ¿}=  ¿u]È~˝ˇˇ]¬ ÃÃÃÃÃÃãˇUãÏãUãE˛B#ÉB`$ãH@ˇ$ ]¬ Ãd:\xpsp\base\busdrv\mf\fdo.c ÃÃÃÃÃãˇUãÏSã]VãuWjhµ  hz± Sç~|Wˇ@ ãMäA<QîE<VSvËÅˇˇˇÎ
+∂¿ˇÖ®¢ Ä} ãu
+jSWˇ< _ã∆^[]¬ ÃÃÃÃÃÃãˇUãÏÉÏSVWj j çEPˇD ã]ãs`çF‹ã¯jYÛ•∆@ ãC`ÉË$çM«@¶ âH ∆@‡ãEãH@ã”ˇ$ =  u3¿PPPPçEPˇ4 ãC_^[…¬ ÃÃÃÃÃãˇUãÏSVWã}ÖˇÑ¥   É} Ñ™   ã_K¡„hMfPRÉ√$Sj ˇ Ö¿ãuâFDuªö  ¿ÎWã˜ã¯ãÀã¡¡ÈÛ•hMfPRã»SÉ·j Û§ˇ Ö¿ãUâBHuªö  ¿Î!ãuã¯ãÀã¡¡ÈÛ•ã»É·RÛ§Ë∞ÚˇˇãÿÖ€}-ãuãFDÖ¿ã= t	j Pˇ◊ÉfD ãFHÖ¿t	j Pˇ◊ÉfH ã√Î3¿_^[]¬ ÃÃÃÃÃÃãˇUãÏÉÏ4°§ Sã]VãuWã}WVâE¸â}ÃËå˛ˇˇ3“;¬âE‘}2“ãœˇ  ãE‘ÈΩ   j	Y3¿ç}ÿÛ´çE–PçEÿPˇv$«F   âVPâVX∆Eÿ∆EŸâU‹Ë«  ã¯Öˇ|Hˇu–ã=H çFLPˇ◊çE–PçEÿPˇv$«E‹   Ëõ  Ö¿âE‘|ˇu–çFTPˇ◊ˇsˇsVËo˛ˇˇâE‘ã}‘ÖˇãEÃâx}&ãFPÖ¿ã t	j Pˇ”ÉfP ãFXÖ¿t	j Pˇ”ÉfX ãMÃ2“ˇ  ã«ãM¸_^[ËéUˇˇ…¬ ÃÃÃÃÃãˇUãÏãM2“«A  ¿ˇ  ∏  ¿]¬ ÃÃÃÃÃÃãˇUãÏVãuVˇuËh˝ˇˇÉf 2“ãŒˇ  3¿^]¬ ÃÃÃÃÃãˇUãÏˇuãEˇuÉ` PËä¸ˇˇ]¬ ÃÃÃÃÃÃãˇUãÏSVWã}WËÔNˇˇçw8Î&ããâÉ¿‘âqãHˆ≈tÉ`( É·˚âHÎPËÚPˇˇ96u÷WË‹NˇˇˇuãuW«G   Éf VË"¸ˇˇjãÿVçG|Pˇú ˇw@ˇL ˇw Ég@ Ë¿Nˇˇ_^ã√[]¬ ÃÃÃÃÃãˇUãÏVãuÄNVË]NˇˇçN8ãÎÉ`‡˚ã ;¡uˆVËhNˇˇˇuãEÉ` VPËµ˚ˇˇ^]¬ ÃÃÃÃÃÃãˇUãÏQQãESV3ˆ9pWÖœ   ã}WË	NˇˇWË[˚ˇˇÖ¿}WËNˇˇ∏  ¿ÎKç_8ã;√âu¸tã ˇE¸;√u˜9u¸uj^Î
+ãu¸ç4µ   hMfBRVjˇ ã–Ö“âU¯uWËŒMˇˇ∏ö  ¿ãM2“âAãˇ  ã∆Î_ãŒ¡È3¿ã˙Û´ãŒÉ·Û™ãE¸âã3çzÎãN¯ÉN‡ˇT ãF¯âã6É«;ÛuÂˇuËtMˇˇãEãM¯É` âHÎãEˇuˇuPË¥˙ˇˇ_^[…¬ ÃÃÃÃÃãˇUãÏãUãBSVWãzj3€ã]Yæ‹Ä ÛßugfÉzsãÀæ#  ¿2“âqˇ  ã∆ÎTãuÉ∆\ã;Òt>ãz9ytã	;ÒuıÎ.É` É¡f«  f«@ âH«@û «@û «@z  Éc RˇuSË˙ˇˇ_^[]¬ ÃÃÃÃÃÃãˇUãÏVãuWVˇuË°˙ˇˇ3“;¬}ã¯ÎDãEãHfÉyt
+∏  ¿âFÎÂãHÄaﬂãHÄaÔãHÄa˜ãHÄa˚ãHâQ0ã@âP,âV3ˇ2“ãŒˇ  ã«_^]¬ ÃÃÃÃÃãˇUãÏSVWã}W3ˆVVj*Vhî   â7ˇ5§ ˇh ãÿ;ﬁ}ã?;˛tbWˇ ÎYããp(hMfFdVËõ
+  ãâF çF\â@â çF8jâ@â jçF(PˇD çFdPˇd jjjhMf  çF|Pˇ` «F   _^ã√[]¬ ÃÃÃÃÃ¬ ÃÃÃÃÃãˇUãÏãUˆBÄVãuWt
+ø  ¿â~Î/ãMäA<w"SQ<R∂¿Vî√ˇÖ £ Ñ€ã¯[uÅˇª  ¿uœã~2“ãŒˇ  ã«_^]¬ ÃÃÃÃÃÃãˇUãÏãEˆ@t∏  ¿Î
+jPËCMˇˇ3¿]¬ ÃÃÃÃÃãˇUãÏãE3…9Hw9Hw	9Hw3¿Î∏  Ä]¬ ÃÃÃÃÃÃãˇUãÏVãuˆFWujVËÙLˇˇã}Ég ˆFt2“ãœˇ  Î0ãF(Ö¿tPËpJˇˇãF,ãN0ââHˇv(ËJˇˇ2“ãœˇ  VË{Lˇˇ_3¿^]¬ ÃÃÃÃÃãˇUãÏãE3…∏  ¿]¬ ÃÃÃÃÃ3¿¬ ÃÃÃÃÃãˇUãÏSVWã}ˆGufÉ( t`ãEãXãEÉxuMhMfTRjjˇ ã3¿;u∏ö  ¿Î8PPPˇw$ˇp ãÿÖ€}j Vˇ Î«   ãG$âFãEâpã√Î∏  ¿_^[]¬ ÃÃÃÃÃãˇUãÏQQVãu∂WPË7  3ˇ;«u2¿È÷   çMQçM¯QVˇPÖ¿|ÈãE;«u$9}u›ãE;E¯u’ãE;E¸uÕãEâ8âx∞Èõ   Sã];ﬂu>ãU;U¸ÇÑ   ãuw;u¯rz3…E¯M¸É¿ˇÉ—ˇ;—whr;wb+u¯ãEU¸â0âPÎNãu;u¸rJã}w;}¯r@3“E¯U¸É¿ˇÉ“ˇ;Úw.r;¯w(3…ﬂŒÉ√ˇÉ—ˇ; rw;ÿw+}¯ãEu¸â8âp∞Î2¿[_^…¬ ÃÃÃÃÃÃãˇUãÏÉÏãESã]VWã¯ãÛ••••ãuäNàH∂PË  Ö¿tçMQçMQVˇPÖ¿|=∂PË   ãÖˆu∏  ¿Î'çEPçE¯PSˇVÖ¿|ãE¯EˇuãM¸MQPˇuˇV_^[…¬ ÃÃÃÃÃãˇUãÏÉÏÉ}VãuWuã} ••••3¿È°   ∂PËñ  Ö¿u
+∏  ¿Èä   çM¸QçMÙQVˇPÖ¿|zã}ãwDS3€«E  ¿É∆Î$äãM:uçEÏPˇu¸ˇu¯ˇuÙVË˚˝ˇˇÑ¿uCÉ∆ãGDãH¡·çD;rÀÎ*ˇu ãGHˇu¡„ˇuÏç\SˇuË»˛ˇˇÖ¿âE|«E   ãE[_^…¬ ÃÃÃÃÃÃãˇUãÏhMf  j jˇ Ö¿ãMâu∏ö  ¿ÎVãuWjYã¯ãEÛ•_«    ∏   ^]¬ ÃÃÃÃÃÃãˇUãÏãUˆBãMãASVWÖï   Éz( Ñã   ãyjYæÃÄ 3€Ûßu7f«  f«@ ãJ(âH«@û «@û «@–ª «@ûº ãE!X3¿ÎHãEã@jYã¯æ‹Ä 3€Ûßu∏Ô  ¿Î+jã¯YæºÄ 3¿ÛßuãEã@ÎˇuRˇuË§ÈˇˇÎ∏  ¿_^[]¬ ÃÃÃÃÃÃãˇUãÏÉÏ0°§ SVãuˆFâE¸ãEâE–ÖΩ   É~( Ñ≥   ã@fÉxt
+∏  ¿È§   hMf  j@jˇ ãÿÖ€u
+∏ö  ¿ÈÖ   WjY3¿j	ã˚Û´ÉKˇÉKˇf«@ f«C YPç}ÿÛ´çEÿPãF(∆Eÿ∆EŸ	â]‹ˇp ËB  Ö¿âE‘|*ãE–ãxãu‹jYÛ•ãHÄa˝ãHÉaÔãHÉa˜ã@É`˚j Sˇ ãE‘_Î∏  ¿ãM¸^[ËPKˇˇ…¬ ÃÃÃÃÃãˇUãÏãEˆ@uÉx( tçMQPËÒˇˇÖ¿|ãMãUâQÎ∏  ¿]¬ M u l t i f u n c t i o n   D e v i c e   ÃÃÃÃÃÃãˇUãÏãEÉx u6hMf  j*jˇ Ö¿u∏ö  ¿Î"VWj
+Yã¯æ⁄æ Û•ãMf•_âA3¿^ÎãEã@]¬ ÃÃÃÃÃÃãˇUãÏãM3¿ˆAVÖè   ãq(ÖˆÑÑ   ãUãR+–tkJtJtJãEtã@ÎnÉ¿PQË{ÎˇˇÎbçqHÎçq@fãfÖ…v4∑¡hMfHIPjˇ Ö¿u∏ö  ¿Î6∑ãvã—W¡Èã¯Û•ã É·Û§_ãMâA3¿ÎãEÉ¿PVËöÍˇˇÎ∏  ¿^]¬ ÃÃÃÃÃÃãˇUãÏWã}çEPãG j hÄ   j"j j\ˇpˇh Ö¿|JãEVãp(hMfPdVËb  ãEÉf âF$â~(çF,çO8ãââHâBâãEÄH ãEÄ`ãEãMâ3¿^_]¬ ÃÃÃÃÃãˇUãÏ∏ò£ ã;MtÉ¿=§ rÔ3¿]¬ ÃÃÃÃÃãˇUãÏãE∂HItaIt<It[It6IIt∏  ¿Î{ãPãMÉa âãPãMÉa âã@ãMâãE«    ÎNãPãMÉa âãHãEÉ` âãM3¿@âÎ'ãPãMâãPâQãPãMâãPâQãHãUâ
+ã@ãMâ3¿]¬ ÃÃÃÃÃÃãˇUãÏãM∂AHtFHt1Ht@HtHHt∏  ¿Î\ãEãUâPãQâPÎ6ãEãUÉ` âPÎ'ãEãUÉHˇâPâPÎãEãUâPãUâPãQâPäQàPfãQfâPäIà3¿]¬ ÃÃÃÃÃãˇUãÏãE∂ItAIt9It;ItIIt∏  ¿ÎEãPãMÉa âã@Î-ãHãEÉ` âãE«    ÎãHÎÁãPãMâãPâQã@ãMâ3¿]¬ ÃÃÃÃÃãˇUãÏãE∂It/It'It)ItIIt∏  ¿Î/ãMâHãMâHÎãMâHÎãMÎÓãMâHãMâHãMâH3¿]¬ ÃÃÃÃÃãˇUãÏãEãMâ]¬ ÃÃÃÃÃãˇUãÏÅÏL  °§ fÉ•‹˝ˇˇ Sã]âE¸ãEVWâÖÿ˝ˇˇãEâÖ–˝ˇˇ3¿çΩﬁ˝ˇˇ´f´çÖ¥˝ˇˇPh  çÖ‰˝ˇˇPj ˇuSˇx ãÖˆåù   ãÖ˝ˇˇhMf  PjfâÖ‹˝ˇˇfâÖﬁ˝ˇˇˇ Ö¿âÖ‡˝ˇˇÑÑ   ãç˝ˇˇã¯ã¡¡ÈçµÙ˝ˇˇÛ•ã»É·Û§É•»˝ˇˇ É•Ã˝ˇˇ çÖ‹˝ˇˇâÖ¿˝ˇˇçÖ∏˝ˇˇPˇuçÖ‘˝ˇˇP«Ö∏˝ˇˇ   âùº˝ˇˇ«Öƒ˝ˇˇ   ˇt ãÖˆ}ÉΩ‡˝ˇˇ tj ˇµ‡˝ˇˇˇ ã∆Î4ãÖ–˝ˇˇãç‡˝ˇˇâHfãç‹˝ˇˇfâfãçﬁ˝ˇˇfâHãÖ‘˝ˇˇãçÿ˝ˇˇâ3¿ãM¸_^[Ë«Eˇˇ…¬ ÃÃÃÃÃÃãˇUãÏÉÏãEÉ8 Væ   âu¸tãEÉ8 u«E  ¿È¯   SWˇuçEÙPˇH øMf  WVã5 jˇ÷ãÿÖ€Ñ˙   çE¸Pˇu¸çEÙSjPˇuˇ| =  ÄâEt*Ö¿åñ   ãMÉ˘u)É{u#ˆEtãC@@∆EâEÎj Sˇ Wˇu¸ÎòãC∆E âE9KtÄ} u	«E$  ¿ÎGÉ˘ãMuVãCâãKãEã8ã¡¡ÈçsÛ•ã»É·Ä} Û§tãCãMã	—ËfÉ$A ãEãMÉe âÖ€t	j Sˇ _[ãE^…¬ É9 tãM9s£«E  ÄÎ‘WPjˇ÷Ö¿ãMâuã«Eö  ¿ÎºÃÃÃÃÃÃãˇUãÏÉÏSVˇuˇà 3€SâEjçEËPˇD çE¯PçEËPSSSˇujˇÑ ;√uæö  ¿ÎOãH`ãu«@ª  ¿âXäVWÉÈ$àQÉ∆çyãM•••ã–•ˇ$ ãÅ˛  _uSSSSçEËPˇ4 ãu¯;Û}ãM;ÀtˇÄ ã∆ÎãE;√tãM¸âãMˇÄ ãE¯^[…¬ ÃÃÃÃÃÃãˇUãÏQQãESVãuWçNQç^Sç~WVâF PãEˇP8Ö¿|QãEÉf Äxu«F   ããããVãâE¯+¡ãœ É¿É— 3“;√u; uÉN;~wrã9E¯sÉN3¿_^[…¬ ÃÃÃÃÃãˇUãÏQãMSVãuãW3ˇAÎãPÖ“v
+çR¡‚˙ÎIã ;uËã]k…8˘9{0s0hArbAWjˇ Ö¿âE¸u
+∏ö  ¿Èõ   j ˇs4ˇ ãE¸âC4ãœã{4ã—¡È3¿Û´ã É·Û™ã}ã[4Gkˇ8˚ÎZÉ~ vQâs ãFÉc âC(â{,«   ãFãN¡·»;¡âEs)WˇuˇuË∞˛ˇˇÖ¿|)Ég ãFÉE ¡‡FÉ«09Er◊É√8ã69uuüÉc  3¿_^[…¬ ÃÃÃÃÃÃãˇUãÏVWã}ã;«ã≤t.;œt&ãp;q~ãPã1â
+âFâ0âHâQâ2“ã ;«ãu÷Ñ“t»_3¿^]¬ ÃÃÃÃÃÃãˇUãÏVãuˇvË√AˇˇãFãNâFâN3¿^]¬ ÃÃÃÃÃÃãˇUãÏãEˇpËöAˇˇ3¿]¬ ÃÃÃÃÃÃãˇUãÏÉÏhSVãuWjY3¿jç}òÛ´Yˇvç}–ˇvÛ´@çM–âE¿âMƒâMºfâE»Ë≤AˇˇãÿÖ€åà   ãEã8;«tˇwˇvËàAˇˇãÿÖ€|nã?9}uËãEã8;«tfÉeÃ çE–Pâ}∏ˇw0VË\˝ˇˇçEPçEòPˇw,ˇV@ãE3…EòMúÉ¿ˇâE†çEòPÉ—ˇVâM§ˇVlãÿÖ€|É} tçEòPVˇV|ã?9}u§ÎˇvË∏@ˇˇ_^ã√[…¬ ÃÃÃÃÃãˇUãÏÉÏhSã]VWjY3¿jç}òÛ´Yˇsç}–ˇsÛ´çE–«E¿   âEƒâEºf«E» ∆E Ë≈@ˇˇãMã;»âEu ˇsËQ@ˇˇãCãKâCâK3¿_^[…¬ ãEçM–QâE∏ˇpSË{¸ˇˇãE–ãM‘ãuÿã}‹ÉeÃ É}‡ âEòâMúâu†â}§∆EÀ tMÉ}‰ tG;˘rCw;r=j ˇu‰QPËS@ˇˇ¬u-+u–j }‘É∆X¯;u‡u;¯uçEòPSˇSlãÖˆ|çEòPSˇS|ãEã 9EâEÖiˇˇˇÈGˇˇˇˇsËò?ˇˇã∆ÈNˇˇˇÃÃÃÃÃãˇUãÏSVãuW3€SSSSˇvˇ4 ãEÉ¯	wQˇ$Ö/À ãEˇ0VˇVHÎ4ãEˇ0VˇVLÎ)VˇVPÎ#VˇVTÎãEˇ0VˇVXÎãEˇpˇpˇpˇ0VˇV`ã¯Îø  ¿Î.ø  ¿;˚|%ãE;√tÉ¯tÉ¯tÉ¯uàûà   Î∆Üà   SSˇvˇ8 ã«_^[]¬ £  Æ  π  ø  Ê  Ê  –  Ê  Ê  ≈  ÃÃÃÃÃãˇUãÏãEãH ˇqãH$ãIj É·çL	Q3…äH2Qˇpˇpˇpˇ0ãEˇpË|>ˇˇ]¬ ÃÃÃÃÃÃãˇUãÏãEãH ˇqˇpˇpˇpˇ0ãEˇpË∫>ˇˇ]¬ ÃÃÃÃÃÃãˇUãÏSã]VWã}ãÛ∆E ;ÛÇÆ   É~  Ñ§   VWˇWlÖ¿å¬   Ä} tFãF$Éf\ Éx ∆E tiVWˇóÄ   ããFÉ¡ˇÉ–ˇ;Fwr;NwãV$;Brw;
+râNâFÎ	VWˇWtÑ¿t+VWˇWxÑ¿tÓãF$Éx tVWˇW|Î
+ãF «@4   É∆8Èaˇˇˇ;Ût∆EÉÓ8ÈQˇˇˇ∏  ¿Î+çs Î ˇp,ãFˇv‰ˇv‡ˇp ˇW<ãFãã@ âA0É∆8ãÖ¿u⁄_^[]¬ ÃÃÃÃÃÃãˇUãÏQQˇuçE¯PËS=ˇˇçEPj j jçE¯PˇuËU=ˇˇ=  Ät=#  ¿uQVhArbMˇujˇ ãÖˆu∏ö  ¿Î2WçEPˇuçE¯VjPˇuË=ˇˇã¯Öˇ}j Vˇ ã«ÎãEâ03¿_^…¬ ÃÃÃÃÃÃãˇUãÏhArbLh   jˇ ãM3“;¬âAfâufâQ∏ö  ¿Îf«A 3¿]¬ ÃÃÃÃÃãˇUãÏãE;EwrãE;Es
+∏  ¿Èú   Sã]fãf;CWuZ∑¿É¿hArbL¡‡Pjˇ ã¯Öˇâ}u∏ö  ¿ÎeVãsÖˆt∑¡·ã¡¡ÈÛ•ã»É·j Û§ˇsˇ ãEfÉCâC^∑ãKãU¡‡âãUâT∑ãKãU¡‡âTãUâTfˇ3¿_[]¬ ÃÃÃÃÃãˇUãÏãE;ESVWwrãE;Es
+æ  ¿Èg  ã]∑¡‡hArbLÉ¿Pjˇ Ö¿âEÑ,  fãfÖ“Ü   ãK∑“¡‚—Èÿ   ãQ9Uã1Ç≥   w	9uÇ®   ãy9}áú   rãy9}áé   9Ur[w9uvTãy9}w3rãy9}s)ãUãuÉ¬âÉ÷ âpãQâPãQâPãÉ¿âãQÎâ0ãuâPãUÉ¬ˇÉ÷ˇâPâpÎ6ãU;Qw1rãu;qs'ãuÉ∆É“ â0âPãQâPãQâPÎãÒã¯••••É¿∑¡‚É¡S; Ç ˇˇˇ+E¡¯ãfÖˆâuvnf;svK∑∆hArbL¡‡Pjˇ ã¯ÖˇuÉ} æö  ¿tj ˇuˇ ã∆ÎDãCÖ¿t	j Pˇ â{fâsã{∑Œãu¡·ã¡¡ÈÛ•ã»É·Û§ãuj ˇuˇ fâ33¿_^[]¬ ÃÃÃÃÃÃãˇUãÏVãuãFÖ¿t	j Pˇ fÉ& fÉf Éf ^]¬ ÃÃÃÃÃãˇUãÏÉÏVãuãF$ˆ@∆Eˇ u2¿È¶   SWçEPçEÏPãEˇpËÁ9ˇˇÎãPãN;—ãã~wr;ﬂsãX;ŸrTwãX;ﬂrK; wr;8sã^;⁄r:wãV;r1äPÑV3u)ãV ã@;BuBãF$ˆ@t9ãFâFãFâ>âNâF∆EˇjçEPçEÏPËZ9ˇˇãEÖ¿ÖvˇˇˇäEˇ_[^…¬ 2¿ÎıÃÃÃÃÃãˇUãÏQãMSVãqÅ˛˛ˇˇWÑ!  Å˛˝ˇˇÑ  ãA äÄ‚ÖˆàUu
+ã}ãwã∆Î$ˆAÖÚ   Öˆ~çFˇÎÉ»ˇ+∆ã}ãw@¡‡∆∑¡Áâu˜;∆âu¸Éõ   ãp9qã8wr99sãY;ﬁrxwãY;ﬂroãY;Ûwr;9sãp;Ûr[wã

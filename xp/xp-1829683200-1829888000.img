@@ -1,0 +1,3119 @@
+rowset to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+            where name = 'sp_procedures_rowset' and type = 'P '))
+        begin
+        drop procedure sp_procedures_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+
+print ''
+print 'creating sp_schemata_rowset'
+go
+
+/*  6.0 and 6.5 and 7.0 version */
+create procedure sp_schemata_rowset
+    (
+    @schema_name    varchar(90) = null, 
+    @schema_owner   varchar(90) = null
+    )       
+as
+    select  distinct
+        CATALOG_NAME            = db_name(),
+        SCHEMA_NAME         = user_name(o.uid), 
+        SCHEMA_OWNER            = user_name(o.uid), 
+        DEFAULT_CHARACTER_SET_CATALOG   = convert(sysname,'master'),
+        DEFAULT_CHARACTER_SET_SCHEMA    = convert(sysname,'dbo'),
+        DEFAULT_CHARACTER_SET_NAME  = convert(sysname,a_cha.name)
+    from    
+        sysobjects o,
+        master.dbo.sysconfigures    cfg,
+        master.dbo.syscharsets      a_cha, /* charset/1001, not sortorder */
+        master.dbo.syscharsets      b_cha  /* sortorder/2001, not charset */
+    where   
+        (@schema_name is null or @schema_name = user_name(o.uid))
+    and     (@schema_owner is null or @schema_owner = user_name(o.uid))
+    and a_cha.type = 1001 /* type is charset */
+    and     b_cha.type = 2001 /* type is sortorder */
+    and     a_cha.id = b_cha.csid
+    and     b_cha.id = cfg.value
+    order by 2
+go
+dump tran master with no_log
+go
+
+if (charindex('8.00', @@version) > 0)
+    drop procedure sp_schemata_rowset
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/* 8.0 version */
+create procedure sp_schemata_rowset
+    (
+    @schema_name    sysname = null, 
+    @schema_owner   sysname = null
+    )       
+as
+    select  distinct
+        CATALOG_NAME            = db_name(),
+        SCHEMA_NAME         = user_name(o.uid), 
+        SCHEMA_OWNER            = user_name(o.uid), 
+        DEFAULT_CHARACTER_SET_CATALOG   = convert(sysname,N'master'),
+        DEFAULT_CHARACTER_SET_SCHEMA    = convert(sysname,N'dbo'),
+        DEFAULT_CHARACTER_SET_NAME  = convert(sysname,a_cha.name)
+    from    
+        sysobjects o,
+        master.dbo.syscharsets      a_cha /* charset/1001, not sortorder */
+    where   
+        (@schema_name is null or @schema_name = user_name(o.uid))
+    and     (@schema_owner is null or @schema_owner = user_name(o.uid))
+    and a_cha.type = 1001 /* type is charset */
+    and     a_cha.id = convert(tinyint, DatabasePropertyEx(db_name(), 'sqlcharset')) /* what is charset of a table? */
+    order by 2
+go
+
+dump tran master with no_log
+go
+
+/* The following stored procedure is used for Sphinx and Hydra */
+create procedure sp_schemata_rowset;3
+as
+    select
+        CATALOG_NAME            = convert(sysname,' '),
+        SCHEMA_NAME         = convert(sysname,' '), 
+        SCHEMA_OWNER            = convert(sysname,' '), 
+        DEFAULT_CHARACTER_SET_CATALOG   = convert(sysname,' '),
+        DEFAULT_CHARACTER_SET_SCHEMA    = convert(sysname,' '),
+        DEFAULT_CHARACTER_SET_NAME  = convert(sysname,' ')
+    where   1=0
+go
+grant execute on sp_schemata_rowset to public
+go
+
+dump tran master with no_log
+go
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+            where name = 'sp_schemata_rowset' and type = 'P '))
+        begin
+        drop procedure sp_schemata_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+
+print ''
+print 'creating sp_statistics_rowset'
+go
+
+
+/*  6.0 and 6.5 version */
+create procedure sp_statistics_rowset
+    (
+    @table_name varchar(255),
+    @table_schema   varchar(255) = null  
+    )
+as
+    select  db_name()               as TABLE_CATALOG,       
+        user_name(o.uid)            as TABLE_SCHEMA,
+        o.name                  as TABLE_NAME,
+        x.rows                  as CARDINALITY
+    from    sysobjects o, sysindexes x, sysusers u
+    where   o.type in ('U')
+    and     o.name = @table_name
+    and     (@table_schema is null or @table_schema = user_name(o.uid))
+    and     x.id = o.id
+    and     x.indid in (0,1)    /*If there are no indexes then table stats are in a row with indid =0 */
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+           )
+    order by 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_statistics_rowset;2
+    (
+    @table_schema   varchar(255) = null  
+    )
+as
+    select  db_name()               as TABLE_CATALOG,       
+        user_name(o.uid)            as TABLE_SCHEMA,
+        o.name                  as TABLE_NAME,
+        x.rows                  as CARDINALITY
+    from    sysobjects o, sysindexes x, sysusers u
+    where   o.type in ('U')
+    and     (@table_schema is null or @table_schema = user_name(o.uid))
+    and     x.id = o.id
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+           )        
+    order by 2, 3
+go
+dump tran master with no_log
+go
+
+if (charindex('7.00', @@version) > 0 or
+    charindex('8.00', @@version) > 0)
+    drop procedure sp_statistics_rowset
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  8.0 version */
+create procedure sp_statistics_rowset
+    (
+    @table_name sysname,
+    @table_schema   sysname = null   
+    )
+as
+    select  db_name()               as TABLE_CATALOG,       
+        user_name(o.uid)            as TABLE_SCHEMA,
+        o.name                  as TABLE_NAME,
+        x.rows                  as CARDINALITY
+    from    sysobjects o, sysindexes x
+    where   o.type in ('U')
+    and     o.name = @table_name
+    and     (@table_schema is null or @table_schema = user_name(o.uid))
+    and     x.id = o.id
+    and     x.indid in (0,1)    /*If there are no indexes then table stats are in a row with indid =0 */
+    and     permissions(o.id) <> 0
+    order by 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_statistics_rowset;2
+    (
+    @table_schema   sysname = null   
+    )
+as
+    select  db_name()               as TABLE_CATALOG,       
+        user_name(o.uid)            as TABLE_SCHEMA,
+        o.name                  as TABLE_NAME,
+        x.rows                  as CARDINALITY
+    from    sysobjects o, sysindexes x
+    where   o.type in ('U')
+    and     (@table_schema is null or @table_schema = user_name(o.uid))
+    and     x.id = o.id
+    and     x.indid in (0,1)    /*If there are no indexes then table stats are in a row with indid =0 */
+    and     permissions(o.id) <> 0
+    order by 2, 3
+go
+
+grant execute on sp_statistics_rowset to public
+go
+
+dump tran master with no_log
+go
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+            where name = 'sp_statistics_rowset' and type = 'P '))
+        begin
+        drop procedure sp_statistics_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+
+print ''
+print 'creating sp_tables_rowset'
+go
+
+
+/*  Procedure for 6.50 and earlier servers */
+create procedure sp_tables_rowset
+    (
+    @table_name varchar(255), 
+    @table_schema   varchar(255) = null,    
+    @table_type varchar(255) = null 
+    )
+as
+    select  TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        TABLE_TYPE  = convert(varchar(30),
+                    case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end),
+        TABLE_GUID  = convert(binary(16), null),
+        DESCRIPTION = convert(varchar(1), null),
+        TABLE_PROPID    = convert(int,null),
+        DATE_CREATED    = o.crdate,
+        DATE_MODIFIED   = convert(datetime,null)
+    from    sysusers u, sysobjects o
+    where   o.type in ('U','V','S')
+    and     o.name = @table_name
+    and     (   @table_schema is null
+        or  @table_schema = user_name(o.uid)
+        )
+    and     (
+            @table_type is null
+        or  @table_type = case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end
+        )
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            /* join to correlate with all rows in sysobjects */
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+        )       
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_rowset;2
+    (
+    @table_schema   varchar(255) = null,    
+    @table_type varchar(255) = null 
+    )
+as
+    select  TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        TABLE_TYPE  = convert(varchar(30),
+                    case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end),
+        TABLE_GUID  = convert(binary(16), null),
+        DESCRIPTION = convert(varchar(1), null),
+        TABLE_PROPID    = convert(int,null),
+        DATE_CREATED    = o.crdate,
+        DATE_MODIFIED   = convert(datetime,null)
+    from    sysusers u, sysobjects o
+    where   o.type in ('U','V','S')
+    and     (   @table_schema is null
+        or  @table_schema = user_name(o.uid)
+        )
+    and     (
+            @table_type is null
+        or  @table_type = case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end
+        )
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            /* join to correlate with all rows in sysobjects */
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+        )       
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+
+if (charindex('7.00', @@version) > 0 or
+    charindex('8.00', @@version) > 0)
+    drop procedure sp_tables_rowset
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  Procedure for 8.0 server */
+create procedure sp_tables_rowset
+    (
+    @table_name sysname, 
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG   = db_name(),
+            TABLE_SCHEMA    = user_name(uid),
+            TABLE_NAME  = name,
+            TABLE_TYPE  = convert(nvarchar(30),
+                        case type 
+                        when 'U' then 
+                            case when ObjectProperty(id, 'IsMSShipped') = 0
+                            then N'TABLE' else N'SYSTEM TABLE' end
+                        when 'S' then N'SYSTEM TABLE'
+                        when 'V' then 
+                            case when ObjectProperty(id, 'IsMSShipped') = 0
+                            then N'VIEW' else N'SYSTEM VIEW' end
+                        end),
+            TABLE_GUID  = convert(uniqueidentifier, null),
+            DESCRIPTION = convert(nvarchar(1), null),
+            TABLE_PROPID    = convert(int,null),
+            DATE_CREATED    = crdate,
+            DATE_MODIFIED   = convert(datetime,null)
+        from    sysobjects
+        where   name = @table_name
+        and type in ('U','V','S')
+        and permissions(id) <> 0
+        ) as o
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)   
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_rowset;2
+    (
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG   = db_name(),
+            TABLE_SCHEMA    = user_name(uid),
+            TABLE_NAME  = name,
+            TABLE_TYPE  = convert(nvarchar(30),
+                        case type 
+                        when 'U' then 
+                            case when ObjectProperty(id, 'IsMSShipped') = 0
+                            then N'TABLE' else N'SYSTEM TABLE' end
+                        when 'S' then N'SYSTEM TABLE'
+                        when 'V' then 
+                            case when ObjectProperty(id, 'IsMSShipped') = 0
+                            then N'VIEW' else N'SYSTEM VIEW' end
+                        end),
+            TABLE_GUID  = convert(uniqueidentifier, null),
+            DESCRIPTION = convert(nvarchar(1), null),
+            TABLE_PROPID    = convert(int,null),
+            DATE_CREATED    = crdate,
+            DATE_MODIFIED   = convert(datetime,null)
+        from    sysobjects
+        where   type in ('U','V','S')
+        and permissions(id) <> 0
+        ) as o
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)   
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_rowset;5
+    (
+    @table_server       sysname,
+    @table_catalog      sysname = null,
+    @table_name     sysname = null,
+    @table_schema       sysname = null,
+    @table_type     sysname = null
+    )
+as
+    select
+        TABLE_CATALOG,
+        TABLE_SCHEMA,
+        TABLE_NAME,
+        TABLE_TYPE,
+        TABLE_GUID,
+        DESCRIPTION
+    --  TABLE_PROPID,
+    --  DATE_CREATED,
+    --  DATE_MODIFIED
+    from master.dbo.SYSREMOTE_TABLES (
+                @table_server,
+                @table_catalog,
+                @table_schema,
+                @table_name,
+                @table_type )
+    order by 4,1,2,3
+go
+
+grant execute on sp_tables_rowset to public
+go
+
+dump tran master with no_log
+go
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+            where name = 'sp_tables_rowset' and type = 'P '))
+        begin
+        drop procedure sp_tables_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+
+
+print ''
+print 'creating sp_tables_info_rowset'
+go
+
+
+/*  Procedure for 6.50 and earlier servers */
+create procedure sp_tables_info_rowset
+    (
+    @table_name varchar(255), 
+    @table_schema   varchar(255) = null,    
+    @table_type varchar(255) = null 
+    )
+as
+    select  TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(o.uid),
+        TABLE_NAME      = o.name,
+        TABLE_TYPE      = convert(varchar(30),
+                        case o.type 
+                        when 'U' then 'TABLE'
+                        when 'V' then 'VIEW'
+                        when 'S' then 'SYSTEM TABLE'
+                        end),
+        TABLE_GUID      = convert(binary(16), null),
+        BOOKMARKS       = convert(bit, 1),
+        BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+        BOOKMARK_DATATYPE   = convert(smallint, 19 /*DBTYPE_UI4 */),
+        BOOKMARK_MAXIMUM_LENGTH = convert(int, 4),
+        BOOKMARK_INFORMATION    = convert(int, 0),
+        TABLE_VERSION       = convert(int, o.schema_ver),
+        CARDINALITY     = x.rows,
+        DESCRIPTION     = convert(varchar(1), null),
+        TABLE_PROPID        = convert(int, null)
+
+    from    sysusers u, 
+        sysobjects o,
+        sysindexes x
+
+    where   o.type in ('U','V','S')
+    and     o.name = @table_name
+    and     (   @table_schema is null
+        or  @table_schema = user_name(o.uid)
+        )
+    and     (
+            @table_type is null
+        or  @table_type = case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end
+        )
+    and o.id *= x.id
+    and x.indid in (0,1)
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            /* join to correlate with all rows in sysobjects */
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+        )       
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_info_rowset;2
+    (
+    @table_schema   varchar(255) = null,    
+    @table_type varchar(255) = null 
+    )
+as
+    select  TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(o.uid),
+        TABLE_NAME      = o.name,
+        TABLE_TYPE      = convert(varchar(30),
+                        case o.type 
+                        when 'U' then 'TABLE'
+                        when 'V' then 'VIEW'
+                        when 'S' then 'SYSTEM TABLE'
+                        end),
+        TABLE_GUID      = convert(binary(16), null),
+        BOOKMARKS       = convert(bit, 1),
+        BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+        BOOKMARK_DATATYPE   = convert(smallint, 19 /*DBTYPE_UI4 */),
+        BOOKMARK_MAXIMUM_LENGTH = convert(int, 4),
+        BOOKMARK_INFORMATION    = convert(int, 0),
+        TABLE_VERSION       = convert(int, o.schema_ver),
+        CARDINALITY     = x.rows,
+        DESCRIPTION     = convert(varchar(1), null),
+        TABLE_PROPID        = convert(int, null)
+
+    from    sysusers u, 
+        sysobjects o,
+        sysindexes x
+
+    where   o.type in ('U','V','S')
+    and     (   @table_schema is null
+        or  @table_schema = user_name(o.uid)
+        )
+    and     (
+            @table_type is null
+        or  @table_type = case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end
+        )
+    and o.id *= x.id
+    and x.indid in (0,1)
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            /* join to correlate with all rows in sysobjects */
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+        )       
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+
+if (charindex('7.00', @@version) > 0 or
+    charindex('8.00', @@version) > 0)
+    drop procedure sp_tables_info_rowset
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 7.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  Procedure for 7.0 server */
+create procedure sp_tables_info_rowset
+    (
+    @table_name sysname, 
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 19 /*DBTYPE_UI4 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 4),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(int, o.schema_ver),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.name = @table_name
+        and     o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_info_rowset;2
+    (
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 19 /*DBTYPE_UI4 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 4),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(int, o.schema_ver),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+
+dump tran master with no_log
+go
+
+if (charindex('8.00', @@version) > 0)
+    drop procedure sp_tables_info_rowset
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  Procedure for 8.0 server */
+create procedure sp_tables_info_rowset
+    (
+    @table_name sysname, 
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 19 /*DBTYPE_UI4 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 4),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(bigint, ObjectPropertyEx(o.id, 'objectversion')),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.name = @table_name
+        and     o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_info_rowset;2
+    (
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 19 /*DBTYPE_UI4 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 4),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(bigint, ObjectPropertyEx(o.id, 'objectversion')),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+
+grant execute on sp_tables_info_rowset to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_tables_info_rowset' and type = 'P '))
+        begin
+        drop procedure sp_tables_info_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_tables_info_rowset_64'
+go
+
+
+/*  Procedure for 6.50 and earlier servers */
+create procedure sp_tables_info_rowset_64
+    (
+    @table_name varchar(255), 
+    @table_schema   varchar(255) = null,    
+    @table_type varchar(255) = null 
+    )
+as
+    select  TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(o.uid),
+        TABLE_NAME      = o.name,
+        TABLE_TYPE      = convert(varchar(30),
+                        case o.type 
+                        when 'U' then 'TABLE'
+                        when 'V' then 'VIEW'
+                        when 'S' then 'SYSTEM TABLE'
+                        end),
+        TABLE_GUID      = convert(binary(16), null),
+        BOOKMARKS       = convert(bit, 1),
+        BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+        BOOKMARK_DATATYPE   = convert(smallint, 21 /*DBTYPE_UI8 */),
+        BOOKMARK_MAXIMUM_LENGTH = convert(int, 8),
+        BOOKMARK_INFORMATION    = convert(int, 0),
+        TABLE_VERSION       = convert(int, o.schema_ver),
+        CARDINALITY     = x.rows,
+        DESCRIPTION     = convert(varchar(1), null),
+        TABLE_PROPID        = convert(int, null)
+
+    from    sysusers u, 
+        sysobjects o,
+        sysindexes x
+
+    where   o.type in ('U','V','S')
+    and     o.name = @table_name
+    and     (   @table_schema is null
+        or  @table_schema = user_name(o.uid)
+        )
+    and     (
+            @table_type is null
+        or  @table_type = case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end
+        )
+    and o.id *= x.id
+    and x.indid in (0,1)
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            /* join to correlate with all rows in sysobjects */
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+        )       
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_info_rowset_64;2
+    (
+    @table_schema   varchar(255) = null,    
+    @table_type varchar(255) = null 
+    )
+as
+    select  TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(o.uid),
+        TABLE_NAME      = o.name,
+        TABLE_TYPE      = convert(varchar(30),
+                        case o.type 
+                        when 'U' then 'TABLE'
+                        when 'V' then 'VIEW'
+                        when 'S' then 'SYSTEM TABLE'
+                        end),
+        TABLE_GUID      = convert(binary(16), null),
+        BOOKMARKS       = convert(bit, 1),
+        BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+        BOOKMARK_DATATYPE   = convert(smallint, 21 /*DBTYPE_UI8 */),
+        BOOKMARK_MAXIMUM_LENGTH = convert(int, 8),
+        BOOKMARK_INFORMATION    = convert(int, 0),
+        TABLE_VERSION       = convert(int, o.schema_ver),
+        CARDINALITY     = x.rows,
+        DESCRIPTION     = convert(varchar(1), null),
+        TABLE_PROPID        = convert(int, null)
+
+    from    sysusers u, 
+        sysobjects o,
+        sysindexes x
+
+    where   o.type in ('U','V','S')
+    and     (   @table_schema is null
+        or  @table_schema = user_name(o.uid)
+        )
+    and     (
+            @table_type is null
+        or  @table_type = case o.type 
+                    when 'U' then 'TABLE'
+                    when 'V' then 'VIEW'
+                    when 'S' then 'SYSTEM TABLE'
+                    end
+        )
+    and o.id *= x.id
+    and x.indid in (0,1)
+    and     u.uid = user_id() /* constrain sysusers uid for use in subquery */
+    and     (
+        suser_id() = 1   /* User is the System Administrator */
+        or o.uid = user_id()     /* User created the object */
+        /* here's the magic... select the highest precedence of permissions in the order (user,group,public)  */
+        or (    (select max(((sign(uid)*abs(uid-16383))*2)+(protecttype&1))
+            from sysprotects p
+            /* join to correlate with all rows in sysobjects */
+            where p.id = o.id
+            /* get rows for public,current user,user's group */
+            and (p.uid = 0 or p.uid = user_id() or p.uid = u.gid)
+            /* check for SELECT,EXECUTE privilege */
+            and (action in (193,224)))&1     /* more magic...normalize GRANT */
+            ) = 1   /* final magic...compare Grants   */
+        )       
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+
+if (charindex('7.00', @@version) > 0 or
+    charindex('8.00', @@version) > 0)
+    drop procedure sp_tables_info_rowset_64
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 7.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  Procedure for 7.0 server */
+create procedure sp_tables_info_rowset_64
+    (
+    @table_name sysname, 
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 21 /*DBTYPE_UI8 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 8),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(int, o.schema_ver),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.name = @table_name
+        and     o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_info_rowset_64;2
+    (
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 21 /*DBTYPE_UI8 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 8),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(int, o.schema_ver),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+
+dump tran master with no_log
+go
+
+if (charindex('8.00', @@version) > 0)
+    drop procedure sp_tables_info_rowset_64
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  Procedure for 8.0 server */
+create procedure sp_tables_info_rowset_64
+    (
+    @table_name sysname, 
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 21 /*DBTYPE_UI8 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 8),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(bigint, ObjectPropertyEx(o.id, 'objectversion')),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.name = @table_name
+        and     o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+dump tran master with no_log
+go
+create procedure sp_tables_info_rowset_64;2
+    (
+    @table_schema   sysname = null, 
+    @table_type nvarchar(255) = null 
+    )
+as
+    select  *
+    from    (select TABLE_CATALOG       = db_name(),
+            TABLE_SCHEMA        = user_name(o.uid),
+            TABLE_NAME      = o.name,
+            TABLE_TYPE      = convert(nvarchar(30),
+                            case o.type 
+                            when 'U' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'TABLE' else N'SYSTEM TABLE' end
+                            when 'S' then N'SYSTEM TABLE'
+                            when 'V' then 
+                                case when ObjectProperty(o.id, 'IsMSShipped') = 0
+                                then N'VIEW' else N'SYSTEM VIEW' end
+                            end),
+            TABLE_GUID      = convert(uniqueidentifier, null),
+            BOOKMARKS       = convert(bit, 1),
+            BOOKMARK_TYPE       = convert(int, 1 /*DBPROPVAL_BMK_NUMERIC*/),
+            BOOKMARK_DATATYPE   = convert(smallint, 21 /*DBTYPE_UI8 */),
+            BOOKMARK_MAXIMUM_LENGTH = convert(int, 8),
+            BOOKMARK_INFORMATION    = convert(int, 0),
+            TABLE_VERSION       = convert(bigint, ObjectPropertyEx(o.id, 'objectversion')),
+            CARDINALITY     = x.rows,
+            DESCRIPTION     = convert(nvarchar(1), null),
+            TABLE_PROPID        = convert(int, null) 
+    
+        from    sysobjects o left join sysindexes x on o.id = x.id and x.indid in (0,1)
+        where   o.type in ('U','V','S')
+        and permissions(o.id) <> 0) as t
+
+    where   (@table_schema is null or @table_schema = TABLE_SCHEMA)
+    and     (@table_type is null or @table_type = TABLE_TYPE)
+    order by 4, 2, 3
+go
+
+grant execute on sp_tables_info_rowset_64 to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_tables_info_rowset_64' and type = 'P '))
+        begin
+        drop procedure sp_tables_info_rowset_64
+        dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_table_constraints_rowset'
+go
+
+
+/*  Procedure for 6.50 and earlier servers */
+create procedure sp_table_constraints_rowset
+    (
+    @table_name         varchar(255), 
+    @table_schema       varchar(255) = null,
+    @table_catalog      varchar(255) = null,
+    @constraint_name    varchar(255) = null,
+    @constraint_schema  varchar(255) = null,
+    @constraint_catalog varchar(255) = null,
+    @constraint_type    varchar(255) = null 
+    )
+as
+    select
+        CONSTRAINT_CATALOG  = db_name(),
+        CONSTRAINT_SCHEMA   = user_name(c_obj.uid),
+        CONSTRAINT_NAME     = c_obj.name,
+        TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(t_obj.uid),
+        TABLE_NAME          = t_obj.name,
+        CONSTRAINT_TYPE     = case (c.status & 0xf)
+                                when 1 then 'PRIMARY KEY'
+                                when 2 then 'UNIQUE'
+                                when 3 then 'FOREIGN KEY'
+                                when 4 then 'CHECK'
+                                end, 
+        IS_DEFERRABLE       = convert(tinyint, 0),
+        INITIALLY_DEFERRED  = convert(tinyint, 0),
+        DESCRIPTION         = convert(varchar(1), null)
+
+    from 
+        sysobjects c_obj, sysobjects t_obj, sysconstraints c
+    where
+            t_obj.name  = @table_name
+        and t_obj.type in ('U','S')
+        and (@table_catalog is null or @table_catalog = db_name())
+        and (@table_schema is null or @table_schema = user_name(t_obj.uid))
+        and c.id = t_obj.id
+        and (c.status & 0xf) between 1 and 4
+        and c_obj.id    = c.constid
+        and c_obj.uid   = user_id()
+        and (@constraint_name is null or c_obj.name = @constraint_name)
+        and (@constraint_catalog is null or @constraint_catalog = db_name())
+        and (@constraint_schema is null or @constraint_schema = user_name(c_obj.uid))
+        and (@constraint_type is null
+            or (c.status & 0xf)
+                = case @constraint_type
+                    when 'PRIMARY KEY' then 1
+                    when 'UNIQUE' then 2
+                    when 'FOREIGN KEY' then 3
+                    when 'CHECK' then 4
+                    end)
+order by 2,3,5,6,7 
+go
+dump tran master with no_log
+go
+create procedure sp_table_constraints_rowset;2
+    (
+    @table_schema       varchar(255) = null,
+    @table_catalog      varchar(255) = null,
+    @constraint_name    varchar(255) = null,
+    @constraint_schema  varchar(255) = null,
+    @constraint_catalog varchar(255) = null,
+    @constraint_type    varchar(255) = null 
+    )
+as
+    select
+        CONSTRAINT_CATALOG  = db_name(),
+        CONSTRAINT_SCHEMA   = user_name(c_obj.uid),
+        CONSTRAINT_NAME     = c_obj.name,
+        TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(t_obj.uid),
+        TABLE_NAME          = t_obj.name,
+        CONSTRAINT_TYPE     = case (c.status & 0xf)
+                                when 1 then 'PRIMARY KEY'
+                                when 2 then 'UNIQUE'
+                                when 3 then 'FOREIGN KEY'
+                                when 4 then 'CHECK'
+                                end, 
+        IS_DEFERRABLE       = convert(tinyint, 0),
+        INITIALLY_DEFERRED  = convert(tinyint, 0),
+        DESCRIPTION         = convert(varchar(1), null)
+
+    from 
+        sysobjects c_obj, sysobjects t_obj, sysconstraints c
+    where
+            t_obj.type in ('U','S')
+        and (@table_catalog is null or @table_catalog = db_name())
+        and (@table_schema is null or @table_schema = user_name(t_obj.uid))
+        and c.id = t_obj.id
+        and (c.status & 0xf) between 1 and 4
+        and c_obj.id    = c.constid
+        and c_obj.uid   = user_id()
+        and (@constraint_name is null or c_obj.name = @constraint_name)
+        and (@constraint_catalog is null or @constraint_catalog = db_name())
+        and (@constraint_schema is null or @constraint_schema = user_name(c_obj.uid))
+        and (@constraint_type is null
+            or (c.status & 0xf)
+                = case @constraint_type
+                    when 'PRIMARY KEY' then 1
+                    when 'UNIQUE' then 2
+                    when 'FOREIGN KEY' then 3
+                    when 'CHECK' then 4
+                    end)
+order by 2,3,5,6,7 
+go
+dump tran master with no_log
+go
+
+
+if (charindex('7.00', @@version) > 0 or
+    charindex('8.00', @@version) > 0)
+    drop procedure sp_table_constraints_rowset
+else
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/*  Procedure for 8.0 server */
+create procedure sp_table_constraints_rowset
+    (
+    @table_name         sysname, 
+    @table_schema       sysname = null,
+    @table_catalog      sysname = null,
+    @constraint_name    sysname = null,
+    @constraint_schema  sysname = null,
+    @constraint_catalog sysname = null,
+    @constraint_type    nvarchar(255) = null 
+    )
+as
+    select
+        CONSTRAINT_CATALOG  = db_name(),
+        CONSTRAINT_SCHEMA   = user_name(c_obj.uid),
+        CONSTRAINT_NAME     = c_obj.name,
+        TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(t_obj.uid),
+        TABLE_NAME          = t_obj.name,
+        CONSTRAINT_TYPE     = case (c.status & 0xf)
+                                when 1 then N'PRIMARY KEY'
+                                when 2 then N'UNIQUE'
+                                when 3 then N'FOREIGN KEY'
+                                when 4 then N'CHECK'
+                                end, 
+        IS_DEFERRABLE       = convert(bit, 0),
+        INITIALLY_DEFERRED  = convert(bit, 0),
+        DESCRIPTION         = convert(nvarchar(1), null)
+
+    from 
+        sysobjects c_obj, sysobjects t_obj, sysconstraints c
+    where
+            t_obj.name  = @table_name
+        and t_obj.type in ('U','S')
+        and (@table_catalog is null or @table_catalog = db_name())
+        and (@table_schema is null or @table_schema = user_name(t_obj.uid))
+        and c.id = t_obj.id
+        and (c.status & 0xf) between 1 and 4
+        and c_obj.id    = c.constid
+        and c_obj.uid   = user_id()
+        and (@constraint_name is null or c_obj.name = @constraint_name)
+        and (@constraint_catalog is null or @constraint_catalog = db_name())
+        and (@constraint_schema is null or @constraint_schema = user_name(c_obj.uid))
+        and (@constraint_type is null
+            or (c.status & 0xf)
+                = case @constraint_type
+                    when N'PRIMARY KEY' then 1
+                    when N'UNIQUE' then 2
+                    when N'FOREIGN KEY' then 3
+                    when N'CHECK' then 4
+                    end)
+order by 2,3,5,6,7 
+go
+dump tran master with no_log
+go
+create procedure sp_table_constraints_rowset;2
+    (
+    @table_schema       sysname = null,
+    @table_catalog      sysname = null,
+    @constraint_name    sysname = null,
+    @constraint_schema  sysname = null,
+    @constraint_catalog sysname = null,
+    @constraint_type    nvarchar(255) = null 
+    )
+as
+    select
+        CONSTRAINT_CATALOG  = db_name(),
+        CONSTRAINT_SCHEMA   = user_name(c_obj.uid),
+        CONSTRAINT_NAME     = c_obj.name,
+        TABLE_CATALOG       = db_name(),
+        TABLE_SCHEMA        = user_name(t_obj.uid),
+        TABLE_NAME          = t_obj.name,
+        CONSTRAINT_TYPE     = case (c.status & 0xf)
+                                when 1 then N'PRIMARY KEY'
+                                when 2 then N'UNIQUE'
+                                when 3 then N'FOREIGN KEY'
+                                when 4 then N'CHECK'
+                                end, 
+        IS_DEFERRABLE       = convert(bit, 0),
+        INITIALLY_DEFERRED  = convert(bit, 0),
+        DESCRIPTION         = convert(nvarchar(1), null)
+
+    from 
+        sysobjects c_obj, sysobjects t_obj, sysconstraints c
+    where
+            t_obj.type in ('U','S')
+        and (@table_catalog is null or @table_catalog = db_name())
+        and (@table_schema is null or @table_schema = user_name(t_obj.uid))
+        and c.id = t_obj.id
+        and (c.status & 0xf) between 1 and 4
+        and c_obj.id    = c.constid
+        and c_obj.uid   = user_id()
+        and (@constraint_name is null or c_obj.name = @constraint_name)
+        and (@constraint_catalog is null or @constraint_catalog = db_name())
+        and (@constraint_schema is null or @constraint_schema = user_name(c_obj.uid))
+        and (@constraint_type is null
+            or (c.status & 0xf)
+                = case @constraint_type
+                    when N'PRIMARY KEY' then 1
+                    when N'UNIQUE' then 2
+                    when N'FOREIGN KEY' then 3
+                    when N'CHECK' then 4
+                    end)
+order by 2,3,5,6,7 
+go
+dump tran master with no_log
+
+
+grant execute on sp_table_constraints_rowset to public
+go
+
+dump tran master with no_log
+go
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+            where name = 'sp_table_constraints_rowset' and type = 'P '))
+        begin
+        drop procedure sp_table_constraints_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_table_privileges_rowset'
+go
+
+/*  Procedure for 6.0 and 6.5 server */
+CREATE PROCEDURE sp_table_privileges_rowset
+    (
+    @table_name varchar(255) = null,
+    @table_schema   varchar(255) = null,
+    @grantor    varchar(255) = null,
+    @grantee    varchar(255) = null
+    )
+as
+IF @table_name is not null
+    BEGIN
+    select
+        GRANTOR     = user_name(p.grantor),
+        GRANTEE     = user_name(u.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case p.action
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,case when p.protecttype = 205 then 0 else 1 end)
+    from 
+        sysprotects p, sysobjects o, sysusers u
+    where
+        o.name = @table_name
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(u.uid))
+    and     o.type in ('U','V','S')
+    and p.id = o.id
+    and     (@grantor is null or @grantor = user_name(p.grantor))
+            /* expand groups */
+    and     ((p.uid = u.uid and u.uid <> u.gid) or (p.uid = u.gid and u.uid <> u.gid))
+    and     p.protecttype <> 206    /* only grant rows */
+    and     p.action in (26,193,195,196,197)
+    and     o.uid <> u.uid          /* no rows for owner */
+    and     not exists (            /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = p.action
+            and     p1.id = p.id
+            and     p1.uid = u.uid)
+    union
+    select  /*  Add rows for table owner */
+        GRANTOR     = user_name(u.uid),
+        GRANTEE     = user_name(o.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case v.number
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,1)    
+    from 
+        sysobjects o, master.dbo.spt_values v, sysusers u
+    where
+        o.name = @table_name
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(o.uid))
+    and     o.type in ('U','V','S')
+    and     u.uid = 1       /* grantor is dbo of database */
+    and (@grantor is null or @grantor = user_name(u.uid))
+    and     v.type = 'P'    /* cross product to get all exposed privileges */
+    and     v.number in (26,193,195,196,197)
+    and     not exists (    /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = v.number
+            and     p1.id = o.id
+            and     p1.uid = o.uid)
+    order by 4,5,6,1,2
+    END
+ELSE
+    BEGIN
+    select
+        GRANTOR     = user_name(p.grantor),
+        GRANTEE     = user_name(u.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case p.action
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,case when p.protecttype = 205 then 0 else 1 end)
+    from 
+        sysprotects p, sysobjects o, sysusers u
+    where
+        o.type in ('U','V','S')
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(u.uid))
+    and p.id = o.id
+    and     (@grantor is null or @grantor = user_name(p.grantor))
+            /* expand groups */
+    and     ((p.uid = u.uid and u.uid <> u.gid) or (p.uid = u.gid and u.uid <> u.gid))
+    and     p.protecttype <> 206    /* only grant rows */
+    and     p.action in (26,193,195,196,197)
+    and     o.uid <> u.uid          /* no rows for owner */
+    and     not exists (            /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = p.action
+            and     p1.id = p.id
+            and     p1.uid = u.uid)
+    union
+    select  /*  Add rows for table owner */
+        GRANTOR     = user_name(u.uid),
+        GRANTEE     = user_name(o.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case v.number
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,1)    
+    from 
+        sysobjects o, master.dbo.spt_values v, sysusers u
+    where
+        o.type in ('U','V','S')
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(o.uid))
+    and     u.uid = 1       /* grantor is dbo of database */
+    and (@grantor is null or @grantor = user_name(u.uid))
+    and     v.type = 'P'    /* cross product to get all exposed privileges */
+    and     v.number in (26,193,195,196,197)
+    and     not exists (    /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = v.number
+            and     p1.id = o.id
+            and     p1.uid = o.uid)
+    order by 4,5,6,1,2
+    END
+go
+dump tran master with no_log
+go
+CREATE PROCEDURE sp_table_privileges_rowset;2
+    (
+    @handle     int output,
+    @scrollopt  int output,
+    @ccopt      int output,
+    @rows       int output,
+    @table_name     varchar(255) = null,
+    @table_schema   varchar(255) = null,
+    @grantor    varchar(255) = null,
+    @grantee    varchar(255) = null
+    )
+as
+declare @ret int
+SET NOCOUNT ON
+create table #sptprivsrowset1
+    (
+    GRANTOR     sysname not null,
+    GRANTEE     sysname not null,
+    TABLE_CATALOG   sysname not null,
+    TABLE_SCHEMA    sysname not null,
+    TABLE_NAME  sysname not null,
+    PRIVILEGE_TYPE  sysname not null,
+    IS_GRANTABLE    bit not null
+    )
+    
+IF @table_name is not null
+    BEGIN
+    insert into #sptprivsrowset1
+    select
+        GRANTOR     = user_name(p.grantor),
+        GRANTEE     = user_name(u.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case p.action
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,case when p.protecttype = 205 then 0 else 1 end)
+    from 
+        sysprotects p, sysobjects o, sysusers u
+    where
+        o.name = @table_name
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(u.uid))
+    and     o.type in ('U','V','S')
+    and p.id = o.id
+    and     (@grantor is null or @grantor = user_name(p.grantor))
+            /* expand groups */
+    and     ((p.uid = u.uid and u.uid <> u.gid) or (p.uid = u.gid and u.uid <> u.gid))
+    and     p.protecttype <> 206    /* only grant rows */
+    and     p.action in (26,193,195,196,197)
+    and     o.uid <> u.uid          /* no rows for owner */
+    and     not exists (            /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = p.action
+            and     p1.id = p.id
+            and     p1.uid = u.uid)
+    union
+    select  /*  Add rows for table owner */
+        GRANTOR     = user_name(u.uid),
+        GRANTEE     = user_name(o.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case v.number
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,1)    
+    from 
+        sysobjects o, master.dbo.spt_values v, sysusers u
+    where
+        o.name = @table_name
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(o.uid))
+    and     o.type in ('U','V','S')
+    and     u.uid = 1       /* grantor is dbo of database */
+    and (@grantor is null or @grantor = user_name(u.uid))
+    and     v.type = 'P'    /* cross product to get all exposed privileges */
+    and     v.number in (26,193,195,196,197)
+    and     not exists (    /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = v.number
+            and     p1.id = o.id
+            and     p1.uid = o.uid)
+    order by 4,5,6,1,2
+    END
+ELSE
+    BEGIN
+    insert into #sptprivsrowset1
+    select
+        GRANTOR     = user_name(p.grantor),
+        GRANTEE     = user_name(u.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case p.action
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,case when p.protecttype = 205 then 0 else 1 end)
+    from 
+        sysprotects p, sysobjects o, sysusers u
+    where
+        o.type in ('U','V','S')
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(u.uid))
+    and p.id = o.id
+    and     (@grantor is null or @grantor = user_name(p.grantor))
+            /* expand groups */
+    and     ((p.uid = u.uid and u.uid <> u.gid) or (p.uid = u.gid and u.uid <> u.gid))
+    and     p.protecttype <> 206    /* only grant rows */
+    and     p.action in (26,193,195,196,197)
+    and     o.uid <> u.uid          /* no rows for owner */
+    and     not exists (            /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = p.action
+            and     p1.id = p.id
+            and     p1.uid = u.uid)
+    union
+    select  /*  Add rows for table owner */
+        GRANTOR     = user_name(u.uid),
+        GRANTEE     = user_name(o.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(varchar(30),
+                    case v.number
+                    when 193 then 'SELECT'
+                    when 195 then 'INSERT'
+                    when 196 then 'DELETE'
+                    when 197 then 'UPDATE'
+                    else 'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,1)    
+    from 
+        sysobjects o, master.dbo.spt_values v, sysusers u
+    where
+        o.type in ('U','V','S')
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(o.uid))
+    and     u.uid = 1       /* grantor is dbo of database */
+    and (@grantor is null or @grantor = user_name(u.uid))
+    and     v.type = 'P'    /* cross product to get all exposed privileges */
+    and     v.number in (26,193,195,196,197)
+    and     not exists (    /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = v.number
+            and     p1.id = o.id
+            and     p1.uid = o.uid)
+    order by 4,5,6,1,2
+    END
+
+exec @ret = sp_cursoropen @handle output, 'select * from #sptprivsrowset1',
+    @scrollopt output, @ccopt output, @rows output
+
+drop table #sptprivsrowset1
+return isnull(@ret,0)
+go
+dump tran master with no_log
+go
+CREATE PROCEDURE sp_table_privileges_rowset;3
+as
+    select
+        GRANTOR     = convert(sysname, ' '),
+        GRANTEE     = convert(sysname, ' '),
+        TABLE_CATALOG   = convert(sysname, ' '),
+        TABLE_SCHEMA    = convert(sysname, ' '),
+        TABLE_NAME  = convert(sysname, ' '),
+        PRIVILEGE_TYPE  = convert(varchar(30), ' '),
+        IS_GRANTABLE    = convert(bit, 0)
+    where   1=0
+go
+
+if (charindex('7.00', @@version) = 0 and
+    charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+else
+    drop proc sp_table_privileges_rowset
+go
+
+
+/*  Procedure for 8.0 server */
+CREATE PROCEDURE sp_table_privileges_rowset
+    (
+    @table_name         sysname,
+    @table_schema       sysname = null,
+    @grantor        sysname = null,
+    @grantee        sysname = null
+    )
+as
+    select
+        GRANTOR     = user_name(p.grantor),
+        GRANTEE     = user_name(u.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(nvarchar(30),
+                    case p.action
+                    when 193 then N'SELECT'
+                    when 195 then N'INSERT'
+                    when 196 then N'DELETE'
+                    when 197 then N'UPDATE'
+                    else N'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,case when p.protecttype = 205 then 0 else 1 end)
+    from 
+        sysprotects p, sysobjects o, sysusers u, sysmembers m
+    where
+        o.name = @table_name
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(u.uid))
+    and     o.type in ('U','V','S')
+    and p.id = o.id
+    and     (@grantor is null or @grantor = user_name(p.grantor))
+        /* expand groups - AKUNDONE: only 1 level of grp unrolling. */
+    and     (u.uid > 0 and u.uid < 16384)
+    and     ((p.uid = u.uid) or (p.uid = m.groupuid and u.uid = m.memberuid))
+    and     p.protecttype <> 206    /* only grant rows */
+    and     p.action in (26,193,195,196,197)
+    and     o.uid <> u.uid          /* no rows for owner */
+    and     not exists (            /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = p.action
+            and     p1.id = p.id
+            and     p1.uid = u.uid)
+    union
+    select  /*  Add rows for table owner */
+        GRANTOR     = user_name(u.uid),
+        GRANTEE     = user_name(o.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(nvarchar(30),
+                    case v.number
+                    when 193 then N'SELECT'
+                    when 195 then N'INSERT'
+                    when 196 then N'DELETE'
+                    when 197 then N'UPDATE'
+                    else N'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,1)    
+    from 
+        sysobjects o, master.dbo.spt_values v, sysusers u
+    where
+        o.name = @table_name
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(o.uid))
+    and     o.type in ('U','V','S')
+    and     u.uid = 1       /* grantor is dbo of database */
+    and (@grantor is null or @grantor = user_name(u.uid))
+    and     v.type = 'P'    /* cross product to get all exposed privileges */
+    and     v.number in (26,193,195,196,197)
+    and     not exists (    /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = v.number
+            and     p1.id = o.id
+            and     p1.uid = o.uid)
+    order by 4,5,6,1,2
+go
+dump tran master with no_log
+go
+CREATE PROCEDURE sp_table_privileges_rowset;2
+    (
+    @table_schema       sysname = null,
+    @grantor        sysname = null,
+    @grantee        sysname = null
+    )
+as
+    select
+        GRANTOR     = user_name(p.grantor),
+        GRANTEE     = user_name(u.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(nvarchar(30),
+                    case p.action
+                    when 193 then N'SELECT'
+                    when 195 then N'INSERT'
+                    when 196 then N'DELETE'
+                    when 197 then N'UPDATE'
+                    else N'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,case when p.protecttype = 205 then 0 else 1 end)
+    from 
+        sysprotects p, sysobjects o, sysusers u, sysmembers m
+    where
+        o.type in ('U','V','S')
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(u.uid))
+    and p.id = o.id
+    and     (@grantor is null or @grantor = user_name(p.grantor))
+        /* expand groups - AKUNDONE: only 1 level of grp unrolling. */
+    and     (u.uid > 0 and u.uid < 16384)
+    and     ((p.uid = u.uid) or (p.uid = m.groupuid and u.uid = m.memberuid))
+    and     p.protecttype <> 206    /* only grant rows */
+    and     p.action in (26,193,195,196,197)
+    and     o.uid <> u.uid          /* no rows for owner */
+    and     not exists (            /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = p.action
+            and     p1.id = p.id
+            and     p1.uid = u.uid)
+    union
+    select  /*  Add rows for table owner */
+        GRANTOR     = user_name(u.uid),
+        GRANTEE     = user_name(o.uid),
+        TABLE_CATALOG   = db_name(),
+        TABLE_SCHEMA    = user_name(o.uid),
+        TABLE_NAME  = o.name,
+        PRIVILEGE_TYPE  = convert(nvarchar(30),
+                    case v.number
+                    when 193 then N'SELECT'
+                    when 195 then N'INSERT'
+                    when 196 then N'DELETE'
+                    when 197 then N'UPDATE'
+                    else N'REFERENCES'
+                    end),
+        IS_GRANTABLE    = convert(bit,1)    
+    from 
+        sysobjects o, master.dbo.spt_values v, sysusers u
+    where
+        o.type in ('U','V','S')
+    and (@table_schema is null or @table_schema = user_name(o.uid))
+    and (@grantee is null or @grantee = user_name(o.uid))
+    and     u.uid = 1       /* grantor is dbo of database */
+    and (@grantor is null or @grantor = user_name(u.uid))
+    and     v.type = 'P'    /* cross product to get all exposed privileges */
+    and     v.number in (26,193,195,196,197)
+    and     not exists (    /* exclude revoke'd privileges */
+            select  *
+            from    sysprotects p1
+            where   p1.protecttype = 206
+            and     p1.action = v.number
+            and     p1.id = o.id
+            and     p1.uid = o.uid)
+    order by 4,5,6,1,2
+go
+dump tran master with no_log
+go
+create procedure sp_table_privileges_rowset;5
+    (
+    @table_server       sysname,
+    @table_catalog      sysname = null,
+    @table_name     sysname = null,
+    @table_schema       sysname = null,
+    @grantor        sysname = null,
+    @grantee        sysname = null
+    )
+as
+    select
+        GRANTOR,        
+        GRANTEE,        
+        TABLE_CATALOG,  
+        TABLE_SCHEMA,   
+        TABLE_NAME, 
+        PRIVILEGE_TYPE, 
+        IS_GRANTABLE    
+    from master.dbo.SYSREMOTE_TABLE_PRIVILEGES (
+                @table_server,
+                @table_catalog,
+                @table_schema,
+                @table_name,
+                @grantor,
+                @grantee )
+    order by 3,4,5,6,1,2
+go
+
+grant execute on sp_table_privileges_rowset to public
+go
+dump tran master with no_log
+go
+if (charindex('6.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_table_privileges_rowset' and type = 'P '))
+        begin
+        drop proc sp_table_privileges_rowset
+        dump tran master with no_log
+        end
+    end
+go
+
+
+print ''
+print 'creating sp_linkedservers_rowset'
+go
+if (charindex('7.00', @@version) = 0 and
+    charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+/*  Procedure for 8.0 server */
+create proc sp_linkedservers_rowset
+    (
+    @srvname    sysname
+    )
+as
+	select
+		SVR_NAME 		    = srvname,
+		SVR_PRODUCT		    = srvproduct,
+		SVR_PROVIDERNAME	= providername,
+		SVR_DATASOURCE		= datasource,
+		SVR_PROVIDERSTRING  = case when is_srvrolemember('sysadmin') = 1 then providerstring else NULL end,
+		SVR_LOCATION		= location,
+		SVR_CATALOG		    = catalog
+	from master.dbo.sysservers
+	where srvname = @srvname and (srvstatus & 128) = 128
+	order by 1
+go
+dump tran master with no_log
+go
+create proc sp_linkedservers_rowset;2
+as
+	select
+		SVR_NAME 		    = srvname,
+		SVR_PRODUCT		    = srvproduct,
+		SVR_PROVIDERNAME	= providername,
+		SVR_DATASOURCE		= datasource,
+		SVR_PROVIDERSTRING  = case when is_srvrolemember('sysadmin') = 1 then providerstring else NULL end,
+		SVR_LOCATION		= location,
+		SVR_CATALOG		    = catalog
+	from master.dbo.sysservers
+	where (srvstatus & 128) = 128
+	order by 1
+go
+
+grant execute on sp_linkedservers_rowset to public
+go
+
+dump tran master with no_log
+go
+
+print ''
+print 'creating sp_table_statistics_rowset'
+go
+if (charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.00 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+/*  Procedure for 8.00 server */
+create proc sp_table_statistics_rowset
+as
+    select
+        TABLE_CATALOG = convert(sysname, null),
+        TABLE_SCHEMA = convert(sysname, null),
+        TABLE_NAME = convert(sysname, null),
+        STATISTICS_CATALOG = convert(sysname, null),
+        STATISTICS_SCHEMA = convert(sysname, null),
+        STATISTICS_NAME = convert(sysname, null),
+        STATISTICS_TYPE = convert(smallint,0),
+        COLUMN_NAME = convert(sysname, null),
+        COLUMN_GUID = convert(uniqueidentifier, null),
+        COLUMN_PROPID = convert(int, null),
+        ORDINAL_POSITION = convert(int, null),
+        SAMPLE_PCT = convert(smallint, null),
+        LAST_UPDATE_TIME = convert(datetime, null),
+        NO_OF_RANGES = convert(int, null),
+        COLUMN_CARDINALITY = convert(bigint, null),
+        TUPLE_CARDINALITY = convert(bigint, null),
+        TABLE_CARDINALITY = convert(bigint, null),
+        AVG_COLUMN_LENGTH = convert(int, null)
+    where 1=0
+go
+dump tran master with no_log
+go
+
+create proc sp_table_statistics_rowset;2
+                (@table_catalog     sysname = null,
+                @table_schema       sysname = null,
+                @table_name     sysname = null,
+                @stat_catalog       sysname = null,
+                @stat_schema        sysname = null,
+                @stat_name      sysname = null)
+as 
+begin
+    
+    set nocount on
+
+    -- check in parameters
+    if ((@table_catalog is not null) and (db_name() <> @table_catalog)
+        or (@stat_catalog is not null) and (db_name() <> @stat_catalog))
+        begin   /* If qualifier doesn't match current database */
+            raiserror 20001 '~~Rush_5~~'
+            return
+        end
+
+    --- create temp table
+    create table #spstattab(
+        tblcatalog  sysname collate database_default not null,
+        tblschema   sysname collate database_default not null,
+        tblname     sysname collate database_default not null,
+        statname    sysname collate database_default not null
+        )
+
+    insert into #spstattab
+    select 
+        db_name(),
+        user_name(o.uid),
+        o.name,
+        x.name
+    from sysobjects o, sysindexes x
+    where o.type in ('U')
+        and (@table_name is null or o.name = @table_name)
+        and (@table_schema is null or @table_schema = user_name(o.uid))
+        and (@stat_name is null or @stat_name = x.name)
+        and (@stat_schema is null or @stat_schema = user_name(o.uid))
+        and x.id = o.id
+        and permissions(o.id) <> 0
+        and x.statblob is not null
+    order by 1,2,3,4
+
+    -- fast forward CURSOR OVER THE temp TABLE
+    declare ff_csr  cursor fast_forward for
+    select tblcatalog, tblschema, tblname, statname from #spstattab
+
+    declare @tblcatalog sysname,
+        @tblschema  sysname,
+        @tblname    sysname,
+        @statname   sysname,
+        @qtbl       nvarchar(4000),
+        @rowsetcount    int
+
+    set @rowsetcount = 0
+
+    open ff_csr
+    fetch ff_csr into @tblcatalog, @tblschema, @tblname, @statname
+    while @@fetch_status >= 0
+    begin
+        set @rowsetcount = @rowsetcount + 1
+        set @qtbl = @tblcatalog + '.' + @tblschema + '.' + @tblname
+        dbcc show_statistics(@qtbl, @statname) with stat_header join density_vector
+        fetch ff_csr into @tblcatalog, @tblschema, @tblname, @statname
+    end
+    close ff_csr
+    deallocate ff_csr
+    
+    --- drop temp table
+    drop table #spstattab
+
+    if @rowsetcount = 0
+    begin
+        select  
+            TABLE_CATALOG = convert(sysname, null),
+            TABLE_SCHEMA = convert(sysname, null),
+            TABLE_NAME = convert(sysname, null),
+            STATISTICS_CATALOG = convert(sysname, null),
+            STATISTICS_SCHEMA = convert(sysname, null),
+            STATISTICS_NAME = convert(sysname, null),
+            STATISTICS_TYPE = convert(smallint,0),
+            COLUMN_NAME = convert(sysname, null),
+            COLUMN_GUID = convert(uniqueidentifier, null),
+            COLUMN_PROPID = convert(int, null),
+            ORDINAL_POSITION = convert(int, null),
+            SAMPLE_PCT = convert(smallint, null),
+            LAST_UPDATE_TIME = convert(datetime, null),
+            NO_OF_RANGES = convert(int, null),
+            COLUMN_CARDINALITY = convert(bigint, null),
+            TUPLE_CARDINALITY = convert(bigint, null),
+            TABLE_CARDINALITY = convert(bigint, null),
+            AVG_COLUMN_LENGTH = convert(int, null)
+        where 1=0
+    end
+
+    set nocount off
+end
+go
+
+grant execute on sp_table_statistics_rowset to public
+go
+
+dump tran master with no_log
+go
+
+print ''
+print 'creating sp_oledb_column_constraints'
+go
+
+/* Procedure for 6.5 server */
+create procedure sp_oledb_column_constraints
+    (@tblname varchar(225)      -- the table to check for constraints
+    ,@colname varchar(225)      -- the column to check for constraints
+    ,@dropcnst smallint)
+as
+begin
+    -- PRELIM
+    set nocount on
+
+    declare @tblid      int           -- the object id of the table
+        ,@cnstname      varchar(225)   -- name of const. currently under consideration
+        ,@cnstid        int
+        ,@cnstatus      int
+        ,@dbname        varchar(30)
+
+    -- Create temp table
+    create table #spcnsttab
+    (cnst_name      varchar(225)        NOT NULL)
+
+    -- Check to see that the object names are local to the current database.
+    if @tblname like '%.%.%'
+       and  substring(@tblname, 1, charindex('.', @tblname) - 1) <> db_name()
+    begin
+        raiserror(15250,-1,-1)
+        return (1)
+    end
+    -- Check to see if the table exists and initialize @objid.
+    select @tblid = object_id(@tblname)
+    if @tblid is NULL
+    begin
+        select @dbname=db_name()
+        raiserror(15009,-1,-1,@tblname,@dbname)
+        return (1)
+    end
+
+    -- STATIC CURSOR OVER THE TABLE'S CONSTRAINTS
+    declare cnst_csr insensitive cursor for
+        select c.constid, c.status, o.name 
+        from sysconstraints c, sysobjects o 
+        where c.id = @tblid and o.id = c.constid
+            and ((c.status & 0xf)=1 and (@dropcnst & 16)<> 0
+            or (c.status & 0xf)=2 and (@dropcnst & 32)<> 0 
+            or (c.status & 0xf)=5 and (@dropcnst & 2)<> 0)  
+        -- ONLY 6.5 sysconstraints objects
+        for read only
+
+    -- Now check out each constraint, figure out its type and keys and
+    -- save the info in a temporary table that we'll print out at the end.
+    open cnst_csr
+    fetch cnst_csr into @cnstid, @cnstatus, @cnstname
+    while @@fetch_status >= 0
+    begin
+        if ((@cnstatus & 0xf) in (1, 2)) ---- primary key, unique
+            begin
+                -- get indid
+                declare @indid smallint
+                select  @indid = indid
+                from    sysindexes
+                where   name = object_name(@cnstid) and id = @tblid
+
+                if (@colname = index_col(@tblname, @indid, 1)) 
+                    and (index_col(@tblname, @indid, 2) is null)
+                    begin
+                        -- ADD TO TABLE
+                        insert into #spcnsttab
+                        values (@cnstname)
+                    end
+            end
+        else
+        if (@cnstatus & 0xf) = 5
+            begin
+                if (select col_name(id, colid) from sysconstraints where colid > 0 and constid=@cnstid) = @colname
+                    begin
+                        insert into #spcnsttab
+                        values (@cnstname)
+                    end
+            end
+
+        fetch cnst_csr into @cnstid ,@cnstatus ,@cnstname
+    end     --of major loop
+    close cnst_csr
+    deallocate cnst_csr
+
+    -- Now print out the contents of the temporary index table.
+    select 'constraint_name' = cnst_name
+    from #spcnsttab 
+    
+    drop table #spcnsttab
+
+    set nocount off
+    return (0)
+end 
+go
+dump tran master with no_log
+go
+
+if (charindex('7.00', @@version) = 0 and
+    charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 7.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+else
+    drop proc sp_oledb_column_constraints
+go
+
+/* Procedure for 7.0 server */
+create procedure sp_oledb_column_constraints
+    (@tblname nvarchar(776)     -- the table to check for constraints
+    ,@colname nvarchar(776)     -- the column to check for constraints
+    ,@dropcnst smallint)
+as
+begin
+    -- PRELIM
+    set nocount on
+
+    declare @tblid      int           -- the object id of the table
+        ,@cnstname      sysname       -- name of const. currently under consideration
+        ,@cnstid        int
+        ,@cnsttype      character(2)
+        ,@dbname        sysname
+
+    -- Create temp table
+    create table #spcnsttab
+    (cnst_name      sysname     NOT NULL)
+
+    -- Check to see that the object names are local to the current database.
+    select @dbname = parsename(@tblname,3) 
+    if @dbname is not null and @dbname <> db_name()
+    begin
+        raiserror(15250,-1,-1)
+        return (1)
+    end
+
+    -- Check to see if the table exists and initialize @objid.
+    select @tblid = object_id(@tblname)
+    if @tblid is NULL
+    begin
+        select @dbname=db_name()
+        raiserror(15009,-1,-1,@tblname,@dbname)
+        return (1)
+    end
+
+    -- STATIC CURSOR OVER THE TABLE'S CONSTRAINTS
+    declare cnst_csr cursor fast_forward for
+        select id, xtype, name 
+        from sysobjects 
+        where parent_obj = @tblid
+            and ((xtype = 'PK' and (@dropcnst & 16)<> 0) 
+            or (xtype = 'UQ' and (@dropcnst & 32)<> 0)
+            or (xtype = 'D ' and (@dropcnst & 2)<> 0))  
+        -- ONLY 6.5 sysconstraints objects
+        for read only
+
+    -- Now check out each constraint, figure out its type and keys and
+    -- save the info in a temporary table that we'll print out at the end.
+    open cnst_csr
+    fetch cnst_csr into @cnstid, @cnsttype, @cnstname
+    while @@fetch_status >= 0
+    begin
+        if @cnsttype in ('PK','UQ')
+            begin
+                -- get indid
+                declare @indid smallint
+                select  @indid = indid
+                from    sysindexes
+                where   name = object_name(@cnstid) and id = @tblid
+
+                if (@colname = index_col(@tblname, @indid, 1)) 
+                    and (index_col(@tblname, @indid, 2) is null)
+                    begin
+                        -- ADD TO TABLE
+                        insert into #spcnsttab
+                        values (@cnstname)
+                    end
+            end
+        else
+        if (@cnsttype = 'D ')
+            begin
+                if (select col_name(@tblid, info) from sysobjects where id=@cnstid) = @colname
+                    begin
+                        insert into #spcnsttab
+                        values (@cnstname)
+                    end
+            end
+
+        fetch cnst_csr into @cnstid ,@cnsttype ,@cnstname
+    end     --of major loop
+    close cnst_csr
+    deallocate cnst_csr
+
+    -- Now print out the contents of the temporary index table.
+    select 'constraint_name' = cnst_name
+    from #spcnsttab 
+
+    drop table #spcnsttab
+    
+    set nocount off
+    return (0)
+end
+go
+
+if (charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+else
+    drop proc sp_oledb_column_constraints
+go
+
+/* Procedure for 8.0 server */
+create procedure sp_oledb_column_constraints
+    (@tblname nvarchar(776)     -- the table to check for constraints
+    ,@colname nvarchar(776)     -- the column to check for constraints
+    ,@dropcnst smallint)
+as
+begin
+    -- PRELIM
+    set nocount on
+
+    declare @tblid      int           -- the object id of the table
+        ,@cnstname      sysname       -- name of const. currently under consideration
+        ,@cnstid        int
+        ,@cnsttype      character(2)
+        ,@dbname        sysname
+
+    -- Create temp table
+    create table #spcnsttab
+    (cnst_name      sysname     collate database_default NOT NULL)
+
+    -- Check to see that the object names are local to the current database.
+    select @dbname = parsename(@tblname,3) 
+    if @dbname is not null and @dbname <> db_name()
+    begin
+        raiserror(15250,-1,-1)
+        return (1)
+    end
+
+    -- Check to see if the table exists and initialize @objid.
+    select @tblid = object_id(@tblname)
+    if @tblid is NULL
+    begin
+        select @dbname=db_name()
+        raiserror(15009,-1,-1,@tblname,@dbname)
+        return (1)
+    end
+
+    -- STATIC CURSOR OVER THE TABLE'S CONSTRAINTS
+    declare cnst_csr cursor fast_forward for
+        select id, xtype, name 
+        from sysobjects 
+        where parent_obj = @tblid
+            and ((xtype = 'PK' and (@dropcnst & 16)<> 0) 
+            or (xtype = 'UQ' and (@dropcnst & 32)<> 0)
+            or (xtype = 'D ' and (@dropcnst & 2)<> 0))  
+        -- ONLY 6.5 sysconstraints objects
+        for read only
+
+    -- Now check out each constraint, figure out its type and keys and
+    -- save the info in a temporary table that we'll print out at the end.
+    open cnst_csr
+    fetch cnst_csr into @cnstid, @cnsttype, @cnstname
+    while @@fetch_status >= 0
+    begin
+        if @cnsttype in ('PK','UQ')
+            begin
+                -- get indid
+                declare @indid smallint
+                select  @indid = indid
+                from    sysindexes
+                where   name = object_name(@cnstid) and id = @tblid
+
+                if (@colname = index_col(@tblname, @indid, 1)) 
+                    and (index_col(@tblname, @indid, 2) is null)
+                    begin
+                        -- ADD TO TABLE
+                        insert into #spcnsttab
+                        values (@cnstname)
+                    end
+            end
+        else
+        if (@cnsttype = 'D ')
+            begin
+                if (select col_name(@tblid, info) from sysobjects where id=@cnstid) = @colname
+                    begin
+                        insert into #spcnsttab
+                        values (@cnstname)
+                    end
+            end
+
+        fetch cnst_csr into @cnstid ,@cnsttype ,@cnstname
+    end     --of major loop
+    close cnst_csr
+    deallocate cnst_csr
+
+    -- Now print out the contents of the temporary index table.
+    select 'constraint_name' = cnst_name
+    from #spcnsttab 
+
+    drop table #spcnsttab
+    
+    set nocount off
+    return (0)
+end
+go
+
+grant execute on sp_oledb_column_constraints to public
+go
+
+dump tran master with no_log
+go
+
+print ''
+print 'creating sp_oledb_indexinfo'
+go
+
+/* Procedure for 6.5 server */
+create procedure sp_oledb_indexinfo
+        @objname varchar(225)       -- the table to check for indexes
+        ,@indname varchar(225)
+as
+begin
+    -- PRELIM
+    set nocount on
+
+    declare @objid int,         -- the object id of the table
+        @indid smallint,    -- the index id of an index
+        @status int,
+        @dbname varchar(30),
+        @OrigFillFactor tinyint,
+        @i int, 
+        @thiskey varchar(32),
+        @tptr     varbinary(16) -- pointer for building text strings.
+    ---- Check to see that the object names are local to the current database.
+    if @objname like '%.%.%'
+       and  substring(@objname, 1, charindex('.', @objname) - 1) <> db_name()
+    begin
+        raiserror(15250,-1,-1)
+        return (1)
+    end
+    ---- Check to see if the table exists and initialize @objid.
+    select @objid = object_id(@objname)
+    ---- Table does not exist so return.
+    if @objid is NULL
+    begin
+        select @dbname=db_name()
+        raiserror(15009,-1,-1,@objname,@dbname)
+        return (1)
+    end
+
+    select @indid = indid, @status = status, @OrigFillFactor = OrigFillFactor
+    from sysindexes
+    where id = @objid and name = @indname 
+
+    -- IF NO INDEX, QUIT
+    if @indid is NULL
+    begin
+        raiserror(15472,-1,-1) --'Object does not have any indexes.'
+        return (1)
+    end
+    -- create temp table
+    create table #spindtab
+    (
+        status              int,
+        OrigFillFactor          tinyint,
+        index_keys          text    NOT NULL,
+    )
+    -- Now check out each index, figure out its type and keys and
+    -- First we'll figure out what the keys are.
+    select @i = 1
+    while (@i <= 16)
+        begin
+            select @thiskey = index_col(@objname, @indid, @i)
+            if @thiskey is NULL
+                    goto keysdone
+            if @i=1
+                begin
+                    insert into #spindtab
+                    values (@status, @OrigFillFactor, @thiskey)
+
+            select @tptr = textptr(index_keys) from #spindtab
+                end
+            else
+                begin
+                    select @thiskey = ', ' + @thiskey
+
+            if @tptr is not null
+                    updatetext #spindtab.index_keys @tptr null null @thiskey
+                end
+
+        select @i = @i + 1
+         end --loop 16
+         ---- When we get here we now have all the keys.
+
+keysdone:
+    select * from #spindtab
+    
+    drop table #spindtab
+    set nocount off
+    return (0)
+end
+go
+dump tran master with no_log
+go
+
+if (charindex('7.00', @@version) = 0 and
+    charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+else
+    drop proc sp_oledb_indexinfo
+go
+
+/* Procedure for 8.0 server */
+create proc sp_oledb_indexinfo
+        @objname nvarchar(776)      -- the table to check for indexes
+        ,@indname nvarchar(776)
+as
+begin
+    -- PRELIM
+    set nocount on
+
+    declare @objid int,         -- the object id of the table
+        @indid smallint,    -- the index id of an index
+        @status int,
+        @keys nvarchar(2078),-- string build index key list, length = (16*max_id_length)+(15*2)
+        @dbname sysname,
+        @OrigFillFactor tinyint
+
+    -- Check to see that the object names are local to the current database.
+    select @dbname = parsename(@objname,3) 
+
+    if @dbname is not null and @dbname <> db_name()
+    begin
+            raiserror(15250,-1,-1)
+            return (1)
+    end
+
+    -- Check to see the the table exists and initialize @objid.
+    select @objid = object_id(@objname)
+    if @objid is NULL
+    begin
+        select @dbname=db_name()
+        raiserror(15009,-1,-1,@objname,@dbname)
+        return (1)
+    end
+
+    select @indid = indid, @status = status, @OrigFillFactor = OrigFillFactor
+    from sysindexes
+    where id = @objid and name = @indname 
+
+    -- IF NO INDEX, QUIT
+    if @indid is NULL
+    begin
+        raiserror(15472,-1,-1) --'Object does not have any indexes.'
+        return (1)
+    end
+
+    -- First we'll figure out what the keys are.
+    declare @i int, @thiskey sysname
+    select @keys = index_col(@objname, @indid, 1),
+        @i = 2, @thiskey = index_col(@objname, @indid, 2)
+    while (@thiskey is not null )
+    begin
+        select @keys = @keys + ', ' + @thiskey, @i = @i + 1
+        select @thiskey = index_col(@objname, @indid, @i)
+    end
+    -- DISPLAY THE RESULTS
+    select 'Status'=@status, 'OrigFillFactor' =@OrigFillFactor, 'Index keys'=@keys
+    set nocount off
+    return (0) 
+end
+go
+
+grant execute on sp_oledb_indexinfo to public
+go
+
+dump tran master with no_log
+go
+
+print ''
+print 'creating sp_oledb_ro_usrname'
+go
+
+create procedure sp_oledb_ro_usrname
+as
+begin
+    select substring('NY',status/1024&1+1,1),user_name() 
+    from master..sysdatabases 
+    where name=DB_NAME()
+end
+go
+
+grant execute on sp_oledb_ro_usrname to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0 or
+    charindex('6.50', @@version) > 0 or
+    charindex('7.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_oledb_ro_usrname' and type = 'P '))
+        begin
+            drop proc sp_oledb_ro_usrname
+            dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_oledb_deflang'
+go
+
+if (charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+create procedure sp_oledb_deflang
+as
+    begin
+        select ISNULL(language,'us_english') 
+        from master..syslogins 
+        where sid=SUSER_SID()
+    end
+go
+
+grant execute on sp_oledb_deflang to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0 or
+    charindex('6.50', @@version) > 0 or
+    charindex('7.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_oledb_deflang' and type = 'P '))
+        begin
+            drop proc sp_oledb_deflang
+            dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_oledb_defdb'
+go
+
+if (charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+create procedure sp_oledb_defdb
+as
+    begin
+        select dbname from master..syslogins where sid=SUSER_SID()
+    end
+go
+
+grant execute on sp_oledb_defdb to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0 or
+    charindex('6.50', @@version) > 0 or
+    charindex('7.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_oledb_defdb' and type = 'P '))
+        begin
+            drop proc sp_oledb_defdb
+            dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_oledb_database'
+go
+
+create procedure sp_oledb_database
+as
+    begin
+        select name from master..sysdatabases
+    end
+go
+
+grant execute on sp_oledb_database to public
+go
+
+dump tran master with no_log
+go
+
+if (charindex('6.00', @@version) > 0 or
+    charindex('6.50', @@version) > 0 or
+    charindex('7.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_oledb_database' and type = 'P '))
+        begin
+            drop proc sp_oledb_database
+            dump tran master with no_log
+        end
+    end
+go
+
+print ''
+print 'creating sp_oledb_language'
+go
+
+create procedure sp_oledb_language
+as
+begin
+    select 'English','us_english' 
+    union 
+    select alias,name from master..syslanguages
+end
+go
+
+grant execute on sp_oledb_language to public
+go
+
+dump tran master with no_log
+go
+if (charindex('6.00', @@version) > 0 or
+    charindex('6.50', @@version) > 0 or
+    charindex('7.00', @@version) > 0)
+    begin
+    if (exists (select * from sysobjects
+        where name = 'sp_oledb_language' and type = 'P '))
+        begin
+            drop proc sp_oledb_language
+            dump tran master with no_log
+        end
+    end
+go
+
+/*---------------------------- END OLEDB CATALOG PROCS ------------------------*/
+
+
+/*---------------------------- BEGIN BCP CATALOG PROCS ------------------------*/
+
+print 'creating sp_tablecollations'
+go
+
+/* Used by BCP to gather all the collation names for a table */
+if (charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/* Procedure for 8.0 server */
+create procedure sp_tablecollations (@object nvarchar(4000))
+as
+begin
+    select c.colid,
+           c.name, 
+           tds_collation = c.tdscollation,
+           collation_name = BCPCollationName(c.tdscollation, c.xtype)
+    from syscolumns c inner join sysobjects t on c.id = t.id
+    where t.id = object_id(@object, 'local')
+    order by c.colid
+end
+go
+
+grant execute on sp_tablecollations to public
+go
+
+print 'creating sp_bcp_dbcmptlevel'
+go
+
+/* Used by BCP to get current db compatibility level */
+if (charindex('8.00', @@version) = 0)
+begin
+    print ''
+    print ''
+    print 'Warning:'
+    print 'you are installing the stored procedures '
+    print 'on a pre 8.0 SQL Server.'
+    print 'Ignore the following errors.'
+end
+go
+
+/* Procedure for 8.0 server */
+create procedure sp_bcp_dbcmptlevel (@dbname sysname)
+as
+begin
+    select cmptlevel
+    from master.dbo.sysdatabases
+    where name = @dbname
+end
+go
+
+grant execute on sp_bcp_dbcmptlevel to public
+go
+
+/*---------------------------- END BCP CATALOG PROCS ------------------------*/
+
+dump tran master with no_log
+go
+
+
+
+
+if (exists (select * from sysobjects
+        where name = 'sp_configure' and type = 'P '))
+    begin
+        exec sp_configure 'allow updates',0
+        reconfigure with override
+    end
+go
+
+exec sp_MS_upd_sysobj_category 2 /* set category | 2 based on crdate. */
+
+go
+
+if exists (select * from sysobjects where name = 'sp_check_objects'
+            and type = 'P ')
+    begin
+        /* Only supported on 6.0 servers */
+        print ''
+        print 'Checking objects created by instcat.sql.'
+
+        exec sp_check_objects 'catalog'
+    end
+go
+
+print ''
+print 'instcat.sql completed successfully.'
+go
+
+set quoted_identifier off
+go
+
+dump tran master with no_log
+go
+checkpoint
+go
+/**/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  MZ       ÿÿ  ¸       @                                   ø   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       rIÔÊ'‡Ê'‡Ê'‡	(‡Ã'‡Ê&‡û'‡	z‡Ó'‡uG‡È'‡	x‡Ø'‡	{‡Ë'‡	y‡Ë'‡	G‡Ñ'‡	}‡Ë'‡RichÊ'‡                        PE  L D¡H        à !
+ X  d     ók     p   \                  ğ    òã                       °d Q  0L    ° àò                   ° °*  p                             Hˆ  @     ü      h  pK @                   .text   W     X                   `.data   ğ5   p     \             @  À.rsrc   àò   °  ô   x             @  @.reloc  ø9   °  :   l             @  B” Hp   ,¡H{   ” H…   ¡H’   ² H   ¡H«   ¾ H¶   ,¡HÀ  ,¡H{   ¡HÍ   ¡H×   ¡Hã   )¡Hî           msvcrt.dll ntdll.dll COMCTL32.dll SHLWAPI.dll ADVAPI32.dll USER32.dll GDI32.dll KERNEL32.dll ole32.dll SHELL32.dll SAMLIB.dll WINSTA.dll                                                                                                                        0mŞw8ûŞw~Rßw—KßwuKßw¶yİwÛyİwÉ{İw˜Uãw°Lßw¼rİwBxİw«zİwÎ3áw 4áw,4áw4áwõrİwÆOŞwjğİwÕßw¢NŞwÂMßwİw{UŞw`ãwƒñİwŞw¾-Şw¾áw‘½áwe¿áwäŞwİIßwfßwboßw5oŞwİoŞw¨|İwºİw¹|İwüïİw¯¸ßw{yİwlİwŸjİwÁ£Şwİ~İwW×İwáíİwïoİw6yİwÖ\ãw\wİw\^ãw>SãwÅlŞw    V~=w[“>wR>wˆ@=w    úkñwÀ¶ñwp[ñwœÑów³ƒñw_nñwiZñwà_ñw“ñwÁañwÛ^ñw    ¸—€|°™€|é€|€|j>†|ıI„|º€|ş|Êï€|0®€|{™€|\ª€|õ€|Êq…|%x…|¨ƒ|5ƒ|ÿÖ…||ÏYƒ|Gé€|%ê€|·$€|Óƒ|cø‚|.“€|·¤€|1»€|
+˜€|§ €|ö—€|Ë €|9§€|n¬€|Û®€|§Kƒ|e´€|Ç|0%€|š€|F$€|qï€|gî€|Kƒ|soƒ|Ü·€|sVƒ|I‚|ê#ƒ|u£†|©†||Åƒ|&|&ª€|§Ò‚|`³€|ğ|“Ï‚|XÏ‚|€|ü‚|™š€|uú€|“(|¤ ‘|€›‘||æƒ|ôº€|Â|6#€|…Ş€|ş|×›€|Q¬€|ÿ|pû|¿™€|˜€|{€|™*|    (;¿qñš¿qƒ@¿q‚ª¿qø¿q,<¿qL:¿q :¿q©8¿q    ğ[«|    AÃ÷wÍzöwÙ¾÷wjöwwpöw”o÷w_—öw|~öwSgöwÉyöw‡Eöw    V¯B~Ç†A~†A~B~œ±B~»ÂB~ZÊB~¦ˆA~nCB~´B~•B~ó™B~lsB~;êA~Æ‘A~$tB~ö‹A~ŠA~4eF~ÃÉB~ËŒA~¶©A~—{B~ÓB~iA~0™B~œA~6A~I˜B~CB~úMB~ıB~„ËB~ —B~éB~ÊMB~‘B~ÔF~NJB~–B~«GB~ÌsB~š’B~    á“6v    ú'ÁMÅœÁMù€ÃMa~ÃMÈùÂMk€ÃMİœÁM³ÃMøMÂMQNÂMwÎÀM¸~ÃM»jÃM”~ÃM/€ÃMm&ÁM”\ÂMØ#ÅMgÂMçÃM§ÃMˆ§ÃMºÃM±
+ÃMÄÁMÂÁM    PÙ|`Õ|pĞ|ĞÏ|Mš’|,‚‘|X‚‘|u‚‘|•|`Ò|Ğ|0ß|ĞÏ|°Õ|°İ|¹N‘|¤ ‘|ÿ|˜+‘|@Ø|]|ö|    FîOw{ïOw~Pw                ËRH       #   ˆ  |  RestoreSnapshot CreateSnapshot  S E C U R I T Y _ R e s t o r e     S Y S T E M _ R e s t o r e     S A M _ R e s t o r e   D e f a u l t P a s s w o r d   $ m a c h i n e . a c c     D R M D a t a   W P A   S y s t e m \ W P A         S y s t e m \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S e s s i o n   M a n a g e r \ W P A         M i c r o s o f t \ W i n d o w s \ C u r r e n t V e r s i o n \ P o l i c i e s \ R a t i n g s       M i c r o s o f t \ W i n d o w s \ C u r r e n t V e r s i o n \ H i n t s     M i c r o s o f t \ R e m o t e   D e s k t o p         C L S I D \ { 3 D A 1 6 5 B 6 - C C 4 1 - 1 1 d 2 - B D C 6 - 0 0 C 0 4 F 7 9 E C 6 B }         C L S I D \ { 8 D 8 7 6 3 A B - E 9 3 B - 4 8 1 2 - 9 6 4 E - F 0 4 E 0 0 0 8 F D 5 0 }     _ R e g R e p l a c e B a k     _ P e r R e s t o r e C o p y   S E C U R I T Y     S A M   S O F T W A R E     S Y S T E M     _ R E G I S T R Y _ M A C H I N E _     _ R E G I S T R Y _ U S E R _   S R T M C o m p r e s s S t o p     S R T M C o m p r e s s S t a r t   S R T M D i s a b l e   S R T M E n a b l e     S R T M F i f o S t o p     S R T M F i f o S t a r t   S R T M F i f o     S R T M T h a w     S R T M F r e e z e     c a t s r v u t . d l l     P e n d i n g F i l e R e n a m e O p e r a t i o n s   S y s t e m \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S e s s i o n   M a n a g e r     S y s t e m   C h e c k p o i n t   s r . m o f     f i l e l i s t . x m l     % S y s t e m R o o t % \ s y s t e m 3 2 \ r e s t o r e \     _ f i l e l s t . c f g     s r r p c   n c a l r p c   S R D a t a S t o r e   S R I d l e R e q E v e n t     S R S t o p E v e n t   S R I n i t E v e n t   S n a p s h o t C a l l b a c k s   C u r r e n t C o n t r o l S e t \ C o n t r o l \ S e s s i o n   M a n a g e r   R e s t o r e S a f e M o d e S t a t u s   R e s t o r e D i s k S p a c e E r r o r   S y s t e m R e s t o r e   R e s t o r e S t a t u s   C r e a t e F i r s t R u n R p     T e s t B r o a d c a s t   R e s t o r e I n P r o g r e s s   D e b u g B r e a k     T h a w I n t e r v a l     D i s k P e r c e n t   F i r s t R u n     S R S t a t u s     C o m p r e s s i o n B u r s t     T i m e r I n t e r v a l   R P L i f e I n t e r v a l     R P G l o b a l I n t e r v a l     R P S e s s i o n I n t e r v a l   D S M i n   D S M a x   D i s a b l e C o n f i g   D i s a b l e S R       S o f t w a r e \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s   N T \ S y s t e m R e s t o r e         S y s t e m \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ S R \ P a r a m e t e r s   M a c h i n e G u i d   S y s t e m R e s t o r e S n a p s h o t       S o f t w a r e \ M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ S y s t e m R e s t o r e \ C f g     F i l e s T o S n a p s h o t   M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ S y s t e m R e s t o r e       S o f t w a r e \ M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ S y s t e m R e s t o r e     S y s t e m \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ S R S e r v i c e \ P a r a m e t e r s     S y s t e m \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ S R S e r v i c e   n t u s e r . d a t     P r o f i l e I m a g e P a t h         S o f t w a r e \ M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ P r o f i l e L i s t     U S E R S   H a r d w a r e     . _ s r     p a t o v e r   P a t c h W i n d o w   R e f R P   F i f o e d     R P     _ r e s t o r e     S y s t e m   V o l u m e   I n f o r m a t i o n   f i f o . l o g         c h a n g e . l o g .   c h a n g e . l o g     r p . l o g     S y s t e m   R e s t o r e   S e r v i c e     S R     S R S e r v i c e   \     - i       % S y s t e m R o o t % \ s y s t e m 3 2 \ r e s t o r e \ r s t r u i . e x e     * R e s t o r e       / d       c l e a n m g r . e x e     % w i n d i r % \ s y s t e m 3 2 \ c l e a n m g r . e x e     IsAdminUser = %d    ::CheckMembership failed - %ls  ::AllocateAndInitializeSid failed - %ls d:\xpsp\admin\pchealth\sr\rstrcore\api.cpp  IsAdminUser ::AdjustTokenPrivileges(RESTORE) failed - %ls   Privilege '%ls' does not exist, probably user is not an admin.  ::AdjustTokenPrivileges(ENABLE) failed - %ls    ::LookupPrivilegeValue failed - %ls ::OpenProcessToken failed - %ls CheckPrivilege  Cannot enable SE_SHUTDOWN_NAME privilege... S e S h u t d o w n P r i v i l e g e   Cannot enable SE_RESTORE_NAME privilege...  S e R e s t o r e P r i v i l e g e     Cannot enable SE_BACKUP_NAME privilege...   S e B a c k u p P r i v i l e g e   S e T a k e O w n e r s h i p P r i v i l e g e     Cannot enable SE_SECURITY_NAME privilege... CheckPrivilegesForRestore   S e S e c u r i t y P r i v i l e g e   ::CreateProcess failed - %ls    szCmdLine='%s'  ::GetFullPathName failed - %ls  InvokeDiskCleanup   Call to RA failed   Calling  RA to preserve state   ::SRSetRestorePoint failed, nStatus=%d  InitiateRestore     S o f t w a r e \ M i c r o s o f t \ W i n d o w s \ C u r r e n t V e r s i o n \ R u n O n c e   RestoreInProgress is 0  ::SHDeleteValue failed - %ls    ::SHGetValue failed - %ls   ResumeRestore   ¹”\‚‰\ —\‰\    Creating drive list failed  Insufficient memory...  Not an admin user   Invalid parameter, ppCtx is NULL.   PrepareRestore  d r i v e t a b l e . t x t     ::LoadImage failed - %ls    d:\xpsp\admin\pchealth\sr\rstrcore\drvtable.cpp CRstrDriveInfo::GetIcon Incomplete Write (size=%d, written=%d)...   ::WriteFile failed - %ls    CRstrDriveInfo::SaveToLog   % d % %   ( % d   M B )     P C H S h e l l   W i n d o w       % w i n d i r % \ s y s t e m 3 2 \ r e s t o r e \ r s t r u i . e x e     ::SRUpdateDriveTable failed - %ls   ::EnableSR failed - %ls ::DisableSR failed - %ls    CRstrDriveInfo::ApplyConfig d:\xpsp\admin\pchealth\sr\rstrcore\srshutil.h   CSRDynPtrArray::AddItem m_llDSMax: %I64d, Size: %I64d   ! GetDiskFreeSpaceEx : %ld  ! RegOpenKeyEx : %ld    CRstrDriveInfo::InitUsage   ::GetVolumeInformation failed - %ls ::GetVolumePathNamesForVolumeName failed - %ls  CRstrDriveInfo::Init    Cannot read drive mount point...    Drive Guid is empty...  Cannot read drive ID... Unexpected EOF (size=%d, read=%d)...    ::ReadFile failed - %ls CRstrDriveInfo::LoadFromLog Status has been updated, m_dwFlags=%08X CRstrDriveInfo::UpdateStatus    CDriveTable::RemoveDrivesFromTable failed - %ls   szDTFile: '%ls'   Cannot load a drive table - %ls Loading drive table - %ls   ::CreateFile(volume) failed - %ls   Volume too small, excluded  Non-fixed drive   Mount=%ls Guid=%ls    ::FindFirstVolume failed - %ls  EnumVolumes Invalid parameter, ppRDI is NULL.   CreateAndLoadDriveInfoInstance  mount point too long %ls    Drive: %ls %ls  LoadDriveTable  UpdateDriveTable    CRestorePointEnum::FindNextRestorePoint failed - %ls    RPNum=%d    CRestorePointEnum::FindFirstRestorePoint failed - %ls   Loading current drive table failed  SR is DISABLED!!!   Cannot get disable reg key  SystemDrive=%ls Cannot get system drive - %ls   CreateDriveList     % S y s t e m R o o t % \ s y s t e m 3 2 \ r e s t o r e \ r s t r l o g . d a t   ::ExpandEnvironmentString failed - %ls  d:\xpsp\admin\pchealth\sr\rstrcore\logfile.cpp  CRestoreLogFile::Init   Invalid restore log file header signature...    ::CreateFile failed - %ls   File is already opened...   CRestoreLogFile::Open   File is not opened...   % s \ % s   ! SRMemAlloc for pBuf   CRestoreLogFile::WriteEntry CRestoreLogFile::WriteCollisionEntry    CRestoreLogFile::WriteMarker    Invalid parameter, ppLogFile is NULL.   OpenRestoreLogFile  CRestoreLogFile::ReadHeader CreateRestoreLogFile    ~Æ\†Æ\ŒÆ\~Æ\†Æ\/×\~Æ\íâ\Ù\kÉ\Ìé\şÚ\É\øß\Ş\~Æ\íâ\=á\É\ ä\ã\kÉ\Ìé\Ğä\no \ in the string  no second \ in the string   Acl file is %S  d:\xpsp\admin\pchealth\sr\rstrcore\mapentry.cpp GetDSRelativeFileName   ~Æ\†Æ\‡Ë\Null ACL... BAD SD FORMAT...        Src=%ls ::SetFileSecurity failed - %ls  ::GetFileSize failed - %ls      Acl=%ls SetAcl: Src=%ls, path=%ls, cbAcl=%d CRMESetAcl::Restore ~Æ\†Æ\hÏ\    Src=%ls, Attr=%08X  ::SetFileAttributes failed - %ls    SetAttrib: Src=%ls, Attr=%08X   CRMESetAttrib::Restore  ~Æ\†Æ\…Ğ\::DeleteVolumeMountPoint failed - '%ls' The file not found...   MountDelete: Src=%S alloca for size %d failed   CRMEMountDelete::Restore    ~Æ\†Æ\kÒ\CreateDirectory failed %S   MountDelete: Src=%S, Volume Name=%S CRMEMountCreate::Restore        To Src=%ls      From Dst=%ls    ::MoveFile failed - %ls RenameLockedObject      From Src=%ls to Dst=%ls ::MoveFileEx() failed - %ls CRestoreMapEntry::MoveFileDelay SRCreateSubdirectory failed - %ls   ! RenameLockedObject    Entry already exists, but is not a directory!!! The directory already exists... DirCreate: Src=%ls  CRMEDirCreate::Restore  ::RemoveDirectory failed - %ls  The directory not found...  DirDelete: Src=%ls  CRMEDirDelete::Restore      From Dst=%ls to Src=%ls     Dst=%ls The current directory not found...  DirRename: Src=%ls, Dst=%ls CRMEDirRename::Restore  Entry already exists!   FileCreate: Tmp=%ls FileCreate: Src=%ls CRMEFileCreate::Restore Processlocked: Alt=%ls  Processlocked: Tmp=%ls  Processlocked: Src=%ls  CRMEFileCreate::ProcessLocked   ::DeleteFile failed - '%ls' FileDelete: Src=%ls CRMEFileDelete::Restore FileModify: Tmp=%ls FileModify: Src=%ls CRMEFileModify::Restore ! FindFirstFile : %ld   ! MoveFile %ld: %S to %S    szAlt for unique shortname: %S  ! SRGetAltFileName  \ s r   Source filename same as dest's shortname    The target file already exists...   The current file not found...   FileRename: Dst=%ls FileRename: Src=%ls CRMEFileRename::Restore Invalid operation type - %d Filepath lengths too long   CreateRestoreMapEntry   d r i v e t a b l e . t x t     P l u g   &   P l a y   S e s s i o n   M a n a g e r   P e n d i n g   R e n a m e   O p e r a t i o n s   M o u n t   M a n a g e r   I n s t a l l e d   S e r v i c e s         S y s t e m \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ T i m e Z o n e I n f o r m a t i o n         C u r r e n t C o n t r o l S e t \ C o n t r o l \ T i m e Z o n e I n f o r m a t i o n   A l l o w P r o t e c t e d R e n a m e s   S f c S c a n   M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ W i n l o g o n         M i c r o s o f t \ W i n d o w s \ C u r r e n t V e r s i o n \ R u n O n c e         % S y s t e m R o o t % \ s y s t e m 3 2 \ c a t r o o t \ { F 7 5 0 E 6 C 3 - 3 8 E E - 1 1 D 1 - 8 5 E 5 - 0 0 C 0 4 F C 2 9 5 E E } \ t i m e s t a m p       - b     - c   % S y s t e m R o o t % \ s y s t e m 3 2 \ r e s t o r e \ r s t r m a p . d a t   ::RegOpenKey failed - %ls   d:\xpsp\admin\pchealth\sr\rstrcore\romgr.cpp    RegDeleteKey of %S succeeded    RegDeleteKey of %S failed ec=%d. Not an error.  DeleteRegKey    Successfully kept key %S    ::RegRestoreKey failed - %ls    ::RegCreateKeyEx failed - %ls   Current key %S did not exist. Leaving   Current DRM Key %S saved successfully   RegSaveKey of %S failed ec=%d   RegOpenKey of %S failed ec=%d   PersistRegKeys  % s % s \ % s . % s     \ s n a p s h o t   Old Key=%S, Value=%S    ! SRMemAlloc    SHGetValue failed - %ls New Key=%S, Value=%S    No value in %S  ValueReplace    RegQueryValueEx failed - %ls    Merge key - ignoring    Replacing key   Replacing value Key = %S    Name=%S     C u r r e n t C o n t r o l S e t \ C o n t r o l \ B a c k u p R e s t o r e \ K e y s N o t T o R e s t o r e     PreserveKeysNotToRestore    S y s t e m     %S -> %S    % s % s \ M F E X - % d . D A T     Src : %S, Dest : %S RestorePendingRenames   C l a s s e s \ % s     SRSetRegDword of safe mode status failed.ec=%d  Restore from safemode   SRSetRegDword failed.ec=%d  ::RegLoadKey failed - %ls   HandleSoftwareHive  RegisterNotificationDLL failed - %ls    ! SRSetRegMultiSz   ! malloc    RestoreMFE:%S, cbData2:%ld  Restore MFE entries exist   RestorePendingRenames failed - %ls  PersistRegKeys WPA New->New failed %d   PersistRegKeys WPA New->Old failed %d   HandleSystemHive    ::DeleteFile(timestamp) failed - %ls    S a m H i v e :     CSnapshot::GetSamHivePath failed - %ls  S y s H i v e :     CSnapshot::GetSystemHivePath failed - %ls   S W H i v e :       CSnapshot::GetSoftwareHivePath failed - %ls CRestoreOperationManager::T2HandleSnapshot  _wfopen failed on %s    % s - % s   :   F i f o e d   % s   o n   d r i v e   % s 
+     a   Fifoed %S on drive %S   WriteFifoLog    Deleting files failed error %ld DeleteAllFilesBySuffix  % s \ % s *     SetRestoreStatusFailed  ::ExpandEnvironmentStrings failed - %s  CRestoreOperationManager::Init  FindNextChangeLogEntry failed - %ls FindFirstChangeLogEntry failed - %ls    Drive #%d: Drv='%ls', DS='%ls'  CRestoreOperationManager::T2CreateMap   D e l n o d e _ R e c u r s e   ! MoveFile from %S to %S : %ld  Delnode_Recurse No more rps to fifo Target restore point reached    R P 0   ! FindSystemDrive   ! %s : %ld  L o a d D r i v e T a b l e     CRestoreOperationManager::T2Fifo       New=%ls     Src=%ls  ::MoveFile failed - %s  Fatal failure, initiating Undo...   Failure detected, initiating Undo...    ***Initiating Undo***   g_dwExistingMFEXMarker = %ld    Restore failed agin because of Disk full. Setting Error Disk full, initiating fifo to clean up memory...    Res=%d, Err=%d  ***Still less than 60MB free*** ! T2Fifo : %ld - ignoring   ***Less than 60MB free - initiating fifo*** ! GetDiskFreeSpaceEx : %ld - ignoring   . C A T     C a t R o o t   ! GetVolumeInformation : %ld    Ignoring ACL change on non-NTFS drive   CRestoreOperationManager::T2DoRestore   D e l e t i n g   c h a n g e l o g s   f r o m     % s \ % s % d   ::SrStopMonitoring failed - %ls ::SrCreateControlHandle failed again - %d   ::SrCreateControlHandle failed - %d CRestoreOperationManager::T2UndoForFail Invalid parameter, ppROMgr is NULL. CreateRestoreOperationManager   cSS.InitResourceSnapshot failed - %ls   ! PatchReconstructOriginal : %ld    CRestoreOperationManager::ROThreadProc  % s % d     Timeout while waiting for the restore thread finishes...    ::WaitForSingleObject failed - %ls  ::CreateThread failed - %ls CRestoreOperationManager::Run   N o t i f i c a t i o n   P a c k a g e s   C u r r e n t C o n t r o l S e t \ C o n t r o l \ L s a   S y s t e m \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ L s a     ! SamSetNextAvailableRid : %ld  ! SamGetNextAvailableRid : %ld  ! RegOpenKeyW on %S: %ld    ! RegLoadKeyW : %ld d:\xpsp\admin\pchealth\sr\rstrcore\password.cpp RestoreRIDs ! RegUnLoadKeyW 0n %S : %ld ! RestoreLsaSecrets : %ld   ! ForAllUsers : %ld ! RegLoadKeyW on %S: %ld    ! GetCurrentRestorePoint : %ld  ! GetSystemDrive : %ld  ! RtlAdjustPrivilege : %ld  RestorePasswords    \ S A M _ S E R V I C E _ S T A R T E D     ::SendMessage failed - %ls  d:\xpsp\admin\pchealth\sr\rstrcore\progress.cpp CRestoreProgressWindow::Create  ::SetDlgItemText failed - %ls   ::LoadString(%u) failed - %ls   Unknown Stage constant - %u CRestoreProgressWindow::SetStage    INTERNAL: m_dwPosLog(%u) is bigger than m_dwBase(%u)    m_dwStage(%u) is not Prepare or Restore...  CRestoreProgressWindow::Increment   ::InitCommonControlsEx failed - %ls CRestoreProgressWindow::Init    ::LoadImage(%d) failed - %ls    ::CreateCompatibleDC(NULL) failed - %ls CRestoreProgressWindow::LoadAndSetBrandBitmap   ::DestroyWindow failed - %ls    CRestoreProgressWindow::RPWDlgProc  Internal mismatch - hWnd=%08X, m_hWnd=%08X  ::CreateDialogParam failed - %ls    Invalid parameter, ppProgWnd is NULL.   CreateRestoreProgressWindow d:\xpsp\admin\pchealth\sr\rstrcore\srshutil.cpp ReadStrAlign4   ::FormatMessage failed - %ls    SRFormatMessage ShowSRErrDlg    SRGetRegDword   ::SHSetValue failed - %ls   SRSetRegDword   SRSetRegStr CSRStr::SetStr(LPCWSTR,int) Executable does not exist - '%ls'   ::LoadLibrary() failed - %ls    L o a d F i l e L i s t     Object does not exist - '%ls'       cszPath='%ls'   ::CreateFile() failed - %ls CSRLockFile::CSRLockFile()      S o f t w a r e \ M i c r o s o f t \ W i n d o w s   N T \ C u r r e n t V e r s i o n \ S y s t e m R e s t o r e \ S h e l l     L o c k F i l e L i s t     ::CloseHandle(m_aryLoad[%d]) failed - %ls   ::CloseHandle(m_aryLock[%d]) failed - %ls   CSRLockFile::~CSRLockFile   S R C o u n t e r   é  >  ´  ‚>  µ  ƒ>          é  †>     „>     …>          Group Policy disables SR configuration...   GetDlgItemText failed for IDC_DCU_HOWTO: %s o p e n         h c p : / / s e r v i c e s / s u b s i t e ? n o d e = T o p L e v e l B u c k e t _ 4 / F i x i n g _ a _ p r o b l e m & s e l e c t = T o p L e v e l B u c k e t _ 4 / F i x i n g _ a _ p r o b l e m / U s i n g _ S y s t e m _ R e s t o r e _ t o _ u n d o _ c h a n g e s   ! WinHelp : %ld d:\xpsp\admin\pchealth\sr\rstrcore\syscfg.cpp   SRCfgSingleDlgProc  s y s r e s t o r e . h l p     GetDlgItemText failed for IDC_NORMAL_DCU_HOWTO: %s  GetDlgItemText failed for IDC_SYSTEM_DCU_HOWTO: %s  SRCfgDriveSettingsDlgProc   SRCfgMultiDlgProc   % l s   ( % l s )   ::CreatePropertySheetPage failed - %ls  Drive List is empty...???   Group Policy disables SR... SRGetCplPropPage    SRRemoveRestorePoint    SRUpdateDSSize  SRSetRestorePointW  DisableSR   EnableFIFO  DisableFIFO EnableSR    EnableSREx  srclient.dll        ÿÿÿÿ    Ün\    ÿÿÿÿ(o\Lo\    ÿÿÿÿ    ¤o\m_pCurrentRp = NULL CRestorePointEnum::FindNextRestorePoint ! FindFirstRestorePoint : %ld   m_pRestorePointEnum=NULL    CChangeLogEntryEnum::FindNextChangeLogEntry Cannot allocate memory for m_pCurrentRp Cannot allocate pFindData   CRestorePointEnum::FindFirstRestorePoint    Out of memory   ! m_DSLock.Init : %ld   CChangeLogEntryEnum::FindFirstChangeLogEntry    \ R e s t o r e P o i n t S i z e   ! CreateFile on %S : %ld    ! ReadFile on %S : %ld  SRMemAlloc failed   CRestorePoint::ReadLog  Zero sized log : %ld    ! LogHeader for %S : invalid or corrupt ! Readfile: ToRead=%ld, Read=%ld bytes  No more entries Readfile could not read a DWORD End of file ReadFile failed, error=%ld  Change log %S not owned by admin or system  CChangeLogEntry::BuildList  BuildList : error=%ld   No more change logs Enumerating %S in %S    CRestorePoint::FindNextChangeLogEntry   ! BuildList : %ld   No changelog in %S  CRestorePoint::FindFirstChangeLogEntry  % s % 0 7 d % s     % s % d % s     % s * % s   RegDBRestore    RegDBBackup \ R e g i s t r y \ M a c h i n e \     R e s t o r e 1 2 2 3 1 2   S y s t e m \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ H i v e l i s t   . D E F A U L T     _ C l a s s e s     N T U S E R _   U S R C L A S S _   L o c a l   S e t t i n g s \ A p p l i c a t i o n   D a t a \ M i c r o s o f t \ W i n d o w s \ U s r C l a s s . d a t     % w i n d i r % \ s y s t e m 3 2 \ i n e t s r v \ m e t a b a s e . b i n     % w i n d i r % \ s y s t e m 3 2 \ i n e t s r v \ m e t a b a c k \   . M D   I I S D B   R e p o s i t o r y     C o m D b . D a t   F i l e   w a s     RegSaveKey failed for %S, error %ld Key %S did not exist, error %ld RegCreateKeyEx failed for %S, error %ld SaveRegKey  % s \ % s % s % s   Insuffcient buffer. Buffer passed in %d, Required %d    CreateNTUserDatPath CreateUsrClassPath  No old MFE entries exist    Old MFE entries exist   %S  ! \ ? ? \ % s   \ ? ? \ % s     R e g O p e n K e y     R e g L o a d K e y     SrMoveFileEx    % s \ % s % s   CreateUsrDefaultPath    d s t =     s r c =     SRCopyFile failed. ec=%d    SetFileAttributes failed %d GetFileAttributes failed %d SnapshotCopyFile    UsrClass cannot be copied. ec=%d. Ignoring this error   Usrclass.dat deleted    ! DeleteFile on usrclass.dat    NTuser.dat deleted  ! DeleteFile on ntuser.dat : %ld    ExpandEnvironmentStrings failed for %S, ec=%d   Error %d in querying Profilepath of %S  Error %d in opening ProfileList of %S   CopyUserProfile % s % s     Error getting function RegDBRestore. ec=%d  LoadLibrary of %S failed ec=%d  CSnapshot::GetCOMplusRestoreFN  ! MoveFile : %ld    ! ExpandEnvironmentStrings : %ld    ! SnapshotCopyFile : %ld    IIS snapshot does not exist RestoreIISSnapshot  AdjustTokenPrivileges %ld   SetThreadToken failed ec=%d LookupPrivilegeValue failed ec=%d   DuplicateTokenEx failed ec=%d   OpenProcessToken failed ec=%d   GetCurrentProcess failed ec=%d  CSnapshot::SetPrivilegeInAccessToken    L a s t A l i v e S t a m p     B a c k u p E x e c R e g \ M i c r o s o f t \ W i n d o w s \ C u r r e n t V e r s i o n \ R e l i a b i l i t y     B a c k u p E x e c R e g   %S is already a backup file. Ignoring   CopyHKLMHiveForRestore  Error %d in opening base key %S Failed ::RegLoadKey('%S') ec=%d LoadTempHKLM    Failed to restore COM DB. hr=0x%x   CSnapshot::RestoreCOMDbSnapshot % s % s \ % s % s % s   C a n ' t   f i n d     CheckHKLM file Security failed ec=%d    CheckHKLM file SAM failed ec=%d CheckHKLM file System failed ec=%d  CheckHKLM file Software failed ec=%d    CheckforCriticalFiles   DeleteFile failed ec=%d DeleteTempRestoreFile   % s \ * % s     ! DeleteFile : %ld  DeleteReconstructedTempFile DeleteAllReconstructedFiles . l o g     Exception code=%d   MyExceptionFilter   Handled exception - continuing  An exception occurred when loading and executing %S ! LoadLibrary on %S : %ld   ! GetProcAddress : %ld  Dll: %S, Error:%ld - ignoring   No registered callbacks CallSnapshotCallbacks       ÿÿÿÿŒ©\™©\        j©\! SrMoveFileEx : %ld    Trying movefileex   *** RegReplaceKey failed for %S, error %ld  SetNewRegistry  Cannot allocate memory  SaveRegKey or SetNewRegistry failed ec=%d   ProcessUserRegKeys  Error processing default key ec=%d  Error %d saving key %S - ignoring   Trying registry APIs for  %S    CopyUserProfile for %S failed. Error %d Enumerated Key %S   RegOpenKeyEx failed for ProfileList, error %ld  ProcessHKUsersKey   DoHKUsersSnapshot failed error %ld  \ W b e m \ R e p o s i t o r y     ! CoInitializeEx : %ld  SetPrivilegeInAccessToken failed ec=%d  ! SRMoveFileEx : %ld    ! MoveFile : %ld trying SrMoveFileEx    CoCreateInstance failed ignoring %x Wbem Pause failed ignoring %x   . b a k     Failed CopyFile_Recurse. Ignoring error=0x%x    Failed to create WMI temp dir. Ignoring error=0x%x  RestoreWMISnapshot  \ W b e m \ R e p o s i t o r y . t m p     ! RegEnumValue : %ld    % s \ % s - % d     No filelist files to snapshot/restore   SnapshotFilesKey=%S S o f t w a r e     ! CallSnapshotCallbacks : %ld - ignoring    CallbacksKey=%S % s \ % s \ % s     SnapshotRestoreFilelistFiles    SetNewRegistry failed for %S, error %ld, file %S    RestoreHKLMHive ProcessGivenFiles failed error %ld  % s \ % s * % s     LoadTempHKLM failed CopyFile failed. ec=%d  % s . b a c k u p h i v e   CSnapshot::RestoreRegistrySnapshot  copying hives failed error %ld  CheckforCriticalFiles failed ec=%d  InitRestoreSnapshot srrstr!Restored FilelistFiles
+  srrstr!Restored COMDb
+  srrstr!Restored WMI
+    srrstr!Restored IIS
+    srrstr!Restored registry
+   srrstr!Safe restore point %S
+   srrstr!Safe snapshot directory does not exist!
+ ! InitRestoreSnapshot   srrstr!GetCurrentRestorePoint failed!
+  srrstr!Error in RestoreSnapshot
+    *** Initiating UNDO for test purposes ***   D e b u g T e s t U n d o   Snapshot directory does not exist   CSnapshot::RestoreSnapshot  Initializing g_dwPatchWindow = %ld  d:\xpsp\admin\pchealth\sr\snapshot\snappatch.cpp    PatchGetPatchWindow Current Rp: %ld, Reference : %S RefRP does not exist either -- bailing    % s % l d     Original rp does not exist -- trying RefRP  PatchGetReferenceRpPath % s % l d   P a t c h G e t R e f e r e n c e R p P a t h   P a t c h G e t R p N u m b e r F r o m P a t h     No patching PatchReconstructOriginal    d r i v e t a b l e . t x t     removing %S from drivetable removedrivesfromtable   \ \ ? \ V o l u m e     ! CDataStore::GetVolumeInfo : %ld   CDataStore::GetVolumeInfo   . .     .   \ * . *     volume %S is active ! Mountpoint too long   ! Empty mountpoint  ! GetVolumePathNamesForVolumeNameW : %ld    CDataStore::IsVolumeDeleted             SRCLIENT.dll Z  \ F i l e S y s t e m \ F i l t e r s \ S y s t e m R e s t o r e   SrOpenPacket000 SetFileAttributes ignoring %ld  % S y s t e m D r i v e % \     % s % s \ % s   OpenService failed 0x%x OpenSCManager failed 0x%x   SetServiceStartup   ! QueryServiceConfig (first) : %ld  ! QueryServiceConfig (second) : %ld SR Service is not running   QueryServiceStatus failed 0x%x  IsSRServiceRunning  SR Service is running   IsSRServiceStopped  ControlService failed 0x%x  StopSRService   Cannot query secret %ws GetLsaSecret    Cannot set secret %ws   SetLsaSecret    File  exists    It is a Directory   GetFileAttributes failed 0x%x   Checking for %S DoesFileExist   SetSecurityInfo Error %u
+   SetSecurityDescriptorDacl Error %u
+ InitializeSecurityDescriptor Error %u
+  LocalAlloc Error %u
+    SetEntriesInAcl Error %u
+   AllocateAndInitializeSid Error %u
+  SetAclInObject  GetNamedSecurityInfo error %u
+  passed in SID is System SID passed in SID is Admin SID  AllocateAndInitializeSid Error %u   IsFileOwnedByAdminOrSystem  Could not create directory %S ec=%d CreateParentDirectory   Created directory %S    \ \ ? \     CreateBaseDirectory %S%S    %S %S   LogDSFileTrace  pfnMethod failed. ec=%d.file=%S     dwErr != ERROR_NO_MORE_FILES. It is %d  Base dir %S Ignoring long file %S   F i l e N a m e   i s       FindFirstFile failed ec=%d. Filename is %S  FindFirstFile returned %d   ProcessGivenFiles   F i l e D a t a   i s       DeleteGivenFile RegSetValueEx error 0x%x    RegCreateKeyEx error 0x%x   WriteRegKey Setting disk space error to %d  SetDiskSpaceError   ::RegQueryValueEx(data) failed - %ls    Value '%ls' is empty... Type of '%ls' is %u (not REG_MULTI_SZ)...   ::RegQueryValueEx(len) failed - %ls ::RegOpenKey() failed - %ls SRGetRegMultiSz ::RegSetValueEx() failed - %ls  SRSetRegMultiSz ChangeCCS: pszString = %S   C o n t r o l S e t % 0 3 d     C u r r e n t   ChangeCCS   S e l e c t     C o n t r o l S e t 0 0 1   C u r r e n t C o n t r o l S e t   Couldn't get alternative name.  SRGetAltFileName    ( % d ) % s     Failed to load framedyn.dll on second attempt. ec=%d    \ w b e m \ f r a m e d y n . d l l     Buffer not big enough. WinSys is %d chars long  Failed to load system directory. ec=%d  Failed to load framedyn.dll on first attempt. ec=%d LoadFrameDyn    f r a m e d y n . d l l     Failed to load srclient.dll. ec=%d  s r c l i e n t . d l l     Failed to load framedyn.dll LoadSrClient    Filename not of proper length %d    GetVolumeInformation failed : %ld   IsVolumeNTFS    DeleteFile or TakeOwn failed with %d    RemoveDirectory failed with %d  Delnode_Recurse failed with %d, ignoring    Delnode_Recurse failed with %d  E x i s t i n g M o v e d   e n c r y p t . t m p   Src='%ls'   d:\xpsp\admin\pchealth\sr\utils\ntfs.cpp    ClearFileAttribute  ::SetNamedSecurityInfo failed - %ls ::GetTokenInformation(get) failed - %ls ::GetTokenInformation(query) failed - %ls   TakeOwnership   ::BackupRead(TRUE) failed - %ls ::BackupWrite(TRUE) failed - %ls    ::BackupWrite() failed - %ls    ::BackupRead() failed - %ls cszDst='%ls'    cszSrc='%ls'    CopyACLProtectedFile    FEExportFunc    FEImportFunc      cszDst='%ls'    szTmp ='%ls'  ::MoveFile failed - %d  ::CreateDirectory failed - %d   ::CreateDirectory(tmp-in-root) failed -%d   ::CreateDirectory(tmp-in-DS) failed - %d    SRCreateSubdirectory    SetFileTime of dest file failed ec=%d   GetFileTime of src failed ec=%d CreateFile of dst failed ec=%d  CreateFile of src failed ec=%d  CopyFileTimes    File is encrypted %S   ! GetFileAttributes ec=%d   IsFileEncrypted IsParentDirectoryEncrypted  !SetFileShortName (it is a FAT drive?) %d %S    File was=%S ::CreateFile() failed - %d  SetShortFileName    ::SRCopyFile() failed - %ls   szEnc ='%ls'  ::WriteEncryptedFileRaw() failed - %ls  ::OpenEncryptedFileRaw(write) failed - %ls  ::SetFilePointer failed - %ls   ::ReadEncryptedFileRaw() failed - %ls   szSrc='%ls' ::OpenEncryptedFileRaw(read) failed - %ls   szEnc='%ls' ::GetTempFileName failed - %ls  i e f   szTmp='%ls' c e f   ::CreateDirectory(tmp-in-root) failed -%ls  ::CreateDirectory(tmp-in-DS) failed - %ls   ::DeleteFile failed - %ls   CopyEncryptedFile   ::CopyFile failed - %ls Source file does not exist...???    Dest %S Source %S   SRCopyFile  Thread(%08x) got DS lock    Thread(%08x) cannot get DS lock CLock::Lock Thread(%08x) released DS lock   CLock::Unlock   INTERNAL__AsyncBinaryTrace  INTERNAL__AsyncStringTrace  INTERNAL__SetAsyncTraceParams   INTERNAL__DebugAssert   INTERNAL__FlushAsyncTrace   INTERNAL__TermAsyncTrace    INTERNAL__InitAsyncTrace    a t r a c e . d l l     EnabledTraces       ÿÿÿÿ    -\ş–Á~pÑ­ ÀOØıÿ¦ÜsÏˆM ª K.$š<5IkQÑ®¦ ÀO¶ˆ €¦ÜsÏˆM ª K.$™ÜV•Œ‚Ï£~ ª 2@Ç‡¦ÜsÏˆM ª K.$x…|sÏˆM ª K.$áGy1×Î£W     u¦¬DüèĞ | ÀO¶ˆ t¦¬DüèĞ | ÀO¶ˆ Œºú#Ñ­y ÀOØıÿs1q4ôLš|W¤JçV¼á‡ë32Ò®É ÀO¶ˆ Ç2Ä‹¼Ò…Ô ZƒÅŞY£è4HŠ*ºw}v™<5IkQÑ®¦ ÀO¶ˆ ˆÂ'®yÒ³H Zw’<5IkQÑ®¦ ÀO¶ˆ øE:Ğ‰ ª K.$˜fKg’îĞ­q ÀOØıÿ( ½I#Ñ­y ÀOØıÿ†0ešOÒµù Kp>ıW—¯m7.Ò®É ÀO¶ˆ ½á‡ë32Ò®É ÀO¶ˆ Æ2Ä‹¼Ò…Ô ZƒòfÇVÑ­‡ ÀOØıÿUğ„³K§ÕV§CZ›¦ù³·ÕÓ¡ ZQZ:ˆ¿¿×ÊÓ¡ ZQZN—¯m7.Ò®É ÀO¶ˆ P o l i c y \ P o l S e c r e t E n c r y p t i o n K e y   F   S A M \ D o m a i n s \ A c c o u n t   C   V   % s % 8 . 8 l x     S A M \ D o m a i n s \ A c c o u n t \ U s e r s \     NTPASSWORD  C o n t r o l \ L s a \ D a t a     C o n t r o l \ L s a \ G B G   C o n t r o l \ L s a \ S k e w 1   % s % 0 3 d \ % s   C o n t r o l S e t     C o n t r o l \ L s a \ J D     0123456789012345678901234567890123456789    !@#$%^&*()qwertyUIOPAzxcvbnmQQQQQQQQQQQQ)(*@&%      H                                                           Ø|\Àˆ\!   RSDSG5B]ÆÛ>L¢‡éÜ½b   srrstr.pdb              np 0A UA }A ™A ²A ÙA óA B ^B ™B °B ØB C ­C ÔC D D CD ]D D ¡D »D ×D ğD 	E 1E KE eE E —E ²E ÌE                  ¡ôŠ\ÿôŠ\…Àué‘ ÃÌÌÌÌÌÿôŠ\uéâ ÃÌÌÌÌÌÇA   ÃÌÌÌÌÌÇA   ÃÌÌÌÌÌ‹ÿU‹ìEPÿuÿuèŞ ]ÃÌÌÌÌÌ‹ÿU‹ìV‹ñèã  öEtVèÈâ  Y‹Æ^]Â ÌÌÌÌÌ‹ÿV‹ñ‹F…ÀtPj ÿX\Pÿ\\ƒf ƒ& ƒf 3À@^ÃÌÌÌÌÌ‹ÿU‹ìƒì¡Ø|\SVW3Û‰EüEğPSSSSSSh   j jEôP3ÿ‰]ğˆ]ôˆ]õˆ]öˆ]÷ˆ]øÆEùÿ \…ÀuCè)t ö´¥\‹ğ„©   jhè$\hª   h¼$\èì …À„‹   Vh”$\SèÿÿÿƒÄëzEìPÿuğSèş …Àu2èÕs ö´¥\‹ğtYjhè$\h±   h¼$\èœ …Àt?Vht$\ë²ö´¥\t+jhè$\hµ   h¼$\èq …Àtÿuìh`$\Sè‰şÿÿƒÄ‹}ì9]ğt	ÿuğÿ˜\‹Mü‹Ç_^[èğŞ  ÉÃÌÌÌÌÌ‹ÿU‹ìƒì4SVWEüP3ÿj(‰}ø‰}üÿL\Pÿ¬\…ÀuGè s j[„´¥\‹ğ„  ShØ%\hÚ   h¼$\èâŒ …À„d  Vh¸%\WèøıÿÿƒÄéP  EìPÿuWÿ¨\…Àu;èÇr j[„´¥\‹ğ„(  ShØ%\hâ   h¼$\è‰Œ …À„  Vh”%\ë¥‹Eì‹5¤\j‰Eà‹Eğ[‰EäEôPEÌPjEÜPWÿuüÇEÜ   ‰]èÿÖ…Àu;èUr „´¥\‹ğ„¹   ShØ%\hí   h¼$\èŒ …À„œ   Vhd%\é3ÿÿÿÿP\=  u.„´¥\t|ShØ%\hõ   h¼$\èİ‹ …Àtcÿuh$%\éøşÿÿ9}tJ9}ÌvEWWjEÌPWÿuüÿÖ…Àu3èÃq „´¥\‹ğt+ShØ%\h  h¼$\èŒ‹ …ÀtVhô$\é©şÿÿÇEø   9}ü_^[t	ÿuüÿT\‹EøÉÂ ÌÌÌÌÌ‹ÿVè4üÿÿ¹\3öèÑj Vh\'\èşÿÿ…Àu=ö´¥\„  jh@'\hS  h¼$\è‹ …À„û   h'\Vè*üÿÿYYéé   Vhà&\è·ıÿÿ…Àuö´¥\„Í   jh@'\hX  é¡   Vh¼&\èŠıÿÿ…Àu2ö´¥\„    jh@'\h^  h¼$\èšŠ …À„‚   h&\ë…Vhh&\èIıÿÿ…Àu-ö´¥\tcjh@'\hc  h¼$\è]Š …ÀtIh<&\éIÿÿÿVh&\èıÿÿ…Àu-ö´¥\t'jh@'\hh  h¼$\è!Š …Àthè%\éÿÿÿ3öFèûÿÿ‹Æ^ÃÌÌÌÌÌ‹ÿU‹ììd  ¡Ø|\SVW‹}¹\‰Eüèki h  …ôıÿÿPÿ5´q\ÿ<\…À»Ô'\¾¼$\uNèÌo ö´¥\‰…ğıÿÿt'jSh’  Vè—‰ …Àtÿµğıÿÿh´'\j è«úÿÿƒÄÿ5¸q\…ôıÿÿPÿ@\…ÿt'fƒ? t!ÿ5¼q\…ôıÿÿPÿD\W…ôıÿÿPÿD\ö´¥\t(jShœ  Vè)‰ …Àt…ôıÿÿPh¤'\j è<úÿÿƒÄjY3À½œıÿÿó«…àıÿÿP3ÿ…œıÿÿPWWWWWW…ôıÿÿPWÇ…œıÿÿD   ÿH\…Àu<èãn ö´¥\‰…ğıÿÿt>jSh¢  Vè®ˆ …Àt,ÿµğıÿÿh„'\WèÃùÿÿƒÄëÿµäıÿÿ‹5T\ÿÖÿµàıÿÿÿÖ‹Mü_3À^@[è"Ú  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì@  ¡Ø|\SV‹uW‹}‰Eüè)ùÿÿ¹\èÈg ƒ¥Üûÿÿ ƒ¥àûÿÿ èÅùÿÿ…À»  €„-  h  …ôıÿÿPÿ5Äq\ÿ<\ÿ5Èq\…ôıÿÿPÿD\…ôıÿÿPÿ5Àq\hX(\Sèæ¸  …À„â  jÿ5Ôq\ÿ5Ìq\SèZ¸  …À„Æ  h  j ÿ8\Pÿ<\jC‰…àûÿÿÇ…äûÿÿf   ÿ@\÷ØÀƒ¥ìûÿÿ ƒ¥ğûÿÿ ƒàƒÀj@‰…èûÿÿ…ôûÿÿPh   ÿ5 \ÿD\…ĞûÿÿP…äûÿÿPè.@ …ÀuEö´¥\„>  jhD(\hè  h¼$\è‡ …À„   ÿµĞûÿÿh(\j è'øÿÿƒÄé  …ÿ‹…Ôûÿÿt‰‹N÷ÙÉ3Òƒá9V‰…Èûÿÿ‹F•Â‰…ÌûÿÿƒÆV…ÀûÿÿPÊ‰Àûÿÿ‹Nü‰ÄûÿÿèA1  …À„‰   ö´¥\¿D(\¾¼$\t jWhü  Vè~† …Àthü'\j è˜÷ÿÿYYj è]‡ „Àu)ö´¥\t jWh   VèJ† …Àthè'\j èd÷ÿÿYY3öFVÿ5Ğq\ÿ5Ìq\Sè¿¶  …Àt‰µÜûÿÿë9…ĞûÿÿP…äûÿÿPÇ…èûÿÿ   Ç…äûÿÿg   èß> ÿ5Àq\hX(\Sÿ¨\ƒ½àûÿÿ _^[tÿµàûÿÿÿ<\è½öÿÿ‹Mü‹…Üûÿÿèd×  ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìWè~öÿÿ¹\èe 3ÿ‰}ø‰}üè+úÿÿ…À„  SVj[EôPEìPEğPÿ5Ğq\¾  €ÿ5Ìq\‰]ğV‰]ôÿĞ\…Àt8è\k „´¥\‹ğ„Ğ   Sh)\hC  h¼$\è!… …À„³   Vhô(\ëKÿ5Ğq\ÿ5Ìq\Vÿ¨\…Àt?èk ö´¥\‹ğ„€   jh)\hJ  h¼$\èĞ„ …ÀtfVhÔ(\WèêõÿÿƒÄëU9}ìu0„´¥\tHSh)\hO  h¼$\è™„ …Àt/h¼(\Wè´õÿÿYYë EüPè†’  …Àt‹Mü3öFVè¬•  …Àt‰uø^[‹Mü;Ïtè$„  ‰}üèMõÿÿ‹Eø_ÉÃÌÌÌÌÌ‹ÿVW‹ù‹wë‹G‹°…ÉtjènõÿÿNyì‹Ï_^éˆõÿÿÌÌÌÌÌ‹Á3ÉÇ  )\‰H‰H‰HƒHÿ‰H‰HÃÌÌÌÌÌ¸0A\è1Ø  QV‰MğÇ )\ƒeü q‹Îèÿÿÿ‹Îè6õÿÿ‹Mô^d‰    ÉÃÌÌÌÌÌ‹ÿU‹ìQ‹Efƒ  ƒeü VW‹ñ‹~OxKS‹D\‹F‹¸èB  …Àu‹F‹¸è  …Àt"h0)\ÿuÿÓ‹F‹¸èŸ  PÿuÿÓÇEü   Oy½[‹Eü_^ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹ñèCÿÿÿöEtVèR×  Y‹Æ^]Â ÌÌÌÌÌ‹ÿU‹ìƒìWèôóÿÿ3ÿ¹\‰}ô‰}ø‰}üèˆb jEôPWèù  …Àt+V‹uøN;÷|!‹Eü‹°èœ  …ÀuNyîë‹Eü‹°èm  ‹ø^è¹óÿÿMôèôÿÿ‹Ç_ÉÃÌÌÌÌÌ‹ÿU‹ìQSWè€óÿÿ3Û¹\‰]üèb ‹};ûu2ö´¥\„
+  jh )\h|  h¼$\èd‚ …À„ì   h|)\ë;‰èêóÿÿ…Àu=ö´¥\„Í   jh )\hƒ  h¼$\è'‚ …À„¯   hh)\Sè>óÿÿYYé   VjèoÖ  ;ÃYt‹Èèáıÿÿ‹ğë3ö;óu2ö´¥\tujh )\hŠ  h¼$\èĞ …Àt[hP)\SèëòÿÿYYëL‹ESNQP‰Fèµ  …ÀuFö´¥\t'jh )\h‘  h¼$\è‰ …Àth4)\Sè¤òÿÿYY‹‹ÎÿP^èhòÿÿ‹Eü_[ÉÂ ‰7ÇEü   ëæÌÌÌÌÌ…Étjèşÿÿ3À@ÃÌÌÌÌÌ¸UA\èzÕ  QV‹ñWN‰uğè‘­  3ÿN‰}üè„­  NÆEüèx­  ‹Mô‰>‰~‰~ ‰~,‰~4‰~8‰~<‰~@‰~H‰~LÇF(  €ÇF0   _‹Æ^d‰    ÉÃÌÌÌÌÌ¸UA\èÕ  QV‹ñW‰uğ‹F…À‹=4\ÇEü   tPÿ×‹F …ÀtPÿ×Nè²  NÆEü è
+²  ƒMüÿNèş±  ‹Mô_^d‰    ÉÃÌÌÌÌÌ‹ÁèƒàÃÌÌÌÌÌ‹ÑèƒàÃÌÌÌÌÌ‹ÁèƒàÃÌÌÌÌÌ‹ƒàÃÌÌÌÌÌ¸}A\èmÔ  ƒìƒeğ Vq‹Îè‘¬  …À~‹Æëÿ5Øq\MèèR²  ƒeü ÇEğ   ‹Èè°¶  ƒMüÿöEğ‹ğtMèè_±  ‹Mô‹Æ^d‰    ÉÃÌÌÌÌÌ¸}A\èÔ  ƒìƒeğ Vq‹Îè%¬  …À~‹Æëÿ5Øq\Mèèæ±  ƒeü ÇEğ   ‹ÈèD¶  ƒMüÿöEğ‹ğtMèèó°  ‹Mô‹Æ^d‰    ÉÃÌÌÌÌÌ¸}A\è•Ó  ƒìƒeğ Vq‹Îè¹«  …À~‹Æëÿ5Øq\Mèèz±  ƒeü ÇEğ   ‹ÈèØµ  ƒMüÿöEğ‹ğtMèè‡°  ‹Mô‹Æ^d‰    ÉÃÌÌÌÌÌ‹ÿU‹ìVÿu‹ñNè±  ÿuNèú°  ^]Â ÌÌÌÌÌ‹ÿU‹ìS3ÀV‹u…ö”À\ƒ; u‹Æ÷ØÀƒà&W‹=@\ƒÀPÿ×÷Şöƒæ&ƒÆV‰Eÿ×j Pÿujjfÿ5 \ÿ0\…À_u<è}d ö´¥\‹ğt.jh*\h  hì)\èD~ …ÀtVhĞ)\j è]ïÿÿƒÄë‰‹^[]Â ÌÌÌÌÌ‹ÿU‹ìì(  ¡Ø|\ƒ¥Üøÿÿ S‹]VW‹ù‰Eü‹O‰…àøÿÿè°´  P…äøÿÿPèª  ‹ğOƒÆè–´  P„5àøÿÿPèé©  Oğè~´  P„5àøÿÿPèÑ©  ğj …ØøÿÿPV…àøÿÿPSÿ8\…Àu<è¢c ö´¥\‹ğtyjh|*\h  hì)\èi} …Àt_Vh`*\j{è‚îÿÿƒÄëM9µØøÿÿt;ö´¥\t<jh|*\h  hì)\è,} …Àt"ÿµØøÿÿVh4*\j{è?îÿÿƒÄë
+Ç…Üøÿÿ   ‹Mü‹…Üøÿÿ_^[è§Î  ÉÂ ÌÌÌÌÌ‹A8ÃÌÌÌÌÌ‹ÿU‹ìQQSV‹ñ‹F0‹N4‹^,W‹~(‹Ğ+×‹ùû‰}üx3…Òv-‹V(‹~,j ÿv@+ÂÏQPè@Ò  j j
+RPè…Ñ  ‹ø~(‹Ú^,ë‹~(‹FHFLt5‹FH‹vLj hÈ   VP‰EøèçĞ  j ÇjdÓRPèøÑ  VÿuøRPèÍĞ  ‹ğë3öj h   SWè)Ñ  PVh˜*\ÿuÿ,\ƒÄ_3À^@[ÉÂ ÌÌÌÌÌ‹ÿU‹ì‹E‰A<]Â ÌÌÌÌÌ‹ÿU‹ì‹E‰A@]Â ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\fƒ¥ôıÿÿ VW‰Eü3À¹   ½öıÿÿó«f«¾  V…ìûÿÿPhØ*\ÿ<\…Àt@V…ôıÿÿPh   …ìûÿÿPè&V …Àu#…ôıÿÿPh´*\ÿ$\…Àtj j jPÿ(\‹Mü_^èÍ  ÉÃÌÌÌÌÌ‹ÿU‹ì¸  è%Ñ  ¡Ø|\ƒ¥èëÿÿ S‹]V‹ñ‹Áé‰Eü‹F<ƒá;ÁW„~  …À„  ‹=D\h   …ü÷ÿÿPh   ÿ5 \ÿ×öth  …ìëÿÿPh  ÿ5 \ÿ×ë8‹Îèvûÿÿ…Àt‹Îèkûÿÿ‹øë¿ğ"\‹ÎèïúÿÿPW…ìëÿÿh  Pè©  ƒÄj…ü÷ÿÿP…ìëÿÿPSÿ \ƒøu‹Áèƒà‰F<ép  ötèwşÿÿNè#±  Pè‰3 ‹ø…ÿtRh(  èf©  WèQQ ö´¥\‹ğ„3  jh|+\hÆ  hì)\èz …À„  Vh`+\j è4ëÿÿƒÄé   ƒë^jNè¶°  Pè3 ‹ø…ÿtEh(  èù¨  WèäP ö´¥\‹ğ„Æ   jh|+\hØ  hì)\è²y …À„¨   VhH+\ë‘ƒ&û‹V@;V8„‡   ‹~(‹F0‹^,‹N4+ÇËx!…ÀvQPj RèÏ  j j
+RPèTÎ  ÇÓë‹Ç‹ÓRPNè°  PèQ2 …Àt6PèOP ö´¥\‹ğt5jh|+\hì  hì)\è!y …ÀtVh$+\éÿÿÿ‹F@‰F8Ç…èëÿÿ   ‹Mü‹…èëÿÿ_^[è£Ê  ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹ñ‹W3ÿ9Fuh‹NƒÀ‰Áà;ÏPuWÿX\Pÿ0\ëQWÿX\Pÿ4\;Çu2ö´¥\t>jhÈ+\h³   h˜+\è„x …Àt$hP)\WèŸéÿÿYYë‰F‹F‹N‹U‰ÿF3ÿG‹Ç_^]Â ÌÌÌÌÌ‹ÿU‹ì‹E;|3Àë‹QV‹u‰4‚;A^|@‰A3À@]Â ÌÌÌÌÌ‹ÿU‹ìƒì0SVW‹ñ‹$3ÿöØ‰}üÇEô   ÇEğ  À%–   ƒÀ2‰EøEüPh  Wÿ5Üq\h  €ÿ´\‹Ø;ßuFEôPÿ5ìq\ÿuüè.7 EğPÿ5äq\ÿuüè7 ötEøPÿ5èq\ÿuüè7 ÿuüÿ°\ë/ö´¥\t&jh4,\j`hì)\èiw …ÀtSh,\WèƒèÿÿƒÄW^HSEØPÿu‰}Ø‰}Üÿ,\…ÀuBö´¥\„Ò  jh4,\jghì)\èw …À„·  ÿP\Ph ,\Wè*èÿÿƒÄé  ‹Eø¿   ‹Ï÷á‹Ê‹‹[;Ù‰UĞw
+r;Ğs‹Â‹ËSRj ÿuô‰F(‰N,è`Ì  j jdRPè5Ë  ‹Ê‰Eà‹Eğ‹×÷â;Ñ‰Eè‰Uìrw;Eàv‹Ğ‹Eìë‹Uà‹Á;Øwr9UĞs‹EĞ‹Ëë9Mìrw‹Eè;Eàv‹Eè‹Mìë‹Eà‰N4‹V4‹N(‰F0‹F,;Ğ|‹V0;Ñs‰N0‰F4j Wÿv4ÿv0è Ë  j WRPèÆË  ‹}‹]‰F0‰V4ö´¥\t.jh4,\j{hì)\è v …ÀtWSÿv4ÿv0hà+\j èçÿÿƒÄ‹ÃÇt‹N4;ù‹F0|;Øv
+‹F0‹N4‹Ø‹ù‹V(+Ú‰]‹^,û‰}xNƒ} vF+ÂË‰Eà‰Mäx:…Àv4j jQPè|Ê  j j
+ÿu‹øÿu‹ÚèË  ÿuäøÿuàÚSWèXÊ  ‰F8ëƒf8 ‹F8‰F@_3À^@[ÉÂ ÌÌÌÌÌ‹ÿU‹ìì$  ¡Ø|\‰Eü‹ES‹]‰…èûÿÿ‹EV‹ñ‰…äûÿÿ‹ESN‰è=§  ö…  W…ÜûÿÿP¿  W…ôıÿÿPSÿ \…ÀuRÿP\=ê   tEèïZ ö´¥\‰…àûÿÿtHjh¤,\h«   hì)\è²t …Àt.ÿµàûÿÿht,\j èÆåÿÿƒÄëfƒeú …ôıÿÿPÿ$\ƒød~ÿµèûÿÿ…ôıÿÿPÿ@\3ÀPPPPPW…ìûÿÿPSÿ(\…ÀuMèfZ ö´¥\‹øt*jh¤,\h¿   hì)\è-t …ÀtWhP,\j èFåÿÿƒÄÿµäûÿÿ…ìûÿÿPÿ@\_fƒ½öıÿÿ:ufƒ½øıÿÿ\ufƒ½úıÿÿ ufƒ¥øıÿÿ …ôıÿÿPNèû¥  …ìûÿÿPNèì¥  ÿu‹ÎÿuSè”ûÿÿ‹3ÀÁé@#È‰N<‹Mü^[èNÅ  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\ƒ¥ğıÿÿ SVW‹}j ‰Eü…ìıÿÿPj[S‹ñVWÿ\…ÀuEèkY „´¥\‹ğ„±  ShP-\h%  hì)\è0s …À„”  Vh8-\j èEäÿÿƒÄé  9ìıÿÿtD„´¥\„k  ShP-\h%  hì)\èêr …À„N  ÿµìıÿÿSh-\j{èùãÿÿƒÄé3  …ôıÿÿPWèøŸ  …Àu>ö´¥\„  jhP-\h*  hì)\è“r …À„÷   hø,\j è©ãÿÿYYéä   3Ûf9ôıÿÿu2ö´¥\„Ì   jhP-\h/  hì)\èJr …À„®   hà,\ë…ôıÿÿPNèW¤  …ôıÿÿPWè]Ÿ  …Àuö´¥\t~jhP-\h7  ë5…ôıÿÿPNè ¤  …ôıÿÿPWè&Ÿ  …Àu.ö´¥\tGjhP-\h?  hì)\èÅq …Àt-h¼,\Sé2ÿÿÿ…ôıÿÿPNèÒ£  ‹3À@Áé#È‰N<‰…ğıÿÿ‹Mü‹…ğıÿÿ_^[è5Ã  ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹ñƒ& ƒ} tÇ   ëöE@jXt‰„Etƒë	öEuƒö´¥\t+jh”-\hm  hì)\è$q …Àtÿ6hl-\j è<âÿÿƒÄ^]Â ÌÌÌÌÌ…Étjè?âÿÿ3À@ÃÌÌÌÌÌ¸™A\è-Å  ì<  ¡Ø|\VW‹}‰Eğh  …èıÿÿ3öP‰½Ìûÿÿ‰µÄûÿÿ‰µØûÿÿÿ\ƒøÿ‰…ÔûÿÿuFè¶V ö´¥\‹ø„·  jh¼.\h  hì)\èyp …À„™  Whœ.\VèáÿÿƒÄé…  V‹Ïèm÷ÿÿ…À„u  S»¼.\¿ì)\ö´¥\t'jSh*  Wè+p …Àt…èıÿÿPh.\Vè?áÿÿƒÄ…¸ûÿÿPh  …àûÿÿP…èıÿÿPÿ \…ÀuKÿP\=ê   t>èôU ö´¥\‰…Üûÿÿ„…  jSh/  Wè»o …À„o  ÿµÜûÿÿht,\é¬  …àûÿÿPf‰µæıÿÿÿ$\ƒødB  ö´¥\t'jSh:  Wèoo …Àt…àûÿÿPh„.\VèƒàÿÿƒÄ…àûÿÿPÿ\ƒøt-ö´¥\„ó  jSh=  Wè)o …À„İ  ht.\é¸   …ĞûÿÿPh  Vÿ5Üq\h  €ÿ´\;Æ…Ÿ   …ÈûÿÿPÿ5èq\Ç…ÈûÿÿÈ   ÿµĞûÿÿèD. ÿµĞûÿÿÿ°\V…¼ûÿÿPV…àûÿÿPÿ,\ƒøuV‹…Èûÿÿ‹•Àûÿÿ3ÉÁà;ÑwAr
+‹¼ûÿÿ;Èw5ö´¥\„6  jShP  Wèln …À„   hX.\VèƒßÿÿYYé  Vh   jVjh   €…èıÿÿPÿ\ƒøÿuGèCT ö´¥\‰…Üûÿÿ„Ô   jSh[  Wè
+n …À„¾   ÿµÜûÿÿh4.\VèßÿÿƒÄé¥   PÿT\jPèEÂ  Y‰…Øûÿÿ;Æ‰uüt	‹Èèˆìÿÿ‹ğƒMüÿ…ö‰µØûÿÿ„š   …èıÿÿPÇ…Üûÿÿ   èy, …À‹ÌûÿÿVtj Ç…Üûÿÿ   è1õÿÿëè‘ôÿÿ…À„‚   3ÀPàûÿÿQPPÿµÜûÿÿ…èıÿÿP‹Îèøÿÿ…Àt^ƒ¥Øûÿÿ 3öh  …èıÿÿPÿµÔûÿÿÿ\…À…âüÿÿÇ…Äûÿÿ   ë+ö´¥\t jShd  Wèm …ÀthP)\j èŞÿÿYY3ö9µØûÿÿ[tÿµÔûÿÿÿ\‹Mô‹…Äûÿÿ_d‰    ‹Mğ^èp¾  ÉÂ ÌÌÌÌÌ¸²A\èñÀ  SW‹}3Û;ûu:ö´¥\„¦   jhì.\hQ  hì)\è}l …À„ˆ   hÈ.\Sè”İÿÿYYëyVjP‰èÆÀ  Y‹È‰M;Ë‰]üt	èëÿÿ‹ğë3öƒMüÿ;óu2ö´¥\tEjhì.\hY  hì)\èl …Àt+hP)\Sè8İÿÿYYëÿu‹Îèmøÿÿ…Àt3Û‰7Cë‹Îèéúÿÿ^‹Mô_‹Ã[d‰    ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\ƒ¥èûÿÿ S‹]VW‹}‹ñSN‰EüèÓ  ·‡œ  ÿu‹ÎPèúÿÿƒ} ….  …äûÿÿPh  …ôıÿÿPSÿ \…ÀuTÿP\=ê   tGètQ ö´¥\‹ğ„y  jh¤,\hê   hì)\è7k …À„[  Vht,\j èLÜÿÿƒÄéF  fƒeú …ôıÿÿPÿ$\ƒød~:èQ ö´¥\‹ğ„  jh¤,\hô   hì)\èÙj …À„ı   Vh/\ë 3ÀPPPPPh  …ìûÿÿPSÿ(\…Àurè¾P ö´¥\‰…èûÿÿt/jh¤,\hş   hì)\èj …ÀtÿµèûÿÿhP,\j è•ÛÿÿƒÄfƒ¥ìûÿÿ ë%G0P…ôıÿÿPÿ@\‡8  P…ìûÿÿPÿ@\fƒ½öıÿÿ:ufƒ½øıÿÿ\ufƒ½úıÿÿ ufƒ¥øıÿÿ …ôıÿÿPNè/œ  …ìûÿÿPNè œ  ÿw‹ÎÿwSèÈñÿÿ‹3À@Áé#È‰N<‰…èûÿÿ‹Mü‹…èûÿÿ_^[èu»  ÉÂ ÌÌÌÌÌ¸ÙA\èö½  ì¨  ¡Ø|\SV‹u‰Eğ‹EW3ÿLıÿÿ‰µĞıÿÿ‰…äıÿÿ‰½Øıÿÿè_ VhøŠ\…èıÿÿP‰}ü‰½Üıÿÿ‰½àıÿÿè²) h°)\…èıÿÿPÿ¬\ö´¥\t/jh8/\h•  hì)\è(i …Àt…èıÿÿPh.\Wè<ÚÿÿƒÄ…èıÿÿPLıÿÿè ;Ç„‚   Pèü? j[„´¥\‹ğ„  Sh8/\h›  hì)\èÉh …ÀtVhø-\WèãÙÿÿƒÄ„´¥\„Ù  Sh8/\hœ  hì)\è•h …À„¼  …èıÿÿPhä-\Wè¥ÙÿÿƒÄé¢  ;÷uI9}Lıÿÿtè* ë7…ÜıÿÿP‰½Üıÿÿ‰½àıÿÿèH ë‹Èè^ …ÜıÿÿPLıÿÿèr ;Çuã…ÜıÿÿPLıÿÿ‰½Üıÿÿ‰½àıÿÿè é€  ö´¥\³8  ‰µÔıÿÿt-jh8/\h¹  hì)\èØg …ÀtVC0Ph(/\WèîØÿÿƒÄ9½ĞıÿÿtV‹…äıÿÿ‹pNxJ‹…äıÿÿ‹@‹<°‹ÏèiçÿÿPÿµÔıÿÿÿ\…ÀtNyÙëötƒ8  PC0P‹Ïè€èÿÿ3ÿ…öÎ   jPèÆ»  Y‰…Ìıÿÿ;ÇÆEüt‹Èèæÿÿ‹ğë3ö;÷ÆEü „Ç   9½Ğıÿÿuöƒœ  t3Àë3À@PSÿµÔıÿÿ‹Îè7ûÿÿ…Àt-‹Îè=çÿÿ…Àtb‹Îè2çÿÿf98tVö‹äıÿÿVtCWè‘îÿÿ…ÀuG;÷t‹ÎèÌõÿÿƒMüÿLıÿÿè6 ‹Mô‹…Øıÿÿ_^d‰    ‹Mğ[èY¸  ÉÂ è¶íÿÿë¼‹Îèõÿÿ…ÜıÿÿPLıÿÿèË ‹Ø;ß…vşÿÿÇ…Øıÿÿ   ëœö´¥\t“jh8/\hÒ  hì)\èNf …À„uÿÿÿhP)\Wèe×ÿÿYYécÿÿÿÌÌÌÌÌ¸óA\èkº  ì”  ¡Ø|\S‹]VW3ÿ`ıÿÿ‰Eğ‰½äıÿÿ‰½àıÿÿèİ …àıÿÿPÿ5àq\‰}üÿ5Üq\h  €è÷•  …Àt#9½àıÿÿt‹së‹C‹°Wj@è?ôÿÿNyïé}  WhøŠ\…èıÿÿPèø% h°)\…èıÿÿPÿ¬\ö´¥\¿H/\¾ì)\t(jWh  Vèle …Àt…èıÿÿPh.\j èÖÿÿƒÄ…èıÿÿP`ıÿÿèĞ …ÀtuPèC< ö´¥\‹Ø„ı   jWh   Vèe …ÀtShø-\j è2ÖÿÿƒÄö´¥\„Î   jWh!  Vèêd …À„¸   …èıÿÿPhä-\j èùÕÿÿƒÄé   `ıÿÿè‡ …Àt<Pè¿; ö´¥\‰…äıÿÿt'jWh)  Vè•d …Àtÿµäıÿÿh´-\j è©ÕÿÿƒÄ‹së@‹C‹<°‹Ïè9äÿÿP`ıÿÿèÒ 3Ò;ÂtH0;Êtf9t·€œ  RPëjR‹Ïè½òÿÿNy½Ç…äıÿÿ   ƒMüÿ`ıÿÿè ‹Mô‹…äıÿÿ_^d‰    ‹Mğ[è²µ  ÉÂ ÌÌÌÌÌ¸B\è3¸  ìŒ  ¡Ø|\ƒ¥lûÿÿ S‰Eğ‹EV»øŠ\S‰…pûÿÿèw" …ÀuGèÑI ö´¥\‹ğ„  jh\0\h~  hì)\è”c …À„î  Vh<0\j è©ÔÿÿƒÄéÙ  ö´¥\W¿\0\¾ì)\t"jWh  VèUc …ÀtSh,0\j ènÔÿÿƒÄ…hûÿÿPÿ5àq\ÿ5Üq\h  €èC“  …Àu6ö´¥\„t  jWh†  Vèc …À„^  h0\j èÔÿÿYYéK  ƒ½hûÿÿ tAö´¥\t jWhŒ  VèÊb …Àthü/\j èäÓÿÿYYÿµpûÿÿè¼ñÿÿ…À„  é÷  ‹pûÿÿj è«éÿÿ…À„ì  ÿuÿµpûÿÿj èÁøÿÿ…Àu-ö´¥\„Ë  jWh›  Vè\b …À„µ  hØ/\éRÿÿÿ3À9E–  PPStûÿÿèÀº  ƒeü ˜ıÿÿè§Ç  …˜ıÿÿPtûÿÿÆEüèh½  ‹Ø…ÛthƒûtVSè9 ö´¥\‹Øt"jWh©  Vèâa …ÀtSh /\j èûÒÿÿƒÄ˜ıÿÿÆEü èÈ  ƒMüÿtûÿÿè½  é  …Ût	ƒû…×   ˜ıÿÿè*Â  ;E‚Ã   …˜ıÿÿPtûÿÿè’º  ‹Øû  „£   …Ûtƒûudö´¥\t-jWh¸  VèJa …Àt˜ıÿÿèÒÁ  Ph”/\j èXÒÿÿƒÄ˜ıÿÿè·Á  ;E‚lÿÿÿÿu…œıÿÿÿµpûÿÿPèH÷ÿÿéRÿÿÿSè8 ö´¥\‹Ø„ÿÿÿjWh´  VèÚ` …À„ÿÿÿSh\/\éïşÿÿ˜ıÿÿÆEü èÇ  ƒMüÿtûÿÿèû»  Ç…lûÿÿ   _‹Mô‹…lûÿÿ^d‰    ‹Mğ[è6²  ÉÂ ÌÌÌÌÌ‹ÿV3À±  ‹@ƒùÿtQÿT\…Àtƒÿ^ÃÌÌÌÌÌ‹ÿVWh  Qÿ5ğq\3ÿÿ<\…Àu;èJF ö´¥\‹ğt.jh1\hp  hì0\è` …ÀtVhÄ0\Wè+ÑÿÿƒÄë3ÿG‹Ç_^ÃÌÌÌÌÌ‹ÿU‹ìƒìVW‹ñ3ÿƒ¾  ÿt2ö´¥\„k  jhœ1\j6hì0\è¸_ …À„P  h€1\é>  ‹ÎèLÿÿÿ…À„7  WWjWjh   ÀVÿ\ƒøÿ‰†  uCèŒE ö´¥\‹ğ„  jhœ1\jAhì0\èR_ …À„ê   Vhd1\WèhĞÿÿƒÄéÖ   WMüQjMğQPÿ\…Àu7è3E ö´¥\‹ğ„¬   jhœ1\jEhì0\èù^ …À„‘   Vh8-\ë¥ƒ}üt6ö´¥\tzjhœ1\jEhì0\èÇ^ …Àtcÿuüjh-\j{èÜÏÿÿƒÄëM}ğrstru}ôlogu}ø   u3ÿGë-ö´¥\t$jhœ1\jKhì0\èq^ …Àth41\WèŒÏÿÿYY‹Ç_^ÉÃÌÌÌÌÌ‹ÿU‹ììè  ¡Ø|\ƒ¥øÿÿ ‰Eü‹Áƒ¸  ÿ‹MV‹u‰…øÿÿ‰$øÿÿu>ö´¥\„Â  jhğ1\h¾   hì0\èú] …À„¤  h´1\j èÏÿÿYYé‘  SWj_Nè•”  …À‹$\tNèƒ”  PÿÓ| ‹‹Îÿ…Àt‹‹ÎÿPÿÓ|GN0‰(øÿÿèW”  …Àt‹(øÿÿèH”  PÿÓ|GWjÿX\Pÿ0\‹ø…ÿu=ö´¥\„÷  jhğ1\hÏ   hì0\èE] …À„Ù  hØ1\Wè\ÎÿÿYYéÇ  ‹E‰‹F‰G‹F‰G‹F‰G‹F8‰G‹F<N‰GèÃ“  ƒÀPÿ°\Pÿµ$øÿÿ…,øÿÿhÌ1\Pÿ,\ƒÄ…,øÿÿPGPèîˆ  ‹Ø‹‹ÎƒÃÿ…Àt,‹‹ÎÿƒÀPÿ°\Pÿµ$øÿÿ…,øÿÿhÌ1\Pÿ,\ƒÄ‹‹Îÿ÷ØÀ,øÿÿ#ÁP;Pè—ˆ  ‹(øÿÿØè)“  …Àt1‹(øÿÿè“  ƒÀPÿ°\Pÿµ$øÿÿ…,øÿÿhÌ1\Pÿ,\ƒÄ‹(øÿÿèé’  ÷ØÀ,øÿÿ#ÁP;Pè4ˆ  Øj … øÿÿP‹…øÿÿSWÿ°  ÿ8\…Àu<è B ö´¥\‹ğtyjhğ1\hç   hì0\èÇ[ …Àt_Vh`*\j{èàÌÿÿƒÄëM9 øÿÿt;ö´¥\t<jhğ1\hç   hì0\èŠ[ …Àt"ÿµ øÿÿSh4*\j{èÌÿÿƒÄë
+Ç…øÿÿ   …ÿtWj ÿX\Pÿ\\_[‹Mü‹…øÿÿ^èñ¬  ÉÂ ÌÌÌÌÌ‹ÿU‹ììè  ¡Ø|\ƒ¥øÿÿ ‰Eü‹Áƒ¸  ÿ‹M‰(øÿÿ‹MS‹]‰…øÿÿ‰ øÿÿu>ö´¥\„  jh2\h  hì0\èÒZ …À„ã  h´1\j èèËÿÿYYéĞ  …ÛVW‹=$\j^tSÿ×t ƒ½(øÿÿ tÿµ(øÿÿÿ×tFVjÿX\Pÿ0\‹ğ3ÿ;÷u=ö´¥\„j  jh2\h  hì0\èQZ …À„L  hØ1\WèhËÿÿYYé:  ƒÿƒÃS‹°\‰~‰~‰~ÿÓPÿµ øÿÿ…,øÿÿhÌ1\Pÿ,\ƒÄ…,øÿÿPFPè†  ‹ø‹…(øÿÿƒÀPƒÇÿÓPÿµ øÿÿ…,øÿÿhÌ1\Pÿ,\ƒÄ…,øÿÿP7PèÚ…  øj 7PèÍ…  øj …$øÿÿP‹…øÿÿWVÿ°  ÿ8\…Àu<è™? ö´¥\‹øtyjh2\h!  hì0\è`Y …Àt_Wh`*\j{èyÊÿÿƒÄëM9½$øÿÿt;ö´¥\t<jh2\h!  hì0\è#Y …Àt"ÿµ$øÿÿWh4*\j{è6ÊÿÿƒÄë
+Ç…øÿÿ   …ötVj ÿX\Pÿ\\_^‹Mü‹…øÿÿ[èŠª  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\‰EüV‹Á‹€  W3ö3ÿƒøÿu=ö´¥\„î   jh42\h:  hì0\è†X …À„Ğ   h´1\VèÉÿÿYYé¾   ‹M‰øşÿÿ‹MV‰ÿÿÿôşÿÿQjøşÿÿQP‰µüşÿÿ‰µÿÿÿÿ8\…Àu<èE> ö´¥\‹ğttjh42\hD  hì0\èX …ÀtZVh`*\j{è%ÉÿÿƒÄëHƒ½ôşÿÿt<ö´¥\t6jh42\hD  hì0\èÎW …Àtÿµôşÿÿjh4*\j{èàÈÿÿƒÄë3ÿG‹Mü‹Ç_^èT©  ÉÂ ÌÌÌÌÌ‹ÿV‹ñè÷ÿÿ…ötVè««  Y3À@^ÃÌÌÌÌÌ‹ÿU‹ìSW‹}3Û;ûu:ö´¥\„Ÿ   jh|2\hÃ  hì0\èGW …À„   hT2\Sè^ÈÿÿYYërVh  ‰è«  ;ÃYtƒˆ  ÿf‰‹ğë3ö;óu2ö´¥\tBjh|2\hË  hì0\èëV …Àt(hP)\SèÈÿÿYYë‹Îèâöÿÿ…Àt3Û‰7Cë‹Îè&ÿÿÿ^_‹Ã[]Â ÌÌÌÌÌ‹ÿU‹ìQQSV‹Ù‹ƒ  W3ÿƒøÿ‰}ø‰}üu:ö´¥\„ü   jh2\jvhì0\èrV …À„á   h´1\Wè‰ÇÿÿYYéÏ   ‹uWMQjVPÿ\…Àu@èU< ö´¥\‹ğ„¥   jh2\jzhì0\èV …À„Š   Vh8-\Wè1ÇÿÿƒÄëyƒ}t6ö´¥\tjjh2\jzhì0\èàU …ÀtSÿujh-\j{èõÆÿÿƒÄë=ƒ~ v,EüPÿ³  èüèÿÿ…Àt"ÿuü‹MèºÜÿÿ…Àtƒeü G;~rÔÇEø   ë3ÿ‹Mè<Ñÿÿ‹Mü;Ïtèpäÿÿ‹Eø_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìì(  ¡Ø|\SV‰Eü‹EW‹}‰…äıÿÿh  …ôıÿÿPÿ5ğq\3Û‰èıÿÿÿ<\…Àu:è3; ö´¥\‹ğ„  jh¬2\h‘  hì0\èöT …À„÷  VhÄ0\ë_Sh   €jSSh   @…ôıÿÿPÿ\ƒøÿ‰…ìıÿÿuFèÒ: ö´¥\‹ğ„´  jh¬2\hš  hì0\è•T …À„–  Vhd1\Sè«ÅÿÿƒÄé‚  ‹58\SğıÿÿQjØıÿÿQPÇ…ØıÿÿrstrÇ…ÜıÿÿlogÇ…àıÿÿ   ÿÖ…ÀuGèP: ö´¥\‹ğ„&  jh¬2\h¡  hì0\èT …À„  Vh`*\j{è(ÅÿÿƒÄéó   ƒ½ğıÿÿtGö´¥\„İ   jh¬2\h¡  hì0\èÊS …À„¿   ÿµğıÿÿjh4*\j{èØÄÿÿƒÄé£   S…ğıÿÿPjWÿµìıÿÿÿÖ…Àu!è¢9 ö´¥\‹ğt|jh¬2\h¢  éQÿÿÿƒ½ğıÿÿt0ö´¥\tYjh¬2\h¢  hì0\èFS …Àt?ÿµğıÿÿjé{ÿÿÿ3ö9_v!‹…äıÿÿ‹@ÿµìıÿÿ‹°èøÔÿÿ…ÀtF;wrßÇ…èıÿÿ   ÿµìıÿÿÿT\‹Mü‹…èıÿÿ_^[è˜¤  ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒ}u‹EP£ \ÿ \3À@]Â ÌÌÌÌÌ‹ÿU‹ì‹Eƒøtƒø t=È  t	ƒø!t3Àë3À@]Â ÌÌÌÌÌ¸^B\èÅ¦  QV‹ñW~‹Ï‰uğÇÄ2\èÔ~  ƒeü N èÈ~  N(ÆEüè¼~  N0ÆEüè°~  N@ÆEüè¤~  ‹Eÿuƒf ‰F‹E‰F‹E‹ÏÆEü‰Fè>„  ƒf8 ƒf< ‹Mô_‹Æ^d‰    ÉÂ ÌÌÌÌÌ3ÀÃÌÌÌÌÌÃÌÌÌÌÌÂ ÌÌÌÌÌ¸™B\è¦  QV‹ñ‰uğN@ÇEü   èDƒ  N0ÆEüè8ƒ  N(ÆEüè,ƒ  N ÆEü è ƒ  ƒMüÿNèƒ  ‹Mô^d‰    ÉÃÌÌÌÌÌ‹ÿU‹ìQöEVWj‹ñ_t%EüPjNèˆ  ‹MPèG  …Àt
+‹Eüƒ`< ‰x8öEt%EüPj N èó‡  ‹MPèñF  …Àt
+‹Eüƒ`< ‰x8_^ÉÂ ÌÌÌÌÌ¸°B\èJ¥  QVÿu‹ñh€   ÿu‰uğÿuèaşÿÿÿuƒeü N@ÇĞ2\è ƒ  ‹Mô‹Æ^d‰    ÉÂ ÌÌÌÌÌ‹ÿU‹ìVÿu‹ñh   ÿuÿuèşÿÿÇÜ2\‹Æ^]Â ÌÌÌÌÌ¸°B\èÎ¤  QVÿu‹ñh   ÿu‰uğÿuèåıÿÿÿuƒeü N Çè2\è„‚  ÿuN@èy‚  ‹Mô‹Æ^d‰    ÉÂ ÌÌÌÌÌ¸°B\èt¤  QVÿu‹ñj ÿu‰uğÿuèıÿÿÿuƒeü N(Çô2\è-‚  ÿuN@è"‚  ‹Mô‹Æ^d‰    ÉÂ ÌÌÌÌÌ‹ÿU‹ìVÿu‹ñjÿuÿuè@ıÿÿÇ 3\‹Æ^]Â ÌÌÌÌÌ¸°B\èó£  QVÿu‹ñjÿu‰uğÿuèıÿÿÿuƒeü N(Ç3\è¬  ‹Mô‹Æ^d‰    ÉÂ ÌÌÌÌÌƒÁ(é&†  ÌÌÌÌÌ¸°B\èš£  QVÿu‹ñj@ÿu‰uğÿuè´üÿÿÿuƒeü N Ç3\èS  ÿuN@èH  ‹Mô‹Æ^d‰    ÉÂ ÌÌÌÌÌƒÁ éÂ…  ÌÌÌÌÌ‹ÿU‹ìì  ö´¥\¡Ø|\S‹]V‹u‰EüWt*jh”3\h‚  hd3\è¿N …ÀtVhT3\j èØ¿ÿÿƒÄV‹5@\SÿÖS…ôıÿÿPÿÖ‹=˜\…ôıÿÿj\Pÿ×…ÀYYt\ôıÿÿ;ÁtRfƒ  ‰…ğıÿÿ‹Áj\Pÿ×…ÀYYu*ö´¥\tcjh”3\h  hd3\è@N …ÀtIh83\ë9‹ğıÿÿPSfÇ\ ÿÖë1ö´¥\t(jh”3\h‘  hd3\èN …Àth$3\j è¿ÿÿYY‹Mü_^[èšŸ  ÉÂ ÌÌÌÌÌ¸ØB\è¢  ì  ¡Ø|\SV‹u W‰Eğ‹EPjÿu‹Ù‹Mÿu‰Üûÿÿ‹Ë‰Øûÿÿèûÿÿƒeü {H‹ÏÇ¬3\èöy  ƒ} ÆEüt.‹uV‰sPèİ¡  …ÀY‰CTt`‹Î‹µÜûÿÿ‹ø‹ÁÁéó¥‹Èƒáó¤ëF…àûÿÿPÿµÜûÿÿèEşÿÿV…èıÿÿPÿ@\…àûÿÿP…èıÿÿPÿ¬\…èıÿÿP‹Ïè:  ƒcT ‹Mô_^d‰    ‹Mğ‹Ã[è¦  ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìSV‹ñWNè™ƒ  NH‰Eøèƒ  ö´¥\‰Eô»P4\¿d3\t*jShõ  Wè§L …ÀtÿvPÿuôÿuøh,4\j è¸½ÿÿƒÄNHèÿx  …ÀÆ  3ÀPPjPPh   €ÿuôÿ\ƒøÿ‰Eü…‰   ÿP\P‰F<ÇF8   èP# ö´¥\£\„Í  jSh  Wè#L …Àtÿ5\hd1\j è7½ÿÿƒÄö´¥\„™  jSh  WèïK …À„ƒ  ÿuôh 4\j è½ÿÿƒÄél  j Pÿø\ƒøÿ‰FPuYÿP\P‰F<ÇF8   è¶" ö´¥\£\t'jSh  WèK …Àtÿ5\h4\j è¡¼ÿÿƒÄÿuüÿT\é  PèÊŸ  …ÀY‰FTu5@ÇF<   ‰F8ö´¥\tĞPSh  Wè7K …Àt¿hP)\j èQ¼ÿÿYYë¯j MğQÿvPPÿuüÿ\…ÀuNÿP\P‰F<ÇF8   è" ö´¥\£\„pÿÿÿjSh  WèÖJ …À„Zÿÿÿÿ5\h8-\é@ÿÿÿÿuüÿT\ƒ~T „  ƒ~P „  ÿuøè|1 ‹FT€8…Â   f‹H„í‰¶   öÅt	fÉ f‰Hf‹HöÅt	fÉ f‰HÿvTjÿuøÿ¸\…Àu{ÿP\P‰F<ÇF8   èF! ö´¥\£\„Ã   jShf  WèJ …Àtÿ5\hä3\j è-»ÿÿƒÄö´¥\„   jShg  WèåI …Àt}ÿuøhØ3\éõıÿÿÇF8   ëgÇF<O  ÇF8   ö´¥\tPjSh?  Wè¦I …Àt>hÄ3\ë.ÇF<O  ÇF8   ö´¥\t jSh*  WèvI …Àth¸3\j èºÿÿYYNHèØu  …À~‹FT…ÀtPèq  ƒfT Y_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìVÿu‹ñjÿuÿuè™öÿÿ‹E‰FÇd4\‹Æ^]Â ÌÌÌÌÌ‹ÿU‹ìQSV‹ñWNèº  ö´¥\‰Eü»Ì4\¿d3\t'jShŠ  WèÓH …Àtÿvÿuüh¬4\j èç¹ÿÿƒÄÿvÿuüÿü\…Àu}ÿP\P‰F<ÇF8   è¡ ö´¥\£\t`jSh‘  WèxH …Àtÿ5\hˆ4\j èŒ¹ÿÿƒÄö´¥\t0jSh’  WèHH …Àtÿvÿuühp4\j è\¹ÿÿƒÄëÇF8   _^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìVÿu‹ñh   ÿuÿuèvõÿÿÇä4\‹Æ^]Â ÌÌÌÌÌ‹ÿU‹ìQQSV‹ñ^W‹Ëèš~  ‹=$\Pÿ×D 
+‰EøƒÀƒàüèš  …ä‰eüuAö´¥\t,jh`5\h¸  hd3\è–G …ÀtÿuøhD5\j è­¸ÿÿƒÄÇF8   é  ‹Ëè0~  ‹]üPSÿ@\Sÿ×fƒ|Cş\th€#\Sÿœ\YYö´¥\»`5\¿d3\t$jShÃ  Wè(G …Àtÿuüh05\j è?¸ÿÿƒÄÿuüè …Àu6ÇF8   ö´¥\„   jShÈ  WèäF …Àt{h5\j èş·ÿÿYYëkjÿuüèğ, ÿuüÿô\…ÀuMÿP\P‰F<ÇF8   è° ö´¥\£\t0jShÕ  Wè‡F …Àtÿ5\hğ4\j è›·ÿÿƒÄëÇF8   eì_^[ÉÂ ÌÌÌÌÌ¸°B\è’š  QVÿu‹ñh   ÿu‰uğÿuè©óÿÿÿuƒeü N Ç|5\èHx  ‹Mô‹Æ^d‰    ÉÂ ÌÌÌÌÌ‹ÿU‹ìQQSVW‹ù_‹Ëè´|  ‹5$\PÿÖD 
+‰EøƒÀƒàüè´›  …ä‰eüuAö´¥\t,jhÈ5\hı  hd3\è°E …ÀtÿuøhD5\j èÇ¶ÿÿƒÄÇG8   é™  ‹ËèJ|  ‹]üPSÿ@\SÿÖfƒ|Cş\th€#\Sÿœ\YYO è|  PÿÖD 
+‰EøƒÀƒàüè$›  ‹Ü…Ûuö´¥\tjhÈ5\h  élÿÿÿO èá{  PSÿ@\SÿÖfƒ|Cş\th€#\Sÿœ\YYö´¥\¾d3\t)jhÈ5\h  VèİD …ÀtSÿuüh¤5\j èóµÿÿƒÄÿuüèÈ …ÀucPÿuüÿì\…ÀuUÿP\P‰G<ÇG8   è£ ö´¥\£\„   jhÈ5\h)  VèrD …Àtyÿ5\hˆ5\j è†µÿÿƒÄëbSÿuüfÇC\ ÿğ\…ÀuGÿP\P‰G<ÇG8   è: ö´¥\£\t*jhÈ5\h8  VèD …Àtÿ5\hğ4\ë™ÇG8   eì_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìW‹}…ÿtDV‹u…öt;S‹$\WÿÓ|Gşfƒ?\tGGfÇ\ GGfƒ>\uFFVÿÓL ‹ÁÁéó¥‹Èƒáó¤[^_]Â ÌÌÌÌÌ‹ÿU‹ìV‹ñ‹W3ÿ9Fuh‹NƒÀ@‰Áà;ÏPuWÿX\Pÿ0\ëQWÿX\Pÿ4\;Çu2ö´¥\t>jhÈ+\h³   h˜+\è'C …Àt$hP)\WèB´ÿÿYYë‰F‹F‹N‹U‰ÿF3ÿG‹Ç_^]Â ÌÌÌÌÌ‹ÿU‹ìQƒeü SVWÿuÿuèy …À„¯   ÿuÿuÿè\…À…”   èÑ( j[„´¥\£\¿ 6\¾d3\t|SWj1Vè•B …Àtÿ5\h6\j è©³ÿÿƒÄ„´¥\tQSWj2VèjB …Àtÿuhô5\j è³ÿÿƒÄ„´¥\t)SWj3VèBB …Àtÿuhä5\j èY³ÿÿƒÄëÇEü   ‹Eü_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹ñè)ğÿÿöEtVè!–  Y‹Æ^]Â ÌÌÌÌÌ‹ÿU‹ìVjÿu‹ñÿuÿä\…À…€   WÿP\P‰F<èÍ ö´¥\£\¿l6\¾d3\tWjWh%  VèšA …Àtÿ5\hP6\j è®²ÿÿƒÄö´¥\t'jWh&  VèjA …Àtÿuÿuh46\j è~²ÿÿƒÄ_3À@^]Â ÌÌÌÌÌ‹ÿU‹ììØ  ¡Ø|\SV‹ñWN‰Eü3ÿèäw  ö´¥\‰…(øÿÿ»d3\t*jh,7\h_  Sèû@ …Àtÿµ(øÿÿh7\Wè²ÿÿƒÄÿµ(øÿÿÿà\ƒøÿ„   ¨tAÇF8   ö´¥\„À  jh,7\hg  Sè¤@ …À„¦  hø6\j èº±ÿÿYYé“  ö´¥\¿,7\tPjWhq  Sèm@ …ÀthÈ6\j è‡±ÿÿYYö´¥\t'jWhr  SèD@ …Àtÿµ(øÿÿhØ3\j èX±ÿÿƒÄ…,øÿÿPÿµ(øÿÿè'ıÿÿ…Àu5ö´¥\t jWhv  Sèş? …Àth°6\j è±ÿÿYYÇF8   éê   …,øÿÿPN0èüq  3ÿGÿµ(øÿÿèÊ j ÿµ(øÿÿÿì\…À…—   Pÿµ(øÿÿè’, …À„ƒ   P‰F<è ÇF8   ö´¥\£\„   jh,7\h  Sèe? …Àtÿ5\hŒ6\j èy°ÿÿƒÄö´¥\tMjh,7\h  Sè1? …Àt7ÿµ(øÿÿhØ3\j èE°ÿÿƒÄë N@èÑu  Pÿµ(øÿÿè«1 ÷ßÿƒçGG‰~8‹Mü_^[è  ÉÂ ÌÌÌÌÌ‹ÿU‹ìQSV‹ñWNè’u  ö´¥\‰Eü»”7\¿d3\t$jSh¿  Wè«> …Àtÿuüh€7\j èÂ¯ÿÿƒÄÿuüÿà\ƒøÿu=ÇF8   ö´¥\„ó   jShÄ  Wèe> …À„İ   hd7\j è{¯ÿÿYYéÊ   jÿuüèj$ ÿuüÿÜ\…À…¨   ÿP\P‰F<è- ö´¥\£\tTjShÑ  Wè> …Àtÿ5\hD7\j è¯ÿÿƒÄö´¥\t$jShÒ  WèÔ= …ÀtÿuühØ3\j èë®ÿÿƒÄ‹~<Wèşêÿÿ…Àtjÿu‹Îè)ìÿÿÇF8   ë3Àÿ‘   •ÀHƒà@‰F8ëÇF8   _^[ÉÂ ÌÌÌÌÌ‹ÿU‹ììä  ¡Ø|\SV‰Eü‹E‹ñWN‰…øÿÿ3ÿèt  N ‰…(øÿÿèşs  ö´¥\‰…$øÿÿ»d3\t0jh8\h7  Sè= …Àtÿµ$øÿÿÿµ(øÿÿhø7\Wè$®ÿÿƒÄÿµ$øÿÿÿà\ƒøÿ…€   ÇF<  ÇF8   ö´¥\„E  jh8\h=  Sèµ< …ÀthÔ7\j èÏ­ÿÿYYö´¥\„  jh8\h>  Sè„< …À„ú  ÿµ$øÿÿhÈ7\j è”­ÿÿƒÄéà  ÿµ(øÿÿÿà\ƒøÿ„   ö´¥\t$jh8\hF  Sè2< …ÀthÈ6\j èL­ÿÿYY…,øÿÿPÿµ(øÿÿèùÿÿ…Àu9ö´¥\t$jh8\hI  Sèï; …Àth°6\j è	­ÿÿYYÇF8   éO  …,øÿÿPN0èím  3ÿG‹øÿÿ… øÿÿPèb2  …ÀtH‹… øÿÿx   u9HèUr  Pÿµ(øÿÿÿ´\…Àu ‹ øÿÿÿµ$øÿÿƒÁè˜m  ÇF8   éß   ÿµ(øÿÿÿµ$øÿÿÿè\…À…¥   ÿP\P‰F<èE ö´¥\£\tejh8\hb  Sè; …Àtÿ5\h6\j è,¬ÿÿƒÄö´¥\t1jh8\hc  Sèä: …Àtÿµ(øÿÿÿµ$øÿÿh¬7\j èò«ÿÿƒÄÿv<èèÿÿ…À„Øşÿÿj_Wÿµøÿÿ‹Îè(éÿÿëN@è]q  Pÿµ(øÿÿè7- ÷ßÿƒçGG‰~8‹Mü_^[è)Œ  ÉÂ ÌÌÌÌÌ‹ÿU‹ììä  ¡Ø|\ƒ¥øÿÿ V‹ñW‰Eü‹E~(‹Ï‰… øÿÿè¹f  …ÀuÇF8	   é   SNèçp  ‹Ï‰…(øÿÿèÚp  ö´¥\‰…$øÿÿ»l8\¿d3\tWjSh­  Wèğ9 …Àtÿµ(øÿÿhX8\j è«ÿÿƒÄö´¥\t'jSh®  WèÀ9 …Àtÿµ$øÿÿhD8\j èÔªÿÿƒÄÿµ(øÿÿÿà\ƒøÿ„²   ö´¥\t jSh·  Wè{9 …Àth,8\j è•ªÿÿYY…,øÿÿPÿµ(øÿÿèeöÿÿ…Àu_ö´¥\t jSh»  Wè<9 …Àth°6\j èVªÿÿYY…$øÿÿPjNèÜo  ‹ øÿÿPè×.  …ÀjYt‹…$øÿÿƒ`< ‰H8‰N8ëf…,øÿÿPN0èk  3ÿGë‹½øÿÿÿµ(øÿÿèÖ ÿµ(øÿÿÿµ$øÿÿè14 …ÀtÇF8   ‰F<ë N@èio  Pÿµ(øÿÿèC+ ÷ßÿƒçGG‰~8[‹Mü_^è5Š  ÉÂ ÌÌÌÌÌ‹ÿU‹ììÜ  ¡Ø|\V‹ñW~(‹Ï‰EüèÕd  …ÀuÇF8	   é  SNèo  ‹Ï‰…(øÿÿèön  ö´¥\‰…$øÿÿ»Ì8\¿d3\tWjShò  Wè8 …Àtÿµ(øÿÿh´8\j è ©ÿÿƒÄö´¥\t'jShó  WèÜ7 …Àtÿµ$øÿÿhœ8\j èğ¨ÿÿƒÄ…,øÿÿPÿµ(øÿÿèP …Àtfö´¥\t(jShø  Wè–7 …Àt…,øÿÿPh„8\j è©¨ÿÿƒÄ…,øÿÿPÿµ$øÿÿèİ2 …Àuÿµ(øÿÿ…,øÿÿP‹Îèdõÿÿ…ÀuÇF8   [‹Mü_^èîˆ  ÉÃÌÌÌÌÌ‹ÿU‹ììÜ  ¡Ø|\SV‰Eü‹E‹ñWN‰…$øÿÿèÏm  ö´¥\‰…(øÿÿ»9\¿d3\t'jSh!  Wèå6 …Àtÿµ(øÿÿh9\j èù§ÿÿƒÄÿµ(øÿÿÿà\ƒøÿu=ÇF8   ö´¥\„  jSh&  Wè™6 …À„ø   h5\j è¯§ÿÿYYéå   jÿµ(øÿÿè› ÿµ(øÿÿÿØ\…À…½   ÿP\P‰F<è[ ö´¥\£\t'jSh1  Wè26 …Àtÿ5\hì8\j èF§ÿÿƒÄÿv<èZãÿÿ…Àtd…,øÿÿPÿµ(øÿÿè	óÿÿ…Àt…,øÿÿPN0èh  ÇF8
+   ëF…(øÿÿPj Nè‘l  ‹$øÿÿPèŒ+  …ÀjYt‹…(øÿÿƒ`< ‰H8‰N8ëÇF8   ëÇF8   ‹Mü_^[è@‡  ÉÂ ÌÌÌÌÌ‹ÿV‹ñj Nè9l  P‹Îè€óÿÿ…ÀuÇF8   ^ÃÌÌÌÌÌ‹ÿU‹ììÜ  ¡Ø|\SV‹ñW‰Eü‹E~‹Ï‰…$øÿÿèôk  N(‹Øèêk  ö´¥\‰…(øÿÿtbjh\9\hw  hd3\è5 …ÀtShH9\j è¦ÿÿƒÄö´¥\t/jh\9\hx  hd3\èÏ4 …Àtÿµ(øÿÿh49\j èã¥ÿÿƒÄSè· Sÿµ(øÿÿè0 …À‰F<„¬   PèÜáÿÿ…Àt<…,øÿÿPSèñÿÿ…Àt4Sÿµ(øÿÿèå/ …À‰F<u…,øÿÿPN0è‡f  ÇF8
+   ëmÇF8   ëd…,øÿÿPÿµ(øÿÿè«/ …À‰F<uŞ…,øÿÿPN0èMf  …(øÿÿPj‹ÏèÕj  ‹$øÿÿPèĞ)  …ÀjYt‹…(øÿÿƒ`< ‰H8‰N8ëÇF8   ‹Mü_^[è…  ÉÂ ÌÌÌÌÌ‹ÿV‹ñNèˆj  PN0èj  P‹ÎèÆñÿÿ…ÀuÇF8   ^ÃÌÌÌÌÌ‹ÿU‹ì¸  èq‰  ¡Ø|\ƒ¥ îÿÿ SV‰Eü‹E‹ñWN‰…øíÿÿè1j  N ‰…îÿÿè#j  ö´¥\‰…îÿÿ»|:\¿d3\tWjShã  Wè93 …Àtÿµîÿÿhh:\j èM¤ÿÿƒÄö´¥\t'jShä  Wè	3 …ÀtÿµîÿÿhT:\j è¤ÿÿƒÄÿµîÿÿÿà\ƒøÿuxÇF<  ÇF8   ö´¥\„
+  jShê  Wè¶2 …Àth4:\j èĞ£ÿÿYYö´¥\„İ  jShë  Wè‰2 …À„Ç  ÿµîÿÿhÈ7\j è™£ÿÿƒÄé­  ÿµîÿÿÿµîÿÿÿ´\…À„¨  ÿµîÿÿÿà\ƒøÿ„“  ö´¥\t jShø  Wè!2 …Àth:\j è;£ÿÿYYƒ¥üíÿÿ …îÿÿPÿµîÿÿÿĞ\ƒøÿ‰…ôíÿÿ„£  ÿµîÿÿÿ¸\P…@ğÿÿPÿ´\…À…s  ö´¥\t jSh	  Wè­1 …Àthä9\j èÇ¢ÿÿYYÿµîÿÿ…\ğÿÿPÿ@\…\ğÿÿj\Pÿ˜\…ÀYYtfƒ  hÜ9\…\ğÿÿPÿD\ÿµîÿÿÿ¸\P…\ğÿÿPÿD\…,øÿÿP…\ğÿÿPèÏ …Àu5ö´¥\t jSh  Wè1 …ÀthÈ9\j è/¢ÿÿYYÇF8   é=  ö´¥\t(jSh"  Wèà0 …Àt…,øÿÿPh¨9\j èó¡ÿÿƒÄ…,øÿÿPÿµîÿÿÿè\…ÀuHÿP\‰F<ö´¥\tšjSh)  Wè0 …Àtˆ…,øÿÿPÿµîÿÿÿv<hŒ9\j è™¡ÿÿƒÄédÿÿÿ…,øÿÿ‰…îÿÿÇ…üíÿÿ   ÿµôíÿÿÿÔ\ë1ö´¥\t1jSh7  Wè,0 …ÀtÿP\Pht9\j è?¡ÿÿƒÄƒ½üíÿÿ ud…,øÿÿPÿµîÿÿèíÿÿ…Àu5ö´¥\t jSh>  WèÜ/ …Àth°6\j èö ÿÿYYÇF<·   éÈ   …,øÿÿPN0èÚa  Ç… îÿÿ   ÿµîÿÿè¡ÿ  ÿµîÿÿÿµîÿÿÿè\…À…    ÿP\P‰F<è~ ö´¥\£\t]jShQ  WèU/ …Àtÿ5\h6\j èi ÿÿƒÄö´¥\t-jShR  Wè%/ …Àtÿµîÿÿÿµîÿÿh¬7\j è3 ÿÿƒÄÿv<èGÜÿÿ…À„óıÿÿj_Wÿµøíÿÿ‹Îèiİÿÿ‰~8ë&N@è›e  Pÿµîÿÿèu! ‹… îÿÿ÷ØÀƒà@@‰F8‹Mü_^[èa€  ÉÂ ÌÌÌÌÌ‹ÿV‹ñNè\e  PN èSe  P‹Îèšìÿÿ…ÀuÇF8   ^ÃÌÌÌÌÌ‹ÿV‹ñj N0è*e  P‹Îèqìÿÿ…ÀuÇF8   ^ÃÌÌÌÌÌ…Étjè.ìÿÿ3À@ÃÌÌÌÌÌ¸C\èu‚  ¸Ô  è„  ¡Ø|\‰Eğ‹ES‹]‰…0ìÿÿ‹EV‹u‰…(ìÿÿ‹‹H‹@W3ÿ‰4ìÿÿ‹Î‰½$ìÿÿ‰½ ìÿÿ‰…8ìÿÿè6  …Àu6ö´¥\„S  jhÌ:\hÊ  hd3\è²- …À„5  h°:\Wéş  ‹=@\S…@ìÿÿPÿ×ÿv…@ìÿÿPèšéÿÿ‹‹@%ÿÿ  ƒø@‰…,ìÿÿ‡u  ƒø@„  H„˜  H„6  HH„í   ƒè„€  ƒètEƒè…r  jHè”  Y‰…<ìÿÿ…ÀÇEü   „ğ  @ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿèİÿÿéÓ  ‹F…Àt;Pÿ$\…À~0ÿµ0ìÿÿ…öÿÿPÿ×FP…öÿÿPèŞèÿÿÿv…öÿÿPèÏèÿÿëfƒ¥öÿÿ Ç… ìÿÿ   jHè  Y‰…<ìÿÿ…ÀÇEü   „`  ÿvöÿÿQ@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿè(Üÿÿé9  jHè¾€  Y‰…<ìÿÿ…ÀÇEü   „  ‹ÿq@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿèåâÿÿéø  jXè}€  Y‰…<ìÿÿ…ÀÇEü   „Ù  ÿµ0ìÿÿ‹†,  ‹(  ‹–$  PQ‹<ìÿÿR…@ìÿÿPÿµ8ìÿÿÿµ4ìÿÿèåİÿÿé  ÿµ0ìÿÿ…öÿÿPÿ×FP…öÿÿPèºçÿÿÿv…öÿÿPè«çÿÿjHèô  Y‰…<ìÿÿƒeü …À„S  öÿÿQ@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿèŸÛÿÿé/  S…öÿÿPÿ×ÿv…öÿÿPèRçÿÿjHè›  Y‹È‰<ìÿÿ…ÉÇEü   „õ  ÿv…öÿÿP…@ìÿÿPÿµ8ìÿÿÿµ4ìÿÿè™ÛÿÿéĞ  =€   „  =   „+  =   „á   =   „š   =   tDö´¥\„=  jhÌ:\h  hd3\èœ* …À„  ‹ÿph”:\j è­›ÿÿƒÄé  ÿv…öÿÿPÿ×jHèÒ~  Y‰…<ìÿÿ…ÀÇEü
+   „.  öÿÿQ@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿèÛãÿÿé
+  jHè~  Y‰…<ìÿÿ…ÀÇEü	   „ë   @ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿèÛáÿÿéÎ   jHèS~  Y‰…<ìÿÿ…ÀÇEü   „¯   ÿv@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿè¨Øÿÿé   S…öÿÿPÿ×ÿv…öÿÿPè²åÿÿjHèû}  Y‹È‰<ìÿÿ…ÉÇEü   tYÿv…öÿÿP…@ìÿÿPÿµ8ìÿÿÿµ4ìÿÿèÉØÿÿë7jHè¼}  Y‰…<ìÿÿ…ÀÇEü   t@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿègØÿÿë3ÀƒMüÿ‹ø…ÿuö´¥\„–  jhÌ:\h  éD  ‹(ìÿÿWècåÿÿ…Àu‹Ïé]  ƒ½ ìÿÿ …W  ƒ½,ìÿÿ„Ÿ   ƒ¾$   „’   jXè}  Y‰…<ìÿÿ…ÀÇEü   t=ÿµ0ìÿÿ‹†,  ‹(  ‹–$  PQ‹<ìÿÿR…@ìÿÿPÿµ8ìÿÿÿµ4ìÿÿè‹Úÿÿ‹øë3ÿƒMüÿ…ÿuö´¥\„Ú   jhÌ:\h$  éˆ   ‹(ìÿÿWè§äÿÿ…À„@ÿÿÿƒ½,ìÿÿ„   ‹ƒxÿ„’   jHèt|  Y‰…<ìÿÿ…ÀÇEü   t#‹ÿq@ìÿÿQÿµ8ìÿÿ‹Èÿµ4ìÿÿèŸŞÿÿ‹ğë3öƒMüÿ…öu3ö´¥\tMjhÌ:\h4  hd3\è¬' …Àt3hP)\j èÆ˜ÿÿYYë#‹(ìÿÿVèäÿÿ…Àu	‹Îè4ùÿÿë
+Ç…$ìÿÿ   ‹Mô‹…$ìÿÿ_^d‰    ‹Mğ[èy  ÉÂ ÌÌÌÌÌ‹ÿU‹ìVWÿu3ÿÿuÿ¼\‹ğ;÷t7ö´¥\tejh?\hÃ  h˜>\è' …ÀtKVÿuhè>\Wè.˜ÿÿƒÄë7ö´¥\t+jh?\hÈ  h˜>\èà& …ÀtÿuhÈ>\Wèø—ÿÿƒÄ3ÿG‹Ç_^]Â ÌÌÌÌÌ‹ÿU‹ìì(  ¡Ø|\‹MSV‹u‰Eü‹EWÿ5hr\‹}‰…àıÿÿ‹E‰…Üıÿÿ‹EPh<@\Q…ôıÿÿh$@\3ÛP‰½äıÿÿ‰ğıÿÿÿ,\ƒÄ…ôıÿÿPÿØ\…ğıÿÿPh  SWVÿ´\;Ã‰…èıÿÿtJö´¥\¿@\¾˜>\t,jWhö  Vè
+& …Àtÿµèıÿÿÿµäıÿÿhô?\Sè—ÿÿƒÄ‰ìıÿÿé   S…ôıÿÿPÿµğıÿÿÿØ\;Ã‰…èıÿÿ¾˜>\¿@\t.ö´¥\tÄjWh  Vè¢% …Àt²ÿµèıÿÿÿµäıÿÿhÔ?\ë–ö´¥\t&jWh	  Vèt% …Àtÿµäıÿÿh¬?\Sè‰–ÿÿƒÄÇ…ìıÿÿ   9ğıÿÿtÿµğıÿÿÿ°\‰ğıÿÿÿµÜıÿÿÿµàıÿÿèÖıÿÿ9ìıÿÿu<ö´¥\„)  jWh   Vè% …À„  ÿµäıÿÿh„?\Sè–ÿÿƒÄéú   …ØıÿÿP…ğıÿÿPSh?  SSSÿµÜıÿÿÿµàıÿÿÿÔ\;Ã‰…èıÿÿt<Pè·û  ö´¥\‰…ìıÿÿ„®   jWh/  Vè‰$ …À„˜   ÿµìıÿÿhd?\ëƒj…ôıÿÿPÿµğıÿÿÿĞ\;Ã‰…èıÿÿt7Pè\û  ö´¥\‰…ìıÿÿtWjWh5  Vè2$ …ÀtEÿµìıÿÿhD?\é-ÿÿÿö´¥\t&jWh7  Vè$ …Àtÿµäıÿÿh(?\Sè•ÿÿƒÄ‰èıÿÿ9ğıÿÿ_^[tÿµğıÿÿÿ°\…ôıÿÿPÿØ\‹Mü‹…èıÿÿèiu  ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹uVÿ$\DF^]Â ÌÌÌÌÌ‹ÿU‹ìì(  ¡Ø|\ƒ¥ğıÿÿ ‰Eü‹ES‹@\‰…Øıÿÿ‹EVW‹}‰…àıÿÿ‹E‰…äıÿÿW…ôıÿÿPÿÓ…ôıÿÿj\Pÿ˜\‹ğ…öYYu6ö´¥\„  jh¸@\hc  h˜>\è# …À„q  Wh¨@\é©   fƒ& FFö´¥\t1jh¸@\hj  h˜>\èÓ" …ÀtV…ôıÿÿPh@\j èå“ÿÿƒÄ‹=Ğ\…ìıÿÿPj …ÜıÿÿPV…ôıÿÿPÿµäıÿÿÿ×…À‰…ğıÿÿtHPèù  ö´¥\‹ğ„á  jh¸@\hn  h˜>\è]" …À„Ã  Vhx@\j èr“ÿÿƒÄé®  ÿµìıÿÿjÿX\Pÿ0\…À‰…èıÿÿu@ö´¥\t(jh¸@\hs  h˜>\è" …Àthh@\j è“ÿÿYYÇ…ğıÿÿ   é1  ìıÿÿQP…ÜıÿÿPV…ôıÿÿPÿµäıÿÿÿ×…À‰…ğıÿÿtHPè¿ø  ö´¥\‹ğ„ó   jh¸@\hz  h˜>\è! …À„Õ   Vhx@\j è¢’ÿÿƒÄéÀ   ÿµàıÿÿ…ôıÿÿPÿÓ…ôıÿÿj\Pÿ˜\‹ğ…öYYu4ö´¥\„   jh¸@\h‚  h˜>\è'! …Àtsÿµàıÿÿh¨@\ë—fƒ& FFö´¥\t1jh¸@\h‰  h˜>\èñ  …ÀtV…ôıÿÿPhP@\j è’ÿÿƒÄÿµìıÿÿ…ôıÿÿÿµèıÿÿÿµÜıÿÿVPÿµØıÿÿÿÀ\ƒ½èıÿÿ tÿµèıÿÿj ÿX\Pÿ\\‹Mü‹…ğıÿÿ_^[è3r  ÉÂ ÌÌÌÌÌ‹ÿU‹ìV3ö95<r\~ÿuÿ4µ(r\ÿ\…ÀtF;5<r\|ã3À^]Â 3À@ëöÌÌÌÌÌ‹Á3É‰‰H‰H‰H‰H‰H‰H‰ˆ$  ‰ˆ(  ‰ˆ,  ÃÌÌÌÌÌ‹ÿU‹ìì<  ¡Ø|\S‰Eü‹EV‹5´\W‰…Ôûÿÿ‹E‰…Ğûÿÿ…ÜûÿÿP3ÿh?  WhÈA\h  €‰½Üûÿÿ‰½Èûÿÿ‰½àûÿÿ‰½äûÿÿÿÖ‹Ø;ßt#Sèªö  ö´¥\‹ğ„å  jh¬A\hÏ  ëA…äûÿÿPh  Wh8A\ÿµÜûÿÿÿÖ‹Ø;ßt>Sègö  ö´¥\‹ğ„¢  jh¬A\hÙ  h˜>\è5 …À„„  Vh|>\ép  …ØûÿÿPW…ÄûÿÿPW…ÌûÿÿP…ìûÿÿPWÿµäûÿÿÇ…Ìûÿÿ  ‰½Øûÿÿÿ¼\‹Ø;ß…4  ¾˜>\ÿ…Èûÿÿö´¥\t+jh¬A\hç  Vè· …Àt…ìûÿÿPh,A\WèËÿÿƒÄ…ìûÿÿPèşÿÿ…À…%  ÿµØûÿÿjÿX\Pÿ0\;Ç‰…àûÿÿ„N  ØûÿÿQP…ÄûÿÿPW…ìûÿÿPÿµäûÿÿÿÈ\‹Ø;ß…R  ‹…àûÿÿ‰…èûÿÿ‹…èûÿÿ;Ç„¡  f98„˜  ö´¥\»¬A\t&jSh	  Vèû …Àtÿµèûÿÿh A\WèÿÿƒÄÿµèûÿÿÿ$\‹èûÿÿ·DAşƒø*„  ƒø\tpö´¥\tjSh$  Vè§ …ÀthA\WèÂÿÿYYÿµèûÿÿ…ôıÿÿPÿ@\…ôıÿÿPÿµÔûÿÿè^ø  ÿµèûÿÿ…ôıÿÿÿµÜûÿÿPÿµÔûÿÿèÃùÿÿé¶   ö´¥\tjSh  Vè7 …Àth A\WèRÿÿYYÿµèûÿÿ…ôıÿÿPÿ@\…ôıÿÿPÿ$\f‰¼Eòıÿÿ…ôıÿÿPÿµÔûÿÿèÙ÷  ÿµĞûÿÿ…ôıÿÿÿ5ˆr\ÿµèûÿÿÿµÜûÿÿPÿµÔûÿÿèöÿÿë(ö´¥\tjSh  Vè© …Àthè@\WèÄÿÿYYÿµèûÿÿèßøÿÿ;Ç‰…èûÿÿ…QşÿÿÿµàûÿÿWÿX\Pÿ\\‰½àûÿÿ…ØûÿÿPW…ÄûÿÿPW…ÌûÿÿP…ìûÿÿPÿµÈûÿÿÇ…Ìûÿÿ  ÿµäûÿÿ‰½Øûÿÿÿ¼\‹Ø;ß„Cıÿÿëpö´¥\t#jh¬A\hó  Vèş …Àthh@\WèÿÿYYj[ë?Sèïò  ö´¥\‰…Ğûÿÿt*jh¬A\hÿ  VèÁ …ÀtÿµĞûÿÿhÈ@\WèÖŒÿÿƒÄ9½Üûÿÿ‹5°\tÿµÜûÿÿÿÖ9½àûÿÿtÿµàûÿÿWÿX\Pÿ\\9½äûÿÿtÿµäûÿÿÿÖ‹Mü_^‹Ã[èm  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\V‹uW‰Eü‹E3ÿf9>‰…èıÿÿÇ…ìıÿÿ   „ú   S‹ŞSÿ$\ö´¥\D8‰…ğıÿÿt4jhB\hW  h˜>\èè …Àt‹…ğıÿÿFPShB\j è÷‹ÿÿƒÄ‹…ğıÿÿFfƒ; t{ÿµìıÿÿ…ôıÿÿh<@\ÿµèıÿÿhäA\Pÿ,\ƒÄÿ…ìıÿÿö´¥\t5jhB\h_  h˜>\èp …ÀtD~P…ôıÿÿPhØA\j è~‹ÿÿƒÄD~P…ôıÿÿPè³ Sÿ$\‹ğıÿÿ|~fƒ; …
+ÿÿÿ[‹Mü_3À^èÇk  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì$  ¡Ø|\S‰Eü‹EVW‰…äûÿÿ3Ûf‰ìûÿÿ3À¹   ½îûÿÿó«Rÿ5Tr\f«¿  €W‰àûÿÿ‰èûÿÿÿˆ\;Ã‰…ÜûÿÿtGPè±ğ  ö´¥\‹ğ„  jhÌB\hz  h˜>\è …À„ö  Vh°B\Sè•ŠÿÿƒÄéâ  …èûÿÿPÿ5Tr\3öFW‰µàûÿÿÿÌ\;Ã‰…Üûÿÿt;PèCğ  ö´¥\‹ğ„¦  jhÌB\h}  h˜>\è …À„ˆ  Vh|>\ëh  …ìûÿÿPÿ5üq\ÿ<\ÿ5 r\…ìûÿÿPÿD\…ìûÿÿPÿ5øq\ÿ5r\ÿµèûÿÿèÅI  …À„/  Vÿ5Xr\ÿ5r\ÿµèûÿÿè5I  …À»ÌB\¾˜>\u1ö´¥\t(jSh‘  Vès …ÀtÿP\Ph”B\j è†‰ÿÿƒÄjCÿ@\…Àt.ö´¥\t jSh—  Vè6 …Àth|B\j èP‰ÿÿYY3À@ë3ÀPÿ5\r\ÿ5r\ÿµèûÿÿè¢H  …Àu1ö´¥\t(jSh¢  Vèê …ÀtÿP\PhLB\j èıˆÿÿƒÄÿ5lr\‹5,\…ôıÿÿh4B\PÿÖƒÄÿµäûÿÿ»   €ÿ5ˆr\…ôıÿÿÿ5lr\SPÿµèûÿÿèÎğÿÿÿ5pr\…ôıÿÿh4B\PÿÖƒÄÿµäûÿÿ…ôıÿÿÿ5ˆr\ÿ5pr\SPÿµèûÿÿè’ğÿÿÿ5tr\»Ì1\ÿ5dr\…ôıÿÿSPÿÖƒÄÿµäûÿÿ…ôıÿÿÿ5ˆr\PWÿ5tr\ÿµèûÿÿèOğÿÿÿ5xr\…ôıÿÿÿ5dr\SPÿÖƒÄÿµäûÿÿ…ôıÿÿÿ5ˆr\PWÿ5xr\ÿµèûÿÿèğÿÿÿ5|r\…ôıÿÿÿ5dr\SPÿÖƒÄÿµäûÿÿ…ôıÿÿÿ5ˆr\PWÿ5|r\ÿµèûÿÿèÓïÿÿÿµèûÿÿèeŞ  3Û9èûÿÿtÿµèûÿÿÿ°\9àûÿÿtÿ5Tr\WÿÜ\‹Mü‹…Üûÿÿ_^[èùg  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì<  ¡Ø|\SVW‰Eü‹EPÿ5Tr\3ÿ‹ñ»  €S‰µÌûÿÿ‰½Èûÿÿ‰½èûÿÿ‰½Øûÿÿ‰½Ğûÿÿ‰½àûÿÿÿˆ\;Ç‰…Üûÿÿt;Pèçì  ö´¥\‹ğ„3  jhÔC\h  h˜>\èµ …À„  Vh°B\ëa…èûÿÿPÿ5Tr\Ç…Èûÿÿ   SÿÌ\;Ç‰…ÜûÿÿtGPè„ì  ö´¥\‹ğ„Ğ  jhÔC\h
+  h˜>\èR …À„²  Vh|>\Wèh†ÿÿƒÄé  ÿ5`r\…ôıÿÿPÿ@\…ôıÿÿPÿµèûÿÿèşï  ÿ5„r\…ôıÿÿP…ìûÿÿhÌ1\Pÿ,\ƒÄVÿ5ˆr\…ìûÿÿÿ5€r\SPÿµèûÿÿèîÿÿ;Ç‰…äûÿÿt<ö´¥\t3j¾ÔC\Vh  ¿˜>\Wè¤ …Àt!ÿµäûÿÿh¬C\j è¸…ÿÿƒÄë
+¿˜>\¾ÔC\ÿµÌûÿÿÿ5ˆr\ÿ5€r\Sÿ5„r\ÿµèûÿÿè íÿÿ…À‰…äûÿÿt0ö´¥\t'jVh%  Wè: …Àtÿµäûÿÿh„C\j èN…ÿÿƒÄÿµÌûÿÿÿµèûÿÿèôÿÿ…ĞûÿÿPhh\…ôıÿÿPÿµèûÿÿè0ë  …À‰…äûÿÿt_ÿµÌûÿÿPè‹øÿÿ…À‰…ÜûÿÿtIPèÙê  ö´¥\‰…Øûÿÿ„
+  jVh5  Wè« …À„ô  ÿµØûÿÿh`C\j è»„ÿÿƒÄéÚ  …àûÿÿPhh\h \Sè°ê  ‹àûÿÿ;\‰…Ôûÿÿ†ù  …À„ñ  ö´¥\t jVh@  Wè; …ÀthDC\j èU„ÿÿYY¡\…Àv‹ÔûÿÿLş‰ÔûÿÿjY+Èàûÿÿö´¥\t-jVhG  Wèî …ÀtÿµàûÿÿÿµÔûÿÿh(C\j èüƒÿÿƒÄ‹…Ğûÿÿ‹àûÿÿÈQÿğ\‹Ğ…ÒY‰•Äûÿÿu8ö´¥\t jVhN  Wè– …ÀthC\j è°ƒÿÿYYÇ…Üûÿÿ   é±  3À9…ÔûÿÿtI‹àûÿÿ‹µÔûÿÿ‹ÁÁé‹úó¥‹Èƒáƒ½äûÿÿ ó¤‹…àûÿÿ¾ÔC\¿˜>\tƒÀş‰Øûÿÿë‰•Øûÿÿƒ½äûÿÿ t6‹Ğûÿÿ‹µäûÿÿ‹½Øûÿÿ‹ÑÁéó¥‹Ê‹•Äûÿÿƒáó¤…Ğûÿÿ¿˜>\¾ÔC\PRhh\…ôıÿÿPÿµèûÿÿè3ë  …Àu6ö´¥\„õ   jVhp  Wè« …À„ß   hC\j èÁ‚ÿÿYYéÌ   ÿµÄûÿÿÿô\Yjÿ5r\…ôıÿÿPÿµèûÿÿèB  …À„   ÿ5 r\…ôıÿÿPÿ@\…ôıÿÿPÿµèûÿÿè)ì  ÿµÌûÿÿ…ôıÿÿÿ5ˆr\ÿ5$r\SPÿµèûÿÿè\êÿÿjÿµèûÿÿè{#  …À‰…Üûÿÿt<Pèè  ö´¥\‰…Øûÿÿt'jVh™  Wèİ …ÀtÿµØûÿÿhàB\j èñÿÿƒÄƒ½Ôûÿÿ tÿµÔûÿÿèÖd  Yƒ½äûÿÿ tÿµäûÿÿèÁd  Y3ÿ9½èûÿÿtÿµèûÿÿÿ°\9½Èûÿÿtÿ5Tr\SÿÜ\‹Mü‹…Üûÿÿ_^[èb  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\S‹]VW‰Eü¾  V…ôıÿÿ‰äûÿÿ‹MPS‰èûÿÿè“˜  ‹ø…ÿt>Wèç  ö´¥\‹ğ„Î  jhÌD\h·  h˜>\èé …À„°  Vh D\é›  …ôıÿÿPhŒD\j èlá  S•ôıÿÿè«õÿÿ‹ø…ÿ…|  ‹èûÿÿV…ôıÿÿPSèÉ—  ‹ø…ÿt>Wèšæ  ö´¥\‹ğ„M  jhÌD\hÀ  h˜>\èh …À„/  Vh`D\é  …ôıÿÿPhLD\j èëà  …ôıÿÿP‹Ëèöøÿÿ‹ø…ÿ…ù   ‹èûÿÿV…ôıÿÿPSèØ—  ‹ø…ÿt>Wèæ  ö´¥\‹ğ„Ê   jhÌD\hÉ  h˜>\èå …À„¬   Vh$D\é—   …ôıÿÿPhD\j èhà  …ôıÿÿPèŠ'  ‹ø…ÿu|‹èûÿÿSèn´  ‹ø‹…äûÿÿƒ¸0  u_V…ìûÿÿPÿ5r\ÿ<\…ìûÿÿPÿØ\…Àu:è~ô  ö´¥\‹ğt*jhÌD\hà  h˜>\èE …ÀtVhèC\j è^ÿÿƒÄ‹Mü‹Ç_^[èÖ_  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì$  ¡Ø|\fƒ¥ôıÿÿ fƒ¥ìûÿÿ S‹]‰EüV‹uWº   3À‹Ê½öıÿÿó«f«3Àö´¥\‹Ê½îûÿÿó«f«Ç…ÜùÿÿO  ¿˜>\t'jhlE\h	  Wè¤ …ÀtSVhTE\j è¼~ÿÿƒÄ…äùÿÿhPE\PÿÜ\…ÀYY‰…àùÿÿtS…ìûÿÿPÿà\…ôıÿÿPÿä\SV…ôıÿÿP…ìûÿÿPhE\ÿµàùÿÿÿè\ÿµàùÿÿÿì\ƒÄ$ƒ¥Üùÿÿ ë5ö´¥\t,jhlE\h  Wè …Àt…äùÿÿPhøD\j è~ÿÿƒÄ‹Mü‹…Üùÿÿ_^[èŠ^  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\Vÿ5@r\‹uV‰Eü…ôıÿÿh´E\Pÿ,\ƒÄ…ôıÿÿPhƒí\Vèß  ‹ğ…öt7ö´¥\t*jhœE\hŞ  h˜>\èe …ÀtVh|E\j è~}ÿÿƒÄ‹Æë3À‹Mü^èô]  ÉÂ ÌÌÌÌÌj ÿ5Xr\ÿ5Pr\h  €è¾<  …Àu6ö´¥\t-jhÄE\j+h˜>\è …ÀtÿP\Ph”B\j è}ÿÿƒÄÃÌÌÌÌÌ‹ÿU‹ìƒìƒeü VW‹ñh  FPÿ5ôq\ÿ<\…ÀuièËñ  ö´¥\‹øt*jhF\h  h˜>\è’ …ÀtWhÜE\j è«|ÿÿƒÄ¾  ‹…ÉtèÔ³ÿÿƒ' Æ  ‹…Étè¦6  ƒ& ‹Eü_^ÉÃ¾  WèÉ³ÿÿ…ÀtÁ‹†  PEìPè|´ÿÿ…Àt«‹Eğ‰†  ‹Eô‰†  †  Pèl6  …Àt‰ÇEü   ë¨ÌÌÌÌÌ‹ÿVW‹ù‹wë‹G‹°è–ÜÿÿNyò‹Ï_^éB|ÿÿÌÌÌÌÌ‹Á3Òˆ  ‰‰Q‰QÇ    f‰P‰  ‰  ‰  ‰(  ‰0  ÃÌÌÌÌÌ¸­C\èÎ^  QVW‹ù‰}ğƒeü ·  ‹…ÉtèÒ²ÿÿƒ& ·  ‹…Étè¤5  ƒ&   è´{ÿÿ‹Mô_^d‰    ÉÃÌÌÌÌÌ‹ÿU‹ìQQ‹Eƒeø …ÀSV‹ñtƒ  ‹†4  ‹(  ‹8  @‹DC;Ø‰EüŸ   Wƒ} ‹†4  ‹(  @‹D‹<˜‹Gt/HHtAHHt=ƒèt8ƒèt3ƒè0t-À   t	-   t ë8‹‹Ïÿëƒè tƒè tƒè@t-€   uOèN@  …ÀtPÿuÿ´\…Àt
+C;]üŒxÿÿÿ;]ü}‹E…Àt‰8ÇEø   _‹Eø^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹u3À;ğt‰‹‘4  W‹¹(  ‹‰8  R—‹zO;Ï_};ğt	‹B‹Dˆ‰3À@^]Â ÌÌÌÌÌ‹ÿU‹ìV‹ñè_şÿÿöEtVè]  Y‹Æ^]Â ÌÌÌÌÌ¸ÔC\è]  ìÈ
+  ¡Ø|\SV‹ñW‹¾   3Û;û‰Eğ‰,  „   …   Pèÿ\  Y‰…,õÿÿ;Ã‰]üth»J\h ‹\WXjS‰8è^  ‹Ãë3ÀƒMüÿ3Û;Ã‰†(  u8ö´¥\t'jhF\h8  h˜>\è: …ÀthP)\SèUyÿÿYYj_é¸  ƒ¾    ©  ƒ¥,õÿÿ ‹†$  ‹ûÁç‹è°‡ÿÿ…À…s  ‹†$  ‹è‡ÿÿ…À…]  ‹†$  ‹èi‡ÿÿ…À…G  ‹†$  ‹è‡‡ÿÿP…èıÿÿPÿ@\3ÿW…èıÿÿP…àûÿÿPèíÇ  ö´¥\t7jhF\hL  h˜>\èu …Àt…àûÿÿP…èıÿÿPShpF\WèxÿÿƒÄWÿ¶  …èıÿÿWP0õÿÿèY_  °ùÿÿÇEü   èîæÿÿ…°ùÿÿP…0õÿÿPèsd  ‹øÿ  t}…ÿ…³   ‹†(  …,õÿÿP…àûÿÿP…èıÿÿP…°ùÿÿPè£Øÿÿ…À„ò   ‹  è+  …°ùÿÿP…0õÿÿPèa  ‹ø…ÿt­ÿ  …‡   ‹†(  ‹,õÿÿ‹D†,  ƒMüÿ0õÿÿèËf  ƒ…,õÿÿC;   Œ^şÿÿ3ÿ‹Mô‹Ç_^d‰    ‹Mğ[èX  ÉÃWèWİ  ö´¥\‹ğt]jhF\hZ  h˜>\è) …ÀtCVhHF\ë1Wè$İ  ö´¥\‹ğt*jhF\hl  h˜>\èö …ÀtVh$F\j èwÿÿƒÄƒMüÿ0õÿÿèf  éeÿÿÿÌÌÌÌÌ‹ÿU‹ìöEW‹ùt%Vh»J\wüÿ6jWè’\  öEtVèÂY  Y‹Æ^ë‹ÏèúvÿÿöEtWè©Y  Y‹Ç_]Â ÌÌÌÌÌ‹ÿW‹ù‹‡   Hx SV4@ÁæX‹(  ÎèWúÿÿƒîKuí^[‹(  …Étjènÿÿÿ  èç€ÿÿ3À_ÃÌÌÌÌÌ¸D\è_Y  ¸P  èíZ  ¡Ø|\SV‹ñW¤îÿÿ‰EğèÜ³  3Û…Ğ÷ÿÿP‰]ü‰$ïÿÿ‰(ïÿÿ‰<ïÿÿè‰Ã  hä:\…Ğ÷ÿÿP…ÈõÿÿPèÅ  …ÈõÿÿP¤îÿÿè:¶  ‹ø;ûtDö´¥\„I  jh„G\h4  h˜>\è …À„+  WhdG\hXG\Sè’uÿÿƒÄé  ¤îÿÿè µ  ;Ãu=ö´¥\„ö  jh„G\h9  h˜>\è. …À„Ø  hDG\SèEuÿÿYYéÆ  ÿ5Dr\ƒÀ0P…ÀóÿÿPèWÄ  ‹†$  ‹M‹ˆ‰4ïÿÿÇ…8ïÿÿ   è¬ƒÿÿP¤îÿÿè¯¸  ;Ã‰…@ïÿÿ„s  »˜>\‹µ@ïÿÿ3ÿ;µ4ïÿÿ‰½0ïÿÿ„â  WjƒÆ0VDïÿÿè!\  hñÿÿÆEüèi  ÿ5Lr\…àûÿÿVPÆEüèÅÃ  Wj…àûÿÿPè;å  ‹ø…ÿ…/  h<G\V…àûÿÿPèšÃ  Wj…àûÿÿPèå  ‹ø…ÿ…6  …hñÿÿPDïÿÿèr^  3ÿ;Çt	ƒø…'  9½<ïÿÿthñÿÿè‹c  ;…<ïÿÿ‡¶   hñÿÿètc  ;EƒÈ   …lñÿÿPV…ØùÿÿPèÃ  ÿ5Lr\…èıÿÿVPèÃ  …èıÿÿP…ØùÿÿPÿè\…À„º  Wj…èıÿÿPè`ä  ‹ø…ÿ…è  hñÿÿèc  ‰…,ïÿÿV…lñÿÿP…ÀóÿÿPÇ…0ïÿÿ   è.ôÿÿ…hñÿÿPDïÿÿèQ[  éÿÿÿö´¥\tIjh„G\hy  Sè …Àt3hG\ë$ö´¥\t#jh„G\hˆ  Sèñ …ÀthG\WèsÿÿYYhñÿÿÆEüè)h  DïÿÿÆEü è]  ƒ½8ïÿÿ tBƒ½0ïÿÿ t^‹…@ïÿÿ‰…4ïÿÿ…$ïÿÿP¤îÿÿè•²  ƒ¥8ïÿÿ ‰…@ïÿÿ‹…,ïÿÿ‰…<ïÿÿë…$ïÿÿP¤îÿÿè­²  ‰…@ïÿÿƒ½@ïÿÿ …”ıÿÿ3Û3ÿƒMüÿ¤îÿÿè³µ  ‹Mô‹Ç_^d‰    ‹Mğ[èÚR  ÉÂ ö´¥\„»   jh„G\hY  Sè …À„¡   WhøF\é‡   ö´¥\„‰   jh„G\ha  ëÌÿP\ö´¥\‹øtjjh„G\hš  Sè´  …ÀtTW…èıÿÿP…ØùÿÿPhØF\j è¿qÿÿƒÄë4ö´¥\t+jh„G\h¡  Sèu  …ÀtWh¸F\hXG\j è‰qÿÿƒÄhñÿÿÆEüè¥f  DïÿÿÆEü è[  éëşÿÿÌÌÌÌÌ…Étjè+÷ÿÿ3À@ÃÌÌÌÌÌ‹ÿU‹ììô	  ¡Ø|\SVW3ÿ‹ñ9¾   ‰Eü‰½öÿÿ‰¾4  »˜>\›  ‹†4  ‹(  ƒ¦8   @ƒ| `  ‹†4  ‹–(  ‹¾8  @‹LŠ‹<¹ƒ…½   ‹–$  3ÉQQ‰ öÿÿ‹‚• öÿÿRQQh  $öÿÿQ‹ÈèBÿÿPÿ(\…ÀtCö… öÿÿuzö´¥\„À  jhÌI\h  Sè@ÿ  …À„¦  h¤I\j èVpÿÿYYé“  ÿP\ö´¥\‰…öÿÿt+jhÌI\h¥  Sèşş  …Àtÿµöÿÿh„I\j èpÿÿƒÄƒ8„I  OhtI\è‘5  PÿÄ\…ÀthhI\Oèy5  PÿÄ\…Àu6‹‹Ïÿ…Àt6‹htI\‹ÏÿPÿÄ\…Àt ‹hhI\‹ÏÿPÿÄ\…Àt
+Ç†0     ‹†4  ‹$  ‹…öÿÿPj j è~ÿÿPÿ,\…ÀuMÿP\ö´¥\‰…öÿÿ„v  jhÌI\hÌ  Sèş  …À„\  ÿµöÿÿh@I\j è&oÿÿƒÄéB  ƒ½öÿÿ ‡5  r½öÿÿ  À‡#  ö´¥\t$jhÌI\hÒ  Sèºı  …ÀthI\j èÔnÿÿYYÿ¶  ‹Îÿ¶4  èrøÿÿ…À‰…öÿÿt4ö´¥\t+jhÌI\hÖ  Sèpı  …ÀtÿµöÿÿhøH\j è„nÿÿƒÄ‹†4  ‹$  ‹…öÿÿPj j è}ÿÿPÿ,\…Àu&ÿP\ö´¥\‰…öÿÿtfjhÌI\hã  éëşÿÿƒ½öÿÿ wLr½öÿÿ  Àw>ö´¥\t$jhÌI\hé  SèÕü  …ÀthØH\j èïmÿÿYYjpèdÓ  ƒ} „0  ‹V‹ÏÿPö´¥\‹G<‹_8‰… öÿÿt0jhÌI\hÿ  h˜>\èü  …Àtÿµ öÿÿShÈH\j è’mÿÿƒÄƒû…ò   ƒ½ öÿÿp…÷   ö´¥\t(jhÌI\h  h˜>\è0ü  …Àth”H\j èJmÿÿYYÿ¶  ‹Îÿ¶4  èèöÿÿ…À‰…öÿÿ…Q  ‹V‹ÏÿPö´¥\‹G<‹_8‰… öÿÿt0jhÌI\h  h˜>\èÊû  …Àtÿµ öÿÿShÈH\j èİlÿÿƒÄƒûuAƒ½ öÿÿpuJö´¥\t(jhÌI\h  h˜>\èƒû  …Àth\H\j èlÿÿYYjpèÒ  ƒû„Ï  ƒû
+„Æ  ‹G=€   t=   t
+ƒø tƒø@u[ƒ8uU‹$  ‹†4  ‹O0èã1  O‰…öÿÿèÕ1  ‹Ë‰… öÿÿè@{ÿÿ‹  Pÿµöÿÿÿµ öÿÿè·Ÿÿÿƒg< ÇG8   ‹†4  ‹$  ‹è	{ÿÿ‹  PWÿ¶8  èfœÿÿ…À„  ƒ} u
+ƒ8„d     …ù   ƒ8…ï   OèG1  ‹8  ‰… öÿÿëL‹†4  ‹(  @‹D‹˜‹Hù€   tù   t
+ƒù@tƒù uHèş0  Pÿµ öÿÿÿ´\…Àt‹†4  ‹(  C@;\|‹†4  ‹(  @;\}b…,øÿÿPÿµ öÿÿèŒÖ  …À„Ğ  …,øÿÿPÿµ öÿÿÿè\…À„ß  ‹†4  ‹$  ‹èñyÿÿ‹  P…,øÿÿPÿµ öÿÿègÿÿ‹  èX  ÿ†8  ‹†4  ‹(  ‹–8  @;T»˜>\Œ ùÿÿÿ†4  ‹†4  ;†   Œgùÿÿ3ÿh\W…öÿÿPhh\h \h  €‰=\ÿĞ\…Àt‰=\ö´¥\t*jhÌI\h~  Sèù  …Àtÿ5\h<H\WèjÿÿƒÄ9¾   ‰¾4  +  ‹†4  ‹(  ƒ¦8   @ƒ| ò  ‹†4  ‹(  ‹–8  @‹D‹<‹G8ƒø
+…c  ‹ÏèÊÿÿéc  ö´¥\t$jhÌI\hñ  Sègø  …Àth$H\j èiÿÿYY‹Îè¼  Ç…öÿÿO  é“  ö´¥\tájhÌI\h.  h˜>\è ø  …ÀtÇhüG\ë·ö´¥\t·jhÌI\hN  h˜>\èö÷  …ÀthØG\ëÿP\PÇG8   ‰G<èâÎ  ö´¥\‹Ø¿˜>\¾ÌI\„  jVh\  Wè®÷  …ÀtShÀG\j èÇhÿÿƒÄö´¥\„á   jVh]  Wè÷  …Àtÿµ öÿÿh´G\j è“hÿÿƒÄö´¥\„­   jVh^  WèK÷  …À„—   …,øÿÿPh¨G\j èZhÿÿƒÄëƒøu=‹‹ÏÿP‹†4  ‹$  ‹èFwÿÿ‹  PWÿ¶8  è£˜ÿÿ…ÀtH‹  è¯  ÿ†8  ‹†4  ‹(  ‹–8  @;TŒşÿÿÿ†4  ‹†4  ;†   ŒÕıÿÿ‹Mü‹…öÿÿ_^[èMH  ÉÂ ÌÌÌÌÌ¸D\èÎJ  ìØ  ¡Ø|\ƒ¥ óÿÿ SV‰Eğ‹ñ‹†   HWx<@ÁçX‹(  ÏèVëÿÿƒïKuí‹  j jıèkÿÿ… óÿÿPjè{¯  ‹ø…ÿ»˜>\„“   ö´¥\t&jh¨J\h	  Sèö  …ÀtWh„J\j ègÿÿƒÄèß¸  …À„½  jè(»  … óÿÿPjè¯  ‹ø…ÿt<ö´¥\„•  jh¨J\h	  Sè§õ  …À„{  WhXJ\j è¼fÿÿƒÄéf  ÿµ óÿÿè1¯  ‹ø3À;øt5ö´¥\„F  jh¨J\h 	  SèXõ  …À„,  WèWÌ  Ph8J\ë©9†   ‰…$óÿÿÿ  ‰…óÿÿ‹½$óÿÿ‹†$  Áç‹èÉtÿÿ…À…»  ‹†$  ‹è¦tÿÿ…À…¥  ‹†$  ‹è‚tÿÿ…À…  ‹†$  ‹è tÿÿP…èıÿÿPÿ@\3ÿW…èıÿÿP…àûÿÿPèµ  ö´¥\t8jh¨J\h4	  Sè’ô  …Àt"…àûÿÿP…èıÿÿPÿµ$óÿÿhpF\Wè™eÿÿƒÄjÿ¶  …èıÿÿWP(óÿÿèpL  ¨÷ÿÿ‰}üè	Ôÿÿ…¨÷ÿÿP…(óÿÿPèQ  ¿  ;Ç„¸   …Àt7Pè&Ë  ö´¥\‹ø„Ÿ   jh¨J\h@	  Sèøó  …À„…   WhHF\ës‹†(  …óÿÿP…àûÿÿP…èıÿÿP…¨÷ÿÿPèˆÅÿÿ…ÀtR…¨÷ÿÿP…(óÿÿPè÷M  …Àt¾;Çt7Pè©Ê  ö´¥\‹øt&jh¨J\hS	  Sèó  …ÀtWh$F\j è˜dÿÿƒÄ…(óÿÿPèUS  ƒMüÿ(óÿÿèœS  ÿ…$óÿÿ‹…$óÿÿƒ…óÿÿ;†   Œşÿÿj‹Îèóÿÿ‹ø…ÿ…ú   3Û9   å   ‹†$  ‹ûÁç‹è³rÿÿ…À…½   ‹†$  ‹èrÿÿ…À…§   ‹†$  ‹èlrÿÿ…À…‘   ‹†$  ‹èörÿÿP…èıÿÿPÿ@\3ÿf9½ìıÿÿufÇ…ìıÿÿ\ f‰½îıÿÿW…èıÿÿP…àûÿÿPè×²  ÿ¶  …àûÿÿÿ5Hr\P…Øùÿÿh(J\Pÿ,\ƒÄ…ØùÿÿPhôI\WèíÃ  …ØùÿÿPèiåÿÿC;   Œÿÿÿèíåÿÿ3ÿ‹  j jüèF™ÿÿ‹Mô‹Ç_^d‰    ‹Mğ[è°C  ÉÃÌÌÌÌÌ‹ÿU‹ìSW‹}3Û;ûu6ö´¥\„˜   jhôJ\h–	  h˜>\èÄñ  …Àt~hĞJ\SèßbÿÿYYëoVh<  ‰èF  ;ÃYt‹ÈèÆæÿÿ‹ğë3ö;óu2ö´¥\tBjhôJ\h	  h˜>\èoñ  …Àt(hP)\SèŠbÿÿYYë‹Îètåÿÿ…Àt3Û‰7Cë‹Îèñÿÿ^_‹Ã[]Â ÌÌÌÌÌ¸CD\èqE  ìd  ¡Ø|\SV‹ñWıÿÿ‰Eğè‚#  3ÿ¨ıÿÿ‰}üè«c  WÆEüè›Ç  ‹  WWè  ‹Îèèÿÿ‹Ø;ß…k  EÜPè¯  ÿ¶  EÀÿ5Hr\hˆK\Pÿ,\ƒÄEÀPEÜP…¸ıÿÿPèó°  h<@\…¸ıÿÿPÿD\…¸ıÿÿPPè  ‹Ø;ßt3ö´¥\„ş   jh`K\hl  h˜>\èRğ  …À„à   Sh<K\ëjEÀPEÜP…¸ıÿÿPè‡°  …¸ıÿÿP¨ıÿÿèÜ”  ‹Ø;ßtISèÇ  ö´¥\‰…´ıÿÿ„“   jh`K\hw  h˜>\èçï  …Àtyÿµ´ıÿÿhK\Wèü`ÿÿƒÄëcÿ¶,  ‹  jèè  W‹Îè’ïÿÿ‹Ø;ßuB‹  WjèÌ  9>t0…¸ıÿÿP…¨ıÿÿP‹Îè0ßÿÿ‹Ø;ßt‹  Sjûè¢–ÿÿ‹ÎèØøÿÿ‹  WjèŠ  ‹  è  hè  ÿÌ\‹ÎèÉéÿÿj ¾  ‹jşè_–ÿÿ‹è¬ÿÿ‹  èÂ  …ÛtèÚâÿÿ¨ıÿÿÆEü èÄa  ƒMüÿıÿÿè$  ‹Mô_^d‰    ‹Mğ‹Ã[è@  ÉÃÌÌÌÌÌ‹ÿU‹ì‹Mè•ıÿÿ]Â ÌÌÌÌÌ‹ÿU‹ìQSV‹ñ‹  3Û‰]üèI  …À„÷   ‹EWSSVh›)\SS‰ÿÀ\‹ø;ûuCè–Ô  ö´¥\‹ø„Æ   jhL\j`h˜>\è\î  …À„«   WhôK\Sèr_ÿÿƒÄé—   ‹  èˆ  …À„„   hˆ  WÿÄ\ƒøÿu/è/Ô  ö´¥\‹øtcjhL\jqh˜>\èùí  …ÀtLWhĞK\ëŸ=  u/ö´¥\t4jhL\jvh˜>\èÊí  …Àth”K\Sèå^ÿÿYYëWÿT\ÇEü   _‹  èC  ‹Eü^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìì$  ¡Ø|\SV‹uW‰Eüh  …ìûÿÿPÿ5 \3Û‰äûÿÿÇ…èûÿÿ  ÿ¼\…ìûÿÿPÿ$\‹øGş  €…ôıÿÿuh˜L\Pÿ@\ëh\L\Pÿ@\…ôıÿÿPVèôÇ  …äûÿÿPh  S…ôıÿÿPVÿ´\;Ã‰…àûÿÿ…õ   …èûÿÿP…ôıÿÿP…ÜûÿÿPSh0L\ÿµäûÿÿÿÈ\;Ã‰…àûÿÿ…À   3ö÷…èûÿÿşÿÿÿ†‚   …ìûÿÿPœuôıÿÿSÿ\ƒ} t0…À„‹   fƒ; u&…ìûÿÿP„uôıÿÿPÿ@\÷fƒ¤uôıÿÿ ë(…ÀtSÿ$\t‹…èûÿÿÑè;ğršëfƒ¤uôıÿÿ ÷ß‹…èûÿÿx‰…èûÿÿÿµèûÿÿ…ôıÿÿPÿµÜûÿÿj h0L\ÿµäûÿÿÿÀ\‰…àûÿÿƒ½äûÿÿ _^[tÿµäûÿÿÿ°\‹Mü‹…àûÿÿèu=  ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìt¡Ø|\S‰Eü‹EV‰Eà‹EW3Û‰EØjEôPEŒP‰]ì‰]ä‰]ğˆ]ôˆ]õˆ]öˆ]÷ˆ]øÆEù‰]Üÿ\SEŒPÿ\Ç     ‰]ÔEäPh    EìPEÔPÿuàèáë  ‹ğ;ó|{ş  tÇEÜ   9]ä‰]èvK3ÿ9]ğtÿuğè©ë  ‰]ğEğP‹EìDPÿuàè†ë  ‹ğ;ó|8ÿuğEŒPÿ\„ÀtEÿEè‹EèƒÇ;Eär·ÿuìèeë  9]Ü‰]ì„kÿÿÿ¾ß  À9]ìtÿuìèGë  ‹Mü_‹Æ^[èT<  ÉÂ ‹Eğ‹MØ‰‰]ğ3öëÓÌÌÌÌÌ‹ÿU‹ìƒìl¡Ø|\‰Eü‹E‰E¬‹ES‰Eœ‹EV‰E 3Ûhğ"\E”P‰]Ì‰]Ğ‰]¤‰]Èÿ\Sj1EÌPE”Pè%ë  ‹ğ;óŒø   EÈPÿuÌèişÿÿ‹ğ;óŒâ   EĞPÿuÈh… ÿuÌèåê  ‹ğ;óŒÄ   WE¸PSE°PSE¤PÿuĞè¸ê  ‹ğş  ‰u¨t;óŒ—   9]¸‰]Àvz‰]Ä‹E°‹MÄ‹<E¿PE×PEØPSSÿu ÿu¬ÿuœWè|õ  ‹ğ;ó|<E´PWhğ   ÿuĞèNê  ‹ğ;ó|$ŠE×ˆEøEØPjÿu´ˆ]ùˆ]úè"ê  ÿu´‹ğèê  ÿEÀ‹EÀƒEÄ;E¸r‰ÿu°èİé  }¨  „>ÿÿÿ_9]ÌtÿuÌèÚé  9]ĞtÿuĞèÍé  9]ÈtÿuÈè¨é  ‹Mü‹Æ^[è¶:  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì8  ¡Ø|\V3ö‰Eü…äıÿÿPj…ÈıÿÿPV‰µğıÿÿ‰µäıÿÿ‰µèıÿÿ‰µìıÿÿ‰µàıÿÿÇ…Èıÿÿ   ‰µÌıÿÿ‰µĞıÿÿ‰µÔıÿÿ‰µØıÿÿ‰µÜıÿÿèÍè  …ÀŒ$  …ğıÿÿPh  Vÿ5Œr\h  €ÿ´\;Æ‰…èıÿÿ…ø   W‹=È\…ìıÿÿP…ôıÿÿP…àıÿÿPVÿ5 r\Ç…ìıÿÿ  ÿµğıÿÿÿ×…ÀuH‹…ìıÿÿÑèf‰´Eôıÿÿ…ôıÿÿPÿ5 r\ÿµäıÿÿèD¯  ;Æ‰…èıÿÿ…ˆ   ÿ5 r\ÿµğıÿÿÿÄ\…ìıÿÿP…ôıÿÿP…àıÿÿPVÿ5¤r\Ç…ìıÿÿ  ÿµğıÿÿÿ×…ÀuD‹…ìıÿÿÑèf‰´Eôıÿÿ…ôıÿÿPÿ5¤r\ÿµäıÿÿèÊ®  ;Æ‰…èıÿÿuÿ5¤r\ÿµğıÿÿÿÄ\_9µğıÿÿ^tÿµğıÿÿÿ°\‹Mü‹…èıÿÿèì8  ÉÃÌÌÌÌÌ3ÀÂ ÌÌÌÌÌ‹ÿU‹ìƒìSVWÿu3ÿÿ5¨r\»  €S‰}ü‰}ø‰}ôÿˆ\‹ğ;÷t7ö´¥\„Œ  jh„M\h·  hTM\èÕæ  …À„n  Vh@M\WéZ  ‹=Ì\EüPÿ5˜r\Sÿ×‹ğ…ötFö´¥\„<  jh„M\h¾  hTM\è…æ  …À„  Vÿ5˜r\h$M\j è”WÿÿƒÄé  EøPÿuüèæñ  PÿP\‹ğ…öt6ö´¥\„İ   jh„M\hÅ  hTM\è&æ  …À„¿   VhM\éª   ÿuüÿ°\ƒeü EüPÿ5¨r\Sÿ×‹ğ…öt3ö´¥\„‡   jh„M\hÏ  hTM\èĞå  …ÀtmVÿ5¨r\éJÿÿÿEôPÿuüèDñ  …À|Q‹Eø;EôvIPÿuüèÏé  PÿP\‹ğ…öt3ö´¥\t*jh„M\hÛ  hTM\èså  …ÀtVhäL\j èŒVÿÿƒÄƒ}ü t	ÿuüÿ°\ÿ5¨r\SÿÜ\_‹Æ^[ÉÂ ÌÌÌÌÌ¸]D\èq9  ì€  ¡Ø|\SV3ÛWˆùÿÿ‰Eğ‰|ùÿÿ‰xùÿÿ‰€ùÿÿè€J  ‰]üè{ã  …tùÿÿPSjjÿ\PÿP\‹ğ;ó¿  €t?ö´¥\„İ  jhLN\h   hTM\è¬ä  …À„¿  Vh0N\SèÂUÿÿƒÄé«  …àûÿÿPè9£  …ÀuDÿP\ö´¥\‰…„ùÿÿ„H  jhLN\h  hTM\èQä  …À„*  ÿµ„ùÿÿhN\ëL…ˆùÿÿPè}C  ;Ã‰…„ùÿÿt<ö´¥\„ú  jhLN\h  hTM\èä  …À„Ü  ÿµ„ùÿÿhøM\SéÃ  …ŒùÿÿP…àûÿÿP…èıÿÿPè)¤  ‹5D\h<@\…èıÿÿPÿÖh€#\…èıÿÿPÿÖÿ5r\…èıÿÿPÿÖÿ5˜r\…èıÿÿPÿÖ‹ˆ\…èıÿÿPÿ5¨r\WÿÓ…À‰…„ùÿÿtAö´¥\„D  jhLN\h  hTM\èMã  …À„&  ÿµ„ùÿÿÿ5¨r\hÜM\éb  …|ùÿÿPÿ5¨r\WÿÌ\…À‰…„ùÿÿt<ö´¥\„å  jhLN\h"  hTM\èîâ  …À„Ç  ÿµ„ùÿÿÿ5¨r\é  …ŒùÿÿP…àûÿÿP…èıÿÿPè£  h<@\…èıÿÿPÿÖh€#\…èıÿÿPÿÖÿ5r\…èıÿÿPÿÖÿ5œr\…èıÿÿPÿÖ…èıÿÿPÿ5°r\WÿÓ…À‰…„ùÿÿt<ö´¥\„;  jhLN\h/  hTM\èDâ  …À„  ÿµ„ùÿÿÿ5°r\éòşÿÿ…xùÿÿPÿ5°r\WÿÌ\…À‰…„ùÿÿt<ö´¥\„á  jhLN\h6  hTM\èêá  …À„Ã  ÿµ„ùÿÿÿ5°r\éÿ   …ŒùÿÿP…àûÿÿP…èıÿÿPè¢  h<@\…èıÿÿPÿÖh€#\…èıÿÿPÿÖÿ5r\…èıÿÿPÿÖÿ5”r\…èıÿÿPÿÖ…èıÿÿPÿ5¬r\WÿÓ…À‰…„ùÿÿt<ö´¥\„7  jhLN\hC  hTM\è@á  …À„  ÿµ„ùÿÿÿ5¬r\éîıÿÿ…€ùÿÿPÿ5¬r\WÿÌ\…À‰…„ùÿÿtKö´¥\„İ   jhLN\hJ  hTM\èæà  …À„¿   ÿµ„ùÿÿÿ5¬r\h$M\j èğQÿÿƒÄéŸ   ÿµ€ùÿÿÿµxùÿÿÿµ|ùÿÿèöÿÿPÿP\…À‰…„ùÿÿt0ö´¥\tnjhLN\hQ  hTM\èwà  …ÀtTÿµ„ùÿÿhÈM\ë=èf÷ÿÿ…À‰…„ùÿÿt8ö´¥\t/jhLN\hX  hTM\è8à  …Àtÿµ„ùÿÿh¬M\j èLQÿÿƒÄƒ½|ùÿÿ tÿµ|ùÿÿÿ°\ÿ5¨r\‹5Ü\WÿÖ‹Ø…Ût9ö´¥\t0jhLN\he  hTM\èÖß  …ÀtSÿ5¨r\hM\j èéPÿÿƒÄƒ½xùÿÿ tÿµxùÿÿÿ°\ÿ5°r\WÿÖ‹Ø…Ût9ö´¥\t0jhLN\ho  hTM\èyß  …ÀtSÿ5°r\hM\j èŒPÿÿƒÄƒ½€ùÿÿ tÿµ€ùÿÿÿ°\ÿ5¬r\WÿÖ‹ğ…öt9ö´¥\t0jhLN\hy  hTM\èß  …ÀtVÿ5¬r\hM\j è/PÿÿƒÄ…tùÿÿPj ÿµtùÿÿjÿ\‹µ„ùÿÿj WèNñÿÿèÄŞ  ƒMüÿˆùÿÿè!E  ‹Mô_‹Æ^d‰    ‹Mğ[èd0  ÉÃÌÌÌÌÌ‹ÿU‹ìƒì$SVW¹\è"¾  h`N\EôPÿ\‹ \3À‰Eà‰Eè‰Eì‰EğEÜP¾  VEüMôPÇEÜ   ‰MäÿÓ‹ø…ÿ}>ÿ4  Àu2j j EÜPVEüPÿ\‹øÿ   @tÿ5  ÀuEÜPVEüPÿÓ‹ø…ÿ|$h`ê  ÿuüÿÄ\¹  ;Áu‹ùë	…Àt¿  Àÿuüÿ\…ÿ|è§øÿÿëWÿP\_^[ÉÂ ÌÌÌÌÌ3ÀPPPhÇ9\PPÿÀ\°ÃÌÌÌÌÌ‹ÿU‹ìƒìSV‹5\W‹Ù3ÿë$EäPÿ3ÿ\…ÀuEäPÿ\EäPÿ\WWEäWPÿÖ…ÀuÏ_^@[ÉÃÌÌÌÌÌ‹ÿSV‹ñ‹W3Û3ÿ;ÃtGSSjPÿ€\…Àu8èMÃ  ö´¥\‹ğtMjhØN\j_h¨N\èİ  …Àt6VhŒN\Sè1NÿÿƒÄë%‹F;Ã‹=ü\‰tPÿ×‰^‹F;ÃtPÿ×‰^3ÿG‹Ç_^[ÃÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\SVW‹}‰Eü3Û‹Ç+Ã‹ñ‰~t}HtXHt?ö´¥\„I  jhTO\h­   h¨N\èƒÜ  …À„+  Wh8O\Sè™MÿÿƒÄé  ‹FkÀZjd™Y÷ù¿&  ‰F$ë*‹E‰F‹F€Áàjd™Y÷ù¿%  ‰^ ‰F$ë¿$  ‰^$h   …ü÷ÿÿPWÿ5 \f‰ü÷ÿÿÿD\…ÀuIèÂ  ö´¥\‰…ø÷ÿÿ„‚   jhTO\hµ   h¨N\èÕÛ  …Àthÿµø÷ÿÿWhO\SèéLÿÿƒÄëQ…ü÷ÿÿPh9  ÿ6ÿ\…Àu9èµÁ  ö´¥\‹øt)jhTO\h»   h¨N\è|Û  …ÀtWhøN\Sè–LÿÿƒÄSÿv$h  h8  ÿ6ÿ|\3ÛC‹Mü_^‹Ã[èõ,  ÉÂ ÌÌÌÌÌ‹ÿSV‹ñ‹F3Û+ÃW‹~$„»   HtIHtAö´¥\„Ç   jhÜO\hî   h¨N\èúÚ  …À„©   ÿvh°O\SèLÿÿƒÄé“   ‹~ëoÿF ‹F ‹N;Áv=ö´¥\t.jhÜO\hİ   h¨N\è«Ú  …Àtÿvÿv hxO\SèÀKÿÿƒÄ‹N‰N ;Ëv!‹F H¯F3Ò÷ñjd_‹È‹F€Áà™÷ÿ|;~$tSWh  h8  ÿ6‰~$ÿ|\3ÛC_^‹Ã[ÃÌÌÌÌÌ‹ÿU‹ìQQVWEøP3ÿÇEø   ÇEü    ÿô\…Àu;è*À  ö´¥\‹ğt.jh$P\h  h¨N\èñÙ  …ÀtVh P\WèKÿÿƒÄë3ÿG‹Ç_^ÉÃÌÌÌÌÌ‹ÿU‹ìƒì<ƒeø SVW‹=\j ‹Ùÿ×‹ğ…öuGèÀ¿  ö´¥\‹ğ„ä  jhŒP\h7  h¨N\èƒÙ  …À„Æ  VhdP\j è˜JÿÿƒÄé±  jVÿ\3ÉƒøŸÁV‹5\ƒÁo‰MüÿÖ‹C…Àt‹Mü;K„w  P‰Kÿü\3ÀPPPP·EüPÿ5 \ÿ0\…À‰EôuJè¿  ö´¥\‹ğ„B  jhŒP\hR  h¨N\èáØ  …À„$  VÿuühDP\j èóIÿÿƒÄé  MÄQjPÿ\jìÿuÿô\©  @ t~j ÿ×P‰Eğÿ×ÿuğ‰Eøÿ×‰EüEÄPÿ\ÿuô‹=\ÿuø‰Eìÿ×ÿuìÿuüÿ×‹EÈh  Ì ÿuÌ‹È÷ÙQ3ÿWHÿQÿuøÿuÌPWWÿuüÿ \ÿuüÿÖÿuøÿÖÿuğÿÖÿuôÿü\‹Eìë‹Eô3ÿh6  ÿu‰Cÿø\‹ğEÜPVÿü\jEÜPÿuWÿ \ÿsWhr  Vÿ€\‹Eè+Eàj+EÌÿuÌ™ÿuÈ+ÂÑøEàPÿuÜWVÿ\ÇEø   ‹Eø_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìx¡Ø|\‰Eü‹ES3ÒV‹u‹Ù‹MHHW‹}‰]˜‰Uœ„x  ƒè„  ƒèn„  -’   t=ƒè(…d  jôQÿô\=6  t=7  t3ÀëjVÿ$\jÿ \‰Eœé0  ‹5|\RRj1h7  W‰;ÿÖM Qj\Pÿ\WÿÜ\jZP‰Eœÿ\kÀôjHY™÷ùÿuœÇE°¼  W‰E ÿà\E Pÿ\j Pj0h7  W‰CÿÖW‹ËèŞüÿÿEˆPh8  Wÿø\Pÿä\‹M+Mˆjd‹ÁkÀF‰K[™÷û‹U˜Qj h  »8  SW‰BÿÖj j h  SWÿÖëeW‹Ëè…üÿÿë[Wÿè\…Àu<èY¼  ö´¥\‹ğtGjhÜP\hÔ  h¨N\è Ö  …Àt-Vh¼P\j è9GÿÿƒÄëjj Wÿì\ëRÿğ\ÇEœ   ‹Mü‹Eœ_^[è“'  ÉÂ ÌÌÌÌÌ‹ÿU‹ìV‹ñèqøÿÿöEtVèå)  Y‹Æ^]Â ÌÌÌÌÌ‹ÿU‹ìV3ö}  uÿujÿuÿì\‹Eëjÿuÿô\…Àtÿu‹ÈÿuÿuÿuèÆıÿÿ‹ğ‹Æ^]Â ÌÌÌÌÌ‹ÿSVW‹ñVhÀB\3ÛSjÿ5 \ÿ\‹ø;ûu8èM»  ö´¥\‹ğtljhØN\jCh¨N\èÕ  …ÀtUVh,Q\Sè1FÿÿƒÄëD;>t3ö´¥\t(jhØN\jHh¨N\èâÔ  …Àtÿ6Wh Q\SèúEÿÿƒÄ‰>jÿ6ÿØ\3ÛC_^‹Ã[ÃÌÌÌÌÌ…ÉtjèĞşÿÿ3À@ÃÌÌÌÌÌ‹ÿU‹ìSW‹}3Û;ûu6ö´¥\„™   jhxQ\h  h¨N\èlÔ  …ÀthPQ\Sè‡EÿÿYYëpVj(‰è¹(  ;ÃYt‰‰X‰X‰X‹ğë3ö;óu2ö´¥\tBjhxQ\h  h¨N\èÔ  …Àt(hP)\Sè1EÿÿYYë‹Îè¾ùÿÿ…Àt3Û‰7Cë‹Îè7ÿÿÿ^_‹Ã[]Â ÌÌÌÌÌ‹ÿU‹ìV3ö9ut)ÿuÿ$\‹ğÑæt‹EÿuƒÆƒæü‰0ƒÀPÿ@\ë‹Eƒ  F^]Â ÌÌÌÌÌ‹Áƒ  ƒ` ÃÌÌÌÌÌ‹ÃÌÌÌÌÌ‹ÿV‹ñ‹F…ÀtPè'  ƒf ƒ& Y^ÃÌÌÌÌÌ‹ÿU‹ìV‹ñ‹W3ÿ9Fuh‹NƒÀ‰Áà;ÏPuWÿX\Pÿ0\ëQWÿX\Pÿ4\;Çu2ö´¥\t>jhÈ+\h³   h˜+\è÷Ò  …Àt$hP)\WèDÿÿYYë‰F‹F‹N‹U‰ÿF3ÿG‹Ç_^]Â ÌÌÌÌÌ‹ÿU‹ìƒìSV‹5\W3ÿWEüPj[SEøPÿu‰}ôÿÖ…ÀuAè©¸  „´¥\‹ğ„ç   ShÄQ\jNh”Q\èqÒ  …À„Í   Vh8-\Wè‡CÿÿƒÄé¹   9]üt;„´¥\„¨   ShÄQ\jNh”Q\è2Ò  …À„   ÿuüSh-\j{èDCÿÿƒÄëy}ø  wp9}øv^WEüPÿuøÿuÿuÿÖ…Àuè¸  „´¥\‹ğtHShÄQ\jXé\ÿÿÿ‹Eü;Eøt,„´¥\t+ShÄQ\jXh”Q\èµÑ  …Àtÿuüÿuøëƒ‹Ef‰8ÇEô   ‹Eô_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìì  ¡Ø|\VW‰EüE‰…ø÷ÿÿ¾   V…ü÷ÿÿPÿu3ÿÿ5 \ÿD\…ø÷ÿÿPVÿu…ü÷ÿÿWWPVÿ¸\…Àu8èE·  ö´¥\‹ğt+jhôQ\jxh”Q\èÑ  …ÀtVhÔQ\Wè)BÿÿƒÄë3ÿG‹Mü‹Ç_^è"  ÉÃÌÌÌÌÌ‹ÿU‹ìì
+  ¡Ø|\SVW‹=D\¾   V‰Eü…üıÿÿPVÿ5 \3Û‰øõÿÿÿ×…Àu@è¹¶  ö´¥\‹ø„—   jhR\h‘   h”Q\è|Ğ  …Àt}WVhO\Sè•AÿÿƒÄëkh   …üõÿÿPÿuÿ5 \ÿ×…Àu0è^¶  ö´¥\‹ğt@jhR\h˜   h”Q\è%Ğ  …Àt&Vÿuë¥S…üıÿÿP…üõÿÿPSÿ \Ç…øõÿÿ   ‹Mü‹…øõÿÿ_^[èœ!  ÉÂ ÌÌÌÌÌ‹ÿU‹ìQQVWjX‰Eø‰EüEüPÿuEøPÿu3ÿÿuÿuÿĞ\;Çt<Pè¶¦  ö´¥\‹ğt.jhR\h´   h”Q\èˆÏ  …ÀtVhô(\Wè¢@ÿÿƒÄë3ÿG‹Ç_^ÉÂ ÌÌÌÌÌ‹ÿU‹ìVWjEPjÿu3ÿÿuÿuÿÀ\;Çt<PèF¦  ö´¥\‹ğt.jh@R\hÊ   h”Q\èÏ  …ÀtVh$R\Wè2@ÿÿƒÄë3ÿG‹Ç_^]Â ÌÌÌÌÌ‹ÿU‹ìVWÿu3ÿÿ$\ÑàPÿujÿuÿuÿuÿÀ\;Çt<PèÍ¥  ö´¥\‹ğt.jhPR\hà   h”Q\èŸÎ  …ÀtVh$R\Wè¹?ÿÿƒÄë3ÿG‹Ç_^]Â ÌÌÌÌÌéùúÿÿÌÌÌÌÌ‹ÿU‹ìSW‹ù3Ûèäúÿÿ9]tyV‹uƒşÿuÿuÿ$\‹ğ;ó~]D6Pè£"  …ÀY‰Gu3ö´¥\tEjh\R\h¥  h”Q\èÎ  …Àt+hP)\j{è,?ÿÿYYëNQÿuPÿÈ\‹Gfƒ$p ‰73ÛC^_‹Ã[]Â ÌÌÌÌÌ‹ÿU‹ìVjÿÿu‹ñèSÿÿÿ‹Æ^]Â ÌÌÌÌÌé?ÿÿÌÌÌÌÌ‹ÿU‹ìVjÿÿu‹ñƒf è'ÿÿÿ‹Æ^]Â ÌÌÌÌÌ¸D\èÇ!  ƒìSV3öW‹ù‰}Ü‰7‰w‰w_‰uü‰3‰s‰sEàPhÌS\hHS\h  €ÆEüè€¤  ;Æ‰Eä„  f90‰Eğ„  ÿuğÿà\ƒøÿ„£   ¨Vth   ëVjVVh   €ÿuğÿ\ƒøÿ‰Eìupè³  ö´¥\‰Eèt_jh(S\hç  h”Q\èËÌ  …ÀtÿuèhS\Vèã=ÿÿƒÄö´¥\t+jh(S\hè  h”Q\è—Ì  …ÀtÿuğhøR\Vè¯=ÿÿƒÄÿuì‹Ïèùÿÿë4ö´¥\t+jh(S\hî  h”Q\èWÌ  …ÀtÿuğhØR\Vèo=ÿÿƒÄÿuğÿ$\‹MğDAf90‰Eğ…ûşÿÿ‹EäPèC   YEàPh¼R\hHS\h  €èB£  ;Æ‰Eä„ı   f90‰Eğ„ñ   ÿuğÿà\ƒøÿ„Œ   ÿuğÿ´\;Æ‰EìupèŞ±  ö´¥\‰Eèt_jh(S\h  h”Q\è¤Ë  …ÀtÿuèhœR\Vè¼<ÿÿƒÄö´¥\t+jh(S\h  h”Q\èpË  …ÀtÿuğhøR\Vèˆ<ÿÿƒÄÿuì‹Ëèö÷ÿÿë4ö´¥\t+jh(S\h	  h”Q\è0Ë  …ÀtÿuğhxR\VèH<ÿÿƒÄÿuğÿ$\‹MğDAf90‰Eğ…ÿÿÿ‹EäPè  Y‹Mô‹Ç_^[d‰    ÉÃÌÌÌÌÌ¸¡D\è  QSVW‹ù‰}ğ‹wÇEü   ëQ‹G‹°ƒøÿtFPÿT\…Àu;è½°  ö´¥\‹Øt+jh@T\h   h”Q\è„Ê  …ÀtSVhT\j èœ;ÿÿƒÄNy¬‹wëP‹G‹°…ÀtFPÿ°\…Àu;èe°  ö´¥\‹Øt+jh@T\h(  h”Q\è,Ê  …ÀtSVhèS\j èD;ÿÿƒÄNy­Oèw;ÿÿ‹Ïèp;ÿÿ‹Mô_^[d‰    ÉÃÌÌÌÌÌ‹Áƒ` ƒ  ÃÌÌÌÌÌ‹ÿVh\T\jjj ‹ñÿ¬\…À‰^uÿ%P\3ÀÃÌÌÌÌÌ‹ÿV‹ñFPÿ¤\ƒøu‹6…ötVÿ¨\^ÃÌÌÌÌÌ‹ÿV‹ñFPÿœ\…Àu‹6…ötVÿ \…Àu^ÿ%P\3À^ÃÌÌÌÌÌ‹…ÀthÀ'	 PÿÄ\Ã¸O  ÃÌÌÌÌÌ‹AÃÌÌÌÌÌ‹ÿU‹ì‹Á‹M‹‰‹I‰H]Â ÌÌÌÌÌ‹ÿU‹ìV‹uëÿuVÿuÿø\PÿH\F;u~æ^]Â ÌÌÌÌÌ‹ÿU‹ì‹Mè‘Hÿÿ…Àt¸¸z\ë)‹MècHÿÿ…Àt¸¸x\ë‹Mè^Hÿÿ…À¸¸v\u¸¸t\]Â ÌÌÌÌÌ‹ÿU‹ì¸€  èm  ¡Ø|\ƒ¥ ëÿÿ }  S‹]‰Eü‹EVW‹}‰…¤ëÿÿu‹sVjW‰µ¨ëÿÿÿì\ëjWÿô\‰…¨ëÿÿ‹ğ3Ò;ò„/  ‹M¸‚   ;È‡²  „œ  ƒù„Ù  ƒùN„µ   ƒùStDƒù{…ù  hpT\j
+h„V\ÿµ¤ëÿÿÿl\…À…Ï  ö´¥\„Â  jhpV\h$  ë?‹[;Ú„©  hpT\jh„V\Sÿl\…À…  ö´¥\„  jhpV\h0  h@V\è{Ç  …À„c  ÿP\Ph0V\j èŠ8ÿÿƒÄéH  ‹[û6ÿÿÿ…Ô   Wÿh\P‹ÎèäKÿÿ‹Ø÷ÛÛ‹ÎCèÇFÿÿ‹Î‰…¨ëÿÿèÆGÿÿPÿ$\…ÀVt,è&şÿÿP‹ÎèAGÿÿP‹Îè¥GÿÿP…ìóÿÿh  Pè_õÿÿƒÄë"èúıÿÿP‹ÎèGÿÿP…ìóÿÿh"  Pè;õÿÿƒÄ…ìóÿÿPhM  Wÿ\ÿµ¨ëÿÿhé  Wÿd\3À9…¨ëÿÿ”ÀPhù  hó  WèmıÿÿSj Wÿì\ée  ƒûşt	ƒûü…W  ½¤ëÿÿ¶  …G  jRRhU\hU\Rÿ \é-  …¬ëÿÿPWÿ`\‹Ø…€ëÿÿPhN  Wÿø\Pÿü\‹…€ëÿÿ‰…ëÿÿ‹…„ëÿÿ‰…”ëÿÿ…ëÿÿPWÿ\\j3ÀPPPPj‹ÎèGÿÿPÿµ”ëÿÿÿµëÿÿSÿX\…¬ëÿÿPWÿT\‹¤ëÿÿ·Á¾é  +Æ„Ú   ƒè…‹  Áéf…É…  j è†;ÿÿés  ‹ÎèwTÿÿj jéòşÿÿ‹Á-  „)  Ht©ƒè…T  hö  Wÿø\‹€\j j h   P‰…¤ëÿÿÿÓ‹ğ;5 \„  ‹¨ëÿÿV‰5 \èIÿÿVjh  ÿµ¤ëÿÿÿÓ‹¨ëÿÿ…ìóÿÿPèHÿÿ…ìóÿÿPhù  Wÿ\j Whh  Wÿh\PÿÓéº  Áéf…É…®  VWÿP\‹Ø…Ûu4‹¨ëÿÿè@Dÿÿ…Àt%jCÿ@\…Àth'  è§óÿÿjVWÿd\él  3À…Û”ÀPhù  hó  WèMûÿÿ‹¨ëÿÿSè?Hÿÿj Whh  Wÿh\Pÿ€\é-  ‹ÎèßCÿÿ…À‹\u-‹5ø\j hı  WÿÖPÿØ\j hş  WÿÖPÿØ\é¯   …˜ëÿÿPÿ5Ì|\ÿ5¼|\h  €èôÿÿ…Àu
+Ç…˜ëÿÿÈ   h   …ìëÿÿP¾ı  VWÿL\…Àu9ö´¥\t0jhpV\h  h@V\è˜Ã  …Àt…ìóÿÿPhÜT\j è«4ÿÿƒÄÿµ˜ëÿÿ…ìëÿÿP…ìóÿÿPÿ,\ƒÄ…ìóÿÿPVWÿÓ‹5ø\hN  WÿÖj PÿØ\‹¨ëÿÿèÛCÿÿPÿ$\…Àÿµ¨ëÿÿt4è6úÿÿ‹¨ëÿÿPèMCÿÿ‹¨ëÿÿPè­CÿÿP…ìóÿÿh  PègñÿÿƒÄë&èúÿÿ‹¨ëÿÿPèCÿÿP…ìóÿÿh"  Pè?ñÿÿƒÄ…ìóÿÿPhM  WÿÓhö  WÿÖ‹5€\h  
+ j h  P‰…¤ëÿÿÿÖ‹¨ëÿÿè EÿÿPjh  ÿµ¤ëÿÿ£ \ÿÖ‹¨ëÿÿ…ìóÿÿPè‚Eÿÿ…ìóÿÿPhù  WÿÓ‹¨ëÿÿèæAÿÿP¾é  VW‰…¨ëÿÿÿd\3À9…¨ëÿÿ”ÀPhù  hó  Wèùÿÿ…œëÿÿPÿ5Ä|\ÿ5À|\h  €èòÿÿ…ÀtM3À9…œëÿÿ•ÀPVWÿd\h  …ìóÿÿPh  ÿ5 \ÿD\…ìóÿÿPVWÿÓj VWÿø\PÿH\…œëÿÿPÿ5È|\ÿ5À|\h  €è¯ñÿÿ…Àt|ö´¥\t(jhpV\h¬  h@V\èmÁ  …Àth°T\j è‡2ÿÿYYj hù  hó  Wè2øÿÿh  …ìóÿÿPh  ÿ5 \ÿD\…ìóÿÿPVWÿÓj VWÿø\PÿH\Ç… ëÿÿ   ‹Mü‹… ëÿÿ_^[è§  ÉÂ ÌÌÌÌÌ‹ÿU‹ìì<  ¡Ø|\S‹]‰Eü‹ES‰…øıÿÿè—Zÿÿ…ÀtaV‹sNxYW3ÿG‹Cÿ4°èÄ÷ÿÿP…üıÿÿPÿ@\…üıÿÿ‰…Øıÿÿ…ÄıÿÿPj hL  ÿµøıÿÿ‰½Äıÿÿ‰µÈıÿÿ‰½Ìıÿÿÿ€\Ny¬_^‹Mü[è
+  ÉÂ ÌÌÌÌÌ‹ÿU‹ì¸,  è  ¡Ø|\ƒeø }  SV‹u‰Eü‹EW‹}‰…ÜëÿÿuWjVÿì\‹ß‰àëÿÿëjVÿô\‰…àëÿÿ‹Ø‹EƒèS„  ƒè(„Ù  -•   „u  H„   ƒè…O  hö  Vÿø\‹€\j j h   P‰…ÜëÿÿÿÓ‹ø;=(\„  ‹àëÿÿW‰=(\è{CÿÿW3ÿGWh  ÿµÜëÿÿÿÓ‹àëÿÿ…äóÿÿPèyBÿÿ…äóÿÿPhù  Vÿ\‰=$\éÂ  ‹Üëÿÿ·ÁH„›   H„†   -ç  tBƒè…›  Áéf…É…  f!Mô3À}ö«‹Ëf«è3?ÿÿf‹ fƒeö f‰EôEôPèá4ÿÿéb  hé  VÿP\‹ø3À…ÿ”ÀPhù  hó  Vè¡õÿÿW‹Ëè—BÿÿÇ$\   é%  jVÿp\é  ƒ=$\ t'V‹Ëè,Cÿÿ…Àu‹Ëè>ÿÿ3É…À•ÁQhé  Vÿd\jëÀƒ%$\ ‹ËèŒ>ÿÿP…äóÿÿh  Pè²ìÿÿƒÄ…äóÿÿPVÿt\‹ËèÎ>ÿÿPÿ$\…ÀSt,è.õÿÿP‹ËèI>ÿÿP‹Ëè­>ÿÿP…äóÿÿh  PègìÿÿƒÄë"èõÿÿP‹Ëè>ÿÿP…äóÿÿh"  PèCìÿÿƒÄ‹=\…äóÿÿPhê  Vÿ×…ØëÿÿPÿ5Ì|\ÿ5¼|\h  €èºíÿÿ…Àu
+Ç…ØëÿÿÈ   ‹ËèJ=ÿÿ…À‹Ë„¹   è>ÿÿPÿ$\…À‹Ët$è =ÿÿP‹Ëè>ÿÿP…äóÿÿh  Pè¾ëÿÿƒÄëè|=ÿÿP…äóÿÿh#  Pè¢ëÿÿƒÄ…äóÿÿPh  Vÿ×h   …äëÿÿP»ÿ  SVÿL\…À…¾   ö´¥\„±   jhW\h¸   h@V\èÙ¼  …À„“   …äóÿÿPhØV\ë{èY<ÿÿ‹Ø3À…Û•ÀPhé  Vÿd\3À…Û”ÀPhù  hó  Vèyóÿÿ»   S…äëÿÿPSVÿL\…Àu9ö´¥\t0jhW\hÄ   h@V\èX¼  …Àt…äóÿÿPh¤V\j èk-ÿÿƒÄÿµØëÿÿ…äëÿÿP…äóÿÿPÿ,\ƒÄ…äóÿÿPSVÿ×hö  Vÿø\‹€\h  
+ j h  P‰…ÜëÿÿÿÓ‹àëÿÿèø>ÿÿPjh  ÿµÜëÿÿ£(\ÿÓ‹àëÿÿ…äóÿÿPèÚ>ÿÿ…äóÿÿP»ù  SVÿ×…ÔëÿÿPÿ5È|\ÿ5À|\h  €è¯ëÿÿ…À„  ö´¥\t(jhW\hÕ   h@V\èi»  …Àth°T\j èƒ,ÿÿYYj Shó  Vè2òÿÿh  …äóÿÿPh  ÿ5 \ÿD\…äóÿÿP»é  SVÿ×j SVÿø\PÿH\éŠ   hT\j
+h„V\ÿµÜëÿÿÿl\…Àunö´¥\tejhW\h  ë3‹…ÿtPhT\jh„V\Wÿl\…Àu9ö´¥\t0jhW\h*  h@V\è–º  …ÀtÿP\Ph0V\j è©+ÿÿƒÄÇEø   ‹Mü‹Eø_^[è  ÉÂ ÌÌÌÌÌ‹ÿVW‹ù‹wë‹G‹°èCIÿÿNyò‹Ï_^é§+ÿÿÌÌÌÌÌ‹ÿU‹ìV‹ñè•+ÿÿöEtVèD  Y‹Æ^]Â ÌÌÌÌÌ‹ÿU‹ìì°  ¡Ø|\ƒ¥Ü÷ÿÿ }  S‹]‰Eü‹EV‹uW‰à÷ÿÿ‰…è÷ÿÿu‹~WjSÿì\ëjSÿô\‹ø3É;ù„  ‹EƒèN„İ  ƒè„h  ƒè(„$  ƒè„  -   „h  H…Ì  ·…è÷ÿÿ¾é  ;Æ„Æ   =µ  …£  ‹…è÷ÿÿÁèf…À…‘  h´  Sÿø\jjÿh  P‰…ä÷ÿÿÿ€\‹O‹4‹Î‰µè÷ÿÿè¼8ÿÿ…À‹ÎtèÌ8ÿÿ‹ğ÷ŞöƒÆëè¼8ÿÿ‹ğ÷ŞöƒÆÿµè÷ÿÿh#X\Sÿh\P·ÆPÿ5 \ÿx\ƒøuWÿµä÷ÿÿèÏ÷ÿÿ‹è÷ÿÿèÄ;ÿÿ‹è÷ÿÿPèŸ<ÿÿéè  ‹…è÷ÿÿÁèf…À…Ö  VSÿP\H÷ØÀ@‰…è÷ÿÿu9‹G‹è8ÿÿ…Àt%jCÿ@\…Àth'  èoçÿÿjVSÿd\é  ‹…è÷ÿÿP‹G‹è<ÿÿj Shh  Sÿh\Pÿ€\éa  h´  Sÿø\h   ‰…ä÷ÿÿ…üıÿÿPh  ÿ5 \Ç…¸÷ÿÿ   Ç…À÷ÿÿ–   ÿD\‹5€\…üıÿÿ‰…Ä÷ÿÿ…¸÷ÿÿPj »a  Sÿµä÷ÿÿÿÖh   …üıÿÿPh  ÿ5 \Ç…¸÷ÿÿ   Ç…À÷ÿÿP   ÿD\…üıÿÿ‰…Ä÷ÿÿ3À¸÷ÿÿQ@PSÿµä÷ÿÿ‰…Ì÷ÿÿÿÖ‹G3ÛSPjjjÿì\9_‰…Ü÷ÿÿè   ‹G‹˜j‰è÷ÿÿè[8ÿÿPjÿÿµÜ÷ÿÿÿğ\‹è÷ÿÿèA7ÿÿ‹è÷ÿÿPè¡7ÿÿP…ì÷ÿÿh<W\Pÿ,\ƒÄÿµè÷ÿÿèñíÿÿP…üûÿÿPÿ@\ƒ¥Œ÷ÿÿ …ì÷ÿÿ‰…˜÷ÿÿ…„÷ÿÿPj hM  ÿµä÷ÿÿÇ…„÷ÿÿ   ‰ˆ÷ÿÿ‰ ÷ÿÿÿÖ‰…ˆ÷ÿÿ…üûÿÿ‰…˜÷ÿÿ…„÷ÿÿPj 3ÉhL  ÿµä÷ÿÿA‰„÷ÿÿ‰Œ÷ÿÿÿÖC;_Œÿÿÿj[…P÷ÿÿPj h+  ÿµä÷ÿÿ‰`÷ÿÿ‰\÷ÿÿÿÖÿµÜ÷ÿÿjh  ÿµä÷ÿÿÿÖjÿµä÷ÿÿÿØ\‹G‹è”5ÿÿ‹=d\P¾é  Vÿµà÷ÿÿ‰…è÷ÿÿÿ×3À9…è÷ÿÿ”ÀPhµ  h±  ÿµà÷ÿÿè¦ìÿÿ…Ø÷ÿÿPÿ5Ä|\ÿ5À|\h  €è¿åÿÿ…Àt\3À9…Ø÷ÿÿ•ÀPVÿµà÷ÿÿÿ×h   …üıÿÿPh  ÿ5 \ÿD\…üıÿÿPVÿµà÷ÿÿÿ\j Vÿµà÷ÿÿÿø\PÿH\…Ø÷ÿÿPÿ5È|\ÿ5À|\h  €èBåÿÿ…À„d  „´¥\t'Sh(W\h«  h@V\èş´  …Àth°T\j è&ÿÿYYj hù  hó  ÿµà÷ÿÿè¾ëÿÿh   …üıÿÿPh  ÿ5 \ÿD\…üıÿÿPVÿµà÷ÿÿÿ\j Vÿµà÷ÿÿÿø\PÿH\éÒ  ‹Ïè$úÿÿj‹ÏèBúÿÿj jé²  hpT\j
+h„V\ÿµè÷ÿÿÿl\…À…™  ö´¥\„Œ  jh(W\h&  ë?‹v;ñ„s  hpT\jh„V\Vÿl\…À…X  ö´¥\„K  jh(W\h2  h@V\èì³  …À„-  ÿP\Ph0V\j èû$ÿÿƒÄé  ‹vş6ÿÿÿ„†   ƒş›t8ƒşüt	ƒşş…ğ   ½è÷ÿÿ¶  …à   jQQhU\hU\Qÿ \éÆ   ‹5ø\h´  SÿÖjjÿh  Pÿ€\…À|‹O‹è3ÿÿ…Àt3À@3É…À”ÁQhµ  SÿÖéŸşÿÿ‹G‹0Sÿh\P‹ÎèÊ7ÿÿ‹ğ‹G‹÷ŞöFèª2ÿÿWh´  S‰…è÷ÿÿÿø\Pè
+òÿÿ3À3ÿ9½è÷ÿÿ”ÀPhµ  h±  SèÁéÿÿ3À9½è÷ÿÿ•ÀPhé  Sÿd\VWSÿì\Ç…Ü÷ÿÿ   ‹Mü‹…Ü÷ÿÿ_^[èN  ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìDVèh#ÿÿ3ö¹\‰uü‰uôèÿ‘  è'ÿÿ…À„b  WEüPÿ5Ä|\¿  €ÿ5À|\Wèiâÿÿ…ÀtB9uüt=ö´¥\„/  jh°W\hd  h@V\è²  …À„  h”W\Vè5#ÿÿYYéÿ  EğPÿ5Ä|\ÿ5¼|\Wèâÿÿ…Àt:9uğu5EøPÿ5¸|\èœr  …Àuƒ}øtƒ}øujVèØj  Vèçj  ëVèôj  Sjè  ;ÆYt‰0‰p‰p‹Øë3Û;Şu=ö´¥\„~  jh°W\h†  h@V\èn±  …À„`  hP)\Vè…"ÿÿYYéN  jSjÿèSMÿÿ…À„3  9su=ö´¥\„!  jh°W\h  h@V\è±  …À„  hxW\Vè1"ÿÿYYéñ   ‹5D\¿   Wh¸t\h  ÿ5 \ÿÖWh¸v\h  ÿ5 \ÿÖWh¸x\h  ÿ5 \ÿÖWh¸z\h  ÿ5 \ÿÖj3ÀY}¼ó«¡ \3ÿÇE¼4   ‰}À‰EÄ‰}Ğƒ{~‰]ØÇEÈ   ÇEÔa^\ë‹C‹ ‰EØÇEÈ   ÇEÔÔO\E¼Pÿè\;Ç‰EôuBè[–  ö´¥\‹ğt)jh°W\h²  h@V\è"°  …ÀtVhPW\Wè<!ÿÿƒÄj‹ËèÏõÿÿ[_èü ÿÿ‹Eô^ÉÃÌÌÌÌÌjXÂ ÌÌÌÌÌjXÃÌÌÌÌÌ3ÀÂ ÌÌÌÌÌjXÂ ÌÌÌÌÌjXÂ ÌÌÌÌÌ‹ÿU‹ìƒ}u¹\è7  ƒøu
+¡\éÒ   V‹5˜\W‹}h<X\ÿwÿÖ…Àu9Gu3Àé«   h0X\ÿwÿÖ…Àu
+¸œh\é“   h$X\ÿwÿÖ…Àu¸~h\ë~hX\ÿwÿÖ…Àu¸~h\ëihX\ÿwÿÖ…Àu¸‰h\ëTh X\ÿwÿÖ…Àu¸~h\ë?hìW\ÿwÿÖ…Àu¸’h\ë*hÜW\ÿwÿÖ…Àu¸§h\ëhÄW\ÿwÿÖ÷ØÀ÷Ğ%~h\_^]Â ÌÌÌÌÌ‹ÿU‹ìƒì¡Ø|\…Àt=@»  uMVEøPÿ4\‹uü3uøÿ0\3ğÿ,\3ğÿ\3ğEğPÿ”\‹Eô3Eğ3Æ%ÿÿ  ^u¸@»  £Ø|\÷Ğ£Ô|\ÉÃÌÌÌÌÌ;Ø|\u	÷Á  ÿÿuÃé   ÌÌÌÌÌ‹ÿU‹ìì0  W‰…Øıÿÿ‰Ôıÿÿ‰•Ğıÿÿ‰Ìıÿÿ‰µÈıÿÿ‰½ÄıÿÿfŒ•ğıÿÿfŒäıÿÿfŒÀıÿÿfŒ…¼ıÿÿfŒ¥¸ıÿÿfŒ­´ıÿÿœ…èıÿÿÇ…(ıÿÿ  ‹E‰…àıÿÿE‰…ìıÿÿE‹@ü‰…ÜıÿÿjY3À½Ğüÿÿó«Ç…Ğüÿÿ	 À‹E‰…Üüÿÿ…Ğüÿÿ‰Eø…(ıÿÿ‰Eü¡Ø|\‰… ıÿÿ¡Ô|\‰…$ıÿÿj ÿ@\EøPÿ<\h  ÿL\Pÿ8\_ÉÃÌÌÌÌÌ‹ÿU‹ìV3ö9uu95,\~-ÿ,\ƒ}¡Ô\‹ £Ü¥\u=h€   ÿğ\;ÆY£ä¥\u3Àëg‰0¡ä¥\hp\h p\£à¥\èq  ÿ,\Yë?9uu;¡ä¥\;Æt2ë‹à¥\‹	;ÎtÿÑ¡ä¥\ƒ-à¥\9à¥\sŞPÿô\‰5ä¥\Y3À@^]Â ÌÌÌÌÌ‹ÿU‹ìS‹]V‹uMZ       ÿÿ  ¸       @                                   Ğ   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       ´rğe@ğe@ğe@3j@òe@ğd@£e@38@÷e@3;@ñe@3:@ÿe@3?@ñe@Richğe@        PE  L ƒQH        à 
+€X   2      …Y  €   &     €   €                €  ”È                               (\  P   €d  Ğ#                  €ˆ  ü  @'                                              &  <                          .text   `"  €  €"  €                 h.rdata     &      &              @  H.data      )  €   )              @  ÈPAGE     %  €.   %  €.                 `PAGELK  Ì  €S     €S                 `INIT    ¼
+  €Y     €Y                 â.rsrc   Ğ#  €d   $  €d              @  B.reloc     €ˆ  €  €ˆ              @  B                                                                                                                              ‹ÿU‹ìQQV¾™  Vè±  ‰Eø‹Ef‹@Rf‰EøÿuøVè½  3À^ÉÂ ÌÌÌÌÌÌ‹ÿU‹ìQQEüPEøPEüPPjè?  ‹Eøf%€ ÉÃÌÌÌÌÌÌ‹ÿU‹ìQQj,èT  ©    ‰Uüt	öÄÿt°ÉÃ2ÀÉÃÌÌÌÌÌh   è.  Áè$ÃÌÌÌÌÌÌ‹ÿU‹ìQQèŠÿÿÿ„ÀtèÕÿÿÿ„Àt°ÉÃEüPPPEøPjèÂ  ‹Mø¸   #È;ÈuèÿÿÿÉÃ2ÀÉÃÌÌÌÌÌ‹ÿU‹ìQQEüPEøPEüPPjè‰  ŠEø$ÉÃÌÌÌÌÌÌè‡ÿÿÿ„Àuƒğ* ¡4' €8~è¹ÿÿÿ„Àuƒğ* ÃÌÌÌÌÌ‹ÿU‹ì‹UŠ
+:J¸»  Àu$¶Éƒé tItƒé~uöEë
+öEëöEt3À]Â ÌÌÌÌÌÌ3À8ì* SŠÙuèv  ¶€, ‹…À) ŠË[éz  ÌÌÌÌÌÌ3À8ì* SŠÙuèH  ¶€, ‹…À) ŠË[éV  ÌÌÌÌÌÌ‹ÿU‹ì‹MŠì   <u‹E‹‰è   @DÁPèôıÿÿë<uÿuQèM  ë¸  À]Â ÌÌÌÌÌÌ‹ÿU‹ìV‹uVèß  ƒ}uƒ¾è    tè·  €¾   tèÇ  Vè—	  ^]Â ÌÌÌÌÌÌ‹ÿU‹ìÿuè©  ]Â ÌÌÌÌÌ‹ÿU‹ìQS3Û9]VW‰]ü„„   9]tf9]tyfƒ}rr·}hPrcrwVjÿ' ‹Ø…Ûu¿š  ÀëUf‹Ef‰C‹Ï‹Á‰s‹uÁéÇAeiCÇC_PDCÇC   fÇC {ó¥j ‹ÈEüPSj ÿuƒáó¤èm/  ‹øë¿  À…Û‹5 ' tj SÿÖƒ}ü tj ÿuüÿÖ‹Ç_^[ÉÂ ÌÌÌÌÌ‹ÿU‹ìQ‰Müj ÿ5 ) ÿ5) ÿuüh÷   ÿ' ÌÌÌÌÌÌÌÿ%,' ÌÌÌÌÌÌÿ%(' ÌÌÌÌÌÌ‹ÿU‹ìSV‹E3Û3É3Ò¢‹u‰‹u‰‹u‰‹u‰^[]Â ÌÌÌÌÌÌ‹ÿU‹ìQQ3Ò‹M2‰Eø‰Uü‹Eø‹UüÉÂ ÌÌÌÌÌÌ‹ÿU‹ìQQ‹E‰Eø‹E‰Eü‹Eø‹Uü‹M0ÉÂ ÌÌÌÌÌÌ‹ÿûôÃÌÌÌÌÌ‹ÿU‹ìj j ÿuÿH& ¸  À]Â ÌÌÌÌÌ‹ÿU‹ì‹ESV‹u3ÛŠ^%W‹x(SÿX& ƒÇ ‹ÏÿT& ‹N\‹FX‰‰HŠÓ‹Ïÿ& ƒf 2Ò‹ÎÇF  ÀÿP& _^[]Â ÌÌÌÌÌ‹ÿU‹ì‹EV3öHDFğÁ1Fƒşu
+ƒÀ4Pÿd& ‹Æ^]Â ÌÌÌÌÌÌ‹ÿU‹ìSVW‹}GDƒÎÿğÁ0Nƒş‹H& u
+j j G4PÿÓ…öuVVƒÇ$WÿÓ_‹Æ^[]Â GenuineIntel ÌÌÌÌÌ‹ÿU‹ìƒì,¡) VW¾ }ì¥¥‰Eü‹Eÿ°À   ¥¤è@şÿÿEØPEÜPEÔPEäPj è5şÿÿƒeà EäPPPEèPjè şÿÿuìEÔŠŠÊ:u„ÉtŠPŠÊ:Vu@@FF„Éuâ3ÀëÀƒØÿ…ÀuE‹EèÁè‹Èƒá€ùu5‹Mè%   áğ   Á=p  uöEèv¾  VèéıÿÿR   PVè şÿÿèıÿÿ‹Mü_^è¾  ÉÂ ÌÌÌÌÌ‹ÿU‹ìSV‹u^ W‹Ëÿ& ‹}OXƒÆŠĞ‹F‰A‰1‰‰N‹G`€H¸À ƒÇ8‡‹Ëÿ& _^¸  []Â ÌÌÌÌÌ‹ÿU‹ìQQS‹]EøK V‰Eü‰Eø‰Mÿ& s96„¡   W‹‹9‰>‰wy¨€$ t/3ÒƒÇ8‡…Òt‹}üUø‰‰y‰‰Müë‰I‰	‹MŠĞÿ& ëM3ÉW8‡
+‹MŠĞÿ& ƒ{uƒg 2Ò‹ÏÇGV  ÀÿP& ëSèıÿÿşG#ƒG`$‹K‹×ÿ`& Sèµıÿÿ‹Mÿ& 96…aÿÿÿ_‹MŠĞÿ& ^[ë!‹‰EøUø‰PƒaÄ ƒÁ¨2ÒÇA  ÀÿP& ‹MøEø;ÈuÕÉÂ ÌÌÌÌÌ‹ÿU‹ì‹ESVW‹}4@‹‡è   Áæÿt‡ì   P3Ûèx  ‡ø   Pèª  ‹è   ;Dt»  À_^‹Ã[]Â ÌÌÌÌÌÌ‹ÿU‹ì‹E€¸   tÿuPè‚$  ë ƒ¸è    t‹ˆ  MQPèïùÿÿë¸  À]Â ÌÌÌÌÌÌ3À W- „ÀtPÿ5P- ÿ(& ÃÌÌÌÌÌ3À - „ÀtPÿ5P- ÿ(& ÃÌÌÌÌÌ‹ÿU‹ìƒì<WjY3Ò3À‰UÄ}Èó«‹Ej‰EÌ‹E‰EĞXRR‰EÔ‰EÜEÄPÿuMüR‰UüÇEÈ    ‰MØÿˆ& _ÉÂ ÌÌÌÌÌÌ‹ÿU‹ìÿuè5  YD Pÿujÿuÿuj ÿŒ& ]Â ÌÌÌÌÌÌ‹ÿU‹ìƒì<Wj3ÒY3À‰UÄ}Èó«‹M‹ù««‹E‰EÌREüR‰EØEÄPÿu‰UüRÇEÈ    ‰MĞÇEÔ   ÇEÜ   ÿˆ& _ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìSV‹ò‹†Ô   ¶É3Û…À‰  „Û   ‹PW3ÿ…Ò‰UüvƒÀ9v‹–Ô   GƒÀ;zrí;}ür
+»  Àé¦   ‹  ;ù„˜   ‹†  ;ø‰Eüw$  ƒ; tŠP* è  ƒ# WVèşÿÿ‹Øë%;ÈsPVèõıÿÿ‹P* +ß]üŠËèá  ‰  3Û…Û‰  |‰¾  ƒ=)  t)‹Ô   ƒeô ‰}ì‰]ğ‹D‰EøEìPh) Vèó  ‹Ã_^[ÉÃÌÌÌÌÌÌ‹ÿU‹ìƒìV‹ò¶Ñ‹Ô   …É‰–  u3Àé   S‹Y…ÛWÆEÿ v3ÀD@9vşEÿ¶Eÿ‹¾Ô   ;Grå¶}ÿ;ûse‹P* ;ùs[;¾  u3ÀëT*Mÿè  ¡P* +Ç‰†  3À‰¾  9) t×‹Ô   ‰Eğ‰Eô‰}ì‹D‰EøEìPh) Vè,  ë­¸  À_[^ÉÃ~ M H z         \ R e g i s t r y \ M a c h i n e \ H a r d w a r e \ D e s c r i p t i o n \ S y s t e m \ C e n t r a l P r o c e s s o r \ 0   ÌÌÌÌÌÌ‹ÿU‹ìQ‹M‹è   ƒeü …Àt‹@ë9€¹   tEüPèª   ‹Eüë"ƒ= )  uh ) h€ h è`üÿÿ¡ ) …Àu¸Š  ÉÂ ÌÌÌÌÌÌ3ÀÂ ÌÌÌÌÌ‹ÿU‹ìƒì(¡) S‹]V‹uWÿ63ÿ‰Eü‰}àè¿  ‹F= @rF= @v	= @w8ë%Eä‰EÜEØPj
+ÿvfÇEÚ ÿ”& }ÜÇEà   j j ÿuàWÿvSèG  j Vÿ ' ‹Mü_^[è(  ÉÂ ÌÌÌÌÌ‹ÿU‹ìƒìSV3ÛSSEèPÿ¤& ‹uEøPEèPSSSÿvjÿœ& ;ÃuÇEš  Àé¢   ‹H`ƒé$ÆAÇA   Ç@»  À‹N‹Ğÿ`& =  ‰EuSSSSEèPÿ\& ‹Eø‰E9]|\‹uüëFFfƒ> tøWVè«  | Ç$PrcrWjÿ' ;Ã‹M‰u	ÇEš  Àë!‹Ï‹ø‹ÁÁéó¥‹Èƒáó¤9]üt
+Sÿuüÿ ' _‹E^[ÉÂ ÌÌÌÌÌÌ‹ÿU‹ì3ÀPPPP‹EÄ   Pÿ\& ]Â ÌÌÌÌÌÌ‹ÿU‹ì‹Ej j Ä   PÿH& ]Â ÌÌÌÌÌÌ‹ÿU‹ìV‹u‹†Ü   ¶€+ ‰†¸   €=ì*  ubSÆ†¼   ÿÆE ÿ$' ‹Ø…Ût;WŠM3ÿGÓç…ût"Wèhõÿÿèí  ;†¸   uŠEˆ†¼   ‰¾À   ÷×#ßşE…ÛuÇ_è/õÿÿ€¾¼   ÿ[uÆ†¼    Ç†À      3À^]Â ÌÌÌÌÌ‹ÿU‹ìƒì‹ES3ÛVÿu‹p(ˆ]èˆ]ìf‰]îˆ]ğˆ]ñˆ]òˆ]ó‰]ô‰]ø‰]üè=  8  teWVèÎşÿÿ‹¾Ø   EèV‰†Ø   èY  ;Ã‰¾Ø   _|VèĞ+  ;Ã|
+Vè>  ;Ã}‹†Ø   ;ÃtSPÿ ' ‰Ø   Vè şÿÿSh€) Vè  ^[ÉÂ ÌÌÌÌÌÌ‹ÿU‹ìV‹uW¾Ô   ƒ? tHƒ¾  ÿt?Vè@şÿÿ‹†  ‹@@@‹‰†   ‹…Òt‹†  @@@ŠÿÒƒ  ÿVè+şÿÿ_3À^]Â ÌÌÌÌÌ‹ÿU‹ìVhPrcrjj ÿ' ‹ğ…öt7‹E‰F‹E‰F‹Eÿ0èA  …À‰tVjhŠ Pè!  3Àëj Vÿ ' ¸š  À^]Â ÌÌÌÌÌÌ‹ÿU‹ìWhAPICèT1  ‹ø…ÿu¸  ÀëW‹WO,×A;Âw=V‹uSŠA„ÀˆEt,€9 u<u¶AŠYˆ\0ÿFöAtÿ¶EÈA;ÂvÊ[^j Wÿ ' 3À_]Â Ì% s \ % s   % s \ % s   ÌÌÌÌÌÌ‹ÿU‹ìƒì,S3À9- V‹5 ' W‹=' ‰Eğ‰Eô»Prcr…ƒ   MøQPèŠ  =»  À‰Eü„R  ƒ}ø „H  Sÿuøjÿ×…À‰Eô„æ   MøQPèU  …À‰EüŒ  ‹Eôë@€8 túPEÜPÿÄ& jEÜPEÔPÿÀ& …À‰EüŒâ   ‹EØ£- h\( è—  Y·à* DASPj‰Eøÿ×…À‰Eìtrh\( ÿ5ä* hğ ÿuøPè’  ƒÄEğPÿuèûÿÿ…À‰EüŒ   EäPÿuğÿuìè'÷ÿÿj ÿuìÿÖj ÿuğÿÖhà' è!  Y·MäDASPj‰Eøÿ×‹ø…ÿu	ÇEüš  Àë9ÿuèhà' hü ÿuøWè  ƒÄÿ5- h@( Wè”öÿÿj W‰EüÿÖj ÿuèÿÖƒ}ô tj ÿuôÿÖ‹Eü_^[ÉÂ ÌÌÌÌÌÌ‹ÿU‹ì‹Eƒxu@€¸   u7ÿ0è°  …Àt,‹Mé€   PtItè€  ëjhø ëjh\F Pèt  ]Â ÌÌÌÌÌÌ‹ÿU‹ìƒìƒeü V‹u€¾   t‹†  ƒeø ‰EëEPVè'  …À‰EøŒQ  ‹†è   ¶I9Mvÿuh @Vèªüÿÿ‹†è   ¶I‰M‹MS‰  ¶‹†Ô   ƒ  ÿ+Ù…ÀW{ÿ‰¾  t	j Pÿ ' <hPrcr<½   Wjÿ' ‹Ğ…Ò‰–Ô   uÇEøš  ÀéÂ   ‹Ï‹ú‹ÑÁé3Àó«‹ÊƒáVóªè$øÿÿ‰Eô3À…Ûv~‹M‹†è   I3ÿÁá‰]‰]ğ‹D‹–Ô   ‰D:‹†Ô   ‹DkÀd3Ò÷uô3Ò»è  iÀè  ÷ó‹–Ô   ‰D‹†Ô   ÇD8   ‹†è   ‹T9Uüw‰UüƒÁƒÇÿMuœ‹Eğ‹Ô   ‹Uü‰Q‹Ô   Ç ‹Ô   ‰A_[‹Eø^ÉÂ ÌÌÌÌÌÌ‹ÿU‹ìƒìƒeô S‹]ƒ»è    tSèEşÿÿ…À‰EôŒ3  ‹ƒÔ   ‹@VHW4@S4µ   è:  ¶À‰Eø@hPrcr<†Wj ÿ' …À‰EüuÇEôš  Àéè   ‹Ï‹}ü‹ÑÁé3Àó«‹Êƒáóª‹}ü‹Î‹³Ô   ‹ÁÁéó¥‹ÈƒáSó¤èÅöÿÿ‰Eì‹ƒÔ   ‹HII‹D‰Eğ‹EøQÁ;Ğ‰U‰Eäsg‹uüDR4†ë‹U‹Á+ÂEø3Ò¯Eğ÷uø3Ò¿è  ÇFü   ‰Eè‰FøkÀd÷uì3ÒiÀè  ÷÷}èÈ   ¶À‰sƒørÿE‹EƒÆ;Eär¨‹U‹uü¶Âj ‰Fÿ³Ô   ÿ ' ƒ‹  ÿ‰³Ô   _^‹Eô[ÉÂ ÌÌÌÌÌ‹ÿU‹ìQQEøPEüPPPjèêíÿÿöEùu‹E…Àtƒ  ¸»  ÀëGVjèıíÿÿ‹È3öá   Î^t3É¬ĞQh   ÁàQPÁêÿ & …Àu¸  Àë‹M…Ét‰3ÀÉÂ ÌÌÌÌÌÌ¡- …Àt¶@#Ã3ÀÃÌÌÌÌÌ3À8ì* uèÛÿÿÿ¶€, ‹…À) ÃÌÌÌÌÌÌ‹ÿU‹ìV‹u¶N¶FWjÁYjZ;Âw‹úë
+‹ù;øÿ#ùù¶ƒè t8Ht3Àë{;út";ùtƒÿ uïÿvÿ& ëHÿvÿ & ·Àë:ÿvÿ$& ë,;út;ùtƒÿ u¾ÿvÿĞ& ëÿvÿÌ& ëÍÿvÿÈ& ¶À…Àt¶V;útŠN3öÓèF‹ÊÓæN#Æ_^]Â ÌÌÌÌÌÌ‹ÿU‹ìSV‹uŠV¶NWj¶Â[Á;Ãj_w‹Ãë
+‹Ï;ÈÀ#ÇÇ¶ƒé „  I…  ;Ã„­   ;ÇtUƒø …ó  „Òu¶Fƒø u‹Uë+ÿvÿ& ¶~3ÒŠVj Y+ÊƒÊÿÓê‹ÏÓâ÷Ò#Ğ‹EÓàĞRÿvÿ& é§  „Òu¶F;Çu‹Eë4ÿvÿ & ¶V·ø3ÀŠFjY+È¸ÿÿ  Óø‹ÊÓà÷Ğ·À#Ç·}ÓçÇPÿvÿ & éS  „Òu¶F;Ãu‹Eë3ÿvÿ$& ¶V¶ø3ÀŠF‹Ë+È¸ÿ   Óø‹ÊÒàöĞ¶À#Ç¶}ÓçÇPÿvÿ(& é   ;Ã„ª   ;ÇtUƒø …ë   „Òu¶Fƒø u‹Uë+ÿvÿĞ& ¶~3ÒŠVj Y+ÊƒÊÿÓê‹ÏÓâ÷Ò#Ğ‹EÓàĞRÿvÿÜ& éŸ   „Òu¶F;Çu‹Eë4ÿvÿÌ& ¶V·ø3ÀŠFjY+È¸ÿÿ  Óø‹ÊÓà÷Ğ·À#Ç·}ÓçÇPÿvÿØ& ëN„Òu¶F;Ãu‹Eë3ÿvÿÈ& ¶V¶ø3ÀŠF‹Ë+È¸ÿ   Óø‹ÊÒàöĞ¶À#Ç¶}ÓçÇPÿvÿÔ& _^[]Â ÌÌÌÌÌ‹ÿU‹ìQQSV‹u…ötk‹Eƒ81rcEüPPPEøPh   €èêÿÿ‹]ø¸  €;Ør<¹  €;Ùv‹Ù;ØW‹ør!ƒÆFPVFüPFøPWèĞéÿÿƒÆG;ûvå‹uÆF0 3À_ë¸»  Àë¸#  À‹MÇ1   ^[ÉÂ ÌÌÌÌÌ‹ÿU‹ì3Éƒ}u2‹EHt¸— Àë*ƒ} t¸– ÀëjY9Ms¸#  Àë9M rô3ÉëÔ¸• Àj QPÿuÿuèÿ  ]Â  ÌÌÌÌÌ‹ÿU‹ìQS3Û9]‰]üt
+¸  Àé¢   ‹MV‹u‹V`W‹}‹G(IItFIIt3It!It	ÇEü• Àël8˜  td¹€) ¶E‡ëW9˜è   tO¹p) ëé9˜Ô   t@¹) ëÚ3À8]¹€* t@‡‹B‹H‰ˆ* ‹@£Œ* ˆ* ë‡‰ˆ* ‰Œ* SSÿuüVWè;  _^[ÉÂ ÌÌÌÌÌÌ‹ÿU‹ìS‹]3À9tQV‹u…öt5‹K…Ét.hPrcrQj ÿ' …Àu¸š  Àë(‹K‹ÑWÁé‹øó¥‹Êƒáó¤_Pÿs‹Ej ÿsÿ0èÛ  ^[]Â ÌÌÌÌÌ‹ÿSVW‹ñè–úÿÿ‹=& j ‹Øÿ×Ã,  S‰‰Vèúÿÿè^èÿÿj ÿ×_‰F‰V^2À[ÃÌÌÌÌÌÌÌÌQj èR  ‹$‰‰Qûôj èA  Y‰A‰Q3ÀÃQj è.  ‹$‰‰QöAu/‹H* …ÒuÌh°* è2úÿÿhÀ* è(úÿÿj èû  Y‰A‰Q3ÀÃ‹`- f‹AfÇA  fï‹d- Òtµf‹Afïë­I fºø¸T  €ïfºÿìŠÈîQjèº  Yfºø¸T  €ïfºÿì$øî¶ÁÃfºø¸T  €ïfºÿŠÁîÃ‹ÿS‹ÙV€=L*  t¡p* ‹ …Àuej èc  ‰‰S‹X- ‹\- Étfí¨t t* „Àu+¸   fïfí¨u‡Ñfí¨t( t* „Àu¸   fïfí¨t¸   fï‹ÑÉtfï^[Ã‹H* …Ò…   öCu(‹`- fíf‰CfƒÈfï‹d- Òtfíf‰CfƒÈfï‹h- ìŠÈî€=l*  t
+Qœúèßşÿÿ‹ğh * èÃøÿÿhÀ* è¹øÿÿ€=l*  t	‹ÎèíşÿÿY‹h- ŠÁîj èq  ‰C‰S3À^[ÃûôëêÌÌÌÌÌÌÌÌQj èR  ‹$‰‰Qûôj èA  Y‰A‰Q3ÀÃQj è.  ‹$‰‰QöAu'‹d* ÷Â   uÈƒÂìƒêíj è  Y‰A‰Q3ÀÃ‹`- f‹AfÇA  fï‹d- Òt½f‹AfïëµI fºø¸T  €ïfºÿìŠÈîQjèÂ  Yfºø¸T  €ïf

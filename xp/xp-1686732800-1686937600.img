@@ -1,0 +1,1078 @@
+imarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_010_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_00E_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_007_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_00C_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_013_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_005_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_004_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_004_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesVersioned_016_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesOrdinarilyWritten_009_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_01F_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_01D_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_00A_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_019_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_016_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_015_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_012_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_011_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_010_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_00E_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_007_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_00C_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_013_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_005_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_004_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_004_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesOrdinarilyWritten_016_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesAnomalouslyWritten_009_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_01F_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_01D_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_00A_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_019_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_016_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_015_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_012_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_011_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_010_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_00E_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_007_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_00C_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_013_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_005_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_004_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_004_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesAnomalouslyWritten_016_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesOpportunelyWritten_009_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_01F_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_01D_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_00A_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_019_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_016_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_015_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_012_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_011_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_010_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_00E_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_007_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_00C_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_013_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_005_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_004_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_004_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesOpportunelyWritten_016_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesRepeatedlyWritten_009_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_01F_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_01D_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_00A_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_019_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_016_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_015_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_012_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_011_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_010_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_00E_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_007_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_00C_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_013_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_005_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_004_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_004_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesRepeatedlyWritten_016_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesIdlyWritten_009_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_01F_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_01D_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_00A_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_019_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_016_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_015_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_012_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_011_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_010_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_00E_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_007_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_00C_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_013_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_005_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_004_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_004_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+IBFPagesIdlyWritten_016_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+
+ESE_000_Name=Database
+Instances_000_Name=Database ==> Instances
+PagesConvertedSec_000_Name=Pages Converted/sec
+PagesConvertedTotal_000_Name=Pages Converted
+RecordsConvertedSec_000_Name=Records Converted/sec
+RecordsConvertedTotal_000_Name=Records Converted
+OSHeapAllocPerSec_000_Name=Heap Allocs/sec
+OSHeapFreePerSec_000_Name=Heap Frees/sec
+OSHeapAlloc_000_Name=Heap Allocations
+OSHeapBytesAlloc_000_Name=Heap Bytes Allocated
+OSPageBytesReserved_000_Name=Page Bytes Reserved
+OSPageBytesCommitted_000_Name=Page Bytes Committed
+FCBAsyncScan_000_Name=FCB Asynchronous Scan/sec
+FCBAsyncPurge_000_Name=FCB Asynchronous Purge/sec
+FCBAsyncThresholdScan_000_Name=FCB Asynchronous Threshold-Scan/sec
+FCBAsyncThresholdPurge_000_Name=FCB Asynchronous Threshold-Purge/sec
+FCBAsyncPurgeConflict_000_Name=FCB Asynchronous Purge Conflicts/sec
+FCBSyncPurge_000_Name=FCB Synchronous Purge/sec
+FCBSyncPurgeStalls_000_Name=FCB Synchronous Purge Stalls/sec
+FCBCacheHits_000_Name=FCB Cache % Hit
+FCBCacheRequests_000_Name=No name
+FCBCacheStalls_000_Name=FCB Cache Stalls/sec
+FCBCacheMax_000_Name=FCB Cache Maximum
+FCBCachePreferred_000_Name=FCB Cache Preferred
+FCBCacheAlloc_000_Name=FCB Cache Allocated
+FCBCacheAllocAvail_000_Name=FCB Cache Available
+PIBInUse_000_Name=Sessions In Use
+PIBUsed_000_Name=Sessions % Used
+PIBTotal_000_Name=No name
+TableOpenCacheHitRate_000_Name=Table Open Cache % Hit
+TableOpenCacheRequests_000_Name=No name
+TableOpenCacheHitsPerSec_000_Name=Table Open Cache Hits/sec
+TableOpenCacheMissesPerSec_000_Name=Table Open Cache Misses/sec
+TableOpensPerSec_000_Name=Table Opens/sec
+LGBytesWrittenPerSec_000_Name=Log Bytes Write/sec
+LGUsersWaiting_000_Name=Log Threads Waiting
+UserROTrxCommit0PerSec_000_Name=User Read Only Transaction Commits to Level 0/sec
+UserRWTrxCommit0PerSec_000_Name=User Read/Write Transaction Commits to Level 0/sec
+UserTrxCommit0PerSec_000_Name=User Transaction Commits to Level 0/sec
+UserROTrxRollback0PerSec_000_Name=User Read Only Transaction Rollbacks to Level 0/sec
+UserRWTrxRollback0PerSec_000_Name=User Read/Write Transaction Rollbacks to Level 0/sec
+UserTrxRollback0PerSec_000_Name=User Transaction Rollbacks to Level 0/sec
+SystemROTrxCommit0PerSec_000_Name=System Read Only Transaction Commits to Level 0/sec
+SystemRWTrxCommit0PerSec_000_Name=System Read/Write Transaction Commits to Level 0/sec
+SystemTrxCommit0PerSec_000_Name=System Transaction Commits to Level 0/sec
+SystemROTrxRollback0PerSec_000_Name=System Read Only Transaction Rollbacks to Level 0/sec
+SystemRWTrxRollback0PerSec_000_Name=System Read/Write Transaction Rollbacks to Level 0/sec
+SystemTrxRollback0PerSec_000_Name=System Transaction Rollbacks to Level 0/sec
+IODatabaseFileExtensionStall_000_Name=Database Page Allocation Stalls/sec
+LGRecordPerSec_000_Name=Log Records/sec
+LGCapacityFlushPerSec_000_Name=Log Buffer Capacity Flushes/sec
+LGCommitFlushPerSec_000_Name=Log Buffer Commit Flushes/sec
+LGFlushPerSec_000_Name=Log Buffer Flushes/sec
+LGWritePerSec_000_Name=Log Writes/sec
+LGStallPerSec_000_Name=Log Record Stalls/sec
+VERcbucketAllocated_000_Name=Version buckets allocated
+VERcbucketDeleteAllocated_000_Name=Version buckets allocated for deletes
+VERcbAverageBookmark_000_Name=Version store average RCE bookmark length
+VERUnnecessaryCalls_000_Name=Version store unnecessary calls/sec
+BTAppendSplit_000_Name=B+ Tree Append Splits/sec
+BTRightSplit_000_Name=B+ Tree Right Splits/sec
+BTVerticalSplit_000_Name=B+ Tree Vertical Splits/sec
+BTSplit_000_Name=B+ Tree Splits/sec
+BTEmptyPageMerge_000_Name=B+ Tree Empty Page Merges/sec
+BTRightMerge_000_Name=B+ Tree Right Merges/sec
+BTPartialMerge_000_Name=B+ Tree Partial Merges/sec
+BTMerge_000_Name=B+ Tree Merges/sec
+BTSeekShortCircuit_000_Name=B+ Tree Seek Short Circuits/sec
+BTUnnecessarySiblingLatch_000_Name=B+ Tree Unnecessary Sibling Latches/sec
+BTNext_000_Name=B+ Tree Move Nexts/sec
+BTPrev_000_Name=B+ Tree Move Prevs/sec
+BTSeek_000_Name=B+ Tree Seeks/sec
+BTInsert_000_Name=B+ Tree Inserts/sec
+BTReplace_000_Name=B+ Tree Replaces/sec
+BTFlagDelete_000_Name=B+ Tree Flag Deletes/sec
+BTDelete_000_Name=B+ Tree Deletes/sec
+BTAppend_000_Name=B+ Tree Appends/sec
+SPCreate_000_Name=B+ Tree Creates/sec
+SPCreateCum_000_Name=B+ Tree Creates (Total)
+SPDelete_000_Name=B+ Tree Destroys/sec
+SPDeleteCum_000_Name=B+ Tree Destroys (Total)
+BFCacheHits_000_Name=Database Cache % Hit
+BFCacheRequests_000_Name=No name
+BFPctClean_000_Name=Database Cache % Clean
+BFTotalBuffers2_000_Name=No name
+BFPagesReadPerSec_000_Name=Database Pages Read/sec
+BFPagesWrittenPerSec_000_Name=Database Pages Written/sec
+BFPagesTransferredPerSec_000_Name=Database Pages Transferred/sec
+BFLatch_000_Name=Database Page Latches/sec
+BFFastLatch_000_Name=Database Page Fast Latches/sec
+BFBadLatchHint_000_Name=Database Page Bad Latch Hints/sec
+BFPctFastLatch_000_Name=Database Cache % Fast Latch
+BFTotalLatches_000_Name=No name
+BFLatchConflict_000_Name=Database Page Latch Conflicts/sec
+BFLatchStall_000_Name=Database Page Latch Stalls/sec
+BFPctAvail_000_Name=Database Cache % Available
+BFTotalBuffers3_000_Name=No name
+BFCacheFault_000_Name=Database Page Faults/sec
+BFCacheEvict_000_Name=Database Page Evictions/sec
+BFAvailStallsPerSec_000_Name=Database Page Fault Stalls/sec
+BFCacheSize_000_Name=Database Cache Size
+BFPctStartFlushThreshold_000_Name=Database Cache % Available Min
+BFTotalBuffers4_000_Name=No name
+BFPctStopFlushThreshold_000_Name=Database Cache % Available Max
+BFTotalBuffers5_000_Name=No name
+BFPagesPreread_000_Name=Database Pages Preread/sec
+BFCachedPagesPreread_000_Name=Database Cached Pages Preread/sec
+BFPagesPrereadUntouched_000_Name=Database Pages Preread Untouched/sec
+BFPagesVersioned_000_Name=Database Pages Versioned / sec
+BFPctVersioned_000_Name=Database Cache % Versioned
+BFTotalBuffers6_000_Name=No name
+BFPagesOrdinarilyWritten_000_Name=Database Pages Ordinarily Written/sec
+BFPagesAnomalouslyWritten_000_Name=Database Pages Anomalously Written/sec
+BFPagesOpportunelyWritten_000_Name=Database Pages Opportunely Written/sec
+BFPagesRepeatedlyWritten_000_Name=Database Pages Repeatedly Written/sec
+BFPagesIdlyWritten_000_Name=Database Pages Idly Written/sec
+BFPageHistory_000_Name=Database Page History Records
+BFPageHistoryHits_000_Name=Database Page History % Hit
+BFPageHistoryReqs_000_Name=No name
+BFPageScanned_000_Name=Database Page Scans/sec
+BFPageScannedOutOfOrder_000_Name=Database Page Scans Out-of-order/sec
+BFPageScannedTotal_000_Name=No name
+OLDSLVChunkSize_000_Name=Streaming File Chunk Size
+OSSLVFileTableInserts_000_Name=SLV File Table Inserts/sec
+OSSLVFileTableCleans_000_Name=SLV File Table Cleans/sec
+OSSLVFileTableDeletes_000_Name=SLV File Table Deletes/sec
+OSSLVFileTableEntries_000_Name=SLV File Table Entries
+OSSYNCThreadBlock_000_Name=Threads Blocked/sec
+OSSYNCThreadsBlocked_000_Name=Threads Blocked
+IPagesConvertedSec_000_Name=Pages Converted/sec
+IPagesConvertedTotal_000_Name=Pages Converted
+IRecordsConvertedSec_000_Name=Records Converted/sec
+IRecordsConvertedTotal_000_Name=Records Converted
+IFCBAsyncScan_000_Name=FCB Asynchronous Scan/sec
+IFCBAsyncPurge_000_Name=FCB Asynchronous Purge/sec
+IFCBAsyncThresholdScan_000_Name=FCB Asynchronous Threshold-Scan/sec
+IFCBAsyncThresholdPurge_000_Name=FCB Asynchronous Threshold-Purge/sec
+IFCBAsyncPurgeConflict_000_Name=FCB Asynchronous Purge Conflicts/sec
+IFCBSyncPurge_000_Name=FCB Synchronous Purge/sec
+IFCBSyncPurgeStalls_000_Name=FCB Synchronous Purge Stalls/sec
+IFCBCacheHits_000_Name=FCB Cache % Hit
+IFCBCacheRequests_000_Name=No name
+IFCBCacheStalls_000_Name=FCB Cache Stalls/sec
+IFCBCacheMax_000_Name=FCB Cache Maximum
+IFCBCachePreferred_000_Name=FCB Cache Preferred
+IFCBCacheAlloc_000_Name=FCB Cache Allocated
+IFCBCacheAllocAvail_000_Name=FCB Cache Available
+IPIBInUse_000_Name=Sessions In Use
+IPIBUsed_000_Name=Sessions % Used
+IPIBTotal_000_Name=No name
+ITableOpenCacheHitRate_000_Name=Table Open Cache % Hit
+ITableOpenCacheRequests_000_Name=No name
+ITableOpenCacheHitsPerSec_000_Name=Table Open Cache Hits/sec
+ITableOpenCacheMissesPerSec_000_Name=Table Open Cache Misses/sec
+ITableOpensPerSec_000_Name=Table Opens/sec
+ILGBytesWrittenPerSec_000_Name=Log Bytes Write/sec
+ILGUsersWaiting_000_Name=Log Threads Waiting
+ILGCheckpointDepth_000_Name=Log Checkpoint Depth
+IUserROTrxCommit0PerSec_000_Name=User Read Only Transaction Commits to Level 0/sec
+IUserRWTrxCommit0PerSec_000_Name=User Read/Write Transaction Commits to Level 0/sec
+IUserTrxCommit0PerSec_000_Name=User Transaction Commits to Level 0/sec
+IUserROTrxRollback0PerSec_000_Name=User Read Only Transaction Rollbacks to Level 0/sec
+IUserRWTrxRollback0PerSec_000_Name=User Read/Write Transaction Rollbacks to Level 0/sec
+IUserTrxRollback0PerSec_000_Name=User Transaction Rollbacks to Level 0/sec
+ISystemROTrxCommit0PerSec_000_Name=System Read Only Transaction Commits to Level 0/sec
+ISystemRWTrxCommit0PerSec_000_Name=System Read/Write Transaction Commits to Level 0/sec
+ISystemTrxCommit0PerSec_000_Name=System Transaction Commits to Level 0/sec
+ISystemROTrxRollback0PerSec_000_Name=System Read Only Transaction Rollbacks to Level 0/sec
+ISystemRWTrxRollback0PerSec_000_Name=System Read/Write Transaction Rollbacks to Level 0/sec
+ISystemTrxRollback0PerSec_000_Name=System Transaction Rollbacks to Level 0/sec
+IIODatabaseFileExtensionStall_000_Name=Database Page Allocation Stalls/sec
+ILGRecordPerSec_000_Name=Log Records/sec
+ILGCapacityFlushPerSec_000_Name=Log Buffer Capacity Flushes/sec
+ILGCommitFlushPerSec_000_Name=Log Buffer Commit Flushes/sec
+ILGFlushPerSec_000_Name=Log Buffer Flushes/sec
+ILGWritePerSec_000_Name=Log Writes/sec
+ILGStallPerSec_000_Name=Log Record Stalls/sec
+IVERcbucketAllocated_000_Name=Version buckets allocated
+IVERcbucketDeleteAllocated_000_Name=Version buckets allocated for deletes
+IVERcrceHashUsage_000_Name=Version store optimal hash usage
+IVERcbAverageBookmark_000_Name=Version store average RCE bookmark length
+IVERUnnecessaryCalls_000_Name=Version store unnecessary calls/sec
+IBTAppendSplit_000_Name=B+ Tree Append Splits/sec
+IBTRightSplit_000_Name=B+ Tree Right Splits/sec
+IBTVerticalSplit_000_Name=B+ Tree Vertical Splits/sec
+IBTSplit_000_Name=B+ Tree Splits/sec
+IBTEmptyPageMerge_000_Name=B+ Tree Empty Page Merges/sec
+IBTRightMerge_000_Name=B+ Tree Right Merges/sec
+IBTPartialMerge_000_Name=B+ Tree Partial Merges/sec
+IBTMerge_000_Name=B+ Tree Merges/sec
+IBTSeekShortCircuit_000_Name=B+ Tree Seek Short Circuits/sec
+IBTUnnecessarySiblingLatch_000_Name=B+ Tree Unnecessary Sibling Latches/sec
+IBTNext_000_Name=B+ Tree Move Nexts/sec
+IBTPrev_000_Name=B+ Tree Move Prevs/sec
+IBTSeek_000_Name=B+ Tree Seeks/sec
+IBTInsert_000_Name=B+ Tree Inserts/sec
+IBTReplace_000_Name=B+ Tree Replaces/sec
+IBTFlagDelete_000_Name=B+ Tree Flag Deletes/sec
+IBTDelete_000_Name=B+ Tree Deletes/sec
+IBTAppend_000_Name=B+ Tree Appends/sec
+ISPCreate_000_Name=B+ Tree Creates/sec
+ISPCreateCum_000_Name=B+ Tree Creates (Total)
+ISPDelete_000_Name=B+ Tree Destroys/sec
+ISPDeleteCum_000_Name=B+ Tree Destroys (Total)
+IBFPagesReadPerSec_000_Name=Database Pages Read/sec
+IBFPagesWrittenPerSec_000_Name=Database Pages Written/sec
+IBFPagesTransferredPerSec_000_Name=Database Pages Transferred/sec
+IBFPagesPreread_000_Name=Database Pages Preread/sec
+IBFCachedPagesPreread_000_Name=Database Cached Pages Preread/sec
+IBFPagesPrereadUntouched_000_Name=Database Pages Preread Untouched/sec
+IBFPagesVersioned_000_Name=Database Pages Versioned / sec
+IBFPagesOrdinarilyWritten_000_Name=Database Pages Ordinarily Written/sec
+IBFPagesAnomalouslyWritten_000_Name=Database Pages Anomalously Written/sec
+IBFPagesOpportunelyWritten_000_Name=Database Pages Opportunely Written/sec
+IBFPagesRepeatedlyWritten_000_Name=Database Pages Repeatedly Written/sec
+IBFPagesIdlyWritten_000_Name=Database Pages Idly Written/sec
+ESE_000_Help=Database provides performance statistics for each process using the ESE high performance embedded database management system.
+Instances_000_Help=Instances in this process
+PagesConvertedSec_000_Help=Pages Converted/sec is the count of times per second a database page is converted from an older database format
+PagesConvertedTotal_000_Help=Pages Converted is the count of database pages that have been converted from an older format
+RecordsConvertedSec_000_Help=Records Converted/sec is the count of times per second a database record is converted from an older database format
+RecordsConvertedTotal_000_Help=Records Converted is the count of database records that have been converted from an older format
+OSHeapAllocPerSec_000_Help=Heap Allocs/sec is the number of memory allocations from the MP Heaps per second.  [Dev Only]
+OSHeapFreePerSec_000_Help=Heap Frees/sec is the number of memory frees to the MP Heaps per second.  [Dev Only]
+OSHeapAlloc_000_Help=Heap Allocations is the current number of memory allocations in the MP Heaps.  [Dev Only]
+OSHeapBytesAlloc_000_Help=Heap Bytes Allocated is the size of all memory allocations in the MP Heaps discounting heap managemnt overhead.  [Dev Only]
+OSPageBytesReserved_000_Help=Page Bytes Reserved is the size of all explicitly reserved virtual address space.  [Dev Only]
+OSPageBytesCommitted_000_Help=Page Bytes Committed is the size of all explicitly committed virtual memory backing store (page file and physical memory).  [Dev Only]
+FCBAsyncScan_000_Help=FCB Asynchronous Scan/sec is the number of cached schema records (FCBs) scanned during asynchronous schema record cleanup.   These records are scanned to age out older schema definitions.   [Dev Only]
+FCBAsyncPurge_000_Help=FCB Asynchronous Purge/sec is the number of cached schema records (FCBs) purged during asynchronous schema record cleanup.   These records are purged to age out older schema definitions.  [Dev Only]
+FCBAsyncThresholdScan_000_Help=FCB Asynchronous Threshold-Scan/sec is the number of cached  schema records (FCBs) scanned during asynchronous schema record  cleanup.  Cleanup was triggered by a large number of schema records  above the preferred limit.  These records are aggressively scanned  to age out older schema definitions.  [Dev Only]
+FCBAsyncThresholdPurge_000_Help=FCB Asynchronous Threshold-Purge/sec is the number of cached  schema records (FCBs) purged during asynchronous schema record  cleanup.  Cleanup was triggered by a large number of schema records  above the preferred limit.  These records are aggressively purged  to age out older schema definitions.  [Dev Only]
+FCBAsyncPurgeConflict_000_Help=FCB Asynchronous Purge Conflicts/sec is the number of failed purge attempts on cached schema records (FCBs) during asynchronous schema  record cleanup.  The purge operation failed because exclusive ownership of the schema record could not be obtained.  [Dev Only]
+FCBSyncPurge_000_Help=FCB Synchronous Purge/sec is the number of cached schema records  (FCBs) being synchronously purged each second.  [Dev Only]
+FCBSyncPurgeStalls_000_Help=FCB Synchronous Purge Stalls/sec is the number of stalls encountered while waiting for exclusive ownership of cached schema records (FCBs) in order to synchronously purge them.  [Dev Only]
+FCBCacheHits_000_Help=FCB Cache % Hit is the percentage of schema records (FCBs) opened directly from the schema record cache.  No file operations were required.  [Dev Only]
+FCBCacheRequests_000_Help=No text
+FCBCacheStalls_000_Help=FCB Cache Stalls/sec is the number of stalls encountered while waiting for exclusive ownership of cached schema records (FCBs) in order to update their reference count.  [Dev Only]
+FCBCacheMax_000_Help=FCB Cache Maximum is the absolute maximum number of the schema  records (FCBs) that can exist in the cache.  [Dev Only]
+FCBCachePreferred_000_Help=FCB Cache Preferred is the preferred maximum number of the schema  records (FCBs) that should exist in the cache.  [Dev Only]
+FCBCacheAlloc_000_Help=FCB Cache Allocated is the number of cached schema records (FCBs) currently allocated and in use.  [Dev Only]
+FCBCacheAllocAvail_000_Help=FCB Cache Available is the number of cached schema records (FCBs) currently allocated but not in use.  These records will be used  and/or purged as required.  [Dev Only]
+PIBInUse_000_Help=Sessions In Use is the number of database sessions currently open for use by client threads.  [Dev Only]
+PIBUsed_000_Help=Sessions % Used is the percentage of database sessions currently open for use by client threads.  [Dev Only]
+PIBTotal_000_Help=No text
+TableOpenCacheHitRate_000_Help=Table Open Cache % Hit is the percentage of database tables opened using cached schema information.  If this percentage is too low, the table cache size may be too small.
+TableOpenCacheRequests_000_Help=No text
+TableOpenCacheHitsPerSec_000_Help=Table Open Cache Hits/sec is the number of database tables opened using cached schema information per second.  If this rate is too low, the table cache size may be too small.
+TableOpenCacheMissesPerSec_000_Help=Table Open Cache Misses/sec is the number of database tables opened without using cached schema information per second.  If this rate is too high, the table cache size may be too small.
+TableOpensPerSec_000_Help=Table Opens/sec is the number of database tables opened per second.
+LGBytesWrittenPerSec_000_Help=Log Bytes Write per second is the rate bytes are written to the log.  [Dev Only]
+LGUsersWaiting_000_Help=Log Threads Waiting is the number of threads waiting for their data to be written to the log in order to complete an update of the database.  If this number is too high, the log may be a bottleneck.
+UserROTrxCommit0PerSec_000_Help=User Read Only Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+UserRWTrxCommit0PerSec_000_Help=User Read/Write Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that modify data stored in the MS Exchange DB engine.  [Dev Only]
+UserTrxCommit0PerSec_000_Help=User Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that access data stored in the MS Exchange DB engine.  [Dev Only]
+UserROTrxRollback0PerSec_000_Help=User Read Only Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+UserRWTrxRollback0PerSec_000_Help=User Read/Write Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that modify data stored in the MS Exchange DB engine.  [Dev Only]
+UserTrxRollback0PerSec_000_Help=User Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that access data stored in the MS Exchange DB engine.  [Dev Only]
+SystemROTrxCommit0PerSec_000_Help=System Read Only Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+SystemRWTrxCommit0PerSec_000_Help=System Read/Write Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that modify data stored in the MS Exchange DB engine.  [Dev Only]
+SystemTrxCommit0PerSec_000_Help=System Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that access data stored in the MS Exchange DB engine.  [Dev Only]
+SystemROTrxRollback0PerSec_000_Help=System Read Only Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+SystemRWTrxRollback0PerSec_000_Help=System Read/Write Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that modify data stored in the MS Exchange DB engine.  [Dev Only]
+SystemTrxRollback0PerSec_000_Help=System Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that access data stored in the MS Exchange DB engine.  [Dev Only]
+IODatabaseFileExtensionStall_000_Help=Database Page Allocation Stalls/sec is the count of page allocations from a MS Exchange DB database file per second that are stalled due to extending the database file.  [Dev Only]
+LGRecordPerSec_000_Help=Log Records/sec is the count of records written to the MS Exchange DB log buffers per second.  [Dev Only]
+LGCapacityFlushPerSec_000_Help=Log Buffer Capacity Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second because they are full.  [Dev Only]
+LGCommitFlushPerSec_000_Help=Log Buffer Commit Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second because a transaction is fully committing its changes.  [Dev Only]
+LGFlushPerSec_000_Help=Log Buffer Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second.
+LGWritePerSec_000_Help=Log Writes/sec is the number of times the log buffers are written to the log file(s) per second.  If this number approaches the maximum write rate for the media holding the log file(s), the log may be a bottleneck.
+LGStallPerSec_000_Help=Log Record Stalls/sec is the number of log records that cannot be added to the log buffers per second because they are full.  If this counter is non-zero most of the time, the log buffer size may be a bottleneck.
+VERcbucketAllocated_000_Help=Total number of version buckets allocated  [Dev Only]
+VERcbucketDeleteAllocated_000_Help=Total number of version buckets allocated for FlagDelete RCEs  [Dev Only]
+VERcbAverageBookmark_000_Help=Average length of bookmark in RCE  [Dev Only]
+VERUnnecessaryCalls_000_Help=Number of times per second we look in the version store for a node whose version bit is set but which has no versions  [Dev Only]
+BTAppendSplit_000_Help=B+ Tree Append Splits/sec is the count of times a page is appended to a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTRightSplit_000_Help=B+ Tree Right Splits/sec is the count of times a page is split right in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTVerticalSplit_000_Help=B+ Tree Vertical Splits/sec is the count of times a page is split vertically in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTSplit_000_Help=B+ Tree Splits/sec is the count of times a page is appended to or split in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTEmptyPageMerge_000_Help=B+ Tree Empty Page Merges/sec is the count of empty pages removed from a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTRightMerge_000_Help=Right Merges/sec is the count of pages removed from a MS Exchange DB B+ Tree per second by moving all its records to the next page to the right.  [Dev Only]
+BTPartialMerge_000_Help=B+ Tree Partial Merges/sec is the count of pages where some of its records are moved to a page on the right in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTMerge_000_Help=B+ Tree Merges/sec is the count of pages merged in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTSeekShortCircuit_000_Help=B+ Tree Seek Short Circuits/sec is the count of repeated seeks to the same record in a MS Exchange DB B+ Tree that are saved by jumping directly to the cached physical location of that record per second.  [Dev Only]
+BTUnnecessarySiblingLatch_000_Help=B+ Tree Unnecessary Sibling Latches/sec is the count of sibling pages latched during a MS Exchange DB B+ Tree Delete in the hopes of performing a merge where a merge is not possible, making that latch unnecessary.  [Dev Only]
+BTNext_000_Help=B+ Tree Move Nexts/sec is the count of times MS Exchange DB moves to the next record in a B+ Tree per second.  [Dev Only]
+BTPrev_000_Help=B+ Tree Move Prevs/sec is the count of times MS Exchange DB moves to the previous record in a B+ Tree per second.  [Dev Only]
+BTSeek_000_Help=B+ Tree Seeks/sec is the count of times a record is seeked to by a key in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTInsert_000_Help=B+ Tree Inserts/sec is the count of times a record is inserted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTReplace_000_Help=B+ Tree Replaces/sec is the count of times a record is replaced in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTFlagDelete_000_Help=B+ Tree Flag Deletes/sec is the count of times a record is flag deleted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTDelete_000_Help=B+ Tree Deletes/sec is the count of times a record is deleted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+BTAppend_000_Help=B+ Tree Appends/sec is the count of times a record is appended to a MS Exchange DB B+ Tree per second.  [Dev Only]
+SPCreate_000_Help=B+ Tree Creates/sec is the number of B+ Trees and their corresponding space trees (if any) created per second.  This can also be viewed as the number of FDP creates per second.  [Dev Only]
+SPCreateCum_000_Help=B+ Tree Creates (Total) is the total number of B+ Trees and their corresponding space trees (if any) created.  This can also be viewed as the total number of FDP creates.  [Dev Only]
+SPDelete_000_Help=B+ Tree Destroys/sec is the number of B+ Trees and their corresponding space trees (if any) destroyed per second.  This can also be viewed as the number of FDP destroys per second.  [Dev Only]
+SPDeleteCum_000_Help=B+ Tree Destroys (Total) is the total number of B+ Trees and their corresponding space trees (if any) destroyed.  This can also be viewed as the total number of FDP destroys.  [Dev Only]
+BFCacheHits_000_Help=Database Cache % Hit is the percentage of database file page requests that were fulfilled by the database cache without causing a file operation.  If this percentage is too low, the database cache size may be too small.
+BFCacheRequests_000_Help=No text
+BFPctClean_000_Help=Database Cache % Clean is the percentage of the database cache that does not contain modified data.  [Dev Only]
+BFTotalBuffers2_000_Help=No text
+BFPagesReadPerSec_000_Help=Database Pages Read/sec is the rate that pages are read from the database file(s) into the database cache.  [Dev Only]
+BFPagesWrittenPerSec_000_Help=Database Pages Written/sec is the rate that pages are written to the database file (s) from the database cache.  [Dev Only]
+BFPagesTransferredPerSec_000_Help=Database Pages Transferred/sec is the rate that pages are transferred from the database file(s) to the database cache and vice versa.  [Dev Only]
+BFLatch_000_Help=Database Page Latches/sec is the rate that database pages are latched for access to their data.  [Dev Only]
+BFFastLatch_000_Help=Database Page Fast Latches/sec is the rate that database pages are latched for access to their data using a hint to tell the cache manager where that page might be in memory.  [Dev Only]
+BFBadLatchHint_000_Help=Database Page Bad Latch Hints/sec is the rate that incorrect hints to the location of a given page in the cache are given to the cache manager.  These hints are used to perform fast latches.  [Dev Only]
+BFPctFastLatch_000_Help=Database Cache % Fast Latch is the percentage of database pages latched for access to their data using a hint to tell the cache manager where that page might be in memory.  Ideally, this percentage should match Database Cache % Hit.  [Dev Only]
+BFTotalLatches_000_Help=No text
+BFLatchConflict_000_Help=Database Page Latch Conflicts/sec is the rate that users latching a database page for access to its data fail due to a conflicting latch owned on that same page by another user.  [Dev Only]
+BFLatchStall_000_Help=Database Page Latch Stalls/sec is the rate that users latching a database page for access to its data must wait for another user to release a latch on that same page.  [Dev Only]
+BFPctAvail_000_Help=Database Cache % Available is the percentage of the database cache that can be allocated to cache database pages that are newly created or read in from the database file(s).  [Dev Only]
+BFTotalBuffers3_000_Help=No text
+BFCacheFault_000_Help=Database Page Faults/sec is the rate that database file page requests require the database cache manager to allocate a new page from the database cache.
+BFCacheEvict_000_Help=Database Page Evictions/sec is the rate that database file page requests that require the database cache manager to allocate a new page from the database cache force another database page out of the cache.  The eviction count is charged when the page is allocated and not when the previous owner of that page was actually evicted from the cache.  If this rate is too high, the database cache size may be too small.
+BFAvailStallsPerSec_000_Help=Database Page Fault Stalls/sec is the rate of page faults that cannot be serviced because there are no pages available for allocation from the database cache.  If this counter is non-zero most of the time, the clean threshold may be too low.
+BFCacheSize_000_Help=Database Cache Size is the amount of system memory used by the database cache manager to hold commonly used information from the database file(s) to prevent file operations.  If the database cache size seems to be too small for optimal performance and there is very little available memory on the system (see Memory/Available Bytes), adding more memory to the system may increase performance.  If there is a lot of available memory on the system and the database cache size is not growing beyond a certain point, the database cache size may be capped at an artificially low limit.  Increasing this limit may increase performance.
+BFPctStartFlushThreshold_000_Help=Database Cache % Available Min is the minimum percentage of the database cache that is kept to be allocated to cache database pages that are newly created or read in from the database file(s).  If the percentage of available pages drops below this minimum, pages are thrown out of the database cache until the maximum percentage of available pages is reached.  This percentage should be set as low as possible without causing the actual percentage to drop to zero, causing cache fault stalls.  [Dev Only]
+BFTotalBuffers4_000_Help=No text
+BFPctStopFlushThreshold_000_Help=Database Cache % Available Max is the maximum percentage of the database cache that is kept to be allocated to cache database pages that are newly created or read in from the database file(s).  This percentage should be set as low as possible but far enough above the minimum percentage so that efficient production of availible pages is possible.  [Dev Only]
+BFTotalBuffers5_000_Help=No text
+BFPagesPreread_000_Help=Database Pages Preread/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache.  [Dev Only]
+BFCachedPagesPreread_000_Help=Database Cached Pages Preread/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache that are already cached.  This is non-ideal behavior  that represents a waste of processing time.  [Dev Only]
+BFPagesPrereadUntouched_000_Help=Database Pages Preread Untouched/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache that were subsequently thrown out without being used. This is non-ideal behavior that represents a waste of I/O bandwidth and processing time .  [Dev Only]
+BFPagesVersioned_000_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+BFPctVersioned_000_Help=Database Cache % Versioned is the percentage of the database cache that contains older versions of currently cached pages that have not yet been written to disk and thrown out of the cache.  [Dev Only]
+BFTotalBuffers6_000_Help=No text
+BFPagesOrdinarilyWritten_000_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+BFPagesAnomalouslyWritten_000_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+BFPagesOpportunelyWritten_000_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+BFPagesRepeatedlyWritten_000_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+BFPagesIdlyWritten_000_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+BFPageHistory_000_Help=Database Page History Records is the current number of database page access history records retained for supporting the LRU-K page replacment algorithm.  [Dev Only]
+BFPageHistoryHits_000_Help=Database Page History % Hit is the percentage of database page access history record lookups that were successful.  [Dev Only]
+BFPageHistoryReqs_000_Help=No text
+BFPageScanned_000_Help=Database Page Scans/sec is the rate at which database pages are considered for eviction from the database page cache.  [Dev Only]
+BFPageScannedOutOfOrder_000_Help=Database Page Scans Out-of-order/sec is the rate at which database pages are considered for eviction from the database page cache in a priority counter to the page replacement algorithm.  [Dev Only]
+BFPageScannedTotal_000_Help=No text
+OLDSLVChunkSize_000_Help=The size (in bytes) of a chunk in a streaming file. A chunk is the basic unit of space for growing or shrinking a streaming file.
+OSSLVFileTableInserts_000_Help=SLV File Table Inserts/sec is the rate at which entries are inserted into an SLV File Table in the system.  [Dev Only]
+OSSLVFileTableCleans_000_Help=SLV File Table Cleans/sec is the rate at which attempta are made to delete an entry from an SLV File Table in the system.  [Dev Only]
+OSSLVFileTableDeletes_000_Help=SLV File Table Deletes/sec is the rate at which entries are deleted from an SLV File Table in the system.  [Dev Only]
+OSSLVFileTableEntries_000_Help=SLV File Table Entries is the total number of entries contained in all SLV File Tables in the system.  [Dev Only]
+OSSYNCThreadBlock_000_Help=Threads Blocked/sec is the rate at which the execution of threads are suspended to wait for a specific event to occur or for the acquisition of a resource currently owned by another thread. [Dev Only]
+OSSYNCThreadsBlocked_000_Help=Threads Blocked is the current number of threads whose execution has been suspended to wait for a specific event to occur or for the acquisition of a resource currently owned by another thread. [Dev Only]
+IPagesConvertedSec_000_Help=Pages Converted/sec is the count of times per second a database page is converted from an older database format
+IPagesConvertedTotal_000_Help=Pages Converted is the count of database pages that have been converted from an older format
+IRecordsConvertedSec_000_Help=Records Converted/sec is the count of times per second a database record is converted from an older database format
+IRecordsConvertedTotal_000_Help=Records Converted is the count of database records that have been converted from an older format
+IFCBAsyncScan_000_Help=FCB Asynchronous Scan/sec is the number of cached schema records (FCBs) scanned during asynchronous schema record cleanup.   These records are scanned to age out older schema definitions.   [Dev Only]
+IFCBAsyncPurge_000_Help=FCB Asynchronous Purge/sec is the number of cached schema records (FCBs) purged during asynchronous schema record cleanup.   These records are purged to age out older schema definitions.  [Dev Only]
+IFCBAsyncThresholdScan_000_Help=FCB Asynchronous Threshold-Scan/sec is the number of cached  schema records (FCBs) scanned during asynchronous schema record  cleanup.  Cleanup was triggered by a large number of schema records  above the preferred limit.  These records are aggressively scanned  to age out older schema definitions.  [Dev Only]
+IFCBAsyncThresholdPurge_000_Help=FCB Asynchronous Threshold-Purge/sec is the number of cached  schema records (FCBs) purged during asynchronous schema record  cleanup.  Cleanup was triggered by a large number of schema records  above the preferred limit.  These records are aggressively purged  to age out older schema definitions.  [Dev Only]
+IFCBAsyncPurgeConflict_000_Help=FCB Asynchronous Purge Conflicts/sec is the number of failed purge attempts on cached schema records (FCBs) during asynchronous schema  record cleanup.  The purge operation failed because exclusive ownership of the schema record could not be obtained.  [Dev Only]
+IFCBSyncPurge_000_Help=FCB Synchronous Purge/sec is the number of cached schema records  (FCBs) being synchronously purged each second.  [Dev Only]
+IFCBSyncPurgeStalls_000_Help=FCB Synchronous Purge Stalls/sec is the number of stalls encountered while waiting for exclusive ownership of cached schema records (FCBs) in order to synchronously purge them.  [Dev Only]
+IFCBCacheHits_000_Help=FCB Cache % Hit is the percentage of schema records (FCBs) opened directly from the schema record cache.  No file operations were required.  [Dev Only]
+IFCBCacheRequests_000_Help=No text
+IFCBCacheStalls_000_Help=FCB Cache Stalls/sec is the number of stalls encountered while waiting for exclusive ownership of cached schema records (FCBs) in order to update their reference count.  [Dev Only]
+IFCBCacheMax_000_Help=FCB Cache Maximum is the absolute maximum number of the schema  records (FCBs) that can exist in the cache.  [Dev Only]
+IFCBCachePreferred_000_Help=FCB Cache Preferred is the preferred maximum number of the schema  records (FCBs) that should exist in the cache.  [Dev Only]
+IFCBCacheAlloc_000_Help=FCB Cache Allocated is the number of cached schema records (FCBs) currently allocated and in use.  [Dev Only]
+IFCBCacheAllocAvail_000_Help=FCB Cache Available is the number of cached schema records (FCBs) currently allocated but not in use.  These records will be used  and/or purged as required.  [Dev Only]
+IPIBInUse_000_Help=Sessions In Use is the number of database sessions currently open for use by client threads.  [Dev Only]
+IPIBUsed_000_Help=Sessions % Used is the percentage of database sessions currently open for use by client threads.  [Dev Only]
+IPIBTotal_000_Help=No text
+ITableOpenCacheHitRate_000_Help=Table Open Cache % Hit is the percentage of database tables opened using cached schema information.  If this percentage is too low, the table cache size may be too small.
+ITableOpenCacheRequests_000_Help=No text
+ITableOpenCacheHitsPerSec_000_Help=Table Open Cache Hits/sec is the number of database tables opened using cached schema information per second.  If this rate is too low, the table cache size may be too small.
+ITableOpenCacheMissesPerSec_000_Help=Table Open Cache Misses/sec is the number of database tables opened without using cached schema information per second.  If this rate is too high, the table cache size may be too small.
+ITableOpensPerSec_000_Help=Table Opens/sec is the number of database tables opened per second.
+ILGBytesWrittenPerSec_000_Help=Log Bytes Write per second is the rate bytes are written to the log.  [Dev Only]
+ILGUsersWaiting_000_Help=Log Threads Waiting is the number of threads waiting for their data to be written to the log in order to complete an update of the database.  If this number is too high, the log may be a bottleneck.
+ILGCheckpointDepth_000_Help=Log Checkpoint Depth represents the amount of work that will need to be redone or undone to the database file(s) if the process crashes.  [Dev Only]
+IUserROTrxCommit0PerSec_000_Help=User Read Only Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+IUserRWTrxCommit0PerSec_000_Help=User Read/Write Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that modify data stored in the MS Exchange DB engine.  [Dev Only]
+IUserTrxCommit0PerSec_000_Help=User Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that access data stored in the MS Exchange DB engine.  [Dev Only]
+IUserROTrxRollback0PerSec_000_Help=User Read Only Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+IUserRWTrxRollback0PerSec_000_Help=User Read/Write Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that modify data stored in the MS Exchange DB engine.  [Dev Only]
+IUserTrxRollback0PerSec_000_Help=User Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that access data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemROTrxCommit0PerSec_000_Help=System Read Only Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemRWTrxCommit0PerSec_000_Help=System Read/Write Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that modify data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemTrxCommit0PerSec_000_Help=System Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that access data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemROTrxRollback0PerSec_000_Help=System Read Only Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemRWTrxRollback0PerSec_000_Help=System Read/Write Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that modify data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemTrxRollback0PerSec_000_Help=System Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that access data stored in the MS Exchange DB engine.  [Dev Only]
+IIODatabaseFileExtensionStall_000_Help=Database Page Allocation Stalls/sec is the count of page allocations from a MS Exchange DB database file per second that are stalled due to extending the database file.  [Dev Only]
+ILGRecordPerSec_000_Help=Log Records/sec is the count of records written to the MS Exchange DB log buffers per second.  [Dev Only]
+ILGCapacityFlushPerSec_000_Help=Log Buffer Capacity Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second because they are full.  [Dev Only]
+ILGCommitFlushPerSec_000_Help=Log Buffer Commit Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second because a transaction is fully committing its changes.  [Dev Only]
+ILGFlushPerSec_000_Help=Log Buffer Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second.
+ILGWritePerSec_000_Help=Log Writes/sec is the number of times the log buffers are written to the log file(s) per second.  If this number approaches the maximum write rate for the media holding the log file(s), the log may be a bottleneck.
+ILGStallPerSec_000_Help=Log Record Stalls/sec is the number of log records that cannot be added to the log buffers per second because they are full.  If this counter is non-zero most of the time, the log buffer size may be a bottleneck.
+IVERcbucketAllocated_000_Help=Total number of version buckets allocated  [Dev Only]
+IVERcbucketDeleteAllocated_000_Help=Total number of version buckets allocated for FlagDelete RCEs  [Dev Only]
+IVERcrceHashUsage_000_Help= Standard deviation for version store hash usage  [Dev Only]
+IVERcbAverageBookmark_000_Help=Average length of bookmark in RCE  [Dev Only]
+IVERUnnecessaryCalls_000_Help=Number of times per second we look in the version store for a node whose version bit is set but which has no versions  [Dev Only]
+IBTAppendSplit_000_Help=B+ Tree Append Splits/sec is the count of times a page is appended to a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTRightSplit_000_Help=B+ Tree Right Splits/sec is the count of times a page is split right in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTVerticalSplit_000_Help=B+ Tree Vertical Splits/sec is the count of times a page is split vertically in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTSplit_000_Help=B+ Tree Splits/sec is the count of times a page is appended to or split in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTEmptyPageMerge_000_Help=B+ Tree Empty Page Merges/sec is the count of empty pages removed from a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTRightMerge_000_Help=Right Merges/sec is the count of pages removed from a MS Exchange DB B+ Tree per second by moving all its records to the next page to the right.  [Dev Only]
+IBTPartialMerge_000_Help=B+ Tree Partial Merges/sec is the count of pages where some of its records are moved to a page on the right in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTMerge_000_Help=B+ Tree Merges/sec is the count of pages merged in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTSeekShortCircuit_000_Help=B+ Tree Seek Short Circuits/sec is the count of repeated seeks to the same record in a MS Exchange DB B+ Tree that are saved by jumping directly to the cached physical location of that record per second.  [Dev Only]
+IBTUnnecessarySiblingLatch_000_Help=B+ Tree Unnecessary Sibling Latches/sec is the count of sibling pages latched during a MS Exchange DB B+ Tree Delete in the hopes of performing a merge where a merge is not possible, making that latch unnecessary.  [Dev Only]
+IBTNext_000_Help=B+ Tree Move Nexts/sec is the count of times MS Exchange DB moves to the next record in a B+ Tree per second.  [Dev Only]
+IBTPrev_000_Help=B+ Tree Move Prevs/sec is the count of times MS Exchange DB moves to the previous record in a B+ Tree per second.  [Dev Only]
+IBTSeek_000_Help=B+ Tree Seeks/sec is the count of times a record is seeked to by a key in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTInsert_000_Help=B+ Tree Inserts/sec is the count of times a record is inserted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTReplace_000_Help=B+ Tree Replaces/sec is the count of times a record is replaced in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTFlagDelete_000_Help=B+ Tree Flag Deletes/sec is the count of times a record is flag deleted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTDelete_000_Help=B+ Tree Deletes/sec is the count of times a record is deleted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTAppend_000_Help=B+ Tree Appends/sec is the count of times a record is appended to a MS Exchange DB B+ Tree per second.  [Dev Only]
+ISPCreate_000_Help=B+ Tree Creates/sec is the number of B+ Trees and their corresponding space trees (if any) created per second.  This can also be viewed as the number of FDP creates per second.  [Dev Only]
+ISPCreateCum_000_Help=B+ Tree Creates (Total) is the total number of B+ Trees and their corresponding space trees (if any) created.  This can also be viewed as the total number of FDP creates.  [Dev Only]
+ISPDelete_000_Help=B+ Tree Destroys/sec is the number of B+ Trees and their corresponding space trees (if any) destroyed per second.  This can also be viewed as the number of FDP destroys per second.  [Dev Only]
+ISPDeleteCum_000_Help=B+ Tree Destroys (Total) is the total number of B+ Trees and their corresponding space trees (if any) destroyed.  This can also be viewed as the total number of FDP destroys.  [Dev Only]
+IBFPagesReadPerSec_000_Help=Database Pages Read/sec is the rate that pages are read from the database file(s) into the database cache.  [Dev Only]
+IBFPagesWrittenPerSec_000_Help=Database Pages Written/sec is the rate that pages are written to the database file (s) from the database cache.  [Dev Only]
+IBFPagesTransferredPerSec_000_Help=Database Pages Transferred/sec is the rate that pages are transferred from the database file(s) to the database cache and vice versa.  [Dev Only]
+IBFPagesPreread_000_Help=Database Pages Preread/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache.  [Dev Only]
+IBFCachedPagesPreread_000_Help=Database Cached Pages Preread/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache that are already cached.  This is non-ideal behavior  that represents a waste of processing time.  [Dev Only]
+IBFPagesPrereadUntouched_000_Help=Database Pages Preread Untouched/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache that were subsequently thrown out without being used. This is non-ideal behavior that represents a waste of I/O bandwidth and processing time .  [Dev Only]
+IBFPagesVersioned_000_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesOrdinarilyWritten_000_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesAnomalouslyWritten_000_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesOpportunelyWritten_000_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesRepeatedlyWritten_000_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesIdlyWritten_000_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+                                                                                                                                                                                                                                                                                                                                           ÿş/ /   C o p y r i g h t   ( c )   1 9 9 7 - 2 0 0 1   M i c r o s o f t   C o r p o r a t i o n ,   A l l   R i g h t s   R e s e r v e d  
+  
+ # p r a g m a   a u t o r e c o v e r  
+ # p r a g m a   c l a s s f l a g s ( 6 4 )  
+ # p r a g m a   n a m e s p a c e ( " \ \ \ \ . \ \ R o o t " )  
+  
+ [ L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e ]    
+ I n s t a n c e   o f   _ _ N a m e s p a c e  
+ {  
+     N a m e   =   " C I M V 2 " ;  
+ } ;  
+ # p r a g m a   n a m e s p a c e ( " \ \ \ \ . \ \ R o o t \ \ C I M V 2 " )  
+  
+ I n s t a n c e   o f   _ _ W i n 3 2 P r o v i d e r   a s   $ P  
+ {  
+     N a m e   =   " C I M W i n 3 2 " ;  
+     C l s I d   =   " { d 6 3 a 5 8 5 0 - 8 f 1 6 - 1 1 c f - 9 f 4 7 - 0 0 a a 0 0 b f 3 4 5 c } " ;  
+     I m p e r s o n a t i o n L e v e l   =   1 ;  
+     P e r U s e r I n i t i a l i z a t i o n   =   " F A L S E " ;  
+     H o s t i n g M o d e l   =   " N e t w o r k S e r v i c e H o s t " ;  
+ } ;  
+  
+ I n s t a n c e   o f   _ _ I n s t a n c e P r o v i d e r R e g i s t r a t i o n  
+ {  
+     P r o v i d e r   =   $ P ;  
+     S u p p o r t s G e t   =   " T R U E " ;  
+     S u p p o r t s P u t   =   " T R U E " ;  
+     S u p p o r t s D e l e t e   =   " T R U E " ;  
+     S u p p o r t s E n u m e r a t i o n   =   " T R U E " ;  
+     Q u e r y S u p p o r t L e v e l s   =   { " W Q L : U n a r y S e l e c t " } ;  
+ } ;  
+  
+ I n s t a n c e   o f   _ _ M e t h o d P r o v i d e r R e g i s t r a t i o n  
+ {  
+     P r o v i d e r   =   $ P ;  
+ } ;  
+  
+ I n s t a n c e   o f   _ _ W i n 3 2 P r o v i d e r   a s   $ D C R s  
+ {  
+     N a m e   =   " C i m w i n 3 2 A " ;  
+     C l s I d   =   " { 0 4 7 8 8 1 2 0 - 1 2 C 2 - 4 9 8 d - 8 3 C 1 - A 7 D 9 2 E 6 7 7 A C 6 } " ;  
+     I m p e r s o n a t i o n L e v e l   =   1 ;  
+     P e r U s e r I n i t i a l i z a t i o n   =   " F A L S E " ;  
+     H o s t i n g M o d e l   =   " N e t w o r k S e r v i c e H o s t " ;  
+ } ;  
+  
+ I n s t a n c e   o f   _ _ I n s t a n c e P r o v i d e r R e g i s t r a t i o n  
+ {  
+     P r o v i d e r   =   $ D C R s ;  
+     S u p p o r t s G e t   =   " T R U E " ;  
+     S u p p o r t s P u t   =   " T R U E " ;  
+     S u p p o r t s D e l e t e   =   " T R U E " ;  
+     S u p p o r t s E n u m e r a t i o n   =   " T R U E " ;  
+     Q u e r y S u p p o r t L e v e l s   =   { " W Q L : U n a r y S e l e c t " } ;  
+ } ;  
+  
+ I n s t a n c e   o f   _ _ M e t h o d P r o v i d e r R e g i s t r a t i o n  
+ {  
+     P r o v i d e r   =   $ D C R s ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 1 7 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ M a n a g e d S y s t e m E l e m e n t  
+ {  
+     [ M a x L e n ( 6 4 )   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   C a p t i o n ;  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   D e s c r i p t i o n ;  
+     [ M a p p i n g S t r i n g s { " M I F . D M T F | C o m p o n e n t I D | 0 0 1 . 5 " }   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   d a t e t i m e   I n s t a l l D a t e ;  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   N a m e ;  
+     [ R e a d   :   T o S u b c l a s s , M a x L e n ( 1 0 )   :   T o S u b c l a s s , V a l u e M a p { " O K " ,   " E r r o r " ,   " D e g r a d e d " ,   " U n k n o w n " ,   " P r e d   F a i l " ,   " S t a r t i n g " ,   " S t o p p i n g " ,   " S e r v i c e " ,   " S t r e s s e d " ,   " N o n R e c o v e r " ,   " N o   C o n t a c t " ,   " L o s t   C o m m " }   :   T o S u b c l a s s ]   s t r i n g   S t a t u s ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 1 8 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ L o g i c a l E l e m e n t   :   C I M _ M a n a g e d S y s t e m E l e m e n t  
+ {  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 1 9 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ S y s t e m R e s o u r c e   :   C I M _ L o g i c a l E l e m e n t  
+ {  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 1 A - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ I R Q   :   C I M _ S y s t e m R e s o u r c e  
+ {  
+     [ r e a d   :   T o S u b c l a s s , P r o p a g a t e d ( " C I M _ C o m p u t e r S y s t e m . C r e a t i o n C l a s s N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s ]   s t r i n g   C S C r e a t i o n C l a s s N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , P r o p a g a t e d ( " C I M _ C o m p u t e r S y s t e m . N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s ]   s t r i n g   C S N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | I R Q | 0 0 1 . 1 " }   :   T o S u b c l a s s , k e y   :   T o I n s t a n c e   T o S u b c l a s s   D i s a b l e O v e r r i d e ]   u i n t 3 2   I R Q N u m b e r ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | I R Q | 0 0 1 . 2 " }   :   T o S u b c l a s s ]   u i n t 1 6   A v a i l a b i l i t y ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | I R Q | 0 0 1 . 3 " ,   " M I F . D M T F | S y s t e m   R e s o u r c e   I R Q   I n f o | 0 0 1 . 2 " }   :   T o S u b c l a s s ]   u i n t 1 6   T r i g g e r T y p e ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   I R Q   I n f o | 0 0 1 . 3 " }   :   T o S u b c l a s s ]   u i n t 1 6   T r i g g e r L e v e l ;  
+     [ r e a d   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | I R Q | 0 0 1 . 4 " }   :   T o S u b c l a s s ]   b o o l e a n   S h a r e a b l e ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 1 B - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ M e m o r y M a p p e d I O   :   C I M _ S y s t e m R e s o u r c e  
+ {  
+     [ r e a d   :   T o S u b c l a s s , P r o p a g a t e d ( " C I M _ C o m p u t e r S y s t e m . C r e a t i o n C l a s s N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s ]   s t r i n g   C S C r e a t i o n C l a s s N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , P r o p a g a t e d ( " C I M _ C o m p u t e r S y s t e m . N a m e " )   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s ]   s t r i n g   C S N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | M e m o r y   M a p p e d   I / O | 0 0 1 . 1 " }   :   T o S u b c l a s s ]   u i n t 6 4   S t a r t i n g A d d r e s s ;  
+     [ r e a d   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | M e m o r y   M a p p e d   I / O | 0 0 1 . 2 " }   :   T o S u b c l a s s ]   u i n t 6 4   E n d i n g A d d r e s s ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 3 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ D M A   :   C I M _ S y s t e m R e s o u r c e  
+ {  
+     [ r e a d   :   T o S u b c l a s s , P r o p a g a t e d ( " C I M _ C o m p u t e r S y s t e m . C r e a t i o n C l a s s N a m e " )   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s ]   s t r i n g   C S C r e a t i o n C l a s s N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , P r o p a g a t e d ( " C I M _ C o m p u t e r S y s t e m . N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s ]   s t r i n g   C S N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ r e a d   :   T o S u b c l a s s , K e y   :   T o I n s t a n c e   T o S u b c l a s s   D i s a b l e O v e r r i d e , M a p p i n g S t r i n g s { " M I F . D M T F | D M A | 0 0 1 . 1 " }   :   T o S u b c l a s s ]   u i n t 3 2   D M A C h a n n e l ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | D M A | 0 0 1 . 2 " }   :   T o S u b c l a s s ]   u i n t 1 6   A v a i l a b i l i t y ;  
+     [ r e a d   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | D M A | 0 0 1 . 3 " }   :   T o S u b c l a s s ]   b o o l e a n   B u r s t M o d e ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " B i t s " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 2 " }   :   T o S u b c l a s s , V a l u e M a p { " 0 " ,   " 8 " ,   " 1 6 " ,   " 3 2 " ,   " 6 4 " ,   " 1 2 8 " }   :   T o S u b c l a s s ]   u i n t 1 6   T r a n s f e r W i d t h s [ ] ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " B i t s " )   :   T o S u b c l a s s , V a l u e M a p { " 0 " ,   " 8 " ,   " 1 6 " ,   " 3 2 " ,   " 6 4 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 3 " }   :   T o S u b c l a s s ]   u i n t 1 6   A d d r e s s S i z e ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " B y t e s " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 4 " }   :   T o S u b c l a s s ]   u i n t 3 2   M a x T r a n s f e r S i z e ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 7 " }   :   T o S u b c l a s s ]   u i n t 1 6   B y t e M o d e ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 8 " }   :   T o S u b c l a s s ]   u i n t 1 6   W o r d M o d e ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " ,   " 6 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 9 " }   :   T o S u b c l a s s ]   u i n t 1 6   C h a n n e l T i m i n g ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   R e s o u r c e   D M A   I n f o | 0 0 1 . 1 0 " }   :   T o S u b c l a s s ]   u i n t 1 6   T y p e C T i m i n g ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 4 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ S y s t e m   :   C I M _ L o g i c a l E l e m e n t  
+ {  
+     [ C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ O v e r r i d e ( " N a m e " ) , K e y   :   T o I n s t a n c e   T o S u b c l a s s   D i s a b l e O v e r r i d e , R e a d   :   T o S u b c l a s s ]   s t r i n g   N a m e ;  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   N a m e F o r m a t ;  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   P r i m a r y O w n e r C o n t a c t ;  
+     [ M a x L e n ( 6 4 )   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   P r i m a r y O w n e r N a m e ;  
+     [ R e a d   :   T o S u b c l a s s , W r i t e   :   T o S u b c l a s s ]   s t r i n g   R o l e s [ ] ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 5 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ C o m p u t e r S y s t e m   :   C I M _ S y s t e m  
+ {  
+     [ O v e r r i d e ( " N a m e F o r m a t " ) , V a l u e M a p { " I P " ,   " D i a l " ,   " H I D " ,   " N W A " ,   " H W A " ,   " X 2 5 " ,   " I S D N " ,   " I P X " ,   " D C C " ,   " I C D " ,   " E . 1 6 4 " ,   " S N A " ,   " O I D / O S I " ,   " O t h e r " }   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   N a m e F o r m a t ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 6 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ U n i t a r y C o m p u t e r S y s t e m   :   C I M _ C o m p u t e r S y s t e m  
+ {  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   I n i t i a l L o a d I n f o [ ] ;  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   L a s t L o a d I n f o ;  
+     [ R e a d   :   T o S u b c l a s s ]   b o o l e a n   P o w e r M a n a g e m e n t S u p p o r t e d ;  
+     [ r e a d   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   P o w e r   C o n t r o l s | 0 0 1 . 2 " }   :   T o S u b c l a s s ]   u i n t 1 6   P o w e r M a n a g e m e n t C a p a b i l i t i e s [ ] ;  
+     [ R e a d   :   T o S u b c l a s s ]   u i n t 1 6   P o w e r S t a t e ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S y s t e m   H a r d w a r e   S e c u r i t y | 0 0 1 . 4 " }   :   T o S u b c l a s s ]   u i n t 1 6   R e s e t C a p a b i l i t y ;  
+     u i n t 3 2   S e t P o w e r S t a t e ( [ I N , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " ,   " 6 " ,   " 7 " ,   " 8 " }   :   T o S u b c l a s s ]   u i n t 1 6   P o w e r S t a t e , [ I N ]   d a t e t i m e   T i m e ) ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 7 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ S e r v i c e   :   C I M _ L o g i c a l E l e m e n t  
+ {  
+     [ C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ O v e r r i d e ( " N a m e " ) , K e y   :   T o I n s t a n c e   T o S u b c l a s s   D i s a b l e O v e r r i d e , R e a d   :   T o S u b c l a s s ]   s t r i n g   N a m e ;  
+     [ V a l u e M a p { " A u t o m a t i c " ,   " M a n u a l " }   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S t a r t M o d e ;  
+     [ R e a d   :   T o S u b c l a s s ]   b o o l e a n   S t a r t e d ;  
+     [ P r o p a g a t e d ( " C I M _ S y s t e m . C r e a t i o n C l a s s N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S y s t e m C r e a t i o n C l a s s N a m e ;  
+     [ P r o p a g a t e d ( " C I M _ S y s t e m . N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S y s t e m N a m e ;  
+     u i n t 3 2   S t a r t S e r v i c e ( ) ;  
+     u i n t 3 2   S t o p S e r v i c e ( ) ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { d e b a c 8 3 2 - 6 b 5 4 - 4 a d d - 8 a 6 2 - 8 d 3 8 6 1 b 9 7 b 1 d } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ C l u s t e r i n g S e r v i c e   :   C I M _ S e r v i c e  
+ {  
+     u i n t 3 2   A d d N o d e ( [ I N ]   C I M _ C o m p u t e r S y s t e m   R e f   C S ) ;  
+     u i n t 3 2   E v i c t N o d e ( [ I N ]   C I M _ C o m p u t e r S y s t e m   R e f   C S ) ;  
+ } ;  
+  
+ [ L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { F 1 2 6 A C C 2 - E 3 D 4 - 1 1 d 2 - 8 6 0 1 - 0 0 0 0 F 8 1 0 2 E 5 F } " )   :   T o I n s t a n c e , A b s t r a c t ]    
+ c l a s s   C I M _ S e r v i c e A c c e s s P o i n t   :   C I M _ L o g i c a l E l e m e n t  
+ {  
+     [ C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ O v e r r i d e ( " N a m e " ) , K e y   :   T o I n s t a n c e   T o S u b c l a s s   D i s a b l e O v e r r i d e , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   N a m e ;  
+     [ P r o p a g a t e d ( " C I M _ S y s t e m . C r e a t i o n C l a s s N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S y s t e m C r e a t i o n C l a s s N a m e ;  
+     [ P r o p a g a t e d ( " C I M _ S y s t e m . N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , M a x L e n ( 2 5 6 )   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S y s t e m N a m e ;  
+     [ R e a d   :   T o S u b c l a s s , S c h e m a ( " W i n 3 2 " )   :   T o I n s t a n c e   T o S u b c l a s s ]   u i n t 3 2   T y p e ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 2 b b 2 b 7 7 2 - f f e d - 4 a a 6 - b 1 b 3 - 3 d 0 c b 7 4 f c 6 1 3 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ C l u s t e r i n g S A P   :   C I M _ S e r v i c e A c c e s s P o i n t  
+ {  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 9 - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ L o g i c a l D e v i c e   :   C I M _ L o g i c a l E l e m e n t  
+ {  
+     [ R e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " ,   " 6 " ,   " 7 " ,   " 8 " ,   " 9 " ,   " 1 0 " ,   " 1 1 " ,   " 1 2 " ,   " 1 3 " ,   " 1 4 " ,   " 1 5 " ,   " 1 6 " ,   " 1 7 " ,   " 1 8 " ,   " 1 9 " ,   " 2 0 " ,   " 2 1 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | O p e r a t i o n a l   S t a t e | 0 0 3 . 5 " ,   " M I B . I E T F | H O S T - R E S O U R C E S - M I B . h r D e v i c e S t a t u s " }   :   T o S u b c l a s s ]   u i n t 1 6   A v a i l a b i l i t y ;  
+     [ C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   C r e a t i o n C l a s s N a m e ;  
+     [ R e a d   :   T o S u b c l a s s , S c h e m a ( " W i n 3 2 " )   :   T o I n s t a n c e , V a l u e M a p { " 0 " ,   " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " ,   " 6 " ,   " 7 " ,   " 8 " ,   " 9 " ,   " 1 0 " ,   " 1 1 " ,   " 1 2 " ,   " 1 3 " ,   " 1 4 " ,   " 1 5 " ,   " 1 6 " ,   " 1 7 " ,   " 1 8 " ,   " 1 9 " ,   " 2 0 " ,   " 2 1 " ,   " 2 2 " ,   " 2 3 " ,   " 2 4 " ,   " 2 5 " ,   " 2 6 " ,   " 2 7 " ,   " 2 8 " ,   " 2 9 " ,   " 3 0 " ,   " 3 1 " }   :   T o S u b c l a s s ]   u i n t 3 2   C o n f i g M a n a g e r E r r o r C o d e ;  
+     [ r e a d   :   T o S u b c l a s s , S c h e m a ( " W i n 3 2 " )   :   T o I n s t a n c e ]   b o o l e a n   C o n f i g M a n a g e r U s e r C o n f i g ;  
+     [ r e a d   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s ]   s t r i n g   D e v i c e I D ;  
+     [ r e a d   :   T o S u b c l a s s ]   u i n t 1 6   P o w e r M a n a g e m e n t C a p a b i l i t i e s [ ] ;  
+     [ r e a d   :   T o S u b c l a s s , S c h e m a ( " W i n 3 2 " )   :   T o I n s t a n c e ]   s t r i n g   P N P D e v i c e I D ;  
+     [ r e a d   :   T o S u b c l a s s ]   b o o l e a n   P o w e r M a n a g e m e n t S u p p o r t e d ;  
+     [ r e a d   :   T o S u b c l a s s , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " }   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | O p e r a t i o n a l   S t a t e | 0 0 3 . 3 " }   :   T o S u b c l a s s ]   u i n t 1 6   S t a t u s I n f o ;  
+     [ P r o p a g a t e d ( " C I M _ S y s t e m . C r e a t i o n C l a s s N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S y s t e m C r e a t i o n C l a s s N a m e ;  
+     [ P r o p a g a t e d ( " C I M _ S y s t e m . N a m e " )   :   T o S u b c l a s s , C I M _ K e y   :   T o S u b c l a s s , R e a d   :   T o S u b c l a s s ]   s t r i n g   S y s t e m N a m e ;  
+     u i n t 3 2   S e t P o w e r S t a t e ( [ I N , V a l u e M a p { " 1 " ,   " 2 " ,   " 3 " ,   " 4 " ,   " 5 " ,   " 6 " }   :   T o S u b c l a s s ]   u i n t 1 6   P o w e r S t a t e , [ I N ]   d a t e t i m e   T i m e ) ;  
+     u i n t 3 2   R e s e t ( ) ;  
+     [ R e a d   :   T o S u b c l a s s ]   u i n t 3 2   L a s t E r r o r C o d e ;  
+     [ R e a d   :   T o S u b c l a s s ]   s t r i n g   E r r o r D e s c r i p t i o n ;  
+     [ R e a d   :   T o S u b c l a s s ]   b o o l e a n   E r r o r C l e a r e d ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 8 5 0 2 C 5 2 A - 5 F B B - 1 1 D 2 - A A C 1 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ M e d i a A c c e s s D e v i c e   :   C I M _ L o g i c a l D e v i c e  
+ {  
+     [ r e a d   :   T o S u b c l a s s , A r r a y T y p e ( " I n d e x e d " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S t o r a g e   D e v i c e s | 0 0 1 . 9 " ,   " M I F . D M T F | S t o r a g e   D e v i c e s | 0 0 1 . 1 1 " ,   " M I F . D M T F | S t o r a g e   D e v i c e s | 0 0 1 . 1 2 " ,   " M I F . D M T F | D i s k s | 0 0 3 . 7 " }   :   T o S u b c l a s s , M o d e l C o r r e s p o n d e n c e { " C I M _ M e d i a A c c e s s D e v i c e . C a p a b i l i t y D e s c r i p t i o n s " }   :   T o S u b c l a s s ]   u i n t 1 6   C a p a b i l i t i e s [ ] ;  
+     [ r e a d   :   T o S u b c l a s s , A r r a y T y p e ( " I n d e x e d " )   :   T o S u b c l a s s , M o d e l C o r r e s p o n d e n c e { " C I M _ M e d i a A c c e s s D e v i c e . C a p a b i l i t i e s " }   :   T o S u b c l a s s ]   s t r i n g   C a p a b i l i t y D e s c r i p t i o n s [ ] ;  
+     [ r e a d   :   T o S u b c l a s s ]   s t r i n g   C o m p r e s s i o n M e t h o d ;  
+     [ r e a d   :   T o S u b c l a s s ]   s t r i n g   E r r o r M e t h o d o l o g y ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " K i l o b y t e s " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | S e q u e n t i a l   A c c e s s   D e v i c e s | 0 0 1 . 2 " }   :   T o S u b c l a s s ]   u i n t 6 4   M a x M e d i a S i z e ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " B y t e s " )   :   T o S u b c l a s s ]   u i n t 6 4   D e f a u l t B l o c k S i z e ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " B y t e s " )   :   T o S u b c l a s s ]   u i n t 6 4   M a x B l o c k S i z e ;  
+     [ r e a d   :   T o S u b c l a s s , U n i t s ( " B y t e s " )   :   T o S u b c l a s s ]   u i n t 6 4   M i n B l o c k S i z e ;  
+     [ r e a d   :   T o S u b c l a s s ]   u i n t 3 2   N u m b e r O f M e d i a S u p p o r t e d ;  
+     [ R e a d   :   T o S u b c l a s s ]   b o o l e a n   N e e d s C l e a n i n g ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { F 2 7 8 5 1 C D - B B A C - 1 1 d 2 - 8 5 E 5 - 0 0 0 0 F 8 1 0 2 E 5 F } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ D i s k e t t e D r i v e   :   C I M _ M e d i a A c c e s s D e v i c e  
+ {  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 9 5 6 5 9 7 9 A - 7 D 8 0 - 1 1 D 2 - A A D 3 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ C o o l i n g D e v i c e   :   C I M _ L o g i c a l D e v i c e  
+ {  
+     [ r e a d   :   T o S u b c l a s s ]   b o o l e a n   A c t i v e C o o l i n g ;  
+ } ;  
+  
+ [ L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { F 3 A 5 2 3 3 A - E 3 D 3 - 1 1 d 2 - 8 6 0 1 - 0 0 0 0 F 8 1 0 2 E 5 F } " )   :   T o I n s t a n c e , A b s t r a c t ]    
+ c l a s s   C I M _ R e f r i g e r a t i o n   :   C I M _ C o o l i n g D e v i c e  
+ {  
+ } ;  
+  
+ [ L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { F E 5 D 5 5 E 0 - E 3 D 3 - 1 1 d 2 - 8 6 0 1 - 0 0 0 0 F 8 1 0 2 E 5 F } " )   :   T o I n s t a n c e , A b s t r a c t ]    
+ c l a s s   C I M _ H e a t P i p e   :   C I M _ C o o l i n g D e v i c e  
+ {  
+ } ;  
+  
+ [ L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 0 A 5 9 C 8 5 6 - E 3 D 4 - 1 1 d 2 - 8 6 0 1 - 0 0 0 0 F 8 1 0 2 E 5 F } " )   :   T o I n s t a n c e , A b s t r a c t ]    
+ c l a s s   C I M _ F a n   :   C I M _ C o o l i n g D e v i c e  
+ {  
+     [ r e a d   :   T o S u b c l a s s ]   b o o l e a n   V a r i a b l e S p e e d ;  
+     [ U n i t s ( " R e v o l u t i o n s   p e r   M i n u t e " )   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   u i n t 6 4   D e s i r e d S p e e d ;  
+     u i n t 3 2   S e t S p e e d ( [ I N ]   u i n t 6 4   D e s i r e d S p e e d ) ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 9 5 6 5 9 7 9 B - 7 D 8 0 - 1 1 D 2 - A A D 3 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ S e n s o r   :   C I M _ L o g i c a l D e v i c e  
+ {  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 9 5 6 5 9 7 9 C - 7 D 8 0 - 1 1 D 2 - A A D 3 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ N u m e r i c S e n s o r   :   C I M _ S e n s o r  
+ {  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   C u r r e n t R e a d i n g ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   N o m i n a l R e a d i n g ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   N o r m a l M a x ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   N o r m a l M i n ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   M a x R e a d a b l e ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   M i n R e a d a b l e ;  
+     [ r e a d   :   T o S u b c l a s s ]   u i n t 3 2   R e s o l u t i o n ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   T o l e r a n c e ;  
+     [ U n i t s ( " H u n d r e d t h s   o f   P e r c e n t " )   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   A c c u r a c y ;  
+     [ r e a d   :   T o S u b c l a s s ]   b o o l e a n   I s L i n e a r ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   L o w e r T h r e s h o l d N o n C r i t i c a l ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   U p p e r T h r e s h o l d N o n C r i t i c a l ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   L o w e r T h r e s h o l d C r i t i c a l ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   U p p e r T h r e s h o l d C r i t i c a l ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   L o w e r T h r e s h o l d F a t a l ;  
+     [ r e a d   :   T o S u b c l a s s ]   s i n t 3 2   U p p e r T h r e s h o l d F a t a l ;  
+ } ;  
+  
+ [ A b s t r a c t , L o c a l e ( 1 0 3 3 )   :   T o I n s t a n c e , U U I D ( " { 9 5 6 5 9 7 9 D - 7 D 8 0 - 1 1 D 2 - A A D 3 - 0 0 6 0 0 8 C 7 8 B C 7 } " )   :   T o I n s t a n c e ]    
+ c l a s s   C I M _ T e m p e r a t u r e S e n s o r   :   C I M _ N u m e r i c S e n s o r  
+ {  
+     [ O v e r r i d e ( " C u r r e n t R e a d i n g " ) , U n i t s ( " T e n t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 5 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   C u r r e n t R e a d i n g ;  
+     [ O v e r r i d e ( " N o m i n a l R e a d i n g " ) , U n i t s ( " T e n t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 6 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   N o m i n a l R e a d i n g ;  
+     [ O v e r r i d e ( " N o r m a l M a x " ) , U n i t s ( " T e n t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 7 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   N o r m a l M a x ;  
+     [ O v e r r i d e ( " N o r m a l M i n " ) , U n i t s ( " T e n t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 8 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   N o r m a l M i n ;  
+     [ O v e r r i d e ( " M a x R e a d a b l e " ) , U n i t s ( " T e n t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 9 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   M a x R e a d a b l e ;  
+     [ O v e r r i d e ( " M i n R e a d a b l e " ) , U n i t s ( " T e n t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 1 0 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   s i n t 3 2   M i n R e a d a b l e ;  
+     [ O v e r r i d e ( " R e s o l u t i o n " ) , U n i t s ( " H u n d r e d t h s   o f   d e g r e e s   C e n t i g r a d e " )   :   T o S u b c l a s s , M a p p i n g S t r i n g s { " M I F . D M T F | T e m p e r a t u r e   P r o b e | 0 0 1 . 1 7 " }   :   T o S u b c l a s s , r e a d   :   T o S u b c l a s s ]   u i n t 3 MZ       ÿÿ  ¸       @                                   Ø   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       §Ğeã±|6ã±|6ã±|6’<6à±|69’`6è±|6ã±}6¿±|6’e6è±|6t’96â±|69’a6à±|6’A6â±|6Richã±|6        PE  L ­„};        à   Œ   ^      ƒˆ                                  e]   €                           Ğ“  x      `                                                               H  |      |                          .text   j‹      Œ                    `.data   XT                        @  À.rsrc   `         ’              @  @ş};8   ş};C   ş};P  à};]   ş};g   ˆş};r           msvcrt.dll ADVAPI32.dll KERNEL32.dll NTDLL.DLL USER32.dll ESENT.dll                                                                                                                                                                                                                                                                                                                              ]İwsßw•¥İw    SBxi=9xi$Axi½xsi-gsiri !xiÄ)xisri?<tiDriDri±6xi    ;Jçw‚‹çwïwçw$‘éwc1çw¥Ãçw;çwì˜ëw4çw xçwÁ0çw
+˜çwï“çwVèwL_æwèw7¬çwu;çw±yçwäEæwı¥çw¸èw}õw`jçwuçw“Ÿçw½æwşçw(6çw•òçwªçw]çwcyçwœçwÎ|çwEšçw˜çwØèw    ×­Öw    °>ÃwX¦Äw26ÃwhëÁwJëÁwˆÓÅw`ÄwÛyÃw	éÁwäÉÅw {ÃwiÃwîzÃw{Ãwp%ÄwDãÃw€¬ÅwÎÁw ¾Áwp½ÁwœÈÃw´bÄw,ïÃw¼=Äw²<Äw 5Äw7îÁw¢!Äw£CÃwD@Ãw8ÔÂwÈÃwÜzÃwÙåÃw>Ãw                            ­„};          K  ?  r e c o v e r E n d e d     r e c o v e r S t a r t e d     r e c o v e r N o t S t a r t e d   r e c o v e r I n v a l i d              ô ä Ô À °    ˆ € t h P 8       ô ğ Ì  ô Ä œ p @  Ğ ¤ t T  ä È € h 0  Ğ ˜ ` (   ° ¨     You should only run Repair on damaged or corrupted databases. Repair will not apply information in the transaction log files to the database, and may cause information to be lost. Do you wish to proceed? Warning t 0 ğ ´ ¬   ˆ p d T @ 0 $   JetDBUtilities  JetBackup   JetRestore2 JetEndSession   JetDetachDatabase   JetBeginSession JetCompact  JetGetSystemParameter   JetSetSystemParameter   JetTerm2    JetInit Operation terminated unsuccessfully after %d.%d seconds.    Operation terminated with error %d (%s) after %d.%d seconds.    Operation completed successfully with %d (%s) after %d.%d seconds.  Operation completed successfully in %d.%d seconds.  =>      D=Defragmentation, R=Recovery, G=inteGrity, K=checKsum, P=rePair, M=file duMp   <<<<<  Press a key for more help  >>>>>             File Dump:  %s /m[mode-modifier] <filename>                Repair:  %s /p <database name> [options]              Checksum:  %s /k <database name> [options]             Integrity:  %s /g <database name> [options]              Recovery:  %s /r [options]       Defragmentation:  %s /d <database name> [options] MODES OF OPERATION:     DESCRIPTION:  Maintenance utilities for Microsoft(R) Windows databases. Usage Error: Invalid mode.  Usage Error: Old .DLL required in order to upgrade. Usage Error: Mode selection must be preceded by '-' or '/'. Usage Error: No mode specified. Usage Error: Invalid database extension size.   Usage Error: Invalid batch I/O size.        Usage Error: Invalid argument '%s'. Options must be preceded by '-' or '/'. Usage Error: Invalid option '%s'.   Usage Error: Only one type of recovery allowed. Usage Error: Duplicate %s specification.    Usage Error: Missing %s specification.  Error: Failed to load function %s from DLL.
+   Error: Failed to load DLL %s.
+     Error: Could not re-instate '%s'. It may be manually re-instated by manually copying '%s' to '%s' (this will overwrite the original copy of the file with the defragmented copy).   Error: Could not backup to '%s'.    -/  File Copy    Copying...  FAILED!     DONE!  Moving '%s' to '%s'...   Status (% complete)    Upgrading Record Format Securing    Scanning    Restore Upgrade Defragmentation TEMPSCRUB%d.EDB TEMPINTEG%d.EDB TEMPREPAIR%d.EDB    TEMPUPGD%d.EDB  TEMPDFRG%d.EDB  TEMP%d.EDB  STM .   user    Loading %s...
+ Unexpected Win32 error: %dL
+
+   %d.%d                        contain the defragmented version of the database.%c                             is preserved uncompacted, and the temporary database will%c                  NOTES:  1) If instating is disabled (ie. /p), the original database%c                   /o         - suppress logo%c                    /8         - set 8k database page size (default: auto-detect)%c                         /b<db>     - make backup copy under the specified name%c                        /p         - preserve temporary database (ie. don't instate)%c                          /i         - do not defragment streaming file%c                                  (default: TEMPDFRG*.STM)%c                     /f<file>   - set temp. streaming file name%c                    /t<db>     - set temp. database name (default: TEMPDFRG*.EDB)%c                         /s<file>   - set streaming file name (default: NONE)%c                OPTIONS:  zero or more of the following switches, separated by a space:%c            PARAMETERS:  <database name> - filename of database to compact%c            SYNTAX:  %s /d <database name> [options]%c         DESCRIPTION:  Performs off-line compaction of a database.%c DEFRAGMENTATION/COMPACTION:%c   %c                                     originally logged in log files)%c                                       if [path] not specified (default: directory%c                      /d[path]   - location of database files, or current directory%c                         /i         - ignore mismatched/missing database attachments%c                   /s<path>   - location of system files (eg. checkpoint file)%c                                (default: current directory)%c                     /l<path>   - location of log files%c           SYNTAX:  %s /r <3-character logfile base name> [options]%c                   consistent state.%c           DESCRIPTION:  Performs recovery, bringing all databases to a%c  RECOVERY:%c                      is consistent before proceeding with integrity-check.%c                         recommended that recovery is run to ensure the database%c                       a database is in an inconsistent state it is strongly%c              NOTES:  1) Integrity-check does not run database recovery.  If%c                    /o        - suppress logo%c                         /8        - set 8k database page size (default: auto-detect)%c                                      (default: <database>.integ.raw)%c                   /f<name>  - set prefix to use for name of report files%c                        /t<db>    - set temp. database name (default: TEMPINTEG*.EDB)%c                         /s<file>  - set streaming file name (default: NONE)%c      PARAMETERS:  <database name> - filename of database to verify%c             SYNTAX:  %s /g <database name> [options]%c     DESCRIPTION:  Verifies integrity of a database.%c   INTEGRITY:%c                      /o   - suppress logo%c                      /8   - set 8k database page size (default: auto-detect)%c          SYNTAX:  %s /k <database name> [options]%c     DESCRIPTION:  Verifies the individual checksum of each page of a database.%c    CHECKSUM:%c                      consistent before proceeding with repair.%c                             that recovery is run to ensure the database is%c                        is in an inconsistent state it is strongly recommended%c             NOTES:  1) Repair does not run database recovery.  If a database%c                                   (default: <database>.integ.raw)%c                          /f<name>   - set prefix to use for name of report files%c                                (default: TEMPREPAIR*.EDB)%c                   /t<db>     - set temp. database name%c             PARAMETERS:  <database name> - filename of database to repair%c             SYNTAX:  %s /p <database name> [options]%c     DESCRIPTION:  Repairs a corrupted or damaged database.%c    REPAIR:%c                     /v         - verbose%c                          /t<table>  - perform dump for specified table only%c                                      <filename> must be the name of a database).%c                                           being requested (eg. if using /mh, then%c                                       specified file should match the dump type%c                   <filename>      - name of file to dump. The type of the%c                                     s - dump space usage%c                                      m - dump meta-data%c                                            l - dump log file or set of logs%c                                      k - dump checkpoint file%c                                      h - dump database header (default)%c                                            file dump to perform. Valid values are:%c        PARAMETERS:  [mode-modifier] - an optional letter designating the type of%c             SYNTAX:  %s /m[mode-modifier] <filename> [options]%c           DESCRIPTION:  Generates formatted output of various database file types.%c  FILE DUMP:%c                         contain the upgraded version of the database.%c                         is preserved unchanged, and the temporary database will%c                    3) If instating is disabled (ie. /p), the original database%c                      state. An error will be returned if otherwise.%c                     2) Before upgrading, the database should be in a consistent%c                      Windows NT.%c                           release of a major, new revision of Microsoft(R)%c                      If necessary, this will usually only coincide with the%c                        after an internal database format change has taken place.%c                  NOTES:  1) This utility should only be used to upgrade a database%c                     /o      - suppress logo%c                       /8      - set 8k database page size (default: auto-detect)%c                    /p      - preserve temporary database (ie. don't instate)%c                     /t<db>  - set temporary database name (default: TEMPUPGD.EDB)%c                         /b<db>  - make backup copy under the specified name%c                                       Windows NT from which you are upgrading.%c                                              with the release of Microsoft(R)%c                          /d<previous .DLL> - pathed filename of the .DLL that came%c        PARAMETERS:  <database name>   - filename of the database to upgrade.%c             SYNTAX:  %s /u <database name> /d<previous .DLL> [options]%c                     Microsoft(R) Windows NT) to the current version.%c        DESCRIPTION:  Upgrades a database (created using a previous release of%c    UPGRADE:%c           PARAMETERS:  <database name> - filename of database to secure%c             SYNTAX:  %s /s <database name>%c       DESCRIPTION:  Removes all deleted records from database.%c  SECURE:%c   %s  %s%c    %c%c                          |----|----|----|----|----|----|----|----|----|----|
+            0    10   20   30   40   50   60   70   80   90  100
+           %*s%s%c%c .%c%c   temporary streaming file    temporary database  source streaming file   source database Temporary streaming file    Temporary database  Source streaming file   Source database Error: %s specification '%s' is invalid.    Error: %s '%s' cannot be the same as %s.        Error: Access to source database '%s' failed with Jet error %i. Usage Error: Source database has no streaming file but %s '%s' was specified.    ´8 œ8 ˆ8 l8  \8 D8 08 8 kernel32.dll    CopyFileExA SeBackupPrivilege   SeRestorePrivilege  % * s   % s % s     
+       Callback DLL not found  Unable to find the callback library %s (or one of its dependencies).
+Copy in the file and hit OK to retry, or hit Cancel to abort.
+   R e c o v e r   T i m e :   R e c o v e r   E r r o r :     0 x % 0 8 X     R e c o v e r   S t a t u s :   L a s t   R e s t o r e   T i m e :     L o g   f i l e s   r a n g e :     n o   l o g   f i l e s   r e s t o r e d   % s % 0 5 X . l o g   -   % s % 0 5 X . l o g   D e s t i n a t i o n   F i l e s :     % s     S o u r c e   F i l e s :   G U I D :   % 0 8 X - % 0 4 X - % 0 4 X - % 0 8 X % 0 8 X   D a t a b a s e   N a m e :     D a t a b a s e s :     % d   d a t a b a s e ( s )     R e s t o r e   I n s t a n c e   L o g   P a t h :     R e s t o r e   I n s t a n c e   S y s t e m   P a t h :   T a r g e t   I n s t a n c e :     B a c k u p   I n s t a n c e :     A n n o t a t i o n :   R e s t o r e   P a t h :   R e s t o r e   l o g   f i l e :   ESERestoreFreeEnvironment   HrESERestoreLoadEnvironment ESEBCLI2.DLL        T a r g e t   I n s t a n c e :   % s 
+     Restore log files: %s
+  HrESERestoreGetEnvironment  HrESERestoreComplete    HrESERestoreClose   HrESERestoreReopen  ServerSim   ESEBACK2.DLL    streaming file  temp. streaming file    backup database logfile path    system path database directory  report file name prefix old .DLL      You MUST delete the logfiles for this database%c%c    Warning:%c  scrub_off   Initiating SECURE mode...%c Initiating SLV Move mode...%c   Initiating CHECKSUM mode...%c%c  Streaming File: %s%c             Node: %d:%d%c           Page: %d%c          Database: %s%c          Database %s will be forced to a consistent state.%c         Checkpoint file: %s%c          Lgpos: %06X,%04X,%04X%c              Node: %d:%d:%d%c        Log file: %s%c    Initiating FILE DUMP mode...%c  database/filename     repair, the database will be rolled back to the state%c   Note:%c repair_off  Initiating REPAIR mode...%c            Table: %s%c    Temp. Database: %s%c    Streaming File: %s%c          Database: %s%c  Initiating INTEGRITY mode...%c    it was in at the time of that backup.%c%c       defragmentation, the database will be rolled back to the state%c    of this database. If you restore a backup made before the%c         It is recommended that you immediately perform a full backup%c    %cNote:%c   Temp. Streaming File: %s%c        Temp. Database: %s%c        Streaming File: %s%c              Database: %s%c  Initiating DEFRAGMENTATION mode...%c    Restoring to <current directory> from '%s'...   Restoring to '%s' from '%s'...  Performing soft recovery... on     Database Directory: %s%c          System files: %s%c             Log files: %s%c <current directory>    Temp database size: %d%c     Logfile base name: %s%c Initiating RECOVERY mode...%c   logfile base name   off ESEUTIL ESENT97.DLL     ÿÿÿÿÄ‰ Ø‰  
+         0 x % I 6 4 x   h i g h e s t   d b t i m e   ( p g n o   0 x % x )  
+     % d   w r o n g   p a g e   n u m b e r s  
+   % d   u n i n i t i a l i z e d   p a g e s  
+     % d   b a d   c h e c k s u m s  
+     % d   p a g e s   s e e n  
+    
+  
+     F A I L U R E :   S e t E v e n t :     F A I L U R E :   R e a d F i l e :         E R R O R :   p a g e   % d   c h e c k s u m   f a i l e d   (   0 x % x   /   0 x % x   )  
+         E R R O R :   p a g e   % d   r e t u r n e d   p a g e   % d  
+       F A I L U R E :   G e t Q u e u e d C o m p l e t i o n s S t a t u s   g o t   t h e   w r o n g   n u m b e r   o f   b y t e s :     F A I L U R E :   G e t Q u e u e d C o m p l e t i o n s S t a t u s :         F A I L U R E :   W a i t F o r S i n g l e O b j e c t E x :       F A I L U R E :   C r e a t e E v e n t :       F A I L U R E :   V i r t u a l A l l o c :     C h e c k s u m   S t a t u s   ( %   c o m p l e t e )     F A I L U R E :   C r e a t e T h r e a d :     F A I L U R E :   G e t F i l e S i z e :       F A I L U R E :   C r e a t e I o C o m p l e t i o n P o r t :     F A I L U R E :   C r e a t e F i l e :     F i l e :   % . 6 4 l s     < u n p r i n t a b l e >   % l s % l s                                                 | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - |  
+                       0         1 0       2 0       3 0       4 0       5 0       6 0       7 0       8 0       9 0     1 0 0  
+                         % * l s  
+  
+     .   .  
+   NB10    ­„};   esentutl.pdb    ÿt$ÿt$ÿ˜ …À‹L$‰uÿt$hÄ ÿp YY¸Ê÷ÿÿë3ÀÂ V‹5p W‹|$Wh ÿÖYYj j Wÿœ …À£è£ uWhô ÿÖYY¸Ê÷ÿÿé  h   h¬ Pè}ÿÿÿ…ÀŒ  h  h  ÿ5è£ è`ÿÿÿ…ÀŒé   h  hˆ ÿ5è£ èCÿÿÿ…ÀŒÌ   h  hp ÿ5è£ è&ÿÿÿ…ÀŒ¯   h  hd ÿ5è£ è	ÿÿÿ…ÀŒ’   h  hT ÿ5è£ èìşÿÿ…À|yh  h@ ÿ5è£ èÓşÿÿ…À|`h   h0 ÿ5è£ èºşÿÿ…À|Gh$  h$ ÿ5è£ è¡şÿÿ…À|.h(  h ÿ5è£ èˆşÿÿ…À|h,  h ÿ5è£ èoşÿÿ_^Â U‹ì‹E…À‰EtEPh   ÿuh   ÿuj h (  ëj h   ÿuh   ÿuj h   ÿ¤ …Àuÿ  Ph  ÿp YYjÿl ]Â U‹ìì   ÿu… ÿÿÿPÿuèxÿÿÿ… ÿÿÿPÿp YÉÂ U‹ìQQjjEøh@ Pÿh ƒÄj jè¯ÿÿÿEøPjè¤ÿÿÿj jè›ÿÿÿÉÃV‹5p Wj
+_Wh! ÿÖWhğ  ÿÖWh°  ÿÖWÿt$(hx  ÿÖWh0  ÿÖWhØ ÿÖWhˆ ÿÖWh0 ÿÖƒÄDWhğ ÿÖWh´ ÿÖWhp ÿÖWh ÿÖWhÈ ÿÖWhp ÿÖWh@ ÿÖWhğ ÿÖƒÄ@Wh˜ ÿÖWhH ÿÖƒÄ_^Â SV‹5p Wj
+_Wh! ÿÖWhÔ# ÿÖWh# ÿÖWhd# ÿÖWÿt$4h # ÿÖWhØ ÿÖWhè" ÿÖW»¨" SÿÖƒÄDWhX" ÿÖWSÿÖWh" ÿÖWh°! ÿÖWh`! ÿÖWh! ÿÖWhp ÿÖWh@ ÿÖƒÄ@_^[Â V‹5p Wj
+_Wh! ÿÖWhŒ' ÿÖWhT' ÿÖWÿt$(h ' ÿÖWhØ& ÿÖWhØ ÿÖWh& ÿÖWh8& ÿÖƒÄDWhè% ÿÖWh¨% ÿÖWhP% ÿÖWh% ÿÖWhĞ$ ÿÖWh€$ ÿÖWh0$ ÿÖWhà# ÿÖƒÄ@_^Â V‹5p Wj
+_Wh! ÿÖWhœ( ÿÖWhH( ÿÖWÿt$(h( ÿÖWhØ& ÿÖWhØ ÿÖWhÈ' ÿÖWhœ' ÿÖƒÄD_^Â V‹5p Wj
+_Wh! ÿÖWh¤+ ÿÖWhd+ ÿÖWÿt$(h0+ ÿÖWhè* ÿÖWhØ ÿÖWhˆ ÿÖWh¨* ÿÖƒÄDWhl* ÿÖWh * ÿÖWhØ) ÿÖWhp ÿÖWh@ ÿÖWhˆ) ÿÖWh8) ÿÖWhğ( ÿÖƒÄ@Wh¨( ÿÖYY_^Â V‹5p Wj
+_Wh! ÿÖWhø/ ÿÖWh¨/ ÿÖWÿt$(hd/ ÿÖWh/ ÿÖWhÀ. ÿÖWhp. ÿÖWh0. ÿÖƒÄDWhè- ÿÖWh¨- ÿÖWhl- ÿÖWh - ÿÖWhĞ, ÿÖWh€, ÿÖWh(, ÿÖWhØ ÿÖƒÄ@Whˆ ÿÖWhà+ ÿÖWh°+ ÿÖWhp ÿÖWh@ ÿÖƒÄ(_^Â V‹5p Wj
+_Wh! ÿÖWhˆ6 ÿÖWh86 ÿÖWhğ5 ÿÖWÿt$0h¨5 ÿÖWhX5 ÿÖWh5 ÿÖWh¸4 ÿÖƒÄDWh`4 ÿÖWhØ ÿÖWh4 ÿÖWhÀ3 ÿÖWhp3 ÿÖWh 3 ÿÖWhğ2 ÿÖWh 2 ÿÖƒÄ@WhH2 ÿÖWhø1 ÿÖWh°1 ÿÖWhˆ1 ÿÖWh81 ÿÖWhğ0 ÿÖWh 0 ÿÖWhP0 ÿÖƒÄ@Wh0 ÿÖYY_^Â V‹5p Wj
+_Wh! ÿÖWhL7 ÿÖWh7 ÿÖWÿt$(hà6 ÿÖWh˜6 ÿÖWhÈ' ÿÖWhœ' ÿÖƒÄ<_^Â QUVWèçúÿÿ‹5p h€ ÿÖj
+]UUhd7 ÿÖhh ÿÖU¿! WÿÖSh0 ÿÖUWÿÖSh ÿÖUWÿÖShĞ ÿÖƒÄDUWÿÖSh` ÿÖUWÿÖSh˜ ÿÖUWÿÖSh( ÿÖUWÿÖUWÿÖƒÄ@Uh  ¿\7 WÿÖUh° WÿÖh¨ hX7 ÿÖÿd UUhd7 ˆD$;ÿÖ¾D$;ƒÄ,_ƒød^]=t3ƒøPtmƒèDt'ƒètsƒètfHHupSèıÿÿYÃƒøRtEƒøUt8ƒøZt+YÃSè%úÿÿYÃƒègtDƒèt7HHtÑƒèt&HHtƒètƒèu.SèƒşÿÿYÃSè”ıÿÿYÃSè™úÿÿYÃSèüÿÿYÃSè¼ûÿÿYÃSèûÿÿYÃ‹D$SWj[;Ãt!ƒøtƒøtƒø	†Z  ƒøv	ƒøÿ…L  ‹L$ƒé V„  ƒétBI…1  ‹5p jdX+ô£ ;Ã|Ñè‹øh ÿÖô£ OYuïj
+j
+h8 ÿÖƒÄéö   ;ÃtBƒøt6ƒø
+t*ƒøtƒøtƒøÿt» ë'‹\$ë!»P ë»h ë»ˆ ë»€ ë»t ‹5p j
+h! ÿÖY‹ÃYxŠ@„Éuù+Ç¹8 ‹ø‹ÁUhŠ@„Òuùj
+j
+QSj3Y+Å+È+ÏÑéÏQhø7 ÿÖh¸7 ÿÖhx7 ÿÖhl7 ÿÖƒÄ$ƒ%ô£  ]ë;‹L$‹AjdZ÷âj ÿqRPèb4  +ô£ ;Ã|Ñè‹ğh ÿp ô£ NYuë^_3À[Â U‹ìƒì‹V‹p‰uô‹p‹@‰Eü‹EH‰uøÇEì ‰Uğ^tQHt%HtHuw‹ÁÁàÿtìÿ°Ä9 h`9 ëFQRh 9 ë=‹Á‹Mÿ4Ä9 Áàÿtìÿ°°9 hğ8 ÿp ƒÄë‹ÁÁàÿtìÿ°°9 hÄ8 ÿp ƒÄj
+j
+hd7 ÿp ƒÄÉÂ U‹ìì  j …üşÿÿP…øıÿÿPEPÿuÿ\ h  …üşÿÿP…øıÿÿPEPÿuÿ` ƒÄ(ÉÂ U‹ìì$  Š SVWjA[‹ğ3À‹Ë½åüÿÿˆ•äüÿÿó«‹Ë½İûÿÿˆ•Üûÿÿó«‹Ë½õşÿÿˆ•ôşÿÿó«‹Ë½íıÿÿˆ•ìıÿÿó«3ÿ9~u‹E‰F‹T h  ÿv…ÜûÿÿPÿÓƒÄ…Àu
+Wjjé¹  ‹;Çu%‹5p h\8 hœ ÿÖj
+j
+hd7 ÿÖƒÄé  h  P…äüÿÿPÿÓƒÄ…Àu
+3ÉWAQéo  »   …^0‰}üu4jjEüPÿ6è<  …Àu!¸    9EüuWPj@WWÿ  ;ÇŒÂ  	^09}‰}„   jjEPÿ6èÍ;  ‹Ø;ß}Wj‹Ë‹Æè¼ıÿÿ‹Ãé‹  9}ta9~u‹]Sÿ6èPşÿÿ‰^h  ÿv…ôşÿÿPÿT ƒÄ…Àu
+Wjjé»   ‹X …ôşÿÿP…äüÿÿPÿÓ…ÀYYuj3ÉjAéü   9~…  ‹X …ÜûÿÿP…äüÿÿPÿÓ…ÀYYujëÍ…ÜûÿÿP…ôşÿÿPÿÓ…ÀYYujjjé±   9}„·   9}„®   9~uÿuÿvè“ıÿÿ‹E‰Fh  ÿv…ìıÿÿPÿT ƒÄ…ÀuWjjY‹Æè´üÿÿ¸üÿÿé€   …ìıÿÿP…äüÿÿPÿÓ…ÀYYujé4ÿÿÿ…ìıÿÿP…ôşÿÿPÿÓ…ÀYYujébÿÿÿ…ìıÿÿP…ÜûÿÿPÿÓ…ÀYYu.jjjY‹ÆèLüÿÿ¸üûÿÿë9~tWjjY‹Æè3üÿÿ¸üÿÿë3À_^[ÉÂ ƒùÿ}ƒ0  ÿÃ¡ğ£ ;Á£0  |‰0  Ã¡0  ƒøÿt9ğ£ t
+‹ì£ ‹Ã3ÀÃ‹0  Aè³ÿÿÿéĞÿÿÿ¾ÀƒøS t6ƒè tLƒèHtGƒèt9Ht-HuÇA   ë:ƒèht.ƒèt HtHtçƒèt3ÀÃÇA   ëÇA   ëÇA
+   ëÇA   3À@Ã€ùCt&€ùMt€ùSt€ùct€ùmt€ùst3ÀÃ€H1€ë€H1@3À@ÃQQSU3íWEè.ÿÿÿƒL$ÿ‹ø‹F,ƒøuuŠG„Àt€ u‹N(è:ÿÿÿ‹èGéÎ   ¡0  ‰D$3íèÿÿÿ‹Ø…Ût0¾Phğ ÿP …ÀYYtŠC„Àt€{ u
+‹N(èòşÿÿ‹è…ítÅ…íur‹N(2ÀèŞşÿÿ‹èëdƒø…   ŠO„Ét€ u	‹Æè#ÿÿÿë¡0  ‰D$3íèšşÿÿ‹Ø…Ût/¾Phğ ÿP …ÀYYtŠK„Ét€{ u	‹Æèâşÿÿ‹è…ítÆ¡0  ‹L$‰D$èşÿÿ…í‹p uhÈ ÿÓj
+j
+hd7 ÿÓƒÄë‹p GG€? …É   é½   …ÿ„Ä   ‹D$90  „¥   ¾Phğ ÿP …ÀYYuY‹F,HHt'Ht3À9”À‹è…ít*‰>ëu3À9F”À‹è…ít‰~ëb3À9F ”À‹è…ít‰~ ëOWhĞ ÿÓj
+j
+hd7 ÿÓƒÄë7ŠG<!t0<8t(<Ot<ot3í9l$t
+VWÿT$ ‹èëWh ëÁƒN0ë€N1èZıÿÿ‹ø…í…4ÿÿÿ_‹Å][YYÂ U‹ìƒìT3ÀWjY}¬ó«‹E‰EÈ‹E‰EÌ‹E‰EĞ‹E‰EÔ‹E‰EÜ‹E‰E°‹E$‰EÄ‹E ‰EøE¬PÇE¬T   ÇE¼   ÿ,  _ÉÂ  U‹ìƒìTW3ÀjY}¬ó«‹E‰EÈ‹E‰EÌ‹E‰E°‹E‰EÄ‹E‰EøE¬PÇE¬T   ÇE¼   ÿ,  _ÉÂ U‹ìƒìW3ÿ9}u	9}„   SV‹u8ƒ>ÿu(hô jjÿWèÍöÿÿ9}uÇ   ëƒ}dÀ÷Ø@@‰‹6N‹]‹}ÇEô   t.Nt#Nu1‹E‹U±è÷,  ‰Eü‹Ç‹Ó±èé,  ‰Eøë‹E‰]øë‹E‰}ø‰Eü;}u;]uEôPjëEôPj jÿj èJöÿÿ^[3À_ÉÂ4 U‹ìQQSV‹5p Wÿu‹Øÿuh  ÿÖƒÄSÿuÿuÿ” …À…Ø   ‹=  ÿ×÷ÃşÿÿÿuRƒøxueöÃt	ÿuÿ¸ ÿuÿuÿ´ …À…¡   ÿ×ƒøu h  ÿÖY÷ÓƒãSÿuÿuÿ° …Àu|ÿ×…Àtvj
+h h\7 ÿÖƒÄ¸øûÿÿëqƒøußhè9 hØ9 ÿ¬ Pÿ˜ ƒeü ƒMøÿ…Àt$÷ÓƒãSMüQMøQhK] ÿuÿuÿĞ…Àt3À@ë3À÷ØÀ%  øûÿÿëj
+h h\7 ÿÖƒÄ3À_^[ÉÂ VW‹=¸ ‹ğÿvÿ×‹v…ötVÿ×_^ÃU‹ììh  V3ööC0 ‰uüt3ÀéK  W…˜úÿÿPÿ3ÿÄ ƒøÿ‰EøtsVV…ØûÿÿP…àüÿÿPÿ3ÿ\ VV…ØûÿÿP…àüÿÿP…èıÿÿPÿ` …ÄúÿÿƒÄ(‹ğŠ@„Éuù½èıÿÿ+ÆOŠOG„Éuøÿuø‹ÈÁéó¥‹Èƒáó¤ÿÀ 3öë‹•èıÿÿ+ĞŠˆ@„Éuö¿    …{0…¦   …˜úÿÿPÿsÿÄ ƒøÿ‰EøtyVV…àüÿÿP…ØûÿÿPÿsÿ\ VV…àüÿÿP…ØûÿÿP…ğşÿÿPÿ` …ÄúÿÿƒÄ(‹ğŠ@„Éuù½ğşÿÿ+ÆOŠOG„Éuøÿuø‹ÈÁéó¥‹Èƒáó¤ÿÀ ¿    3öë‹C•ğşÿÿ+ĞŠˆ@„Éuö‹C;ÆtiP…èıÿÿP3Àè8ıÿÿ;Æ‰Eü|0…{0uN…àüÿÿPÿsèõÿÿ…àüÿÿP…ğşÿÿP3Àèıÿÿ;Æ‰Eü}#ÿs‹5p hÌ ÿÖj
+j
+hd7 ÿÖƒÄé„   öC0u~…èıÿÿPÿs3À@èÆüÿÿ;Æ‰Eü}…èıÿÿPÿs…èıÿÿë.…{0uG…ğşÿÿPÿs3À@è–üÿÿ;Æ‰Eü}.…ğşÿÿPÿs…ğşÿÿ‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄë‹Ãèıÿÿ‹Eü_^ÉÂ VW3öVjj$VS‹øÿ  ;Æ|s‹O;ÎtQVjVSÿ  ;Æ|\‹O;ÎtQVVVSÿ  ;Æ|F‹O@;ÎtV‹ÁÁàPjVSÿ  ;Æ|*‹OD;ÎtVQjVSÿ  ;Æ|‹ ;ştWVjVSÿ  _^ÃU‹ìƒ} V‹ğtƒ}ÿtj ÿuÿ   …ö|‹ğ…ö}jÿuÿ  ëjÿuÿ  ‹ğ‹Æ^]Â U‹ìƒì(S3ÛC‰]üÿÌ MøQh   Pÿ  …À„¤   VW‹= EèPh: 3öVÿ×…Àu‰uüEğPhô9 Vÿ×…Àu‰uü‹Eğ‹= j‰]Ø[V‰EÜ‹EôVV‰EàEØPVÿuø‰]äÿ×…Àu‰uü‹EèV‰EÜ‹EìVV‰EàEØPVÿuøÇEØ   ‰]äÿ×…Àu‰uüÿ  …Àt‰uüÿuøÿÈ ‹Eü_^[ÉÃ3ÀPPjÿÿt$PjÿĞ Â Vÿt$èàÿÿÿ‹ğ…öt9W6Pj@ÿØ ‹ø…ÿu3Àë!VWjÿÿt$j jÿĞ …Àu	WÿÔ ëİ‹Ç_^Â Vÿt$ÿH @YÀPj@ÿØ ‹ğ…ötÿt$VÿL YY‹Æ^Â U‹ìQƒeü V‹u…ö„‰   j j EüPh   Vÿuh   ÿ¤ …Àu!Eü‹Eü…Àt_şÿÇW‹=Ô tşÿÇt‹ğë8PŠ@„Éuù+ÂƒÀ!Pj@ÿØ ‹ğ…ötÿuÿuüVÿh ƒÄÿuüÿ×ë‹uüVÿp YVÿ×_^ÉÂ U‹ìƒ} ¸4: ¹0: u‹Èƒ} t‹EQPÿuÿuh: ÿD ƒÄ]Â U‹ìì   V‹5Ü ë6ÿu… ÿÿÿhP: Pÿh ƒÄh  h8: … ÿÿÿPj ÿä ƒøuÿuÿÖ…À‰t¿3À9^•ÀÉÂ U‹ììp  S3ÛWh> }ø‰]ğ‰]ì‰]à‰]è‰]ø‰]ü‰]äèrÿÿÿ…ÀuÇEğÊ÷ÿÿé7  V‹5˜ hü= ÿuøÿÖhà= ÿuø‰EôÿÖ;Ã‰Eät9]ôuÇEğÊ÷ÿÿé   ÿuèÌıÿÿ;Ã‰EèuÇEğüÿÿéå  3ÿGWPj^Vh¼= èÆşÿÿWSV»4: Sè¸şÿÿEüPÿuèj ÿUô‰Eìÿ  ƒ}ì ‰Eà…   ‹EüWÿ0Vh = è…şÿÿ‹EüWÿpDVhˆ= èsşÿÿ‹EüWÿpVhd= èaşÿÿ‹EüWÿpVh@= èOşÿÿ‹EüWÿpVh= è=şÿÿ‹EüWÿpVhÌ< è+şÿÿWj VSè!şÿÿ‹EüÿpEh¬< Pÿ< ƒÄWEPVh”< èùıÿÿ‹Eü3É9H‰M†  ‰Mô‹puô‹@}Ğ¥¥¥¥‹}jÁçÿ48j&ht< è¾ıÿÿÿuÚ·EÖÿuÖP·EÔPÿuĞ…ıÿÿhD< Pÿ< ƒÄj…ıÿÿPj&h8< èıÿÿ‹Eü‹@ ‹4j j j&h< èhıÿÿëVh< ÿD VÿH ƒÄtFfƒ> uà‹5D h0: ÿÖ‹Eü‹@$‹<Yj j j&hì; èıÿÿëWh< ÿÖWÿH ƒÄ|Gfƒ? uäjj j&Sèõüÿÿjj j&SèéüÿÿÿE‹Eü‹MƒEô;H‚îşÿÿj3ÿ^GWj VSèÃüÿÿWj VSè¹üÿÿ‹Eü‹H0…Étÿp,Qÿp(EQh¼; Pÿ< ƒÄëEh; Pÿ< YYWEPVhl; èrüÿÿ‹Eü‹@ ƒÀ4WPÿÓYPVhD; èUüÿÿ‹Eü‹@8ƒør3ÀWÿ4…4  Vh$; è5üÿÿ‹Eüÿp<Eh; Pÿ< ƒÄWEPVhô: èüÿÿ‹EüƒÀ@WPÿÓYPVhØ: èöûÿÿ3Û^ÿuèÿÔ 9]üt	ÿuüÿUä‰]ü9]ìtÿuøÿuàÿuìè'ûÿÿÇEğ•ÿÿÿ9]ø_[t	ÿuøÿ„ ‹EğÉÂ U‹ìƒìDSVW‹Ø3Àh> }ü‰Eø‰Eô‰Eè‰Eğ‰Eà‰Eä‰Eü‰EØ‰Eì‰EÜè«ûÿÿ…Àt_‹5˜ h¸> ÿuüÿÖh¤> ÿuü‹øÿÖhŒ> ÿuü‰EØÿÖhp> ÿuü‰EĞÿÖhà= ÿuü‰EÔÿÖ3ö;ş‰EÜt9uØt9uĞt	9uÔt;ÆuÇEøÊ÷ÿÿéà   è÷øÿÿ…ÀuÇEø•ÿÿÿéË   EÌPE¼PÇEÌ   ÿ€ …ÀuÇEø²şÿÿé¦   ÿuè¢ùÿÿ‰EèE¼Pè–ùÿÿ9uè‰Eà„;  ;Æ„3  ÿuhX> ÿp YYEäPÿuèVÿuàÿ×‹5  ‰EôÿÖƒ}ô ‰EuM‹E…À„½   €8 …§   ƒeğ ¸4: Ph(> ÿD YY÷ÛÛã   SÿuğÿuèÿuèÿuäÿUĞ‰EôÿÖ‰Eÿuè‹5Ô ÿÖÿuğÿÖÿuàÿÖ3ö9uìt	ÿuìÿUÜ‰uì9uät3À9uô•ÀPÿuäÿUØ‰uä9uôtÿuüÿuÿuôè3ùÿÿÇEø•ÿÿÿ9uü_^[t	ÿuüÿ„ ‹EøÉÂ Pèøÿÿ‰Eğ…Àë8EìPÿuäÿUÔ‰EôÿÖƒ}ô ‰E…iÿÿÿ‹Eìÿpè¯øÿÿÿuì‰EğÿUÜƒeì ƒ}ğ uÇEøüÿÿé?ÿÿÿ‹EğéÿÿÿU‹ìQSW3ÛhØ> }ü‰]üè{ùÿÿ…À‹}üthÌ> Wÿ˜ ;Ãu»Ê÷ÿÿëVÿuÿĞ‹ğÿ  …ötWPVèiøÿÿj•[^…ÿtWÿ„ _‹Ã[ÉÂ U‹ìQSV‹ğ3Û8ÇEü   u5W‹şè+îÿÿ‹ğ;ót¾Phğ ÿP …ÀYYt‹0  I‹÷èÁíÿÿ_ëF€>:tú8u9]u
+ÿuhœ ë‹E9u‰0ë!ÿuhp ‹5p ÿÖj
+j
+hd7 ÿÖƒÄ‰]ü‹Eü^[ÉÂ U‹ì‹E¾HV3öFƒùbGt3ƒùP&tXƒùBt'ƒùFtfƒùItUƒùN…‰   ‹EƒH0é  ƒéStYIëk‹Mj h? ƒÁéŞ   ƒùsQt=ƒéft&ƒétƒétÄIIuI‹EƒH0éÃ   ‹E€H1 é·   ‹Mj hø> ƒÁéš   ‹Mj hè> ƒÁéˆ   ƒéttvƒét?It ‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄ3öëfƒÀPÿ8 …ÀY‹M‰ADQht ëƒÀPÿ8 …ÀY‹M‰A@5h¤ ‹5p ÿÖj
+j
+hd7 ÿÖƒÄë®‹Mj h08 ƒÁƒÀQè(şÿÿ‹ğ‹Æ^]Â U‹ì‹M¾Q3À@ƒúdVft
+ƒêDtƒêë]‹uƒ~ u4ƒ~ u.jh<? VAèáıÿÿ…À„©   ‹€9 …   Ç é“   ‹5p h@ ÿÖj
+j
+hd7 ÿÖƒÄë.ƒêitjƒêtVƒêt9Jt ‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄ3ÀëDƒÁQÿ8 Y‹M‰AT3À@ë.‹Ej h0? ƒÀPAèHıÿÿë‹Ej h ? ƒÀëæ‹MƒI4^]Â U‹ì‹M¾Q3À@ƒúbt
+ƒêBtƒêë‹M€I1ëqƒêftVƒêtHƒêt4Jt"V‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄ3À^ë=‹Ej h08 ƒÀë%‹Ej hè> ƒÀë‹M€I1ë‹Ej hP? ƒÀ$PAè“üÿÿ]Â U‹ì‹M¾Q3À@ƒúf$t
+ƒêFtƒêë‹Ej hP? ƒÀ$PAè[üÿÿëTƒêntHƒêt4Jt"V‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄ3À^ë%‹Ej h08 ƒÀë·‹Ej hè> ƒÀë¨‹M€I1]Â U‹ìì   ‹M¾AƒøaV(t
+ƒèAtƒèë‹E‹@(ƒxt3Àé±   ƒHé¥   ƒèptmƒètPHt.HHt‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄëÁ‹E‹@(€Hëj‹E‹@(‹P…Ò~¨ƒú~ƒúuƒÁ‰H(ëK‹Ej ƒÀhè> PAèSûÿÿë6A• ÿÿÿ+ĞŠˆ@„Éuö‹E‹p(… ÿÿÿPÇF   ÿ4 Y‰F43À@^ÉÂ U‹ì‹E¾HV3öFƒùatƒéAtIë‹EƒH0 é¾   ƒéb„   II„†   ƒé
+txIItkƒétWƒét ‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄ3öëzƒÀPÿ8 …ÀY‹M‰ADe‹5p ht ÿÖj
+j
+hd7 ÿÖƒÄëÊ‹Mj h08 ƒÁë.‹EƒH0ë0‹EƒH0ë'‹Mj hh? ÿq(ë‹Mj h? ƒÁQƒÀè1úÿÿ‹ğ‹Æ^]Â ‹D$ŠH€ùSt'€ùst"V‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄ3À^ë‹L$j hè> ƒÁQƒÀèŞùÿÿÂ Ul$ìØ  ƒMhÿSV3öW‰ul‰u ÿ¨ ‹p ƒ0  ÿ‰E‹Exj£ğ£ ‹E|Y£ì£ 3Àj}ó«Y}¤j
+ó«h! ‰ud‰uÇE\   ÇE¤T   ÿÓYYÿ| ƒ=ğ£ ‹ğ}
+hT é·  3ÉAèNçÿÿèkçÿÿ¾ Phğ ÿP …ÀYYu
+h é‹  ‹=h Vhô h¨£ ÿ×Vhä h(£ ÿ×VhÔ hh£ ÿ×VhÀ hà¡ ÿ×Vh° h ¡ ÿ×Vh  h`¡ ÿ×ƒÄHèğæÿÿ¾@ƒøZ±   „.  ƒøM8„¾   ƒø?„B  ƒøD„Ë   ƒøG„·   ƒøK…è   ÇE8   j é  ƒèP„°   HH„î   ƒè…À   €M= 3À}ø««Eøh‰p uÇE8   ‰E4è&çÿÿ…À„Ò   3ÿ9}ø…Ã   hä ÿÓj
+j
+hd7 ÿÓƒÄ3Àé§   ƒøpTtDƒèdt1ƒèt!ƒè„jÿÿÿHHuNE¤ÇE8   ‰E4ho ëkƒe8 htn ë`ÇE8   h6l ëRÇE8   ho ëDƒørt3ƒøu„EÿÿÿƒøzthÈ ÿÓj
+j
+hd7 ÿÓƒÄë(ÇE8   hwq ëÇE8   h€m uèRæÿÿ3ÿ;Çu#3Éè^åÿÿè{åÿÿPÿ$ Y‹Øè”ŞÿÿƒÈÿéå  ƒ}8uh@E èq×ÿÿ‹ğ;÷ŒR  h8E Wj"WElPÿ  ‹ğ;÷Œ5  h¨£ WjWElPÿ  ‹ğ;÷Œ  öE<uèÙÿÿöE=tWh    j@WElPÿ  ‹ğ;÷Œê  ÿ¨ ‹M8ƒù‰E#  „u  ‹Á+Ç„&  H„8  H„ˆ  HH…  WWhh£ Eè–áÿÿ‹ğ;÷Œ–  h4E Wj"WElPÿ  ‹ğ;÷Œy  WWj#WElPÿ  ‹ğ;÷Œ`  Wh   jWElPÿ  ‹ğ;÷ŒC  WWj.WElPÿ  ‹ğ;÷Œ*  Wh'  jWElPÿ  ‹ğ;÷Œ  Wh'  jWElPÿ  ‹ğ;÷Œğ  E]lÇEd   èÄëÿÿ‹ğ…öŒÎ  ElPÿ   ‹ğ…öŒº  h h EhPÿulÿ  ‹ğ…öŒm  ÿuÿuhÿ  ÿuÿ¸ ‹E<¨ ‹Mu‹MƒàÁàPEøPhHT Qÿuÿuhÿ  ‹ğ…öŒ$  ÿuh3Àÿulè¼ëÿÿ‹ğ…öŒ9  ÿuh]è®èÿÿéÆ  9},u
+h E éÖ	  j
+h E ÿÓj
+ÿu,häD ÿÓƒÄ9}`t*j
+ÿu`hÈD ÿÓƒÄWÿu`EljWPÿ  ‹ğ;÷ŒÙ  ‹E;Ç¾´D u‹Æj
+Ph˜D ÿÓ‹EƒÄ;Çu‹Æj
+j
+Ph|D ÿÓ‹EƒÄ;Çt7= u‹Æj
+j
+Ph`D ÿÓƒÄÿuElh^  j"WPÿ  ‹ğ;÷Œh  h\D Wj"WElPÿ  ‹ğ;÷ŒK  j
+h! ÿÓYYE]lèêÿÿ‹ğ…öŒ%  3ÿ9}$uJh@D ÇEd   ÿp Yÿu@ElPÿ  Wÿulènêÿÿ‹ğ;÷Œë  j
+j
+hd7 ÿp ƒÄéº  9}(ÿu$tÿu(h D ÿp ƒÄëhğC ÿp YYhHT ÿu(ÿu$ÿ$  j
+j
+hd7 ‹ğÿp ƒÄ;÷é!  öE<‰}xtÇEx    öE<tƒMx@öE= u€Mx€h ¢ hX  h(£ EèAŞÿÿ‹ğ;÷Œ  3ÿ9}u€M= €exj
+^VhÈC ÿÓVÿuh¬C ÿÓƒÄ9}tVÿuhC ÿÓƒÄVÿuhtC ÿÓƒÄ9} tVÿu hXC ÿÓƒÄh4E Wj"WElPÇEd   ÿ  ‹ğ;÷ŒÁ  WWj#WElPÿ  ‹ğ;÷Œ¨  WWE|PjWÿulÿ  ‹ğ;÷ŒŒ  ‹E|Wjd€YÑà3Ò÷ñPj WElPÿ  ‹ğ;÷Œd  ‹E|WjdY3Ò÷ñPjWElPÿ  ‹ğ;÷ŒA  Wh   jWElPÿ  ‹ğ;÷Œ$  WWj.WElPÿ  ‹ğ;÷Œ  WWj-WElPÿ  ‹ğ;÷Œò  Wh'  jWElPÿ  ‹ğ;÷ŒÕ  Wh'  jWElPÿ  ‹ğ;÷Œ¸  WjjAWElPÿ  ‹ğ;÷Œ  E]lèyçÿÿ‹ğ…öŒƒ  ElPÿ   ‹ğ…öŒo  h h EhPÿulÿ  ‹ğ…öŒ"  Eèªäÿÿ‹Eh‰E¨‹E‰EÀ‹E‰EÄ‹E‰EÌ‹E ‰EĞ‹Ex‰E¼E¤PÇE´   ÇEğHT ÿ,  ‹ğ…öŒÔ  ÿuh3Àÿulèlçÿÿ‹ğ…öŒé  ÿuh]è^äÿÿ‹ğ…öŒÔ  ‹5p j
+_WWhLC ÿÖWhC ÿÖWhÄB ÿÖWh€B ÿÖWWhPB ÿÖƒÄ0é  WhX  h ¡ Eè‚Ûÿÿ‹ğ;÷Œ‚  j
+^Vh0B ÿÓVÿuhB ÿÓƒÄ9}tVÿuh B ÿÓƒÄVÿuhèA ÿÓƒÄ9}4tVÿu4hĞA ÿÓƒÄh4E Wj"WElPÇEd   ÿ  ‹ğ;÷Œ  ÿuElWjWPÿ  ‹ğ;÷Œö
+  WWj#WElPÿ  ‹ğ;÷Œİ
+  WWj.WElPÿ  ‹ğ;÷ŒÄ
+  WWj-WElPÿ  ‹ğ;÷Œ«
+  Wh'  jWElPÿ  ‹ğ;÷Œ
+  Wh'  jWElPÿ  ‹ğ;÷Œq
+  WjjAWElPÿ  ‹ğ;÷ŒW
+  Wh   j<WElPÿ  ‹ğ;÷Œ:
+  Wh€   jWElPÿ  ‹ğ;÷Œ
+  Wh'  j
+WElPÿ  ‹ğ;÷Œ 
+  E]lèÛäÿÿ‹ğ…öŒå	  ElPÿ   ‹ğ…öŒÑ	  h h EhPÿulÿ  ‹ğ…öŒ„	  öE=¸   tƒÀöE=t   PhHT ÿu0ÿu4ÿu$ÿuÿuÿuhèQßÿÿ‹ğ…öŒD	  ÿuh3ÀÿulèÜäÿÿ‹ğ…öŒY	  é:
+  öE<ujhÄ hø Wÿä ƒø„  WhX  hà¡ EèÙÿÿ‹ğ;÷Œ	  j
+h´A ÿÓj
+ÿuhB ÿÓƒÄ9}tj
+ÿuh B ÿÓƒÄj
+ÿuhèA ÿÓƒÄh¨A Wj"WElPÇEd   ÿ  ‹ğ;÷Œ¼  ÿuElWjWPÿ  ‹ğ;÷Œ¡  WWj.WElPÿ  ‹ğ;÷Œˆ  WWj#WElPÿ  ‹ğ;÷Œo  Wh   jWElPÿ  ‹ğ;÷ŒR  WWj-WElPÿ  ‹ğ;÷Œ9  Wh'  jWElPÿ  ‹ğ;÷Œ  Wh'  jWElPÿ  ‹ğ;÷Œÿ  WjjAWElPÿ  ‹ğ;÷Œå  Wh   j<WElPÿ  ‹ğ;÷ŒÈ  Wh€   jWElPÿ  ‹ğ;÷Œ«  Wh'  j
+WElPÿ  ‹ğ;÷Œ  E]lèiâÿÿ‹ğ…öŒs  ElPÿ   ‹ğ…öŒ_  h h EhPÿulÿ  ‹ğ…öŒ  ¸   3É…E<t‹ÈöE=tƒÉQhHT ÿu0ÿu4ÿu$ÿuÿuÿuhèáÜÿÿ‹ğ…öŒÔ  ÿuh3Àÿul‰u èiâÿÿ‹ğ…öŒæ  ‹5p j
+_Wh A ÿÖWhC ÿÖWhÄB ÿÖWhdA ÿÖWWhPB ÿÖƒÄ,é’  ‹Áƒè„Ä  H„S  HH„È  HH„A  ƒù…¸  WWj-WElPÿ  ‹ğ;÷Œn  WjjAWElPÿ  ‹ğ;÷ŒT  9}u$hPA hœ ÿÓj
+j
+hd7 ÿÓƒÄ¾üÿÿé+  j
+^Vh0A ÿÓ‹E´HƒøYY‡B  ¶€qˆ ÿ$…Qˆ ExW‰E,… şÿÿPWWÿuÿ\ j… şÿÿPExPÿt ƒÄ €e{ éü   VÿuhA ÿÓVÿuÜÿuØÿu¬hü@ ÿÓVÿuèÿuäÿuàhØ@ ÿÓƒÄ4éÇ   Vÿuh¼@ é´   Vÿuh€@ é¦   WWh¨£ EèaÕÿÿ‹ğ;÷Œa  j
+ÿuhh@ ÿÓj
+ÿuØhP@ ÿÓƒÄëuWWh¨£ Eè+Õÿÿ‹ğ;÷Œ+  j
+ÿuhh@ ÿÓj
+ÿuÜÿuØh8@ ÿÓƒÄë<WWh¨£ EèòÔÿÿ‹ğ;÷Œò  j
+ÿuhh@ ÿÓƒÄ9}tj
+ÿuh @ ÿÓƒÄj
+h! ÿÓYYh4E Wj"WElPÿ  ‹ğ;÷Œ§  WWj#WElPÿ  ‹ğ;÷Œ  WWj
+WElPÿ  ‹ğ;÷Œu  E]lèPßÿÿ‹ğ…öŒZ  ‹E‰EÀ‹E‰EÄéD  WWh¨£ Eè6Ôÿÿ‹ğ;÷Œ6  h  …˜ıÿÿPjÿÿuWWÿĞ …Àu
+¾¦ıÿÿé  j
+j
+h @ ÿÓ‹E<ƒÄW%   P…˜ıÿÿPÇEd   è  …À…Ä  ÇE   éĞ  ‹E;Ç‹u(u¸ h  P…œşÿÿPÿT ƒÄ…Àu
+¾üÿÿé  ‹E<„äy‹E÷ØÀœşÿÿ#ÁPèéçÿÿëöÄ@t…œşÿÿPèÈáÿÿ‹ğ;÷Œd  éG  VœşÿÿƒàQègåÿÿëßj
+hà? ÿÓj
+ÿuhB ÿÓƒÄh\D Wj"WElPÇEd   ÿ  ‹ğ;÷Œ  WWj#WElPÿ  ‹ğ;÷Œø  WWj-WElPÿ  ‹ğ;÷Œß  WjjAWElPÿ  ‹ğ;÷ŒÅ  Wj@j<WElPÿ  ‹ğ;÷Œ«  WjjWElPÿ  ‹ğ;÷Œ‘  WWExPjWÿulÿ  ‹ğ;÷Œu  ‹ExkÀWjdY3Ò÷ñPj WElPÿ  ‹ğ;÷ŒO  ‹ExWjd€YÁà3Ò÷ñPjWElPÿ  ‹ğ;÷Œ&  E]lèİÿÿ‹ğ…öŒ  ‹E‰EÀE¤Pÿ,  ‹ğ…öŒñ  j
+h! ÿp YYéÃ  WhX  h`¡ EèÆÑÿÿ‹ğ;÷ŒÆ  j
+hÄ? ÿÓj
+ÿuhB ÿÓƒÄ9}tj
+ÿuh B ÿÓƒÄh¸? Wj"WElPÇEd   ÿ  ‹ğ;÷Œv  WWj#WElPÿ  ‹ğ;÷Œ]  WWj-WElPÿ  ‹ğ;÷ŒD  WjjAWElPÿ  ‹ğ;÷Œ*  Wj@j<WElPÿ  ‹ğ;÷Œ  WjjWElPÿ  ‹ğ;÷Œö   WWExPjWÿulÿ  ‹ğ;÷ŒÚ   ‹ExkÀWjdY3Ò÷ñPj WElPÿ  ‹ğ;÷Œ´   ‹ExWjd€YÁà3Ò÷ñPjWElPÿ  ‹ğ;÷Œ‹   E]lèfÛÿÿ‹ğ…ö|tElPÿ   ‹ğ…ö|dh h EhPÿulÿ  ‹ğ…ö|j hHT ÿuÿuÿuhègÖÿÿ‹ğ…ö}‹p ÿuh‹Æÿulè’Ûÿÿëÿuh3ÀÿulèƒÛÿÿ‹ğ…ö    ‹p ÿ¨ +E3Ò¹è  ÷ñƒ} ‹ú‰Ext'ƒ}d tj
+j
+hd7 ÿÓƒÄWÿuxh´ ÿÓƒÄé%  €¥ ıÿÿ h   … ıÿÿPE|PjFjÿÿul‰u|ÿ  ƒ}d tj
+j
+hd7 ÿÓƒÄWÿux… ıÿÿPVhğ ÿÓƒÄéÏ   ‹5p j
+_Wh¬? ÿÖWWht? ÿÖWh A ÿÖWhC ÿÖWhÄB ÿÖWhdA ÿÖWWhPB ÿÖƒÄ@‹p 3ÿÿ¨ +E3Ò¹è  ÷ñ‹u ;÷‰U|‰EtT€¥ ıÿÿ h   … ıÿÿPExPjFjÿÿul‰uxÿ  9}dtj
+j
+hd7 ÿÓƒÄÿu|… ıÿÿÿuPVh0 ÿÓƒÄëRPht ÿÓƒÄ3öj
+j
+hd7 ÿÓƒÄ‹Æ_^[ƒÅpÉÃÅ V Œ H Í€  : ‚      j(hPE èe  3ÿWÿ¬ f8MZu‹H<È9PE  u·A=  t=  t‰}äë'ƒ¹„   vò3À9¹ø   ëƒytvâ3À9¹è   •À‰Eä‰}üjÿô YƒLô ÿƒPô ÿÿø ‹¤ ‰ÿü ‹ ¤ ‰¡  ‹ £Tô è¿  9=P  uhğŠ ÿ Yè”  hˆ h„ è  ¡ü£ ‰EàEàPÿ5ø£ EÜPEØPEÔPÿ ‰EĞh€ h| èI  ‹EÜ‹ ‰ÿuÜÿuØÿuÔèèÿÿƒÄ0‹ğ‰uÌ9}äuVÿl ÿ ë-‹Eì‹‹	‰MÈPQèı   YYÃ‹eè‹uÈƒ}ä uVÿ ÿ  ƒMüÿ‹Æè1  ÃÌÌÌWVS3ÿ‹D$À}G‹T$÷Ø÷ÚƒØ ‰D$‰T$‹D$À}G‹T$÷Ø÷ÚƒØ ‰D$‰T$Àu‹L$‹D$3Ò÷ñ‹Ø‹D$÷ñ‹ÓëA‹Ø‹L$‹T$‹D$ÑëÑÙÑêÑØÛuô÷ñ‹ğ÷d$‹È‹D$÷æÑr;T$wr;D$vN3Ò‹ÆOu÷Ú÷ØƒÚ [^_Â ÌÌÌÌÌÌ€ù@s€ù s­ĞÓúÃ‹ÂÁú€áÓøÃÁú‹ÂÃÌÿ% ÿ% h   h   èQ   YYÃ3ÀÃÌhD‹ d¡    Pd‰%    ‹D$‰l$l$+àSVW‹Eø‰eèP‹EüÇEüÿÿÿÿ‰EøÃ‹Mğd‰    Y_^[ÉQÃÿ%ğ ÿ%ì ƒ|$ t Ç<¤     Ç¤    Ç¤    ëÇ<¤    Ç¤    Ç¤    ¸   ™÷=<¤ £4¤ Â h¤ ÿP H;@ô }y‹4¤ ‹8¤ W‹ù¯ø+×;Ê_|‹Ê‰N ‹4¤ ¯Ğ‰V$¯<¤ ‰N‹¤ ‹ÂVÓâj ÿvÿv‰V‹¤ ÿvÓè‰FÿL …Àu.ÿ  =å  t!h”F èe  ÿvHÿH …Àu
+hlF èN  Ãƒì0SUVWD$Pÿ\ 3íf9l$urfƒ|$<rj‹5X 3À@P‰D$ÿÖ‹=T Pÿ×9l$0‰D$v8ƒ|$ t1…ít3À@‹ÍÓàPÿÖPÿ×S¸   ¢‰T$[öD$uƒd$ E;l$0rÈÿt$ÿÖPÿ×‹D$ë3À_^][ƒÄ0ÃU‹ì‹E‹V‹uòïÍ«‰HA$‰E‹E ‹Aä3Aèƒî 3Aì3Ağ3Aô3Aø3Aü3ƒÁ 3Ğ…öuÑ‹Â^]Â ‹L$‹‹T$5ïÍ«‰ƒÁV‹qè3qìƒê 3qğ3qô3qø3qü3q31ƒÁ 3Æ…Òuİ^Â ƒ=Dô  uèÖşÿÿ…ÀÇDô ßŒ u
+ÇDô * ÿ%Dô U‹ìQQ3À3É9E‰Mü†Ú   SVë3Àÿ‹5<¤ ¯ñu9Fu9Fu9Fu9FuÿGé˜   ‹E‹VLjX;ÁÀ@ƒÁş‹Ø÷ÛÛ÷Ó#Ù;Ó‰Eøt …Àu¡, RSƒÀ@h(G Pÿ( ƒÄÿGÿ5<¤ Vè=ÿÿÿ‹;ÁtQP¡, SƒÀ@hÀF Pÿ( ƒÄÿGë!ƒ}ø u‹F‹v;wrw;Gv	‰G‰w‰_‹MüA;M‰Mü‚,ÿÿÿ^[ÉÂ U‹ìƒìSVWjÿX Pÿd ‹` ë#‹Eü‹Mø;H‹ğu4ÿp$x(ÿp ÿpèÏşÿÿèİüÿÿjÿEüPEôPEøPÿuÿÓ…ÀuÆhøG ëhpG è§  _^3À[ÉÂ QQUV‹t$3Àf‹W3í‰l$Pÿ0 …ÀY‹Æu¸J S‹D PhøI ÿÓh`F ÿÓƒÄÿt$ è
+üÿÿj3ÀY¿¤ ó«‰-8¤ ‰-@ô ‰-¤ ¸P¤ ‰h‰(‰h8‰h‰h‰h ‰h$‰h(‰h,‰h0ƒÀP=Pô |ÙUh   hjUjh   €Vÿ ƒøÿ‰D$uhÌI èá  ‹=È éƒ  UUUPÿŒ ‹ø;ı‰|$ u
+hˆI éH  ¾¤ UUWhƒ UUÿˆ ;Å‰t5ƒÆş4¤ |ßD$Pÿt$ ÿx ‹ğƒşÿuÿ  …ÀthXI éø  h(I éî  ‹¤ ‹D$Óî‹¤ Óà‹4¤ ¿T¤ ğD1ÿ™÷ù‰58¤ £@ô ë‹4¤ ‹D$‰G¡<¤ ¯Ájh   PUÿt ;Å‰tIUUUUÿp ;Å‰G4tBwìèôúÿÿƒÇPÿTô |²hìH è(  ‹=l UhÈ   ÿ5ˆ¤ ÿ×¾  ë7h¼H é<  hŒH é2  ¡¤ kÀd™÷=@ô Pè-  UhÈ   ÿ5ˆ¤ ÿ×;ÆtÙ;Å…ş   ¾¸¤ Ujÿÿv ÿ×…À…é   ‹h¤ ‹Fl¤ ‹Fp¤ ‹Ft¤ ‹F‹|¤ ;Ğ‹Nwr
+‹x¤ ;Ñs‰x¤ £|¤ ‹F£€¤ ƒÆPşhô |“èÒ  h`F ÿÓÿ5h¤ h@F ÿÓÿ5l¤ hF ÿÓÿ5p¤ häE ÿÓÿ5t¤ h´E ÿÓÿ5€¤ ÿ5|¤ ÿ5x¤ hhE ÿÓh\E ÿÓ‹L$\3ÒƒÄ8B;Ít9-l¤ u9-t¤ u‹Âë3À‰‰T$ë
+hHH èk   ÿt$‹=È ÿ×9l$ tÿt$ÿ×¾ˆ¤ [‹FÌ;Åth €  UPÿh ‹;ÅtPÿ×ƒÆPşˆô |Ø¾¤ ‹;ÅtPÿ×ƒÆş4¤ |ì‹D$_^]YYÂ U‹ìQƒeü j j EüPh   ÿ  Pj h   ÿ¼ …Àtÿuü¡, ÿuƒÀ@h0J Pÿ( ƒÄÿuüÿÔ ÉÂ Vÿt$ÿH ÿt$‹5D j3Y+ÈÑéÈQh\K ÿÖhØJ ÿÖhXJ ÿÖh@J ÿÖƒ%Hô  ƒÄ^Â ‹D$ƒød|jdX+Hô ƒø|ÑèV‹ğh„K ÿD ƒHô NYuê^Â jdèÃÿÿÿhˆK ÿD YÃÌÿ% ÿ% ÿ% ÿ% ÿ%  ÿ%$ ÿ%( ÿ%, ÿ%0 ÿ%4 ÿ%8 ÿ%< ÿ%@ ÌÌ4•  ÿÿÿÿÿÿÿÿ&—  ì  H”  ÿÿÿÿÿÿÿÿ˜—     ”  ÿÿÿÿÿÿÿÿü˜  H  ,•  ÿÿÿÿÿÿÿÿ™  ä  X”  ÿÿÿÿÿÿÿÿ š                        „—  l—  T—      $™  6™  B™  P™  `™  t™  †™  ”™  ¬™  Ä™  Ğ™  Ü™  æ™      *š  6š  Bš  Zš  rš  †š  –š  ²š  Ìš  Úš  òš  ›  ›  æ˜  Ò˜  Ä˜   ›  0›  J›  6˜  ¦—  ¸—  Ê—  Ú—  ì—  ü—  ˜  ˜  (˜  X›  D˜  P˜  b˜  p˜  „˜  š˜  ¦˜  ´˜      
+™      @—  2—  —  —  ö–  æ–  Ò–  Æ–  ¶–  ª–   –  ’–  Š–  €–  v–  
+š  š  š  n–  f–  Z–  P–  F–  <–  2–  (–  –  –  –  ö•  ì•  â•  Ú•  Ğ•  Ä•      ”_mbsnbcpy äprintf  exit  øsprintf _getch  t_makepath î_splitpath  ó_strcmpi  _fullpath ıstrchr  )wcscpy  ,wcslen  ;wprintf 4_wctime swprintf  „atol  ƒatoi  _strupr Å _c_exit ö _exit N _XcptFilter È _cexit  n __initenv m __getmainargs :_initterm š __setusermatherr  ¶ _adjust_fdiv  € __p__commode  … __p__fmode  ˜ __set_app_type  msvcrt.dll  Ö _controlfp  í _except_handler3   AdjustTokenPrivileges KLookupPrivilegeValueA ¨OpenProcessToken  ADVAPI32.dll  ‰GetProcAddress  /LoadLibraryExA  ZGetLastError  à FormatMessageA  ¾GetTickCount  gGetModuleHandleA  : CopyFileA JMoveFileA x DeleteFileA KMoveFileExA Á FindClose Å FindFirstFileA  , CloseHandle /GetCurrentProcess QMultiByteToWideChar 8LocalFree 4LocalAlloc  .LoadLibraryA  å FreeLibrary GetComputerNameA  0GetCurrentProcessId KERNEL32.dll  ÜMessageBoxA USER32.dll   JetDBUtilities   JetBackup n JetRestore2 - JetEndSession % JetDetachDatabase  JetBeginSession  JetCompact  F JetGetSystemParameter  JetSetSystemParameter Š JetTerm2  S JetInit2  R JetInit : JetGetDatabaseFileInfo  ESENT.dll «fwprintf  >_iob  Ãiswascii  ìSetEvent  ReadFile  
+InterlockedIncrement  SetThreadAffinityMask 1GetCurrentThread  ¨GetSystemInfo ™GetQueuedCompletionStatus SetThreadPriorityBoost  XVirtualFree fWaitForSingleObjectEx G CreateEventW  UVirtualAlloc  MGetFileSize e CreateThread  P CreateIoCompletionPort  M CreateFileW á FormatMessageW                                                                                                                                                        Â“ ¼“ ¶“ °“ ª“ ¤“ “ ˜“ ’“ Œ“ †“ €“ ÿÿÿÿ è È ¬                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 €   8  €                  P  €                  h  €               	  €                  	     @                           4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?                        ş   S t r i n g F i l e I n f o   Ú   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   l "  F i l e D e s c r i p t i o n     S e r v e r   D a t a b a s e   S t o r a g e   U t i l i t i e s   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( x p c l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   :   I n t e r n a l N a m e   e s e n t u t l . e x e     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   B   O r i g i n a l F i l e n a m e   e s e n t u t l . e x e     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°       
+         
+        
+  
+     p  M i c r o s o f t ( R )   E x c h a n g e   S e r v e r ( T M )   D a t a b a s e   U t i l i t i e s  
+   `  M i c r o s o f t ( R )   W i n d o w s ( T M )   D a t a b a s e   U t i l i t i e s  
+      V e r s i o n   % 1  
+     €  C o p y r i g h t   ( C )   M i c r o s o f t   C o r p o r a t i o n .   A l l   R i g h t s   R e s e r v e d .  
+  
+   $                      % 0  
+     h                    C o n v e r s i o n   S t a t u s     (   % % % %   c o m p l e t e   )  
+  
+   t  0         1 0       2 0       3 0       4 0       5 0       6 0       7 0       8 0       9 0       1 0 0  
+   p  | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - |  
+     % . % 0  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     MZ       ÿÿ  ¸       @                                   ğ   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       ‡¬‡KÃÍéÃÍéÃÍéğïÌÁÍé+ÒíÁÍéîõÅÍé9î©ÇÍéÃÍèŒÍé9îğÈÍé9îÖÂÍéTî¬ÂÍéîôÊÍé9îÔÂÍéRichÃÍé        PE  L [ş};        à !  `   .      ™O      p    Qi                  À     `ô                        pn  º   <h  Œ      ¨                   °  X  @                                     ˆ        ,                          .text   *_      `                    `.data   ˆ   p      d              @  À.rsrc   ¨         f              @  @.reloc  ¬   °      z              @  Bş};@   ş};K   ş};S  à};`   ş};j   ş};w   ş};           msvcrt.dll ATL.DLL KERNEL32.dll NTDLL.DLL OLEAUT32.dll ole32.dll ADVAPI32.dll                                                                                                                                                                                                                                           °İweİwkİwšİw1tŞw¼İw    N²v·²v¥²v‡²v_²vy²vŒ²v    cyçw·“çwPëw±yçwù?çwØNæwüèwVèwâ÷wÎ|çw™çwu2õwïwçwÅxçw}õwÃçwçwTŠéw ã÷wŒçwuçwÄ|çw»9ëw    b6w€w¤wèw    …jÄwşfÄwLjÄwœÈÃw3‰ÂwÌÂw²<Äw¼=ÄwbÎÃw°>Ãwö0Ãw@1Ãw[Âw{ÂwˆÓÅwF¬ÂwÛyÃwkªÂw%‰ÂwÔ@ÃwÄÉÃw 9Äw¦ÀÁwõÂwØÂw    SjwVwËw¹w        ÍbQi                H„};          x9  x-  V S S   \ ? ? \ V o l u m e         \ \ ? \ V o l u m e     \   \ E V E N T C L S . D L L       h r :   0 x % 0 8 x     % s :   % s         % s :   T h r o w i n g   H R E S U L T   c o d e   0 x % 0 8 l x .   P r e v i o u s   H R E S U L T   c o d e   =   0 x % 0 8 l x     U N K N O W N   E X C E P T I O N   C A U G H T ,   r e t u r n i n g   h r :   0 x % x         H R E S U L T   E X C E P T I O N   C A U G H T :   h r :   0 x % x     E r r o r   o n   D e r e g i s t e r E v e n t S o u r c e   0 x % 0 8 l x     E r r o r   o n   R e p o r t E v e n t W   0 x % 0 8 l x       E r r o r   o n   R e g i s t e r E v e n t S o u r c e W   0 x % 0 8 l x       d : \ x p c l i e n t \ d r i v e r s \ s t o r a g e \ v o l s n a p \ v s s \ i n c \ v s _ d e b u g . h x x     INCDEBGH    C V s s F u n c t i o n T r a c e r : : L o g E r r o r     ÂJQioJQiJQi0 x % 0 8 l x   % s % s     O u t   o f   m e m o r y .         E r r o r   o n   g e t t i n g   t h e   c u r r e n t   p a t h .   h r   =   0 x % 0 8 l x   d : \ x p c l i e n t \ d r i v e r s \ s t o r a g e \ v o l s n a p \ v s s \ m o d u l e s \ e v e n t \ s r c \ e v e n t c l s . c p p     EVTEVTCC    G e t E C D l l P a t h N a m e     I E v e n t S y s t e m : : S t o r e   E v e n t S y s t e m . E v e n t C l a s s     I E v e n t C l a s s : : p u t _ T y p e L i b         I E v e n t C l a s s : : p u t _ E v e n t C l a s s N a m e   I E v e n t C l a s s : : p u t _ E v e n t C l a s s I D   C o C r e a t I n s t a n c e   V s s E v e n t     I E v e n t S y s t e m : : R e m o v e         E v e n t S y s t e m . E v e n t C l a s s C o l l e c t i o n     C a n n o t   a l l o c a t e   B S T R .   EventClassID ==     C o C r e a t e I n s t a n c e     R e g i s t e r E v e n t C l a s s                 ÏJQiÂJQigLQiİKQiÌKQi-MQiaKQi­KQi       À      FŒQi                   vQQivQQivQQiaKQi­KQi‡LQi—LQi§LQi    ÿÿÿÿ•PQi¹PQi    ÿÿÿÿ    QQi$QQi \ *Ş¥Ïf ª £ôdÍ¯«ìÒ—  øu~*Î¯«ìÒ—  øu~*Ì¯«ìÒ—  øu~*ª¯«ìÒ—  øu~*«¯«ìÒ—  øu~*¬¯«ìÒ—  øu~*­¯«ìÒ—  øu~*®¯«ìÒ—  øu~*¯¯«ìÒ—  øu~*°¯«ìÒ—  øu~*±¯«ìÒ—  øu~*²¯«ìÒ—  øu~*³¯«ìÒ—  øu~*´¯«ìÒ—  øu~*¶¯«ìÒ—  øu~*Ğ¯«ìÒ—  øu~*·¯«ìÒ—  øu~*¸¯«ìÒ—  øu~*º¯«ìÒ—  øu~*»¯«ìÒ—  øu~*¾¯«ìÒ—  øu~*¿¯«ìÒ—  øu~*Ï¯«ìÒ—  øu~*À¯«ìÒ—  øu~*Á¯«ìÒ—  øu~*Â¯«ìÒ—  øu~*Ã¯«ìÒ—  øu~*Ä¯«ìÒ—  øu~*Å¯«ìÒ—  øu~*Æ¯«ìÒ—  øu~*Ç¯«ìÒ—  øu~*É¯«ìÒ—  øu~*Ê¯«ìÒ—  øu~*Ë¯«ìÒ—  øu~*­°«ìÒ—  øu~*®°«ìÒ—  øu~*¯°«ìÒ—  øu~*°°«ìÒ—  øu~*±°«ìÒ—  øu~*²°«ìÒ—  øu~*³°«ìÒ—  øu~*´°«ìÒ—  øu~*µ°«ìÒ—  øu~*¶°«ìÒ—  øu~*·°«ìÒ—  øu~*¸°«ìÒ—  øu~*¹°«ìÒ—  øu~*º°«ìÒ—  øu~*»°«ìÒ—  øu~*Â°«ìÒ—  øu~*¼°«ìÒ—  øu~*¤°«ìÒ—  øu~*¥°«ìÒ—  øu~*¦°«ìÒ—  øu~*§°«ìÒ—  øu~*¨°«ìÒ—  øu~*©°«ìÒ—  øu~*‘ãqˆ~ÏŞ €Ç‹‰%ü™yÆÓÏ¬«  $¥Zïpf¶\ÔÓÏ¬«  $¥Zïª°«ìÒ—  øu~*È°«ìÒ—  øu~*\ *Ş¥Ïf ª £ôd\ *Ş¥Ïf ª £ôd\ *Ş¥Ïf ª £ôd«°«ìÒ—  øu~*¬°«ìÒ—  øu~*•.K“Ñ±« ª º2XÃ°«ìÒ—  øu~*Æ°«ìÒ—  øu~*½°«ìÒ—  øu~*¾°«ìÒ—  øu~*Á°«ìÒ—  øu~*¿°«ìÒ—  øu~*À°«ìÒ—  øu~*µ¯«ìÒ—  øu~*¼¯«ìÒ—  øu~*¹¯«ìÒ—  øu~*Ä°«ìÒ—  øu~*Å°«ìÒ—  øu~*Ç°«ìÒ—  øu~*rJçMÑ¦<  É´à, ¥È
+Ò²† ÀOù4unÉu#Ôƒ1 ÀO`UˆF†ÀtÛÎÏ‹I ª ¸§A†ÀtÛÎÏ‹I ª ¸§s/)0ŒÑ €ÇøÂ¿;‚üÊA´Ñ¸+  øu~*<‚üÊA´Ñ¸+  øu~*=‚üÊA´Ñ¸+  øu~*>‚üÊA´Ñ¸+  øu~*?‚üÊA´Ñ¸+  øu~*1¸–rtÏ¾9 ª ¢ú%Âãaêb|Ï¾? ª ¢ú%°¯=Aô¼Ñ† €Ç)&Mà@ ¶ó¼Ñ† €Ç)&Mxº¶nI¾D@Ÿå%¹ƒ€Ê?&İÉ#U#âO„Ş÷y¢8­½³\_+Ï¾ ª ¢ú%³\_+Ï¾ ª ¢ú%Pj¿E+Ï¾ ª ¢ú%Q6‹ H+Ï¾ ª ¢ú%à*7QçÊÏ¾ ª ¢ú%ì*7QçÊÏ¾ ª ¢ú%ò*7QçÊÏ¾ ª ¢ú%ê*7QçÊÏ¾ ª ¢ú%PÄ}1Ğ‹y ª ¸§\ *Ş¥Ïf ª £ôd\ *Ş¥Ïf ª £ôd\ *Ş¥Ïf ª £ôd³øÄA9tÒ˜Ë ÀOáÄ²øÄA9tÒ˜Ë ÀOáÄü*7QçÊÏ¾ ª ¢ú%Û-µuíèÑ“­ ª º2XçKYÄK‹C‘—ÏÑv$‹	è‰õa$7˜H ¤fJéáÑ´ÊAı’ÙºÒš- ÀOy{Éı*7QçÊÏ¾ ª ¢ú%ô*7QçÊÏ¾ ª ¢ú%Kå<*¤Ò¯Ä ÀOáÄa˜F
+‘Z C™¶Õáy»1ôCôÜŠ?rH¹ğ6šymÖ:å”K´®òùä.Ò³tá nÒÒ„ €_Ç¼ÙäøºğxÑ‚é  Éíé0À»;Ñ‚ì  ÉíéAäÈpíÇÑ‚û  ÉíéBäÈpíÇÑ‚û  ÉíéCäÈpíÇÑ‚û  Éíé!ØQœ‹ÉÑ‚û  Éíé ùRÔôF¼6HTêRƒæ	áÔNè±hºş¯ysÍÇòó4Fp2×>o©õüÑGº¦%İ4~rBqg’´ÓwM¨êî„-Xo5¼‰mwòÌK€ÕM÷¸6ïJ¾?+wıoûBµø›&8ˆıÎmXL¯ƒ¢„l 0>:l¦6@·oĞ@M¸É-€¤^1H®—U¾ÿÂå.>½İBô@ š•¥X0Kûwgşt¦wA2mp~4„.Sg/PD£TV3”N÷*7QçÊÏ¾ ª ¢ú%údK2¶3Ò˜· ÀOáÄ.m§ù¥vëC ÄI¾Èä„€#upsšÿtI¿„!Ü!7@-õÜCI®ÖˆĞ@'ã*ß“@7çµ‘K„EQÀbÂÉlp™>{Ò™û ÀOy{Émp™>{Ò™û ÀOy{É¨x±‡Ñ»¦ ÀOÂú_¨x±‡Ñ»¦ ÀOÂú_ë*7QçÊÏ¾ ª ¢ú%J:Ã:ÎÑ“š ª º2X‘—.ÛÑ¢Q  øÊSuè‡bPÑÎ ÀOÂû¢1NÑÎ ÀOÂû¢€1NÑÎ ÀOÂû¢¨x±‡Ñ»¦ ÀOÂú_î*7QçÊÏ¾ ª ¢ú%iœ§7®Ñ¸+  øu~*…Ú–Ó¿Ñ»® ÀOÂú_°)²±~·Ğ€y ÀOÂùÁñ*7QçÊÏ¾ ª ¢ú%X©ƒšY¸Ñª ª º2X"ç§A„è#±.²ø*7QçÊÏ¾ ª ¢ú%ù*7QçÊÏ¾ ª ¢ú%ú*7QçÊÏ¾ ª ¢ú%û*7QçÊÏ¾ ª ¢ú%ÿ*7QçÊÏ¾ ª ¢ú%ï*7QçÊÏ¾ ª ¢ú%ğ*7QçÊÏ¾ ª ¢ú%ôOEşÏÅÑ“– ª º2X°º™%ûÅÑ“– ª º2X9Ÿ1ô#ÅÑ¦N  ø´°¡ˆ}§.Ñ±Ì ª º2X ˆ}§.Ñ±Ì ª º2Xyp¶ÇU‚ÆBÀi”£T‡€Á·şÅj4Ñ±Ì ª º2X‰ª‰6Ñ±Ï ª º2X€ÈĞ+âÒÑ“š ª º2X€aS•–Ñ‚í  ÉíéúäF‰‡¹JŠÓŒôk„YÇãÿŞ:ÈÑ‚û  ÉíéÒ¯«ìÒ—  øu~*p¢’{Ñ†3 `Ÿ`—¢’{Ñ†3 `Ÿ`q¢’{Ñ†3 `Ÿ`r¢’{Ñ†3 `Ÿ`t¢’{Ñ†3 `Ÿ`u¢’{Ñ†3 `Ÿ`}¢’{Ñ†3 `Ÿ`~¢’{Ñ†3 `Ÿ`v¢’{Ñ†3 `Ÿ`|¢’{Ñ†3 `Ÿ`w¢’{Ñ†3 `Ÿ`x¢’{Ñ†3 `Ÿ`y¢’{Ñ†3 `Ÿ`z¢’{Ñ†3 `Ÿ`{¢’{Ñ†3 `Ÿ`¢’{Ñ†3 `Ÿ`‘¢’{Ñ†3 `Ÿ`•¢’{Ñ†3 `Ÿ`–¢’{Ñ†3 `Ÿ`"ü™yÆÓÏ¬«  $¥Zï!ü™yÆÓÏ¬«  $¥ZïWÏZEESÒ™Ï ÀOy{ÉYÏZEESÒ™Ï ÀOy{ÉÊ¢’{Ñ†3 `Ÿ`ØvøD‘ƒĞ±o ª º2X5]AY0¥L¯*Ç‹úâî¤01hP.Ò˜¥ ÀOáÄ¥01hP.Ò˜¥ ÀOáÄ¦01hP.Ò˜¥ ÀOáÄ§01hP.Ò˜¥ ÀOáÄ¨01hP.Ò˜¥ ÀOáÄ©01hP.Ò˜¥ ÀOáÄª01hP.Ò˜¥ ÀOáÄ«01hP.Ò˜¥ ÀOáÄ¬01hP.Ò˜¥ ÀOáÄ­01hP.Ò˜¥ ÀOáÄ®01hP.Ò˜¥ ÀOáÄ¯01hP.Ò˜¥ ÀOáÄ°01hP.Ò˜¥ ÀOáÄ±01hP.Ò˜¥ ÀOáÄ²01hP.Ò˜¥ ÀOáÄ³01hP.Ò˜¥ ÀOáÄ´01hP.Ò˜¥ ÀOáÄµ01hP.Ò˜¥ ÀOáÄªŠ8û}V$@¯n“ît…sÉÜlN%ûÕOœÅÉô¶UœìwÆfÂ­É«IŸÙÙfxXŠÅBn±Ø¿G«È•í>#r¾B›xko:D‰g«óª¼²A°xY4ŞĞ‚B*ö6¡”/ˆB†àØ¡úL™¿ã µÕJ¥ÒÊ[œ4e¿eê…dOŒô=—K*±Ï'xZKòÀEoWê…jŸ<ŠÔÖÅÕçIŒt™äˆÕ/MßÎº«tĞ±b ª º2XÁ=lÕ‚„Ğ±p ª º2Xı‹›ÑˆĞ±n ª º2XŒ•.K“Ñ±« ª º2X‡!fİÂßÑ¢Ï €_Ç’5ny”‘ÉL”&¤ŠcV–q(²nŠĞ¶  É#)r(²nŠĞ¶  É#)Åö¸ßÑ¢Ï €_Ç’5Åö¸ßÑ¢Ï €_Ç’5Åö¸ßÑ¢Ï €_Ç’5Åö¸ßÑ¢Ï €_Ç’5Ámsl«Ğ¢­  É'èîmsl«Ğ¢­  É'èŸûN".Ñ™d ÀO»³EkQAã2.Ñ™d ÀO»³E r+ûhzÑˆù €Ç×q¿¡r+ûhzÑˆù €Ç×q¿kJ8.Ñ™e ÀO»³E“ŒIàşNÑ™q ÀO»³EÀ\^F&{Ñˆû €Ç×q¿Á\^F&{Ñˆû €Ç×q¿p} ô%.Ñ™d ÀO»³EÃ©wh½Cƒàg¿OS¤"c} ô%.Ñ™d ÀO»³EpÂšøëÔÑ¶‚ €_Ç’âSÚŞôÑ¶» €_Ç’ôâCö†Ñ·` ÀO¹&¯õâCö†Ñ·` ÀO¹&¯Ü!èØÄÑ¶S €_Ç’¢ûN".Ñ™d ÀO»³E F”«ÆyÑˆù €Ç×q¿ÀÉ¾ÍhzÑˆù €Ç×q¿`éBuÇyÑˆù €Ç×q¿ PVĞôÑ¢ ÀOÊ
+§Íº»VÍcN¨ÿËğ5_¹ôCê·v-¨NŒÙ=ìÂp)^\~e¥®{Nœ(FU‘‡ckJ8.Ñ™e ÀO»³E}ÑÁû˜Ä C¯B=İS
+ö	Ì™Š¤œNX–\
+üÕ²†Hü¤Ñªˆ ª º2Xè§(iÒŸí ÀOù4ˆ¬*	xÒŸï ÀOù4Ø1é§iÒŸí ÀOù4³†Hü¤Ñªˆ ª º2XZŠX•·Ñ€T ÀOÃ@îIípAáÑµ† à)l1b]Ş5fJ«&Z{3*JA’™AÃĞ‹  ÉeÖßÆkbB¼TµÆ[·›A«}€1ÆB¤ÖØ•µtk~Ï6*›Ôƒs ÀO`UˆÊ­4ËœÔƒs ÀO`Uˆ•ì*¯Òšr ÀOy±LZ¼ IÒ‹*  øP1+Ÿæ£ª ÒµŠ à)l1€µPï¼qÒ›¹ ÀOyxàê„©âÒ›A ÀOyxàŸË;è[Ò›ˆ ÀOyxà}ÒóƒFÒŸo ÀOÃ@îÈÉÜĞÒ’( ÀOyÑëüŠªYƒôbH©¨¾öiöX=ğÅJÖÇXÒ›| `±C/„ÃÈıÉñ6D±/Zqªâòó*7QçÊÏ¾ ª ¢ú%‚O×¸6¨J€
+éc«-ú¹Ì´”12ïÑ“® ª º2X‚¯ÖHÒ· ÀOáÄ¡YÄô=¡¸K°ó·o†
+ =ü[ÉÅvßO°Ş£VxV8ƒ¯ÖHÒ· ÀOáÄÍ´”12ïÑ“® ª º2X"vw´¸nUF®¯
+nlĞËñìÑ“® ª º2X§<7$½HÃ^^ÎÊ×Ï´”12ïÑ“® ª º2XÎ´”12ïÑ“® ª º2X`™eõ™Ò·  ÀOáÄ›w5n\0Ò˜¥ ÀOáÄ¸Ÿš¯€«G¥y5êWrSp±®«ìÒ—  øu~*²®«ìÒ—  øu~*³®«ìÒ—  øu~*´®«ìÒ—  øu~*µ®«ìÒ—  øu~*¶®«ìÒ—  øu~*·®«ìÒ—  øu~*¸®«ìÒ—  øu~*¹®«ìÒ—  øu~*º®«ìÒ—  øu~*Á®«ìÒ—  øu~*»®«ìÒ—  øu~*¼®«ìÒ—  øu~*½®«ìÒ—  øu~*¾®«ìÒ—  øu~*¿®«ìÒ—  øu~*À®«ìÒ—  øu~*<N{§Ò£6 ÀOyxà>éAÁV3FÃn‹¬‹İp>éAÁV3FÃn‹¬‹İpñ³ÔˆıÑ– €_Ç’5‚O×¸6¨J€
+éc«-ú¹V S S   \ ? ? \ V o l u m e         \ \ ? \ V o l u m e     \   S Y S T E M \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ V S S \ D e b u g \ T r a c i n g   S Y S T E M \ S e t u p     S y s t e m S e t u p I n P r o g r e s s   SQiT r a c e F o r c e F l u s h   T r a c e F i l e L i n e I n f o   T r a c e T i m e s t a m p     T r a c e T o D e b u g g e r   T r a c e T o F i l e   T r a c e E n t e r E x i t     T r a c e L e v e l     T r a c e F i l e    
+     % s ( % 0 4 u ) :       0 x % 0 6 x : 0 x % 0 4 x : 0 x % 0 8 x ]       [ - ,   [ % 0 1 0 u ,       0 x % 0 6 x : 0 x % 0 4 x : 0 x % 0 8 x ]   % s   { % s } :     E X I T     E N T E R   C B s D b g T r a c e : : P r e P r i n t :   T R A C I N G   E R R O R :   U n a b l e   t o   s e t   e n d   o f   f i l e ,   s k i p p i n g   t r a c e   r e c o r d ,   d w R e t :   % u       C B s D b g T r a c e : : P r e P r i n t :   T R A C I N G   E R R O R :   U n a b l e   t o   l o c k   t r a c e   f i l e ,   s k i p p i n g   t r a c e   r e c o r d ,   d w R e t :   % u       C B s D b g T r a c e : : P r e P r i n t :   T R A C I N G   E R R O R :   U n a b l e   t o   o p e n   t r a c e   f i l e ,   d w R e t :   % u     ( U n k n o w n   s o u r c e   f i l e )       C B s D b g T r a c e : : P r e P r i n t :   T R A C I N G   E R R O R :   U n a b l e   t o   u n l o c k   t r a c e   f i l e ,   d w R e t :   % u     * *     E l a p s e d   t i m e :   % d   s e c o n d s     * *     C u r r e n t   t i m e :   % s     % c         * *     T R A C I N G   F I N I S H E D   -   P r o c e s s I d :   0 x % x ,   C o n t e x t I d :   0 x % x   * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *         d : \ x p c l i e n t \ d r i v e r s \ s t o r a g e \ v o l s n a p \ v s s \ m o d u l e s \ t r a c i n g \ v s _ t r a c e . c x x         * *     P r o d u c t   v e r s i o n :   % d . % d . % d . % d         * *     N . B .   N O T   I N I T I A L I Z E D   B Y   T H E   C O N S T R U C T O R   * *     T R A C I N G   S T A R T E D   -   P r o c e s s I d :   0 x % x ,   C o n t e x t I d :   0 x % x     O u t   o f   m e m o r y   d e t e c t e d   i n   f u n c t i o n   % s       U n e x p e c t e d   e r r o r   i n   r o u t i n e   % s .     h r   =   0 x % 0 8 l x       B S _ T H R O W :   T h r o w i n g   H R E S U L T   c o d e   0 x % 0 8 x     B s S e H a n d l e r : : S e H a n d l e r :   C a u g h t   S E H   e x c e p t i o n ,   c o d e :   0 x % 0 8 x     d : \ x p c l i e n t \ d r i v e r s \ s t o r a g e \ v o l s n a p \ v s s \ m o d u l e s \ t r a c i n g \ v s _ s e h . c x x     òòq‘øæ[D‘ÅPKô‹Jíw3„H¤“t‰|¥~hïAæ=VJM˜Õ}½ŠÕ×Ä<õús½6Nƒñ+#ônQ>NB10    H„};   eventcls.pdb            ÿ1ÿ¨QiÃÿ1ÿÄQiYÃU‹ì‹E‹Ñfƒb< €b> ‰‹E‰B‹E‰B‹EW‰B‹E‰Bj
+Y3ÀzÆB?ó«‹Â_]Â ‹Á‹L$‹‰‹Q‰P‹Q‰P‹Q‰P‹Q‰Pf‹Q<f‰P<ŠQ>VˆP>ŠQ?WˆP?€a? j
+P+È^‹<‰:ƒÂNuõ_^Â €y? t VWj
+q_‹…Àt
+Pÿ$Qiƒ& ƒÆOuê_^ÃU‹ìS3Û9]t=9]t8VW‹=`QiSSÿuÿuSSÿ×‹ğNVSÿ¤Qi;Ã‰EtVPjÿÿuSSÿ×‹E_^ë3À[]Â ¸`Qièx  Qƒeğ ƒ} V‹ñu‹MVèÿÿÿëb€~> u€~? tfƒ~<
+r‹MVè÷şÿÿëDWÿuÿÌQiYD Pÿ Qi‹ø…ÿuÆF>ëÿuWÿÈQi·F<Y‰|†fÿF<Y‹MVè²şÿÿ_‹Mô‹EÇEğ   ^d‰    ÉÂ ¸1`QièÚ  QV‹ñW‰uğƒeü h+_QiÿÄQiY‰FÆEü‹M‹EH‹U‹}ƒ& ‰N‹M‰F‰N‰V‰~ƒ= qQi t5ƒ=4qQi t,jPRWQÿu¿ qQi‹ÏèÈ  h¸QiWè  YYÿv‹Ïè4  ƒMüÿMèXşÿÿ‹Mô_‹Æ^d‰    ÉÂD ¸F`Qiè4  QV‹ñ‰uğ3À‰Eü9 qQit@94qQit8WPÿv¿ qQiÿv‹ÏÿvPh¸QièP  ÿ6h¼QiWèˆ  ƒÄÿv‹Ïè¹  _ƒMüÿÿvÿÄQiY‹Mô^d‰    ÉÃ¸X`Qiè»  ì  V3ö‰uüEPPÿuL…ğûÿÿh   PÿĞQiƒÄ95 qQit?VVÿu¾ qQiÿu‹ÎÿuÿuèÆ  …ğûÿÿP‹EÿphÔQiVè'  ƒÄÿu‹Îè$  ƒMüÿMèHıÿÿ‹Mô^d‰    ÉÃ¸X`Qiè)  ì  SVW3Û‰]ü9]P‹}¾ qQit[ETPÿuP…ğûÿÿh   PÿĞQiƒÄ9 qQituSSÿu‹Îÿuÿuÿuè*  …ğûÿÿPÿwhÔQiVè  ƒÄÿu‹Îè‹  9 qQit6SSjÿu‹Îÿuÿuèì  ÿ7‹]LSÿwhèQiVèQ  ƒÄj‹ÎèO  ë‹]Lh¬cQiELP‰‰]Lè  ÌQÿhQiÃ¸±`QièL  ì¸   SVW‰eğƒeü hxQiƒì@‹Ì‰eìj h @  h{  hlQi»øQiSè†ûÿÿ€eü MĞè#ıÿÿÆEüÆEüjÿuE°P‹5QiÿÖj
+EŒPÿu‹=Qiÿ×jEŒPE¸PÿÖj‹EÿpEÀPÿÖj
+EŒP‹Eÿpÿ×jEŒPEÈPÿÖƒÄH‹ML‰Mˆ3ö‰u„f9M„s·E„Áà‹T$‰”\ÿÿÿÿE„ëãh\QiVÿQi‰…Xÿÿÿ;ÆuFÿtQiPh¨Qihÿÿ €ƒì@‹Ì‰¥TÿÿÿV¾ €  Vh˜  ¿lQiWSè§úÿÿÆEüEĞPèôıÿÿƒÄPë
+¾ €  ¿lQiE°P…\ÿÿÿPj ÿuˆj ÿuj ÿuPÿµXÿÿÿÿQi‰…Pÿÿÿ…Àu6ÿtQiPhhQiƒì@‹Ì‰¥Lÿÿÿj Vh§  WSè5úÿÿÆEüEĞPèğüÿÿƒÄLÿµXÿÿÿÿ Qi‰…Pÿÿÿ…Àu;ÿtQiPhQihÿÿ €ƒì@‹Ì‰¥Hÿÿÿj Vh¬  WSèäùÿÿÆEüEĞPè1ıÿÿƒÄPƒeü MĞèüÿÿƒMüÿMèQúÿÿ‹Môd‰    _^[ÉÃ‹…Dÿÿÿ‰EĞPhĞQiƒì@‹Ì‰¥@ÿÿÿj jh®  hlQihøQiè{ùÿÿÆEüEĞPè6üÿÿƒÄL¸ß?QiÃ¸ÿÿ €‰EĞPhpQiƒì@‹Ì‰¥<ÿÿÿj jh®  hlQihøQiè4ùÿÿÆEüEĞPèïûÿÿƒÄL¸ß?QiÃVÿt$ÇAp pQiÿt$‰pQiQÇ„   ÇAd   ÿ0Qi‹t$…ötW¿€pQi¥¥¥¥_3À^Â U‹ìVEPÿu‹ñÿQiÿuÿ Qiÿu‰ÿ$Qi‹Æ^]Â U‹ìQQSVW‹ù‹…À‰}øu3öë	PÿœQi‹ğ‹EÆPj ‰Eüÿ¤Qi‹Ø…Ûu¸ €ë:6‹7‹È‹ÑÁé‹ûó¥‹Êƒáó¤‹M‹u<‹Eüfó¥fƒ$C ‹uøÿ6ÿ¨Qi‰3À_^[ÉÂ j j ÿt$jeh˜pQiÿ QiÂ Â ƒ|$u4jÿ¹ qQiè;  jèø  j ÿt$¹˜pQihpQièÆşÿÿÿt$ÿxQiëƒ|$ uh˜pQiÿ,Qi3À@Â 3À9¬pQi•ÀÃÿt$ÿt$ÿt$h˜pQiÿ4QiÂ j jh˜pQiÿ(QiÃj h˜pQiÿ$Qi3ÀÃ3ÀÃ‹…Àt‹PÿQÃ¸Æ`Qièí  QV‹ñƒ& FP‰uğÿdQiƒMüÿ‹Mô‹Æ^d‰    ÉÃ¸Æ`Qiè¼  Q‰MğƒMüÿƒÁQÿhQi‹Môd‰    ÉÃh¬pQiÇ´QiÇA   ÿpQiÃ¸à`Qiè{  Vƒeü ‹u‹…À}"ÿuLPƒì@E‹Ì‰ePè÷ÿÿ€eü Vè  ƒÄLƒMüÿMèG÷ÿÿ‹Môd‰    ^ÉÃ¸`Qiè(  ƒìDƒeğ VÿuE°hÀQijP‹ñÿ QiƒÄE°Pÿu‹Îèw÷ÿÿ‹Mô‹EÇEğ   ^d‰    ÉÂ V‹t$Wÿ6‹ùÿœQiPÿ6‹ÏèŒıÿÿ_^Â ¸<aQiè·  ìŒ  SVW‰eğhüQiƒì@‹Ì‰eìj h   jK»ğQiS¿`QiWè÷õÿÿƒMüÿMĞè”÷ÿÿÇEü   ÆEü…ÈıÿÿPh  ÿ|Qi…À…Ç   ‹5tQiÿÖ…ÀÿÖëÿÖ%ÿÿ    €‰…Äıÿÿjj h   jQSW„ıÿÿèŒõÿÿÆEüƒì@‹Ì‰¥€ıÿÿÿµÄıÿÿQ‹ÈèÊşÿÿÆEüh  EĞPè”ùÿÿƒÄLÆEü„ıÿÿèàõÿÿÿÖ…ÀÿÖëÿÖ%ÿÿ    €Ph Qihÿÿ €ƒì@‹Ì‰¥|ıÿÿj h   jRSWèõÿÿÆEüEĞPè\øÿÿƒÄPhœQi‹5ÌQiÿÖÈıÿÿQ‰…xıÿÿÿÖYY‹xıÿÿÈ;Mr5hÜQih €ƒì@‹Ì‰¥tıÿÿj h   jYSWè¯ôÿÿÆEüEĞPèü÷ÿÿƒÄLhœQi…ÈıÿÿPhĞQiÿuÿuÿ QiƒÄÇEü   ‹uĞƒMüÿMĞè¸öÿÿ‹Æ‹Môd‰    _^[ÉÂ ‹…pıÿÿ‰EĞPhĞQiƒì@‹Ì‰¥lıÿÿj jj^hğQih`Qiè'ôÿÿÆEüEĞPèâöÿÿƒÄL¸4EQiÃ¸ÿÿ €‰EĞPhpQiƒì@‹Ì‰¥hıÿÿj jj^hğQih`QièãóÿÿÆEüEĞPèöÿÿƒÄL¸4EQiÃ¸öaQièP
+  ì   SVW‰eğh8Qiƒì@‹Ì‰eì3ÛSh   je¿ğQiW¾`QiVèóÿÿƒMüÿMĞè,õÿÿÇEü   ÆEü‰]ÌÆEüEÌPh)QijSh*QiÿQi‰EÈ‰EĞhQiƒì@‹Ì‰eÄS»   SjuWVè7óÿÿÆEüEĞPè2üÿÿƒÄHhh9QiMÀè?úÿÿÆEüjÿh QièÆóÿÿ‰E¼ÆEü…Àu-hÔQih €ƒì@‹Ì‰e¸PSjzWVèâòÿÿÆEüEĞPè/öÿÿƒÄLEÀPM¼èsüÿÿƒ}¼ u.hÔQih €ƒì@‹Ì‰e´j Sj~WVè¢òÿÿÆEüEĞPèïõÿÿƒÄL‹EÌ‹U°Rÿu¼hQiPÿQ$‰E¬‰EĞh`Qiƒì@‹Ì‰e¨j ShŠ   WVè[òÿÿÆEüEĞPèVûÿÿƒÄHƒe¤ ÆEü
+hLQiÿ Qi‰E ÆEü…ŒûÿÿPh  èìûÿÿ…ŒûÿÿPÿ Qi‰…ˆûÿÿÆEüE¤Ph()Qijj h(*QiÿQi‰…„ûÿÿ‰EĞh,Qiƒì@‹Ì‰¥€ûÿÿj ShŸ   WVèÉñÿÿÆEüEĞPèÄúÿÿƒÄH‹E¤‹ÿuÀPÿQ ‰…|ûÿÿ‰EĞhğQiƒì@‹Ì‰¥xûÿÿj Sh¡   WVè…ñÿÿÆEüEĞPè€úÿÿƒÄH‹E¤‹ÿu PÿQ(‰…tûÿÿ‰EĞh°Qiƒì@‹Ì‰¥pûÿÿj Sh£   WVèAñÿÿÆEüEĞPè<úÿÿƒÄH‹E¤‹ÿµˆûÿÿPÿQP‰…lûÿÿ‰EĞhxQiƒì@‹Ì‰¥hûÿÿj Sh¥   WVèúğÿÿÆEüEĞPèõùÿÿƒÄH‹EÌ‹ÿu¤hHQiPÿQ ‰…dûÿÿ‰EĞh Qiƒì@‹Ì‰¥`ûÿÿj Sh§   WVè±ğÿÿÆEüEĞPè¬ùÿÿƒÄHÆEüÿµˆûÿÿ‹5¨QiÿÖÆEü
+ÿu ÿÖÆEü‹E¤…Àt‹PÿQÆEüÿu¼ÿÖÆEüÿuÀÿÖÆEü‹EÌ…Àt‹PÿQÇEü   ‹uĞƒMüÿMĞè‹òÿÿ‹Æ‹Môd‰    _^[ÉÃ‹…\ûÿÿ‰EĞPhĞQiƒì@‹Ì‰¥Xûÿÿj jh©   hğQih`QièùïÿÿÆEüEĞPè´òÿÿƒÄL¸aIQiÃ¸ÿÿ €‰EĞPhpQiƒì@‹Ì‰¥Tûÿÿj jh©   hğQih`Qiè²ïÿÿÆEüEĞPèmòÿÿƒÄL¸aIQiÃ3À9D$tèÂûÿÿÂ ¸bQiè  Q‰MğƒMüÿA÷ÙÉ#Èè3øÿÿ‹Môd‰    ÉÃV‹ñèGøÿÿöD$tVèø  Y‹Æ^Â ‹L$ÿIV‹q…öu…ÉtjèÊÿÿÿ‹Æ^Â ÿt$ÿt$h`Qiÿt$ÿQiÂ h¬pQiÇlQiÇA   ÿpQiÃ‹D$ÿ@‹@Â U‹ì‹EV3ö90u29pu-xÀ   u$x   Fu‹M;Îu¸@ €ë'‹E‰‹PÿQëÿuP‹Eh`QiƒÀPÿQi‹ğ‹Æ^]Â ¸;bQiè	  Q‰MğÇxQiƒeü ÇA   ƒMüÿèÒşÿÿ‹Môd‰    ÉÃU‹ì‹M3Ò;Ê¸@ €t79U‹E‰t"9u9PuxÀ   u	x   Ft¸€ëQPÿu‹EÿP ]Â ƒ|$ h¬pQitÿlQiëÿpQi3ÀÂ ‹D$ƒÀPÿlQiÂ ÿt$ÿt$hœQiÿt$ÿQiÂ ¸)bQiè?  QV‹ñN‰uğè9öÿÿƒeü Ç´QiƒMüÿ‹Mô‹Æ^d‰    ÉÃV‹ñètşÿÿöD$tVè  Y‹Æ^Â V‹ñƒf h¬pQiÇ´QiÿlQi‹Æ^Â ‹L$ÿIV‹q…öu…Étjè¬ÿÿÿ‹Æ^Â ‹D$‹@‹PÿQÂ ‹D$‹@‹PÿQÂ U‹ìVÿu‹u‹Fÿu‹Pÿ…À};vtÿuÿuh`QiVÿQi^]Â V‹ñèIşÿÿöD$tVèo  Y‹Æ^Â ¸;bQiè>  QV‹ñ‰uğèéşÿÿƒeü ÇxQiƒMüÿ‹Mô‹Æ^d‰    ÉÂ V‹t$WFPÿpQi‹ø…ÿu…öt	j‹ÎèŒÿÿÿ‹Ç_^Â ¸ObQièß  QVWj¿ €è  Y‹È‰Mğƒeü …ÉtÿuèÃşÿÿ‹ğë3öƒMüÿ…öt!ÿuÿFÿuÿN‹VÿP‹ø…ÿt	j‹Îèüÿÿ‹Mô‹Ç_^d‰    ÉÂ ‹D$V‹ñƒf ÇlQiƒf h¬pQiÇFÈQi‰FÿlQi‹Æ^Â ¸ObQiè?  QSVWj$» €èk  Y‹È‰Mğ3ö‰uü;Î‹}tWèÏşÿÿ‹ğƒMüÿ…ötÿu‹ÿu‰~ Vÿ‹Ø…Ût	j‹ÎèŒşÿÿ‹Mô_^‹Ã[d‰    ÉÂ ¸ObQièÓ  QVWj¿ €è   Y‹È‰Mğƒeü …Étÿuè5ÿÿÿ‹ğë3öƒMüÿ…ötÿu‹ÿuVÿ‹ø…ÿt	j‹Îèsıÿÿ‹Mô‹Ç_^d‰    ÉÂ U‹ìƒ} uÿuÿuj èuşÿÿ]Â ]éwÿÿÿ‹D$…Àu9qQi~.ÿqQiƒø‹èQi‹	‰xQiu>h€   ÿìQi…ÀY£€Qiu3Àëhƒ  ¡€Qih4Qih,Qi£|Qiè8  ÿqQiYë?…Àu<¡€Qi…Àt3ë‹|Qi‹	…ÉtÿÑ¡€Qiƒ-|Qi9|QisŞPÿôQiƒ%€Qi Y3À@Â U‹ìS‹]V‹u…öW‹}u	ƒ=qQi ë&ƒştƒşu"¡„Qi…Àt	WVSÿĞ…ÀtWVSèÿÿÿ…Àu3ÀëNWVSè·ñÿÿƒş‰Eu…Àu7WPSèïşÿÿ…ötƒşu&WVSèŞşÿÿ…Àu!Eƒ} t¡„Qi…ÀtWVSÿĞ‰E‹E_^[]Â ÿ%QiÌÌÌÌjÿPd¡    P‹D$d‰%    ‰l$l$PÃÌÿ%ÀQijhØQièV  ƒeü ÿMx‹M+M‰MÿUëíƒMüÿèo  Â ‹Eì‰Eä‹Eä‹ ‰Eà‹Eà8csmàtÇEÜ    ‹EÜÃ‹eèëËèı   ÌjhèQièø   ƒeä ‹u‹Æ¯EEƒeü ÿMx)u‹MÿUëğÇEä   ƒMüÿè   èø   Â ƒ}ä uÿuÿuÿuÿuèCÿÿÿÃSŠ\$öÃV‹ñt$WhRQi~üÿ7jVè€ÿÿÿöÃtWèÿÿÿY‹Ç_ë‹Îè¶   öÃtVèùşÿÿY‹Æ^[Â Ìÿ%Qiÿ%üQiÿ%øQiÿ%ğQiƒ=€Qiÿuÿ%ØQih|Qih€Qiÿt$èn   ƒÄÃÿt$èÑÿÿÿ÷ØÀ÷ØYHÃÿ%äQiÌÌhRQid¡    Pd‰%    ‹D$‰l$l$+àSVW‹Eø‰eèP‹EüÇEüÿÿÿÿ‰EøÃ‹Mğd‰    Y_^[ÉQÃÿ%àQiÿ%ÜQiÿ%ÔQiV‹ñ‹3À…Ét
+QÿQiƒ& ^ÃU‹ìQƒeü VEüPÿu‹ñj ÿuÿuÿQi…Àu‹Îè¾ÿÿÿ‹Mü‰^ÉÂ U‹ìQQƒeø EüPÿuEøPj ÿuÇEü   ÿ1ÿQiÉÂ ¸YbQièšıÿÿQQSVW‰eğ‹ñ‰uìÇˆ/Qiƒeü ÇF   FPÿdQië‹Eìƒ` ¸İRQiÃ‹uìƒMüÿ‹Æ‹Môd‰    _^[ÉÃ¸cbQièAıÿÿƒìSVW‰eğƒy uÇEì €h¬cQiEìë0ƒeü ƒÁQÿ\QiƒMüÿ‹Môd‰    _^[ÉÃÇEè €h¬cQiEèPèşÿÿÌU‹ìQƒy uh¬cQiEüPÇEü €èûıÿÿƒÁQÿ„QiÉÃV‹ñƒ~ Çˆ/Qit
+FPÿhQiöD$tVè¹üÿÿY‹Æ^Â U‹ìƒ} u‹Eƒ  ë*ÿuÿÌQiYD Pÿ Qi…À‹M‰tÿuPÿÈQiYY]Â V‹t$ÿ6ÿ$Qiƒ& ^Â U‹ìQÿuƒeü EüPè[şÿÿ…Àu‹Mü‹U‰
+ÉÂ U‹ìQÿuƒeü EüPè7şÿÿ…Àu‹U3É9Mü•Á‰
+ÉÂ QV‹ñƒ~ t
+FTPÿ”Qiƒ~ÿt!Wj D$P~TWÿÌQiYÑàPWÿvÿˆQi_3À^YÃé‘ıÿÿ¸}bQiè£ûÿÿì  SV3ÛW‹ñ‰]ä‰]ü‰]ğÆEüh  h@/Qi¿  €WMä‰‰T  èdıÿÿ…Àu.h\/QiEìPMä‰]è‰]ìè~ıÿÿ;Ã‹Eìt‹Ã3Éƒø”Á‰T  h  hØ.QiWMğèıÿÿ;Ã…Â   EèP…ÜıÿÿPEìPSh`0QiÿuğÇEè  ‰]ìÿQi;Ãu…ÜıÿÿPFPèNşÿÿhH0QiF$PMğèşÿÿh(0QiFPMğè£şÿÿFh0QiPMğè’şÿÿhğ/Qi~WMğèşÿÿhĞ/QiFPMğèpşÿÿh¬/QiFPMğè_şÿÿhŒ/QiF PMğèNşÿÿ9u9^tÇ   ˆ]üMğè3üÿÿƒMüÿMäè'üÿÿ‹Mô_^3À[d‰    ÉÃV‹t$ƒ~< „¹   ƒ~ SUW~TtÿŒQi‹¼QiPhÌ0QiWÿÓƒÄë‹¼QihÄ0QiWÿÓYYÿv8ÿQi‹-ÌQiPÿv,h”0QiWÿÕYDFTPÿÓƒÄƒ~ tÿvDÿvHh|0QiWÿÕYDFTPÿÓƒÄ‹Îè¯ıÿÿD$Pÿt$hÿ  WÿĞQiƒÄ‹Îèıÿÿht0QiWÿÈQiYY‹Îè{ıÿÿ_][3À^ÃV‹t$ƒ~< „¨   ƒ~ W~TtÿŒQiPhÌ0QiWÿ¼QiƒÄëhÄ0QiWÿ¼QiYYƒ~@ ¸,1Qiu¸ 1QiÿvLPÿv8ÿQiPÿv,hà0QiWÿÌQiYDFTPÿ¼QiƒÄ‹ÎèòüÿÿD$Pÿt$hÿ  WÿĞQiƒÄ‹ÎèÓüÿÿht0QiWÿÈQiYY‹Îè¾üÿÿ_3À^ÃU‹ìƒìSV‹ñ‹NPèNûÿÿ3Û9„_  ‹E…F$„S  W‹};ûu	ÇFH`3Qië7WÿÌQiYDGş3É;Çv"ƒù}HHfƒ8\t;ÇwôA;Çwê;ÇvƒÀ‰FHë‰~H‹E‰FL‹E3ÿ‰FD‹EG9^‰F@„é   ‹F;Ãu¸¸QiSh€   jSjh   @PÿHQiƒøÿ‰FuÿtQiPhÈ2Qié¤   MäQSWSjP‰]ä‰]è‰]ì‰]ğ‰]ôÿDQi…Àuÿvÿ<QiƒNÿÿtQiPh 2QiëfEøPÿvÿ@Qi…Àt$‹EøEüu€MÿSEPjEPÿvÆEşÿˆQijSSSÿv‰]ø‰]üÿ€Qi…Àu"ÿvÿ<QiƒNÿÿtQiPh81QiVèıÿÿƒÄ‰~<_^3À[ÉÂ U‹ìƒìV‹ñ‹FW3ÿƒøÿtRMìQWjWP‰}ì‰}ğ‰}ô‰}ø‰}üÿPQi…ÀuÿtQiPh3QiVè®üÿÿƒÄ9~ t	ÿvÿLQiÿvÿ<QiƒNÿ‹NP‰~H‰~L‰~D‰~<èÄùÿÿ_3À^ÉÂ ì  SW‹ù3Û9_4„¶  9„’  ‹OPUVè4ùÿÿ9 qQi½˜5Qi¾ qQit]SSjÿSh  U‹Îè°ıÿÿh5QiVèüÿÿYYS‹Îèÿÿÿ9 qQit.SSjÿSh  U‹Îèıÿÿÿw8ÿw,h 4QiVèéûÿÿƒÄS‹ÎèèşÿÿD$Pÿ¸QiD$Pÿ´QiPh”4QiD$$h   Pÿ°QiƒÄ9 qQi„”   SSjÿSh
+  U‹ÎèıÿÿD$Phh4QiVèûÿÿƒÄS‹Îè€şÿÿ9 qQit_SSjÿSh  U‹Îèãüÿÿ‹D$+G0Ph,4QiVèIûÿÿƒÄS‹ÎèHşÿÿ9 qQit'SSjÿSh  U‹Îè«üÿÿh5QiVèûÿÿYYS‹Îèşÿÿ‹OPèOøÿÿ9_^]t;‹G;Ãu¸¸QiSh€   jSjh   @PÿHQiƒøÿ‰GtPÿLQiÿwÿ<QiGPè›øÿÿ‹OP;Ët‹jÿ‰_P‰_4_[Ä  Ã¸‘bQièÈôÿÿì   SVW‰eğ‹ù‰}ì3Û9_4…%  ‰]üj èŞõÿÿY‹È‰MèÆEü;Ëtèëöÿÿë3À‰Eäˆ]ü‰GP;ÃuÇEà €h¬cQiEàPè™õÿÿ3À@‰G4‰‰_‰_‰GƒO$ÿ‰G‰G‰_‰_ ‰_(‰_<ƒOÿ‰_DÿXQi‰G,‰ŸT  EØPÿTQi…Àt‹EØëÿŒQi‰G8‹Ïè\øÿÿ¾ qQi9 qQiteSSjÿSha  h˜5Qi‹Îè;ûÿÿh5QiVè©ùÿÿYYS‹Îè©üÿÿ9 qQit2SSjÿShc  h˜5Qi‹Îèûÿÿÿw8ÿw,hÈ6QiVèpùÿÿƒÄS‹Îèoüÿÿ9]u39 qQit+SSjÿShe  h˜5Qi‹ÎèÉúÿÿhp6QiVè7ùÿÿYYS‹Îè7üÿÿƒÇ0Wÿ¸QiWÿ´Qi‰EÔPh”4Qih   …ÔşÿÿPÿ°QiƒÄ9 qQi„   SSjÿShl  ¿˜5QiW‹Îèbúÿÿ…ÔşÿÿPhh4QiVèÉøÿÿƒÄS‹ÎèÈûÿÿ9 qQitaSSjÿShm  W‹Îè+úÿÿSh(
+  jjh(6QiVèøÿÿƒÄS‹Îèûÿÿ9 qQit'SSjÿShn  W‹Îèñùÿÿh5QiVè_øÿÿYYS‹Îè_ûÿÿƒMüÿ‹Môd‰    _^[ÉÂ ‹uì‹NP3Û;Ët‹jÿ‰^P‰^4‰¸¹]QiÃƒ|$ÿuƒy4 uj èlıÿÿÂ ¸ÃbQiè1òÿÿƒì@Vƒeü ‹uL¸ €;ğ„ª   ş €„   şq €„’   şû€„†   şp €t~ş†€tvjÿuPE´PMèRÜÿÿÆEüƒì@‹Ì‰eLVQ‹ÈèäÿÿÆEüh   ÿuèXßÿÿƒÄL€eü M´è§ÛÿÿVÿuPEhˆ7Qihÿÿ €ƒì@‹Ì‰eLPè4Ûÿÿ€eü ÿuèAŞÿÿƒÄTë)ÿuPh87QiPƒì@E‹Ì‰eLPè	Ûÿÿ€eü ÿuèŞÿÿƒÄPƒMüÿMèBÛÿÿ‹Môd‰    ^ÉÃV‹ñ3Àj‰F4‰‰FPèGüÿÿ‹Æ^ÃU‹l$W3ÿ9= qQitbSVWWjWj<»°8Qi¾ qQiS‹Îè?øÿÿUh88QiVè¬öÿÿƒÄW‹Îè«ùÿÿ9= qQit&WWjWj=S‹ÎèøÿÿUhè7QiVè~öÿÿƒÄW‹Îè}ùÿÿ^[h¬cQiD$P‰l$èÀñÿÿ_]‹D$£ppQiÂ ÌÌ=   s÷ØÄƒÀ… ”‹ PÃQL$é   -   …=   sì+È‹Ä…‹á‹‹@PÃ‹Eğƒà…À„   ‹Mé5ÚÿÿÃ¸øbQiéğÿÿMé"Úÿÿ‹MğƒÁéxÙÿÿ¸$cQiéûïÿÿ‹MğƒÁécÙÿÿ¸HcQiéæïÿÿMéğÙÿÿ¸lcQiéÔïÿÿMéŞÙÿÿ‹MìéÖÙÿÿMĞéˆÛÿÿ‹TÿÿÿéÃÙÿÿ‹Lÿÿÿé¸Ùÿÿ‹Hÿÿÿé­Ùÿÿ‹@ÿÿÿé¢Ùÿÿ‹<ÿÿÿé—Ùÿÿ¸@dQié{ïÿÿ‹MğƒÁéİÿÿ¸ddQiéfïÿÿMépÙÿÿ‹MéhÙÿÿ¸dQiéLïÿÿ‹MìéVÙÿÿMĞéÛÿÿ„ıÿÿéCÙÿÿ‹€ıÿÿé8Ùÿÿ‹|ıÿÿé-Ùÿÿ‹tıÿÿé"Ùÿÿ‹lıÿÿéÙÿÿ‹hıÿÿéÙÿÿ¸0eQiéğîÿÿ‹MìéúØÿÿMĞé¬ÚÿÿMÌéŞàÿÿ‹MÄéâØÿÿMÀé2ØÿÿM¼é*Øÿÿ‹M¸éÊØÿÿ‹M´éÂØÿÿ‹M¨éºØÿÿM¤é¦àÿÿM éØÿÿˆûÿÿé÷×ÿÿ‹€ûÿÿé”Øÿÿ‹xûÿÿé‰Øÿÿ‹pûÿÿé~Øÿÿ‹hûÿÿésØÿÿ‹`ûÿÿéhØÿÿ‹Xûÿÿé]Øÿÿ‹TûÿÿéRØÿÿ¸(fQié6îÿÿ‹Mğ‹EğƒÀ÷ÙÉ#Èéfàÿÿ¸LfQiéîÿÿ‹MğƒÁéQàÿÿ¸”fQiéîÿÿ‹Mğéìçÿÿ¸pfQiéñíÿÿÿuğèîÿÿYÃ¸¸fQiéİíÿÿ¸gQiéÓíÿÿ¸XgQiéÉíÿÿMäéòÿÿMğéòÿÿ¸„gQié¯íÿÿÿuèèÑíÿÿYÃ¸ÜgQié›íÿÿMé¥×ÿÿM´é×ÿÿ‹MLé•×ÿÿ‹MLé×ÿÿ‹MLé…×ÿÿ¸ hQiéiíÿÿ¹ qQiè<üÿÿhãbQièÍîÿÿYÃ¹ qQié­öÿÿÌÌÌÿÿÿÿı_Qi “   ğbQi                ÿÿÿÿ`Qi    &`Qi “   cQi                ÿÿÿÿ;`Qi “   @cQi                ÿÿÿÿP`Qi “   dcQi                   XpQi    ÿÿÿÿ              ˆcQi            ¤cQiÿÿÿÿb`Qi    j`Qi    r`Qi          z`Qi   …`Qi   `Qi          ›`Qi   ¦`Qi    XpQiDÿÿÿ@Qi            N@Qi      	      dQi “
+   ¼cQi   ,dQi        ÿÿÿÿ»`Qi “   \dQi                ÿÿÿÿĞ`Qi    Ø`Qi “   €dQi                ÿÿÿÿê`Qiÿÿÿÿò`Qi          ú`Qi   aQi   aQi   aQi          &aQi   1aQi    XpQipıÿÿ]EQi            ¢EQi      	      üdQi “
+   ¬dQi   eQi        ÿÿÿÿFaQiÿÿÿÿNaQi          VaQi   ^aQi   faQi   naQi   vaQi   ~aQi   †aQi   aQi
+   –aQi   aQi   ©aQi   ´aQi   ¿aQi   ÊaQi   ÕaQi          àaQi   ëaQi    XpQi\ûÿÿˆIQi            ĞIQi            ôeQi “   LeQi   fQi        ÿÿÿÿ bQi “   DfQi                ÿÿÿÿ3bQi “   hfQi                ÿÿÿÿbQi “   ŒfQi                ÿÿÿÿEbQi “   °fQi                ÿÿÿÿ    ÿÿÿÿ                ĞRQi              äfQi “   ÔfQi   ôfQi        ÿÿÿÿ    ÿÿÿÿ                @SQi              4gQi “   $gQi   DgQi        ÿÿÿÿmbQi    ubQi “   tgQi                ÿÿÿÿ        ‡bQiÿÿÿÿ                Î]Qi             ¸gQi “    gQi   ÈgQi        ÿÿÿÿ›bQi    »bQi    £bQi   «bQi    ³bQi “   øgQi                xi  ÿÿÿÿÿÿÿÿ k  °  äh  ÿÿÿÿÿÿÿÿdk    i  ÿÿÿÿÿÿÿÿ*l  <  di  ÿÿÿÿÿÿÿÿ8l  œ  ài  ÿÿÿÿÿÿÿÿl    Èh  ÿÿÿÿÿÿÿÿØl                         ˜l  Jn  :n  ,n  °l  Àl         €  €  €  €  €  €  €    ®m  m  ¼m  Êm  Øm  ìm  üm  n  m  lk  ‚k  k  ¶k  Îk  æk  ök  l  Šm  *m  Bm  zm  dm  Nm        €  €  €  €    òl  şl  
+m  æl  j  j  \j  fj  pj  Pk  Fk  8k   k  k  ğj  æj  Új  Òj  Âj  ¶j  ¨j  j  ”j  ~j  ôi      hl  zl  Vl  Fl      R __CxxFrameHandler  ??3@YAXPAX@Z  - ?_set_se_translator@@YAP6AXIPAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z  )wcscpy  ,wcslen  _vsnwprintf G _CxxThrowException  _ultoa  strncpy ã_snwprintf  À_purecall  ??2@YAPAXI@Z  ¤free  :_initterm ×malloc  ¶ _adjust_fdiv  msvcrt.dll  4 ?terminate@@YAXXZ  ??1type_info@@UAE@XZ  j __dllonexit ³_onexit í _except_handler3  ATL.DLL QMultiByteToWideChar InitializeCriticalSection v DeleteCriticalSection 
+InterlockedIncrement  InterlockedDecrement  ZGetLastError  € DisableThreadLibraryCalls .GetCurrentDirectoryW  KERNEL32.dll  OLEAUT32.dll  a CoTaskMemFree ` CoTaskMemAlloc  ?StringFromCLSID  CoCreateInstance  ole32.dll ¯ DeregisterEventSource 	ReportEventW  şRegisterEventSourceW  ADVAPI32.dll  swprintf  +wcsftime  Ólocaltime time  ‹ EnterCriticalSection  -LeaveCriticalSection  vWriteFile iOutputDebugStringW  2GetCurrentThreadId  ¾GetTickCount  òSetFilePointerEx  NGetFileSizeEx , CloseHandle @LockFileEx  M CreateFileW Û FlushFileBuffers  DUnlockFileEx  ~QueryPerformanceCounter 0GetCurrentProcessId ÈRegCloseKey âRegOpenKeyExW ìRegQueryValueExW  USER32.dll            “o};    Ên           ˜n  ¬n  Àn  óA  ÿA  J  B  )B  ×n  çn  ùn  o  o        EventCls.DLL DllCanUnloadNow DllGetClassObject DllInstall DllRegisterServer DllUnregisterServer                                                                                                                                                                                                                       Y/¶(eÑ–  øh9Qi…AQi÷MQiÌNQi        9BQi9BQiAQi                                    ôQi    .J                                                                                                                                                                                                                                                                                                                                                                                                                                           0 €0  €B €H  €   `  €   x  €               e     €                  ¨  €                  À  €                  Ø  €               	  ğ                  	                    	                   	      •  v          ˜—  à
+          x¢  0           `‘  À           R E G I S T R Y  T Y P E L I B               À4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?                           S t r i n g F i l e I n f o   ú   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   Œ 2  F i l e D e s c r i p t i o n     M i c r o s o f t ®   V o l u m e   S h a d o w   C o p y   S e r v i c e   e v e n t   c l a s s   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( X P C l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   :   I n t e r n a l N a m e   E V E N T C L S . D L L     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   B   O r i g i n a l F i l e n a m e   E V E N T C L S . D L L     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°HKCR
+{
+	VssEvent.VssEvent.1 = s 'Vss Event Class'
+	{
+		CLSID = s '{FAF53CC4-BD73-4e36-83F1-2B23F46E513E}'
+	}
+	VssEvent.VssEvent = s 'Vss Event Class'
+	{
+		CLSID = s '{FAF53CC4-BD73-4e36-83F1-2B23F46E513E}'
+		CurVer = s 'VssEvent.VssEvent.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {FAF53CC4-BD73-4e36-83F1-2B23F46E513E} = s 'Vss Event Class'
+		{
+			ProgID = s 'VssEvent.VssEvent.1'
+			VersionIndependentProgID = s 'VssEvent.VssEvent'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			'TypeLib' = s '{3DE641EF-0556-4d4a-98D5-7DBD8AD5D70F}'
+		}
+	}
+}
+  MSFT      	      A                            é       ÿÿÿÿÿÿÿÿ    €   ÿÿÿÿ       d   L  È   ÿÿÿÿ        ÿÿÿÿ   (     ÿÿÿÿ        ÿÿÿÿ     €   ÿÿÿÿ   ”  x   ÿÿÿÿ   D     ÿÿÿÿ   D  è  ÿÿÿÿ   ,     ÿÿÿÿ   ÿÿÿÿ    ÿÿÿÿ   ÿÿÿÿ    ÿÿÿÿ   ÿÿÿÿ    ÿÿÿÿ   ÿÿÿÿ    ÿÿÿÿ   ÿÿÿÿ    ÿÿÿÿ   ÿÿÿÿ    ÿÿÿÿ   %"  L      ÿÿÿÿ                                                   ÿÿÿÿ                  ÿÿÿÿ#" L     P         
+                   0      ,       ,           ÿÿÿÿ 4             ÿÿÿÿ`   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ0   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ    ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿH   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿïAæ=VJM˜Õ}½ŠÕ×şÿÿÿÿÿÿÿÄ<õús½6Nƒñ+#ônQ>    ÿÿÿÿòòq‘øæ[D‘ÅPKôd   ÿÿÿÿ0     À      F   ÿÿÿÿ        À      F   ÿÿÿÿd      ÿÿÿÿÿÿÿÿ      `   H          - stdole2.tlbWWW„   ÿÿÿÿÿÿÿÿÿÿÿÿ¸   Ğ  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ¤  ÿÿÿÿÿÿÿÿ@  ÿÿÿÿ,   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿˆ  ÿÿÿÿÿÿÿÿğ   ÿÿÿÿÿÿÿÿÿÿÿÿ,  p  ÿÿÿÿÿÿÿÿÿÿÿÿ`  d   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿD   ÿÿÿÿÿÿÿÿÿÿÿÿ   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÔ   ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ¸  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ    ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ æ†VssEventLibW    ÿÿÿÿ8ÏşVssEventd   ÿÿÿÿ
+8®IVssWriterWWd   ÿÿÿÿ KöRequestWriterInfoWWWÿÿÿÿÿÿÿÿ (ObstrSnapshotSetIdWWWÿÿÿÿÿÿÿÿ €4bWriterMetadataWÿÿÿÿÿÿÿÿ üÔbWriterStateÿÿÿÿÿÿÿÿ ÄpWriterCallbackWd   ÿÿÿÿ YäPrepareForBackupd   ÿÿÿÿ ¶PrepareForSnapshotWWÿÿÿÿ     fÿVolumeNamesListWd   ÿÿÿÿ "¨FreezeWWÿÿÿÿÿÿÿÿ “ÉnApplicationLevelWWWd   ÿÿÿÿ §¸Thawd   ÿÿÿÿ #PostSnapshotd   ÿÿÿÿ ›bBackupCompleteWWd   ÿÿÿÿ )AbortWWWd   ÿÿÿÿ
+ tLPreRestoreWWd   ÿÿÿÿ …PostRestoreW VssEvent 1.0 Type LibraryW VssEvent Class IVssWriter interfaceWW method RequestWriterInfoWW method PrepareForBackupWWW method PrepareForSnapshotW method FreezeW method ThawWWW method PostSnapshotWWW method BackupCompleteW method AbortWW method PreRestoreW method PostRestore  P    €     t 	         D    €d       €„       €       	 	€¸      8   €     T 	        `    €d      	 	€¸      8   €     T 	        |    €d       €     8   €     T 	        ˜    €d       €@     ,   €     D 	        ¨    €d      8   €      T 	        ¸    €d      	 	€¸      8   €    $ T 	        Ğ    €d      	 	€¸      ,   €    ( D 	        è    €d      ,   €    , D 	        ø   	 	€¸      , 	  €    0 D 		          	 	€¸        ` ` ` ` ` ` ` ` `	 `D   Ô   ğ   ,  `  p  ˆ  ¤  ¸  Ğ      P   ˆ   À   ø   $  \  ”  À  ì           E v e n t C l s                                                                                                                                                                                                                                                                                                                                                                                  <   01´4¸4¼4l8p8t8x8|8€8„8ˆ8œ8´8¸8¼8À8Ä8È8Ì8Ğ8Ü8à8ğ8ô8         ˆ?   0  x   ¤9­9_:ƒ:š:¿:;;';];s;y;¨;±;Â;Î;<<"<.<<<H<i<|<¦<¯<»<İ<=,=G=P=v==³=Ï=å=ë=>>#>L>]>Ã>Ê>Ú>à>?$?J?Z?`?–?¦?¬?   @  <  0*0/0I0X0q0v000§0»0É0ç0ğ0û0 131v11–1ª1Á1Æ1Õ1ã1é1÷1222$2,222J2c2{2’2£2©2¶2¼23'323l3€3–3¬3²3á3ï3€4µ4»4à45!5-5h5~5ƒ55¬5Â5Ç5á5ç5ı566G6O6U6`66 6µ6ô6.7=7q7w7œ7¯7¸7¾7Ì78T8›8Ò8ä89“9¬9±9Ë9Ú9ó9ø9:(:˜:¢:ª:°:½:; ;.;=;³;»;Ã;Ö;æ;ğ;ø;<Q<W<]<Ì<Ó<ù<=9=X=Ô=İ=ä=í=ø=d>ö>ş>???$?2?7?<?A?L?X?d?q?w?~?‡??®?À? P  H  080b0i0Ç031r1x1~1„1Š1“1˜11Â1É122 222W2”22µ2Ê2Ø2ö23)3H3a3{3Š3–3Ä3Ğ3ã3ö3^4v4„4”4½4Ü4555H5a5r5†5”5¥5¶5Ç5+61676E6J6X6^6g6†6°6¿6Æ6õ6û67777%727;7B7N7m7|7ƒ7È7Ñ7+8B8P8V8z8‡8‘8—8¦8Î8â8ï8ù8ÿ8F9P9V9m9v9Ã9È9Í9æ9ü9:7:B:H:X:a:ƒ:š:»:Ò:ë:;-;<;E;o;Ê;<<)<8<><O<[<q<‚<”<°<Á<Í<ç<î<÷<	=='=;=R=u=Œ=¥=é=>©>Õ>5?E?J?X?o?†??·?   `  ü   020G0Y0²0Ç0á0=1÷12*2<2P2Z2d2~2’2Ä2Î2Ø2ä2ô2 33 3,3D3P3h3t3Œ3¨3¸3À3È3Ğ3à3è3ğ3 4444(4<4H4P4`4l4„4Œ4˜4°4¸4È4Ğ4Ø4à4ğ4ø4 555,585@5P5X5h5p5x5€5ˆ55˜5 5¨5°5¸5À5È5Ğ5Ø5è5ğ5ø5 66$60686H6T6l6x66œ6´6À6ğ6777@7T7`7h7x7€7Œ7¬7Ä7Ø7ä7ì7ü78888(8   p     0000(0,000X0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        MZ       ÿÿ  ¸       @                                   Ø   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       £t9*çWyçWyçWy6yæWy=6KyìWyçVyÓWy6NyàWyp6yæWy=6JyãWy6jyæWyRichçWy        PE  L œƒ};        à            ¨                              @     Á    €    €                       ¨  P    0                            à                                     H  X      Ì                           .text   È                          `.data   
