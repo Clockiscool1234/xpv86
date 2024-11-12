@@ -1,5 +1,6 @@
 <!doctype html>
 <title>Windows XP</title>
+<link rel="stylesheet" href="https://unpkg.com/xp.css">
 <style type="text/css">
     html, body {
         margin: 0px;
@@ -32,7 +33,7 @@ var emulator = window.emulator = new V86({
     },
     memory_size: 2 * 1024 * 1024 * 1024,
     hda: {
-        url: "xp/xp.img",
+        url: "https://raw.githubusercontent.com/Clockiscool1234/xpv86/refs/heads/main/xp/xp.img",
         async: true,
         size: 4294967296,
         fixed_chunk_size: 204800,
@@ -40,7 +41,9 @@ var emulator = window.emulator = new V86({
     },
     autostart: true,
     network_relay_url: "wisps://wisp.mercurywork.shop/v86/",
-    initial_state: {url: "statexp.bin"}
+    initial_state: {
+        url: "https://media.githubusercontent.com/media/Clockiscool1234/xpv86/refs/heads/main/statexp.bin"
+    }
 });
 document.querySelector("canvas").addEventListener("click", async () => {
     await document.querySelector("canvas").requestPointerLock();
